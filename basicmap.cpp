@@ -51,6 +51,21 @@ void basicmap::update()
 			if (stop) break;
 		}
 	}
+	if (INPUT->GetKey(VK_RBUTTON)) {
+		for (int i = 0; i < TILEY; i++) {
+			bool stop = false;
+			for (int j = 0; j < TILEX; j++) {
+				_tiles[i][j].rc;
+				RECT temp;
+				if (PtInRect(&_tiles[i][j].rc, _ptMouse)) {
+					_tiles[i][j].terrain = watertile;
+					stop = true;
+					break;
+				}
+			}
+			if (stop) break;
+		}
+	}
 }
 
 void basicmap::render()
@@ -62,6 +77,22 @@ void basicmap::render()
 			}
 			else {
 				_tiles[i][j].terrain->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 0, 0);
+				//¼­ºÏ ²ÀÁþÁ¡
+				if (i - 1 >= 0 && j - 1 >= 0 && _tiles[i - 1][j - 1].terrain == watertile) {
+					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 0, 1);
+				}
+				//µ¿ºÏ ²ÀÁþÁ¡
+				if (i - 1 >= 0 && j + 1 < TILEX && _tiles[i - 1][j + 1].terrain == watertile) {
+					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 1, 1);
+				}
+				//µ¿³² ²ÀÁþÁ¡
+				if (i + 1 < TILEY && j + 1 < TILEX && _tiles[i + 1][j + 1].terrain == watertile) {
+					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 2, 1);
+				}
+				//¼­³² ²ÀÁþÁ¡
+				if (i + 1 < TILEY && j - 1 >= 0 && _tiles[i + 1][j - 1].terrain == watertile) {
+					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 3, 1);
+				}
 				//¼­
 				if (j-1 >= 0 && _tiles[i][j-1].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 0, 0);
@@ -78,22 +109,7 @@ void basicmap::render()
 				if (i + 1 < TILEY && _tiles[i + 1][j].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 3, 0);
 				}
-				//¼­ºÏ ²ÀÁþÁ¡
-				if (i - 1 >= 0 && j-1 >= 0 && _tiles[i - 1][j - 1].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 0, 1);
-				}
-				//µ¿ºÏ ²ÀÁþÁ¡
-				if (i - 1 >= 0 && j + 1 < TILEX && _tiles[i - 1][j + 1].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 1, 1);
-				}
-				//µ¿³² ²ÀÁþÁ¡
-				if (i + 1 < TILEY && j + 1 < TILEX && _tiles[i + 1][j + 1].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 2, 1);
-				}
-				//¼­³² ²ÀÁþÁ¡
-				if (i + 1 < TILEY && j - 1 >= 0 && _tiles[i + 1][j - 1].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _tiles[i][j].rc.left, _tiles[i][j].rc.top, 3, 1);
-				}
+
 			}
 		}
 	}
