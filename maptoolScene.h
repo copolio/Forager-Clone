@@ -15,7 +15,7 @@ private:
 	RECT _rcObject;		//오브젝트
 	RECT _rcEraser;		//지우개 (오브젝트만 지운다, 지형은 덮어씌운다)
 
-	bool test; // 왜 반영이 안 되냐.ㅁㅁㄴㅇㅁㄴㅇㅁㄴㅇ
+	bool test; // 왜 반영이 안 되냐.ㅁㅁㄴㅇㅁㄴㅇㅁㄴㅇㅇ//커밋
 
 	CTRL _ctrlSelect;	//현재 어떤 컨트롤 상태인지
 
