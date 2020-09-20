@@ -52,6 +52,12 @@
     <Filter Include="MainGame\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\inventorytest">
+      <UniqueIdentifier>{77eee95e-2daf-4b9e-9d4d-39a0f61c414c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\inventory">
+      <UniqueIdentifier>{c21ca364-2c71-4863-9501-42b4a34ce400}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -136,6 +142,12 @@
       <Filter>MainGame\로딩화면</Filter>
     </ClCompile>
     <ClCompile Include="maptoolScene.cpp" />
+    <ClCompile Include="inventory_slot.cpp">
+      <Filter>GameFramework\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>GameFramework\inventory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -224,5 +236,11 @@
     </ClInclude>
     <ClInclude Include="maptoolScene.h" />
     <ClInclude Include="tileNode.h" />
+    <ClInclude Include="inventory_slot.h">
+      <Filter>GameFramework\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>GameFramework\inventory</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

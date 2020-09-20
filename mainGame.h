@@ -7,6 +7,8 @@
 #include "pixelCollisionScene.h"
 #include "loadingScene.h"
 #include "maptoolScene.h"
+#include "inventory.h"
+
 
 class mainGame : public gameNode
 {
