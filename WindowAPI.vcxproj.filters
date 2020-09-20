@@ -52,6 +52,9 @@
     <Filter Include="MainGame\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\맵툴">
+      <UniqueIdentifier>{93431713-14ff-4d4d-8275-eb93fdc6a054}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -135,7 +138,10 @@
     <ClCompile Include="loadingScene.cpp">
       <Filter>MainGame\로딩화면</Filter>
     </ClCompile>
-    <ClCompile Include="maptoolScene.cpp" />
+    <ClCompile Include="maptoolScene.cpp">
+      <Filter>MainGame\맵툴</Filter>
+    </ClCompile>
+    <ClCompile Include="basicmap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -222,7 +228,12 @@
     <ClInclude Include="loadingScene.h">
       <Filter>MainGame\로딩화면</Filter>
     </ClInclude>
-    <ClInclude Include="maptoolScene.h" />
-    <ClInclude Include="tileNode.h" />
+    <ClInclude Include="maptoolScene.h">
+      <Filter>MainGame\맵툴</Filter>
+    </ClInclude>
+    <ClInclude Include="tileNode.h">
+      <Filter>MainGame\맵툴</Filter>
+    </ClInclude>
+    <ClInclude Include="basicmap.h" />
   </ItemGroup>
 </Project>

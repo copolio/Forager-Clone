@@ -7,6 +7,7 @@
 #include "pixelCollisionScene.h"
 #include "loadingScene.h"
 #include "maptoolScene.h"
+#include "basicmap.h"
 
 class mainGame : public gameNode
 {

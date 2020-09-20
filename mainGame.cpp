@@ -17,9 +17,10 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("ÇÈ¼¿Ãæµ¹", new pixelCollisionScene);
 	SCENEMANAGER->addScene("·ÎµùÈ­¸é", new loadingScene);
 	SCENEMANAGER->addScene("¸ÊÅøÈ­¸é", new maptoolScene);
+	SCENEMANAGER->addScene("¸ÊÈ­¸é", new basicmap);
 
 	/*ÇöÀç¾À*/
-	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é");
+	SCENEMANAGER->loadScene("¸ÊÈ­¸é");
 
 	return S_OK;
 }
