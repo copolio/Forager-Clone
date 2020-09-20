@@ -17,9 +17,10 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("픽셀충돌", new pixelCollisionScene);
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("맵툴화면", new maptoolScene);
+	SCENEMANAGER->addScene("포레이져화면", new ForagerPlayer);
 
 	/*현재씬*/
-	SCENEMANAGER->loadScene("맵툴화면");
+	SCENEMANAGER->loadScene("포레이져화면");
 
 	return S_OK;
 }

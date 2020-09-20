@@ -136,6 +136,7 @@
       <Filter>MainGame\로딩화면</Filter>
     </ClCompile>
     <ClCompile Include="maptoolScene.cpp" />
+    <ClCompile Include="ForagerPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -224,5 +225,6 @@
     </ClInclude>
     <ClInclude Include="maptoolScene.h" />
     <ClInclude Include="tileNode.h" />
+    <ClInclude Include="ForagerPlayer.h" />
   </ItemGroup>
 </Project>
