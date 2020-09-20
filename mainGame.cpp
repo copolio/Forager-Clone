@@ -11,15 +11,13 @@ HRESULT mainGame::init()
 	/*앞으로 메인게임은 각각의 씬들만 관리를 한다*/
 	/*이곳에서 각각의 씬들을 추가하고 현재씬을 설정한다*/
 
-	/*씬추가*/
-	SCENEMANAGER->addScene("INI테스트", new iniTestScene);
-	//SCENEMANAGER->addScene("사운드", new soundTestScene);
-	SCENEMANAGER->addScene("픽셀충돌", new pixelCollisionScene);
+
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
+	SCENEMANAGER->addScene("시작화면", new startScene);
 	SCENEMANAGER->addScene("맵툴화면", new maptoolScene);
 
 	/*현재씬*/
-	SCENEMANAGER->loadScene("맵툴화면");
+	SCENEMANAGER->loadScene("시작화면");
 
 	return S_OK;
 }
