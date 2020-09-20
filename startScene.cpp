@@ -4,8 +4,9 @@
 
 HRESULT startScene::init()
 {
+	IMAGEMANAGER->addImage("img_Logo", "Images/이미지/img_Logo.bmp.bmp", 400, 300, true, RGB(255, 0, 255));
 	//렉트 위치 초기화
-	_rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY - 200, 200, 100);
+	_rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY - 200, 400, 300);
 
 	return S_OK;
 }
@@ -28,6 +29,5 @@ void startScene::update()
 
 void startScene::render()
 {
-	Rectangle(getMemDC(), _rc);
-	TextOut(getMemDC(), _rc.left + 80, _rc.top + 50, "START", strlen("START"));
+	IMAGEMANAGER->findImage("img_Logo")->render(getMemDC(), WINSIZEX / 2, WINSIZEY / 2 - 200);
 }
