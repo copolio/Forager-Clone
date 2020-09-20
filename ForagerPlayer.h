@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
 
+#define PI 3.1415926f
+
 enum STATE
 {
 	IDLE,
@@ -17,6 +19,10 @@ private:
 
 	int _count;
 	int _index;
+
+	//플레이어 회전 관련 변수 카운트 
+	int _Acount;
+	int _spinCount;
 
 
 	//플레이어 상태값
@@ -58,6 +64,9 @@ public:
 	void PlayerControll();
 	void playerMove();
 	void playerLookingDirection();
+	//void RotateImage(image* img);
+	//void Rotate(image* img, int sizeX, int sizeY, int frameX);
+	
 
 
 };
