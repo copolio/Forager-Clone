@@ -57,9 +57,9 @@ using namespace MY_UTIL;
 #define WINNAME (LPTSTR)(TEXT(" 프로그래밍 22기 "))
 #define WINSTARTX	100
 #define WINSTARTY	100
-#define WINSIZEX		640 + 20 + 640
-#define WINSIZEY		640
-#define WINSTYLE		WS_CAPTION | WS_SYSMENU
+#define WINSIZEX		1280
+#define WINSIZEY		720
+#define WINSTYLE		WS_CAPTION | WS_SYSMENU	
 
 //=============================================================
 //	## 매크로함수 ## (클래스에서 동적할당된 부분 해제)

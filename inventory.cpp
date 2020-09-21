@@ -7,6 +7,10 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("Q", "Images/이미지/GUI/Q버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("E", "Images/이미지/GUI/E버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("커서", "Images/이미지/GUI/커서.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("inventory_Kinds", "Images/이미지/GUI/inventory_Kinds.bmp", 383, 104, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_item_icon", "Images/이미지/GUI/img_item_icon.bmp", 78, 86, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_equip_icon", "Images/이미지/GUI/img_equip_icon.bmp", 78, 86, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addFrameImage("img_UI_TargetingBox", "Images/이미지/GUI/img_UI_TargetingBox.bmp", 48, 12,4,1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_ItemTooltip", "Images/이미지/GUI/img_UI_ItemTooltip.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("item_slot", "Images/이미지/GUI/img_UI_InventorySlotBoundary.bmp", 88, 88, true, RGB(255, 0, 255));
@@ -14,6 +18,8 @@ HRESULT inventory::init()
 	targetBox[1].img_num = 1;
 	targetBox[2].img_num = 2;
 	targetBox[3].img_num = 3;
+
+	inven_kinds = EQUIP;
 
 	for (int i = 0; i < 2; i++){
 		for (int j = 0; j < 8; j++) {
@@ -59,6 +65,17 @@ void inventory::update()
 void inventory::render()
 {
 	if (isCheck) {
+		IMAGEMANAGER->render("inventory_Kinds", getMemDC(), WINSIZEX/2-180, 15);
+		switch (inven_kinds)
+		{
+		case ITEM:
+			IMAGEMANAGER->render("img_item_icon", getMemDC(), 560, 30);
+			break;
+		case EQUIP:
+			IMAGEMANAGER->render("img_equip_icon", getMemDC(), 470, 30);
+			break;
+
+		}
 		for (int i = 0; i < player_inventory.size(); i++) {
 			//Rectangle(getMemDC(), player_inventory[i]->_rc);
 			IMAGEMANAGER->render("item_slot", getMemDC(), player_inventory[i]->_rc.left, player_inventory[i]->_rc.top);

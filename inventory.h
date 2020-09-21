@@ -7,6 +7,12 @@ struct mouse_rc
 	int img_num;
 
 };
+enum Kinds
+{
+	ITEM,
+	EQUIP,
+
+};
 class inventory : public gameNode
 {
 
@@ -19,13 +25,14 @@ public:
 	void itemRemove();
 	void mouse_targetBox();
 	void mouse_setingRc(RECT rc);
+	
 	bool isCheck;
 
 private:
 	vector<inventory_slot*> player_inventory;
 
 	mouse_rc targetBox[4];
-
+	Kinds inven_kinds;
 	bool istargetBox;
 };
 
