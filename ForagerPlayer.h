@@ -6,7 +6,8 @@
 enum STATE
 {
 	IDLE,
-	RUN
+	RUN,
+	ROTATE
 
 };
 
@@ -16,6 +17,8 @@ class ForagerPlayer :public gameNode
 private:
 	image* _foragerIdle;
 	image* _foragerRun;
+	image* _foragerRotate;
+	image* _foragerRotate2;
 
 	int _count;
 	int _index;
@@ -23,6 +26,7 @@ private:
 	//플레이어 회전 관련 변수 카운트 
 	int _Acount;
 	int _spinCount;
+	float _spinSpeed;
 
 
 	//플레이어 상태값
@@ -31,6 +35,7 @@ private:
 	bool _isUp;			//위쪽이냐?
 	bool _isMoveHorizon;//좌우로 움직이는가?
 	bool _isMoveVertical;//좌우로 움직이는가?
+	bool _isMoveRotate;	//회전하면서 움직이는가?
 	bool _isRun;		//뛰고 있는가?
 	bool _isGround;		//땅에 붙어있는가?
 	bool _isLookDown;	//아래를 보고있는가?
@@ -64,9 +69,8 @@ public:
 	void PlayerControll();
 	void playerMove();
 	void playerLookingDirection();
-	//void RotateImage(image* img);
-	//void Rotate(image* img, int sizeX, int sizeY, int frameX);
-	
+	void RotateImage(image* img);
+	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
 
 
 };
