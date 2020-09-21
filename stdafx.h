@@ -38,6 +38,7 @@ using namespace MY_UTIL;
 #include "sceneManager.h"
 #include "iniData.h"
 #include "soundManager.h"
+#include "TextManager.h"
 
 
 //=============================================================
@@ -50,6 +51,7 @@ using namespace MY_UTIL;
 #define SCENEMANAGER sceneManager::getSingleton()
 #define INIDATA iniData::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
+#define TEXTMANAGER TextManager::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)

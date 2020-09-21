@@ -17,7 +17,7 @@ HRESULT startScene::init()
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 2000, 1300, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleCursor", "Images/이미지/GUI/커서.bmp", 15, 15, true, RGB(255, 0, 255));
 
-
+	
 	// 커서 반응형 이미지 설정
 	for (int i = 0; i < BUTTON_MAX / 2; i++) {
 		RECT slotRC = RectMakeCenter(WINSIZEX / 2 - 400 + i * 400, 360, 227, 227);
@@ -66,6 +66,15 @@ void startScene::render()
 		_button[i].render(getMemDC());
 	}
 
+	for (int i = 3; i < BUTTON_MAX; i++) {
+		int centerX = _button[i].GetRect().left + (_button[i].GetRect().right - _button[i].GetRect().left) / 2;
+		int centerY = _button[i].GetRect().top + (_button[i].GetRect().bottom- _button[i].GetRect().top) / 2;
+		POINT ptPos = { centerX , centerY - 15 };
+		TEXTMANAGER->ShowText(getMemDC(), "새게임", ptPos, 35, 1, RGB(255,255,255), true, RGB(0,0,0));
+	}
+
+
+
 	// 타겟팅 박스 렌더
 	_targetingBox->render(getMemDC());
 
@@ -106,7 +115,7 @@ void startScene::CheckButtonClick()
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < BUTTON_MAX; i++)
 		{
 			if (PtInRect(&_button[i].GetRect(), _ptMouse))
 			{

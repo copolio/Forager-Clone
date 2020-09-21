@@ -145,6 +145,9 @@
     <ClCompile Include="reactImage.cpp">
       <Filter>MainGame\반응형 UI</Filter>
     </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>GameFramework\매니져</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="reactImage.h">
       <Filter>MainGame\반응형 UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>GameFramework\매니져</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

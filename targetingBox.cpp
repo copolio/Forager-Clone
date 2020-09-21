@@ -4,11 +4,11 @@
 
 HRESULT targetingBox::init()
 {
-	IMAGEMANAGER->addFrameImage("TargetingBox", "Images/이미지/GUI/img_UI_TargetingBox.bmp", 48, 14, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("TargetingBox", "Images/이미지/GUI/img_UI_TargetingBox.bmp", 72, 21, 4, 1, true, RGB(255, 0, 255));
 
 	_rcTargetBox = { 0, 0, 0, 0 };
-	_minSize = -3;
-	_maxSize = 3;
+	_minSize = -4;
+	_maxSize = 4;
 	_currentSize = 0;
 	_zoomSpeed = 1;
 	_isCursorOn = false;
@@ -61,7 +61,7 @@ void targetingBox::SetTarget(RECT rcTarget)
 {
 	if (!_isCursorOn) {
 		_isCursorOn = true;
-		_rcTargetBox = RectMake(rcTarget.left - 10, rcTarget.top - 10, rcTarget.right - rcTarget.left + 10, rcTarget.bottom - rcTarget.top + 10);
+		_rcTargetBox = RectMake(rcTarget.left - 14, rcTarget.top - 14, rcTarget.right - rcTarget.left + 10, rcTarget.bottom - rcTarget.top + 10);
 		_isTargetting = true;
 		_currentSize = 0;
 		_isZoomIn = true;
