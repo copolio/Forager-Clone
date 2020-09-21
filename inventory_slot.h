@@ -13,6 +13,8 @@ public:
 	float x, y;
 	RECT _rc;
 	bool isCheck;
+	int count;
+	string img_name;
 	ItemKinds Kinds;
 
 private:
