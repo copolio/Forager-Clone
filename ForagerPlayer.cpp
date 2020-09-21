@@ -4,23 +4,57 @@
 HRESULT ForagerPlayer::init()
 {
 	_rcForager = RectMakeCenter(100, 615, 30, 41);
-	
+	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
+
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
+
+	//플레이어가 곡괭이'질'할 때 플레이어의 프레임 이미지 
+	IMAGEMANAGER->addFrameImage("playerWork", "Images/이미지/플레이어/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
+
+	//플레이어가 곡괭이'질'할 때 곡괭이의 프레임 이미지 3*1 
+	IMAGEMANAGER->addFrameImage("playerHammering", "Images/이미지/아이템/곡괭이질하기.bmp",170,112, 3, 2, true, RGB(255, 0, 255));
+
+	//곡괭이가 플레이어랑 같이 회전할 때 프레임 이미지 12*1 2개
+	IMAGEMANAGER->addFrameImage("HammerImg", "Images/이미지/아이템/곡괭이right.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("HammerImgLeft", "Images/이미지/아이템/곡괭이left.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
+
+	//플레이어가 그냥 이동할 때 나타나는 기본 곡괭이 이미지 
+	IMAGEMANAGER->addImage("Hammer", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("HammerLeft", "Images/이미지/아이템/곡괭이왼쪽.bmp", 56, 56, true, RGB(255, 0, 255));
 
 
 	_foragerIdle = IMAGEMANAGER->findImage("playerStop");
 	_foragerRun = IMAGEMANAGER->findImage("playerRUN");
 	_foragerRotate = IMAGEMANAGER->findImage("playerRotate");
+	_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
+	_playerHammering = IMAGEMANAGER->findImage("playerWork");
 
-	for(int i = 1 ; i < 12; i++){
+	_hammer = IMAGEMANAGER->findImage("Hammer");
+	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
+	
+
+	//플레이어 회전
+	for(int i = 1 ; i < 12; i++)
+	{
 		image *left = IMAGEMANAGER->findImage("playerRotateLeft");
 		image *right = IMAGEMANAGER->findImage("playerRotate");
 
 		Rotate(left, left->getFrameWidth(), left->getFrameHeight(), i, true);
 		Rotate(right, right->getFrameWidth(), right->getFrameHeight(), i, false);
+	}
+
+	//곡괭이 회전 
+	for (int i = 1; i < 12; i++)
+	{
+		image *hammerLeft = IMAGEMANAGER->findImage("HammerImgLeft");
+		image *hammerRight = IMAGEMANAGER->findImage("HammerImg");
+	
+		Rotate(hammerLeft, hammerLeft->getFrameWidth(), hammerLeft->getFrameHeight(), i, true);
+		Rotate(hammerRight, hammerRight->getFrameWidth(), hammerRight->getFrameHeight(), i, false);
 	}
 
 	//프레임이미지 애니메이션 관련 변수 초기화 
@@ -39,7 +73,8 @@ HRESULT ForagerPlayer::init()
 	_isMoveVertical = false;
 	_isMoveRotate = false;
 	_isRun = false;
-
+	_isHammering = false;
+	
 	return S_OK;
 }
 
@@ -55,6 +90,7 @@ void ForagerPlayer::update()
 	playerMove();
 	playerLookingDirection();
 	
+	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2 , (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 }
 
 void ForagerPlayer::render()
@@ -68,13 +104,36 @@ void ForagerPlayer::render()
 		IMAGEMANAGER->frameRender("playerRUN", getMemDC(), _rcForager.left, _rcForager.top);
 		break;
 	case ROTATE: 
-		if (_isLeft) {
+		if (_isLeft) 
+		{
 			IMAGEMANAGER->frameRender("playerRotateLeft", getMemDC(), _rcForager.left, _rcForager.top);
+
+			IMAGEMANAGER->frameRender("HammerImgLeft", getMemDC(), _rcForager.left, _rcForager.top);
 		}
-		else {
+		else 
+		{
 			IMAGEMANAGER->frameRender("playerRotate", getMemDC(), _rcForager.left, _rcForager.top);
+
+			IMAGEMANAGER->frameRender("HammerImg", getMemDC(), _rcForager.left, _rcForager.top);
 		}
+
 		break;
+	case HAMMERING :
+		IMAGEMANAGER->frameRender("playerWork", getMemDC(), _rcForager.left, _rcForager.top);
+		IMAGEMANAGER->frameRender("playerHammering", getMemDC(), _rcForager.left, _rcForager.top);
+		break;
+	}
+
+	if (_isMoveRotate == false && _state != ROTATE && _state != HAMMERING)
+	{
+		if (_isLeft)
+		{
+			IMAGEMANAGER->render("Hammer", getMemDC(), _rcHammer.left, _rcHammer.top);
+		}
+		else
+		{
+			IMAGEMANAGER->render("HammerLeft", getMemDC(), _rcHammer.left - 40, _rcHammer.top);
+		}
 	}
 }
 
@@ -143,7 +202,6 @@ void ForagerPlayer::animation()
 			}
 		}
 		break;
-
 	case ROTATE:
 		if (_isLeft)
 		{
@@ -158,7 +216,10 @@ void ForagerPlayer::animation()
 					_state = STATE::IDLE;
 					_isMoveRotate = false;
 				}
+				
 				IMAGEMANAGER->findImage("playerRotateLeft")->setFrameX(_index);
+				IMAGEMANAGER->findImage("HammerImgLeft")->setFrameX(_index);
+				
 			}
 		}
 		else
@@ -175,6 +236,41 @@ void ForagerPlayer::animation()
 					_isMoveRotate = false;
 				}
 				_foragerRotate->setFrameX(_index);
+				IMAGEMANAGER->findImage("HammerImg")->setFrameX(_index);
+			}
+		}
+		break;
+	case HAMMERING :
+		if (_isLeft)
+		{
+			_count++;
+			_foragerHammering->setFrameY(1);
+			_playerHammering->setFrameY(1);
+			if (_count % 5 == 0)
+			{
+				_index--;
+				if (_index < 0)
+				{
+					_index = 3;
+				}
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
+			}
+		}
+		else
+		{
+			_count++;
+			_foragerHammering->setFrameY(0);
+			_playerHammering->setFrameY(0);
+			if (_count % 5 == 0)
+			{
+				_index++;
+				if (_index > 3)
+				{
+					_index = 0;
+				}
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
 			}
 		}
 		break;
@@ -217,6 +313,12 @@ void ForagerPlayer::PlayerControll()
 				_isMoveRotate = true;
 				//_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;
 			}
+		}
+		// 망치질 하는 상태 
+		if (INPUT->GetKey(VK_LBUTTON))
+		{
+			_state = HAMMERING;
+			
 		}
 	}
 }

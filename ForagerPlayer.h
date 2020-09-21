@@ -7,7 +7,8 @@ enum STATE
 {
 	IDLE,
 	RUN,
-	ROTATE
+	ROTATE,
+	HAMMERING
 
 };
 
@@ -18,7 +19,11 @@ private:
 	image* _foragerIdle;
 	image* _foragerRun;
 	image* _foragerRotate;
-	image* _foragerRotate2;
+	image* _foragerHammering;		//곡괭이가 괭이질 하는 이미지
+	image* _playerHammering;
+
+	image* _hammer;
+	image* _hammerLeft;
 
 	int _count;
 	int _index;
@@ -43,7 +48,8 @@ private:
 	bool _isLookRight;	//오른쪽을 보고있는가?
 	bool _isJumpDown;	//하단 점프인가?
 	bool _isJump;		//상단 점프인가?
-	bool _isHang;		//매달렸는가?
+	bool _isHammering;	//곡괭이질인가?
+	bool _upDownCheck;
 	STATE _state;		//캐릭터 상태
 	float _x, _y;		//플레이어 x,y좌표
 	float _speed;		//플레이어 스피드 
@@ -52,8 +58,10 @@ private:
 
 
 	//플레이어 영역
-
 	RECT _rcForager;
+
+	//망치 영역
+	RECT _rcHammer;
 
 
 
