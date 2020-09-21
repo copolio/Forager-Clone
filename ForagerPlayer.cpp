@@ -17,6 +17,16 @@ HRESULT ForagerPlayer::init()
 	_foragerRotate = IMAGEMANAGER->findImage("playerRotate");
 	//_foragerRotate2 = IMAGEMANAGER->findImage("playerRotate2");
 
+
+
+	for(int i = 1 ; i < 12; i++){
+		image *left = IMAGEMANAGER->findImage("playerRotateLeft");
+		image *right = IMAGEMANAGER->findImage("playerRotate");
+
+		Rotate(left, left->getFrameWidth(), left->getFrameHeight(), i, true);
+		Rotate(right, right->getFrameWidth(), right->getFrameHeight(), i, false);
+	}
+
 	//프레임이미지 애니메이션 관련 변수 초기화 
 	_count = 0;
 	_index = 0;
@@ -45,18 +55,19 @@ void ForagerPlayer::release()
 void ForagerPlayer::update()
 {
 	animation();
-	//if (_isMoveRotate) {
-		if (_Acount++ % 5 == 0)
-		{
-			if (_isLeft) {
-				RotateImage(IMAGEMANAGER->findImage("playerRotateLeft"));
-			}
-			else {
-				RotateImage(IMAGEMANAGER->findImage("playerRotate"));
-			}
-		}
-	
+/*
 
+	if (_state == STATE::ROTATE) {
+		if (_isLeft) {
+			RotateImage(IMAGEMANAGER->findImage("playerRotateLeft"));
+		}
+		else {
+			RotateImage(IMAGEMANAGER->findImage("playerRotate"));
+		}
+		
+	}
+	
+*/
 	
 	
 	PlayerControll();
@@ -161,10 +172,12 @@ void ForagerPlayer::animation()
 			
 			if (_count % 1 == 0)
 			{
-				_index--;
-				if (_index <0)
+				_index++;
+				if (_index > 11)
 				{
-					_index =11;
+					_index = 0;
+					_state = STATE::IDLE;
+					_isMoveRotate = false;
 				}
 				IMAGEMANAGER->findImage("playerRotateLeft")->setFrameX(_index);
 			}
@@ -179,6 +192,8 @@ void ForagerPlayer::animation()
 				if (_index >11)
 				{
 					_index = 0;
+					_state = STATE::IDLE;
+					_isMoveRotate = false;
 				}
 				_foragerRotate->setFrameX(_index);
 			}
@@ -189,35 +204,46 @@ void ForagerPlayer::animation()
 
 void ForagerPlayer::PlayerControll()
 {
-	//가만히 있는 상태
-	if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
-	{
-		_state = IDLE;
-		_isMoveHorizon = false;
-		_isMoveVertical = false;
+
+
+
+
+	if (_state != STATE::ROTATE) {
+		//가만히 있는 상태
+		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
+		{
+			_state = IDLE;
+			_isMoveHorizon = false;
+			_isMoveVertical = false;
+		}
+		//뛰어다니는 상태 (좌우 움직임)
+		if (INPUT->GetKey(VK_LEFT) || INPUT->GetKey(VK_RIGHT))
+		{
+			_isMoveHorizon = true;
+			_state = RUN;
+			_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;	//방향설정
+		}
+		//뛰어다니는 상태 (상하 움직임)
+		if (INPUT->GetKey(VK_UP) || INPUT->GetKey(VK_DOWN))
+		{
+			_isMoveVertical = true;
+			_state = RUN;
+			_isUp = (INPUT->GetKey(VK_UP)) ? true : false;	//방향 설정
+		}
+
+		// 움직일 떄만 굴러갈 수 있게
+		if (_state != STATE::IDLE) 
+		{
+			//굴러다니는 상태 
+			if (INPUT->GetKeyDown(VK_SPACE))
+			{
+				_state = ROTATE;
+				_isMoveRotate = true;
+				//_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;
+			}
+		}
 	}
-	//뛰어다니는 상태 (좌우 움직임)
-	if (INPUT->GetKey(VK_LEFT) || INPUT->GetKey(VK_RIGHT))
-	{
-		_isMoveHorizon = true;
-		_state = RUN;
-		_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;	//방향설정
-	}
-	//뛰어다니는 상태 (상하 움직임)
-	if (INPUT->GetKey(VK_UP) || INPUT->GetKey(VK_DOWN))
-	{
-		_isMoveVertical = true;
-		_state = RUN;
-		_isUp = (INPUT->GetKey(VK_UP)) ? true : false;	//방향 설정
-	}
-	//굴러다니는 상태 
-	if (INPUT->GetKey(VK_SPACE))
-	{
-		_state = ROTATE;
-		_isMoveRotate = true;
-		//_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;
-	}
-	
+
 }
 
 void ForagerPlayer::playerMove()
@@ -234,10 +260,9 @@ void ForagerPlayer::playerMove()
 		{
 			OffsetRect(&_rcForager, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
-			if (_isMoveRotate)
+			if (_state == STATE::ROTATE)
 			{
 				OffsetRect(&_rcForager, _spinSpeed, 0);
-				_isMoveRotate = false;
 			}
 		}
 
@@ -266,7 +291,7 @@ void ForagerPlayer::playerMove()
 		{
 			OffsetRect(&_rcForager, 0, applySpeed);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
-			if (_isMoveRotate)
+			if (_state == STATE::ROTATE)
 			{
 				OffsetRect(&_rcForager, 0, _spinSpeed);
 				_isMoveRotate = false;
@@ -293,15 +318,26 @@ void ForagerPlayer::playerLookingDirection()
 {
 	int forgaerCenter = (_rcForager.left + _rcForager.right) / 2;
 
-	if (forgaerCenter < _ptMouse.x)
-	{
-		_isLeft = false;
-	}
-	else
-	{
-		_isLeft = true;
+
+	if (_state != STATE::ROTATE) {
+		if (forgaerCenter < _ptMouse.x)
+			_isLeft = false;
+		else
+			_isLeft = true;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 void ForagerPlayer::RotateImage(image* img)
 {
@@ -317,70 +353,27 @@ void ForagerPlayer::Rotate(image* img, int sizeX, int sizeY, int frameX, bool le
 	int orig_x, orig_y;
 	int pixel;
 
-	if (left) 
-	{
-		double radian = (frameX * -30 * PI / 180.0);
-		double cc = cos(radian), ss = sin(-radian);
-		double xcenter = (double)sizeX / 2.0, ycenter = (double)sizeY / 2.0; // (2)
-		for (y = 0; y < sizeY; y++)
-		{
-			for (x = 0; x < sizeX; x++)
-			{
-				orig_x = (int)(xcenter + ((double)y - ycenter)*ss + ((double)x - xcenter)*cc);
-				orig_y = (int)(ycenter + ((double)y - ycenter)*cc - ((double)x - xcenter)*ss);
-				pixel = 0; // (3)
+	double radian = 0;
 
-				if ((orig_y >= 0 && orig_y < sizeY) && (orig_x >= 0 && orig_x < sizeX)) // (4)
-					SetPixel(img->getMemDC(), frameX * sizeX + x, y, GetPixel(img->getMemDC(), orig_x, orig_y));
-
-			}
-		}
-	}
+	if (left)
+		radian = (frameX * 30 * PI / 180.0);
 	else
+		radian = (frameX * -30 * PI / 180.0);
+
+	double cc = cos(radian), ss = sin(-radian);
+	double xcenter = (double)sizeX / 2.0, ycenter = (double)sizeY / 2.0; // (2)
+	for (y = 0; y < sizeY; y++)
 	{
-		double radian = (frameX * -30 * PI / 180.0);
-		double cc = cos(radian), ss = sin(-radian);
-		double xcenter = (double)sizeX / 2.0, ycenter = (double)sizeY / 2.0; // (2)
-		for (y = 0; y < sizeY; y++)
+		for (x = 0; x < sizeX; x++)
 		{
-			for (x = 0; x < sizeX; x++)
-			{
-				orig_x = (int)(xcenter + ((double)y - ycenter)*ss + ((double)x - xcenter)*cc);
-				orig_y = (int)(ycenter + ((double)y - ycenter)*cc - ((double)x - xcenter)*ss);
-				pixel = 0; // (3)
-	
-				if ((orig_y >= 0 && orig_y < sizeY) && (orig_x >= 0 && orig_x < sizeX)) // (4)
-					SetPixel(img->getMemDC(), frameX * sizeX + x, y, GetPixel(img->getMemDC(), orig_x, orig_y));
-	
-			}
+			orig_x = (int)(xcenter + ((double)y - ycenter)*ss + ((double)x - xcenter)*cc);
+			orig_y = (int)(ycenter + ((double)y - ycenter)*cc - ((double)x - xcenter)*ss);
+			pixel = 0; // (3)
+
+			if ((orig_y >= 0 && orig_y < sizeY) && (orig_x >= 0 && orig_x < sizeX)) // (4)
+				SetPixel(img->getMemDC(), frameX * sizeX + x, y, GetPixel(img->getMemDC(), orig_x, orig_y));
+
 		}
 	}
-		
-	
-	
-		
-		
-	
-		
-		
-	
-
-
-	//for (y = 0; y < sizeY; y++)
-	//{
-	//	for (x = 0; x < sizeX; x++)
-	//	{
-	//		orig_x = (int)(xcenter + ((double)y - ycenter)*ss + ((double)x - xcenter)*cc);
-	//		orig_y = (int)(ycenter + ((double)y - ycenter)*cc - ((double)x - xcenter)*ss);
-	//		pixel = 0; // (3)
-	//
-	//		if ((orig_y >= 0 && orig_y < sizeY) && (orig_x >= 0 && orig_x < sizeX)) // (4)
-	//			SetPixel(img->getMemDC(), frameX * sizeX + x, y, GetPixel(img->getMemDC(), orig_x, orig_y));
-	//
-	//	} 
-	//} 
 }
-
-
-
 
