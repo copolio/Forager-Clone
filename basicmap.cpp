@@ -14,6 +14,9 @@ HRESULT basicmap::init()
 	underwater = new image;
 	underwater->init("Images/이미지/타일/img_tile_bottomGround.bmp", 56, 56, true, RGB(255,0,255));
 
+	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
+	_player = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
+
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			tile _tile;
@@ -73,39 +76,42 @@ void basicmap::update()
 		}
 	}
 	// 카메라 이동
-	if (INPUT->GetKey(VK_LEFT))
-	{
+	if (_ptMouse.x > (WINSIZEX / 2)+100 && 
+		_vTiles.back().rc.right > WINSIZEX) {
 		for (int i = 0; i < MAPTILEY; i++) {
 			for (int j = 0; j < MAPTILEX; j++) {
-				_vTiles[i*MAPTILEY + j].rc.left += 10;
-				_vTiles[i*MAPTILEY + j].rc.right += 10;
+				_vTiles[i*MAPTILEY + j].rc.left -= 5;
+				_vTiles[i*MAPTILEY + j].rc.right -= 5;
+
 			}
 		}
 	}
-	if (INPUT->GetKey(VK_RIGHT))
-	{
+	if (_ptMouse.x < (WINSIZEX / 2) - 100 && 
+		_vTiles[0].rc.left < 0) {
 		for (int i = 0; i < MAPTILEY; i++) {
 			for (int j = 0; j < MAPTILEX; j++) {
-				_vTiles[i*MAPTILEY + j].rc.left -= 10;
-				_vTiles[i*MAPTILEY + j].rc.right -= 10;
+				_vTiles[i*MAPTILEY + j].rc.left += 5;
+				_vTiles[i*MAPTILEY + j].rc.right += 5;
+
 			}
 		}
 	}
-	if (INPUT->GetKey(VK_UP))
-	{
+	if (_ptMouse.y > WINSIZEY / 2+100 && 
+		_vTiles.back().rc.bottom > WINSIZEY) {
 		for (int i = 0; i < MAPTILEY; i++) {
 			for (int j = 0; j < MAPTILEX; j++) {
-				_vTiles[i*MAPTILEY + j].rc.top += 10;
-				_vTiles[i*MAPTILEY + j].rc.bottom += 10;
+				_vTiles[i*MAPTILEY + j].rc.top -= 5;
+				_vTiles[i*MAPTILEY + j].rc.bottom -= 5;
+
 			}
 		}
 	}
-	if (INPUT->GetKey(VK_DOWN))
-	{
+	if (_ptMouse.y < WINSIZEY / 2-100 && 
+		_vTiles[0].rc.top < 0) {
 		for (int i = 0; i < MAPTILEY; i++) {
 			for (int j = 0; j < MAPTILEX; j++) {
-				_vTiles[i*MAPTILEY + j].rc.top -= 10;
-				_vTiles[i*MAPTILEY + j].rc.bottom -= 10;
+				_vTiles[i*MAPTILEY + j].rc.top += 5;
+				_vTiles[i*MAPTILEY + j].rc.bottom += 5;
 			}
 		}
 	}
@@ -115,6 +121,8 @@ void basicmap::render()
 {
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
+			RECT temp;
+			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].terrain == watertile) {
 				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
 			}
@@ -122,6 +130,8 @@ void basicmap::render()
 	}
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
+			RECT temp;
+			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].terrain != watertile) {
 				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
 				//서북 꼭짓점
@@ -164,6 +174,6 @@ void basicmap::render()
 		}
 	}
 
-	string pos = "좌표: " + to_string(_ptMouse.x) + ", " + to_string(_ptMouse.y);
+	string pos = "좌표: " + to_string(_ptMouse.x) + ", " + to_string(_ptMouse.y) + " 0번렉트 : " + to_string(_vTiles[0].rc.top);
 	textOut(getMemDC(), 0, 0, pos.c_str());
 }

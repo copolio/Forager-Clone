@@ -33,6 +33,8 @@ private:
 private:
 	tile _tiles[TILEY][TILEX];
 	vector<tile> _vTiles;
+	RECT _rcCam;
+	RECT _player;
 public:
 	HRESULT init();
 	void release();
