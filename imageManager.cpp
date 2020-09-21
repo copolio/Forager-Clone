@@ -237,6 +237,28 @@ void imageManager::alphaRender(string strKey, HDC hdc, int destX, int destY, int
 }
 
 //=============================================================
+//	## 스트레치 렌더 ##
+//=============================================================
+
+
+void imageManager::stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight)
+{
+	image *img = findImage(strKey);
+
+	if (img)
+		img->stretchRender(hdc, dx, dy, sourX, sourY, sourWidth, sourHeight);
+}
+
+void imageManager::stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
+{
+	image *img = findImage(strKey);
+
+	if (img)
+		img->stretchRender(hdc, dx, dy, sourX, sourY, sourWidth, sourHeight, alpha);
+}
+
+
+//=============================================================
 //	## 프레임렌더 ##
 //=============================================================
 void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY)
