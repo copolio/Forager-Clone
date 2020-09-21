@@ -30,11 +30,13 @@ private:
 	image* plainedge;
 	image* wave;
 	image* underwater;
+	int _count;
+	int wavetick;
 private:
 	tile _tiles[TILEY][TILEX];
 	vector<tile> _vTiles;
 	RECT _rcCam;
-	RECT _player;
+	RECT _rcPlayer;
 public:
 	HRESULT init();
 	void release();

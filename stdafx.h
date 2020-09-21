@@ -55,8 +55,8 @@ using namespace MY_UTIL;
 //	## 디파인문 ## (윈도우창 초기화)
 //=============================================================
 #define WINNAME (LPTSTR)(TEXT(" 프로그래밍 22기 "))
-#define WINSTARTX	100
-#define WINSTARTY	100
+#define WINSTARTX	200
+#define WINSTARTY	200
 #define WINSIZEX		1280
 #define WINSIZEY		720
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU

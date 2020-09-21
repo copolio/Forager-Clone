@@ -15,17 +15,25 @@ HRESULT basicmap::init()
 	underwater->init("Images/¿ÃπÃ¡ˆ/≈∏¿œ/img_tile_bottomGround.bmp", 56, 56, true, RGB(255,0,255));
 
 	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
-	_player = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
+	_rcPlayer = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
+
+	_count = wavetick = 0;
 
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			tile _tile;
-			_tile.rc = RectMake(-(MAPTILEX*TILESIZE/2) + j * TILESIZE, -(MAPTILEY*TILESIZE / 2) + i * TILESIZE, TILESIZE, TILESIZE);
+			_tile.rc = RectMake(WINSIZEX/2-(MAPTILEX*TILESIZE/2.0f) + j * TILESIZE, WINSIZEY / 2 -(MAPTILEY*TILESIZE / 2.0f) + i * TILESIZE, TILESIZE, TILESIZE);
 			_tile.level = TERRAIN;
 			_tile.terrain = watertile;
 			_tile.terrainFrameX = 0;
 			_tile.terrainFrameY = 0;
 			_vTiles.push_back(_tile);
+		}
+	}
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			_vTiles[(3 * MAPTILEY*TILEY + i * MAPTILEY) + 3 * TILEX + j].terrain = plaintile;
+			_vTiles[(3 * MAPTILEY*TILEY + i * MAPTILEY) + 3 * TILEX + j].terrainFrameX = RANDOM->range(4);
 		}
 	}
 	return S_OK;
@@ -115,6 +123,13 @@ void basicmap::update()
 			}
 		}
 	}
+	_count++;
+	if (_count % 5 == 0) {
+		wavetick++;
+	}
+	if (wavetick > 10) {
+		wavetick = 0;
+	}
 }
 
 void basicmap::render()
@@ -135,7 +150,7 @@ void basicmap::render()
 			if (_vTiles[i*MAPTILEY + j].terrain != watertile) {
 				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
 				//º≠∫œ ≤¿¡˛¡°
-				if (j - 1 >= 0 && _vTiles[(i - 1)*MAPTILEY + (j - 1)].terrain == watertile) {
+				if (j - 1 >= 0 && _vTiles[(i)*MAPTILEY + (j - 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 0, 1);
 				}
 				//µø∫œ ≤¿¡˛¡°
@@ -166,7 +181,7 @@ void basicmap::render()
 				if (i + 1 < MAPTILEY && _vTiles[(i + 1)*MAPTILEY +j].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 3, 0);
 					underwater->render(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom);
-					wave->alphaRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom+20+RANDOM->range(2), 100);
+					wave->alphaRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom+20+wavetick, 100);
 
 				}
 
