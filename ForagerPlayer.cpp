@@ -8,16 +8,12 @@ HRESULT ForagerPlayer::init()
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
-	//IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/회전이미지.bmp", 672, 112, 12, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 
 
 	_foragerIdle = IMAGEMANAGER->findImage("playerStop");
 	_foragerRun = IMAGEMANAGER->findImage("playerRUN");
 	_foragerRotate = IMAGEMANAGER->findImage("playerRotate");
-	//_foragerRotate2 = IMAGEMANAGER->findImage("playerRotate2");
-
-
 
 	for(int i = 1 ; i < 12; i++){
 		image *left = IMAGEMANAGER->findImage("playerRotateLeft");
@@ -55,24 +51,8 @@ void ForagerPlayer::release()
 void ForagerPlayer::update()
 {
 	animation();
-/*
-
-	if (_state == STATE::ROTATE) {
-		if (_isLeft) {
-			RotateImage(IMAGEMANAGER->findImage("playerRotateLeft"));
-		}
-		else {
-			RotateImage(IMAGEMANAGER->findImage("playerRotate"));
-		}
-		
-	}
-	
-*/
-	
-	
 	PlayerControll();
 	playerMove();
-	//if(_isMoveRotate == false)
 	playerLookingDirection();
 	
 }
@@ -96,7 +76,6 @@ void ForagerPlayer::render()
 		}
 		break;
 	}
-	
 }
 
 void ForagerPlayer::animation()
@@ -205,9 +184,6 @@ void ForagerPlayer::animation()
 void ForagerPlayer::PlayerControll()
 {
 
-
-
-
 	if (_state != STATE::ROTATE) {
 		//가만히 있는 상태
 		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
@@ -232,7 +208,7 @@ void ForagerPlayer::PlayerControll()
 		}
 
 		// 움직일 떄만 굴러갈 수 있게
-		if (_state != STATE::IDLE) 
+		if (_state != STATE::IDLE)
 		{
 			//굴러다니는 상태 
 			if (INPUT->GetKeyDown(VK_SPACE))
@@ -243,7 +219,6 @@ void ForagerPlayer::PlayerControll()
 			}
 		}
 	}
-
 }
 
 void ForagerPlayer::playerMove()
@@ -326,18 +301,6 @@ void ForagerPlayer::playerLookingDirection()
 			_isLeft = true;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 void ForagerPlayer::RotateImage(image* img)
 {
