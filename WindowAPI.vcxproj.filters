@@ -64,6 +64,9 @@
     <Filter Include="MainGame\Forager\매니저">
       <UniqueIdentifier>{daf7d61a-5239-4b59-b44f-5fd0b29ce984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Forager\인벤토리">
+      <UniqueIdentifier>{3a2aa4c4-fcc3-48ab-badc-0e421a389a7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -153,9 +156,6 @@
     <ClCompile Include="startScene.cpp">
       <Filter>MainGame\Forager</Filter>
     </ClCompile>
-    <ClCompile Include="TextManager.cpp">
-      <Filter>MainGame\Forager\매니저</Filter>
-    </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>MainGame\Forager\매니저</Filter>
     </ClCompile>
@@ -164,6 +164,24 @@
     </ClCompile>
     <ClCompile Include="reactImage.cpp">
       <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="ForagerStatManager.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="playerTestScene.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>MainGame\Forager\인벤토리</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory_slot.cpp">
+      <Filter>MainGame\Forager\인벤토리</Filter>
+    </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="ForagerPlayer.cpp">
+      <Filter>MainGame\Forager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +278,6 @@
     <ClInclude Include="startScene.h">
       <Filter>MainGame\Forager</Filter>
     </ClInclude>
-    <ClInclude Include="TextManager.h">
-      <Filter>MainGame\Forager\매니저</Filter>
-    </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>MainGame\Forager\매니저</Filter>
     </ClInclude>
@@ -271,6 +286,24 @@
     </ClInclude>
     <ClInclude Include="reactImage.h">
       <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="ForagerStatManager.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="playerTestScene.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>MainGame\Forager\인벤토리</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory_slot.h">
+      <Filter>MainGame\Forager\인벤토리</Filter>
+    </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="ForagerPlayer.h">
+      <Filter>MainGame\Forager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
