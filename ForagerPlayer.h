@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "ForagerStatManager.h"
 
 #define PI 3.1415926f
 
@@ -12,6 +13,9 @@ enum STATE
 
 };
 
+
+class ForagerStatManager;
+
 class ForagerPlayer :public gameNode
 {
 
@@ -21,7 +25,6 @@ private:
 	image* _foragerRotate;
 	image* _foragerHammering;		//곡괭이가 괭이질 하는 이미지
 	image* _playerHammering;
-
 	image* _hammer;
 	image* _hammerLeft;
 
@@ -34,7 +37,7 @@ private:
 	float _spinSpeed;
 
 
-	//플레이어 상태값
+	//플레이어 상태변수
 
 	bool _isLeft;		//왼쪽이냐?
 	bool _isUp;			//위쪽이냐?
@@ -54,6 +57,10 @@ private:
 	float _x, _y;		//플레이어 x,y좌표
 	float _speed;		//플레이어 스피드 
 	float _currentSpeed;//플레이어 현재 스피드 
+
+	//플레이어 스탯
+	float _playerMaxHp;	//플레이어 최대체력
+	float _currentHp;		//플레이어 현재체력 
 	
 
 
@@ -63,6 +70,11 @@ private:
 	//망치 영역
 	RECT _rcHammer;
 
+	//플레이어 체력 칸 이미지
+	image* _foragerHpBarFront[3];
+	image* _foragerHpBarBack[3];
+
+	ForagerStatManager* _foragerHp;
 
 
 
@@ -79,6 +91,10 @@ public:
 	void playerLookingDirection();
 	void RotateImage(image* img);
 	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
+
+	float getPlayerMaxHp() { return _playerMaxHp; }
+	float getPlayerCurrentHp(){ return _currentHp; }
+	void setCurrentPlayerHp(float _hp) { _currentHp -= _hp; }
 
 
 };

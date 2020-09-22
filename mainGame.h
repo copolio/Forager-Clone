@@ -8,6 +8,7 @@
 #include "loadingScene.h"
 #include "maptoolScene.h"
 #include "ForagerPlayer.h"
+#include "playerTestScene.h"
 
 class mainGame : public gameNode
 {

@@ -108,6 +108,8 @@ public:
 	}
 	//이미지 가로, 세로길이 가져오기
 	inline int getWidth() { return _imageInfo->width; }
+	inline void setWidth(int num) { _imageInfo->width -= num; }
+	inline void settingWidth(int num) { _imageInfo->width = num; }
 	inline int getHeight() { return _imageInfo->height; }
 	//바운딩 박스(충돌용 렉트)
 	inline RECT boundingBox()
@@ -149,6 +151,9 @@ public:
 	//맥스 프레임 가져오기
 	inline int getMaxFrameX() { return _imageInfo->maxFrameX; }
 	inline int getMaxFrameY() { return _imageInfo->maxFrameY; }
+
+
+
 
 };
 

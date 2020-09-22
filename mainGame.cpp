@@ -18,9 +18,10 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("맵툴화면", new maptoolScene);
 	SCENEMANAGER->addScene("포레이져화면", new ForagerPlayer);
+	SCENEMANAGER->addScene("플레이어테스트화면", new playerTestScene);
 
 	/*현재씬*/
-	SCENEMANAGER->loadScene("포레이져화면");
+	SCENEMANAGER->loadScene("플레이어테스트화면");
 
 	return S_OK;
 }

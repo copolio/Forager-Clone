@@ -1,14 +1,19 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
+#include "ForagerStatManager.h"
 
 HRESULT ForagerPlayer::init()
 {
 	_rcForager = RectMakeCenter(100, 615, 30, 41);
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 
+	//플레이어 가만히 있을 때 프레임 이미지 3*2
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
+
+	//플레이어 뛰다닐 때 프레임 이미지 4*2
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
 
+	//플레이어 굴러다닐 때 프레임 이미지 12*1 2개 (init에서 아싸리 함수 호출 해서 GetKeyDown으로 한번 샤라락 굴림)
 	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 
@@ -25,6 +30,9 @@ HRESULT ForagerPlayer::init()
 	//플레이어가 그냥 이동할 때 나타나는 기본 곡괭이 이미지 
 	IMAGEMANAGER->addImage("Hammer", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("HammerLeft", "Images/이미지/아이템/곡괭이왼쪽.bmp", 56, 56, true, RGB(255, 0, 255));
+
+	//플레이어 체력(앞)게이지 이미지
+	//IMAGEMANAGER->addImage("heart", "img_UI_Heart.bmp", );
 
 
 	_foragerIdle = IMAGEMANAGER->findImage("playerStop");
@@ -75,6 +83,9 @@ HRESULT ForagerPlayer::init()
 	_isRun = false;
 	_isHammering = false;
 	
+	_currentHp = _playerMaxHp = 100;
+
+
 	return S_OK;
 }
 
@@ -311,14 +322,14 @@ void ForagerPlayer::PlayerControll()
 			{
 				_state = ROTATE;
 				_isMoveRotate = true;
-				//_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;
+				IMAGEMANAGER->findImage("스테미나")->setWidth(5);
 			}
 		}
 		// 망치질 하는 상태 
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
 			_state = HAMMERING;
-			
+			IMAGEMANAGER->findImage("스테미나")->setWidth(1);
 		}
 	}
 }

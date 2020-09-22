@@ -52,6 +52,12 @@
     <Filter Include="MainGame\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\포레이져 스탯매니져">
+      <UniqueIdentifier>{2c08c952-2d25-434c-a491-043a0c422bbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\플레이어 테스트씬">
+      <UniqueIdentifier>{5789a559-1c64-4c1a-a5fd-8e1746ea397f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -137,6 +143,10 @@
     </ClCompile>
     <ClCompile Include="maptoolScene.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
+    <ClCompile Include="ForagerStatManager.cpp">
+      <Filter>GameFramework\포레이져 스탯매니져</Filter>
+    </ClCompile>
+    <ClCompile Include="playerTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -226,5 +236,9 @@
     <ClInclude Include="maptoolScene.h" />
     <ClInclude Include="tileNode.h" />
     <ClInclude Include="ForagerPlayer.h" />
+    <ClInclude Include="ForagerStatManager.h">
+      <Filter>GameFramework\포레이져 스탯매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="playerTestScene.h" />
   </ItemGroup>
 </Project>
