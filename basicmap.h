@@ -12,6 +12,7 @@
 #define CAMSPEED 20
 #define PLAINHP 100
 #define NUMOBJECTS 3
+#define RESRATIOLIMIT 0.7
 
 enum GROUNDLEVEL {
 	TERRAIN, OBJECT
@@ -59,6 +60,7 @@ public:
 
 	//무작위 타일에 자원 생성
 	void setRandomTile();
+	float getResRatio();
 };
 
 

@@ -38,7 +38,7 @@ void basicmap::update()
 		wavetick++;
 	}
 	
-	if (_count % 1000 == 0) {
+	if (_count % 10 == 0) {
 		this->setRandomTile();
 	}
 	if (wavetick > 10) {
@@ -122,7 +122,7 @@ void basicmap::render()
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
 	textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
-	Rectangle(getMemDC(), _rcPlayer);
+	//Rectangle(getMemDC(), _rcPlayer);
 }
 
 void basicmap::mapSetup()
@@ -256,6 +256,7 @@ void basicmap::cameraMove()
 
 void basicmap::setRandomTile()
 {
+	if (this->getResRatio() > RESRATIOLIMIT) return;
 	while (true) {
 		int i = RANDOM->range(TILEY*MAPY);
 		int j = RANDOM->range(MAPTILEX);
@@ -280,4 +281,23 @@ void basicmap::setRandomTile()
 			break;
 		}
 	}
+}
+
+float basicmap::getResRatio()
+{
+	float nResTile = 0;
+	float nPlainTile = 0;
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
+				_vTiles[i*MAPTILEY + j].objHp == 0) {
+				nPlainTile++;
+			}
+			else if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
+				_vTiles[i*MAPTILEY + j].objHp > 0) {
+				nResTile++;
+			}
+		}
+	}
+	return nResTile / float(nPlainTile);
 }
