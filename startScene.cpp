@@ -49,6 +49,15 @@ void startScene::update()
 	
 	// 마우스 클릭 체크
 	CheckButtonClick();
+
+
+	// 발걸음 이펙트 테스트용
+	if (testWalkEffectCount++ >= testWalkEffectInterval) {
+		testWalkEffectCount = 0;
+		EFFECTMANAGER->ShowEffectAlphaSize("Walk1", _ptMouse, 0, 0.25f, 0, 150);
+	}
+
+	EFFECTMANAGER->update();
 }
 
 void startScene::render()
@@ -74,6 +83,7 @@ void startScene::render()
 	}
 
 
+	EFFECTMANAGER->render(getMemDC());
 
 	// 타겟팅 박스 렌더
 	_targetingBox->render(getMemDC());
@@ -112,6 +122,10 @@ void startScene::CheckCursorOnButton()
 
 void startScene::CheckButtonClick()
 {
+	if (INPUT->GetKeyDown(VK_RBUTTON)) {
+		EFFECTMANAGER->ShowEffectFrame("DigSmoke", _ptMouse);
+	}
+
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{

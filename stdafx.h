@@ -39,6 +39,7 @@ using namespace MY_UTIL;
 #include "iniData.h"
 #include "soundManager.h"
 #include "TextManager.h"
+#include "EffectManager.h"
 
 
 //=============================================================
@@ -52,6 +53,7 @@ using namespace MY_UTIL;
 #define INIDATA iniData::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
 #define TEXTMANAGER TextManager::getSingleton()
+#define EFFECTMANAGER EffectManager::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)

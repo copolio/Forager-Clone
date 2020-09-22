@@ -22,6 +22,9 @@ private:
 	reactImage _button[BUTTON_MAX];
 
 	targetingBox *_targetingBox;
+	
+	int testWalkEffectCount = 0;
+	int testWalkEffectInterval = 10;
 
 public:
 	HRESULT init();

@@ -30,7 +30,7 @@ void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align
 		hFont = CreateFont(size, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("배달의민족 주아"));
 		oldFont = (HFONT)SelectObject(hdc, hFont);
 		isOldFont = true;
-		TextOut(hdc, ptPos.x - 3, ptPos.y + 3, "새게임", strlen("새게임"));
+		TextOut(hdc, ptPos.x - 3, ptPos.y + 3, str.c_str(), strlen(str.c_str()));
 	}
 
 	SetTextColor(hdc, color);
@@ -40,7 +40,7 @@ void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align
 	else
 		oldFont = (HFONT)SelectObject(hdc, hFont);
 
-	TextOut(hdc, ptPos.x, ptPos.y, "새게임", strlen("새게임"));
+	TextOut(hdc, ptPos.x, ptPos.y, str.c_str(), strlen(str.c_str()));
 
 
 

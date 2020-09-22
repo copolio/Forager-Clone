@@ -148,6 +148,9 @@
     <ClCompile Include="TextManager.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>GameFramework\매니져</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -243,6 +246,9 @@
       <Filter>MainGame\반응형 UI</Filter>
     </ClInclude>
     <ClInclude Include="TextManager.h">
+      <Filter>GameFramework\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
       <Filter>GameFramework\매니져</Filter>
     </ClInclude>
   </ItemGroup>
