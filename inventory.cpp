@@ -77,6 +77,14 @@ void inventory::update()
 
 void inventory::render()
 {
+
+	for (int i = 0; i < player_equip.size();i++) {
+
+		if (player_equip[i]->Kinds != ITEM_EQUIP) continue;
+			player_Quick_slot.push_back(player_equip[i]);
+		
+		
+	}
 	if (isCheck) {
 		IMAGEMANAGER->render("inventory_Kinds", getMemDC(), WINSIZEX/2-180, 15);
 		IMAGEMANAGER->render("Q", getMemDC(), 400, 70);

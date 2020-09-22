@@ -28,8 +28,9 @@ public:
 	bool isCheck;
 
 private:
-	vector<inventory_slot*> player_inventory;
+	vector<inventory_slot*> player_inventory;  
 	vector<inventory_slot*> player_equip;
+	vector<inventory_slot*> player_Quick_slot;
 	mouse_rc targetBox[4];
 	Kinds inven_kinds;
 	bool istargetBox;
