@@ -164,6 +164,8 @@
     <ClInclude Include="iniData.h" />
     <ClInclude Include="iniTestScene.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="inventory.h" />
+    <ClInclude Include="inventory_slot.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
@@ -203,6 +205,8 @@
     <ClCompile Include="iniData.cpp" />
     <ClCompile Include="iniTestScene.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="inventory_slot.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
