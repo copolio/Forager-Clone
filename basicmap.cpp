@@ -38,7 +38,7 @@ void basicmap::update()
 		wavetick++;
 	}
 	
-	if (_count % 10 == 0) {
+	if (_count % RESGENTIME == 0) {
 		this->setRandomTile();
 	}
 	if (wavetick > 10) {
