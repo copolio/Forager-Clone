@@ -52,11 +52,14 @@
     <Filter Include="MainGame\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\기본맵">
-      <UniqueIdentifier>{63257e59-4792-4231-8fd3-ef34c651e267}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\맵툴">
       <UniqueIdentifier>{93431713-14ff-4d4d-8275-eb93fdc6a054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Forager">
+      <UniqueIdentifier>{76499772-7872-499a-8318-bbc485184c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Forager\기본맵">
+      <UniqueIdentifier>{63257e59-4792-4231-8fd3-ef34c651e267}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +120,6 @@
     <ClCompile Include="gameScene.cpp">
       <Filter>MainGame\슈팅게임</Filter>
     </ClCompile>
-    <ClCompile Include="startScene.cpp">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClCompile>
     <ClCompile Include="iniData.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
@@ -145,7 +145,10 @@
       <Filter>MainGame\맵툴</Filter>
     </ClCompile>
     <ClCompile Include="basicmap.cpp">
-      <Filter>MainGame\기본맵</Filter>
+      <Filter>MainGame\Forager\기본맵</Filter>
+    </ClCompile>
+    <ClCompile Include="startScene.cpp">
+      <Filter>MainGame\Forager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,9 +212,6 @@
     <ClInclude Include="gameScene.h">
       <Filter>MainGame\슈팅게임</Filter>
     </ClInclude>
-    <ClInclude Include="startScene.h">
-      <Filter>MainGame\슈팅게임</Filter>
-    </ClInclude>
     <ClInclude Include="iniData.h">
       <Filter>GameFramework\매니져</Filter>
     </ClInclude>
@@ -240,7 +240,10 @@
       <Filter>MainGame\맵툴</Filter>
     </ClInclude>
     <ClInclude Include="basicmap.h">
-      <Filter>MainGame\기본맵</Filter>
+      <Filter>MainGame\Forager\기본맵</Filter>
+    </ClInclude>
+    <ClInclude Include="startScene.h">
+      <Filter>MainGame\Forager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

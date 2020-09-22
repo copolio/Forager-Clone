@@ -3,21 +3,19 @@
 
 HRESULT basicmap::init()
 {
-	watertile = new image;
-	watertile->init("Images/이미지/타일/img_tile_water.bmp", TILESIZE, TILESIZE, 1, 1);
-	plaintile = new image;
-	plaintile->init("Images/이미지/타일/img_tile_plain.bmp", 224, 56, 4, 1);
-	plainedge = new image;
-	plainedge->init("Images/이미지/타일/img_tile_plainEdge.bmp", 224, 112, 4, 2, true, RGB(255, 0, 255));
-	wave = new image;
-	wave->init("Images/이미지/타일/img_tile_wave.bmp", 56, 56);	
-	underwater = new image;
-	underwater->init("Images/이미지/타일/img_tile_bottomGround.bmp", 56, 56, true, RGB(255,0,255));
-
+	watertile = IMAGEMANAGER->addImage("watertile", "Images/이미지/타일/img_tile_water.bmp", TILESIZE, TILESIZE);
+	plaintile = IMAGEMANAGER->addFrameImage("plaintile", "Images/이미지/타일/img_tile_plain.bmp", 224, 56, 4, 1);
+	plainedge = IMAGEMANAGER->addFrameImage("plainedge", "Images/이미지/타일/img_tile_plainEdge.bmp", 224, 112, 4, 2, true, RGB(255, 0, 255));
+	wave = IMAGEMANAGER->addImage("wave", "Images/이미지/타일/img_tile_wave.bmp", 56, 56);
+	underwater = IMAGEMANAGER->addImage("underwater", "Images/이미지/타일/img_tile_bottomGround.bmp", 56, 56, true, RGB(255, 0, 255));
 	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
 	_rcPlayer = RectMakeCenter(WINSIZEX/2, WINSIZEY/2, 10, 10);
 
 	_count = wavetick = 0;
+
+	berry = IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
+	rock = IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
+	tree = IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
 	this->mapSetup();
 
@@ -26,16 +24,6 @@ HRESULT basicmap::init()
 
 void basicmap::release()
 {
-	watertile->release();
-	SAFE_DELETE(watertile);
-	plaintile->release();
-	SAFE_DELETE(plaintile);
-	plainedge->release();
-	SAFE_DELETE(plainedge);
-	wave->release();
-	SAFE_DELETE(wave);
-	underwater->release();
-	SAFE_DELETE(underwater);
 }
 
 void basicmap::update()
@@ -46,8 +34,12 @@ void basicmap::update()
 	this->cameraMove();
 
 	_count++;
-	if (_count % 5 == 0) {
+	if (_count % 10 == 0) {
 		wavetick++;
+	}
+	
+	if (_count % 100 == 0) {
+		this->setRandomTile();
 	}
 	if (wavetick > 10) {
 		wavetick = 0;
@@ -56,15 +48,17 @@ void basicmap::update()
 
 void basicmap::render()
 {
+	//바다 렌더
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
 			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].terrain == watertile) {
-				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
+				_vTiles[i*MAPTILEY + j].terrain->render(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top);
 			}
 		}
 	}
+	//지형 렌더
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
@@ -111,8 +105,22 @@ void basicmap::render()
 			}
 		}
 	}
+	//오브젝트 렌더
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			RECT temp;
+			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
+			if (_vTiles[i*MAPTILEY + j].objHp > 0) {
+				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom- _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
+				//Rectangle(getMemDC(), _vTiles[i*MAPTILEY + j].rc);
+			}
+		}
+	}
 
-	//Rectangle(getMemDC(), _rcPlayer);
+	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
+	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
+	textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
+	Rectangle(getMemDC(), _rcPlayer);
 }
 
 void basicmap::mapSetup()
@@ -125,7 +133,12 @@ void basicmap::mapSetup()
 			_tile.terrain = watertile;
 			_tile.terrainFrameX = 0;
 			_tile.terrainFrameY = 0;
-			_tile.terrainHp = _tile.objectHp = 0;
+			_tile.terrainHp = _tile.objHp = 0;
+			_tile.object = tree;
+			_tile.objHp = 0;
+			_tile.objFrameX = 0;
+			_tile.objFrameY = 0;
+
 			_vTiles.push_back(_tile);
 		}
 	}
@@ -155,8 +168,8 @@ void basicmap::setTile()
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
 				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
-					if (_vTiles[i*MAPTILEY + j].objectHp > 0) {
-						_vTiles[i*MAPTILEY + j].objectHp -= 1;
+					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
+						_vTiles[i*MAPTILEY + j].objHp -= 1;
 					}
 					else {
 						_vTiles[i*MAPTILEY + j].terrainHp -= 1;
@@ -236,5 +249,36 @@ void basicmap::cameraMove()
 		}
 		_rcPlayer.top += CAMSPEED;
 		_rcPlayer.bottom += CAMSPEED;
+	}
+}
+
+void basicmap::setRandomTile()
+{
+	for (int i = 0; i < TILEY*MAPY; i++) {
+		bool stop = false;
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
+				_vTiles[i*MAPTILEY + j].objHp == 0) {
+				switch (RANDOM->range(NUMOBJECTS)) {
+				case 0:
+					_vTiles[i*MAPTILEY + j].object = tree;
+					break;
+
+				case 1:
+					_vTiles[i*MAPTILEY + j].object = berry;
+					break;
+
+				case 2:
+					_vTiles[i*MAPTILEY + j].object = rock;
+					break;
+				}
+				_vTiles[i*MAPTILEY + j].objFrameX = 0;
+				_vTiles[i*MAPTILEY + j].objFrameY = 0;
+				_vTiles[i*MAPTILEY + j].objHp = 50;
+				stop = true;
+				break;
+			}
+		}
+		if (stop) break;
 	}
 }

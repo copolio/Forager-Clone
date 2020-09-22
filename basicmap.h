@@ -11,6 +11,7 @@
 #define CAMRANGE TILESIZE*3
 #define CAMSPEED 20
 #define PLAINHP 100
+#define NUMOBJECTS 3
 
 enum GROUNDLEVEL {
 	TERRAIN, OBJECT
@@ -21,9 +22,9 @@ struct tile {
 	image* terrain;
 	image* object;
 	int terrainHp;
-	int objectHp;
 	int terrainFrameX;
 	int terrainFrameY;
+	int objHp;
 	int objFrameX;
 	int objFrameY;
 };
@@ -38,6 +39,10 @@ private:
 	int _count;
 	int wavetick;
 private:
+	image* berry;
+	image* rock;
+	image* tree;
+private:
 	tile _tiles[TILEY][TILEX];
 	vector<tile> _vTiles;
 	RECT _rcCam;
@@ -51,6 +56,9 @@ public:
 	void mapSetup();
 	void setTile();
 	void cameraMove();
+
+	//무작위 타일에 자원 생성
+	void setRandomTile();
 };
 
 
