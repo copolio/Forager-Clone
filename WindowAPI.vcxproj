@@ -155,6 +155,8 @@
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="ForagerPlayer.h" />
+    <ClInclude Include="ForagerStatManager.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameScene.h" />
     <ClInclude Include="image.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="pixelCollisionScene.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerData.h" />
+    <ClInclude Include="playerTestScene.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
@@ -191,6 +194,8 @@
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="ForagerPlayer.cpp" />
+    <ClCompile Include="ForagerStatManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameScene.cpp" />
     <ClCompile Include="image.cpp" />
@@ -206,6 +211,7 @@
     <ClCompile Include="pixelCollisionScene.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playerData.cpp" />
+    <ClCompile Include="playerTestScene.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="reactImage.cpp" />
