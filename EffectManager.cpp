@@ -3,7 +3,7 @@
 
 void EffectManager::init()
 {
-	IMAGEMANAGER->addImage("Walk1", "Images/이미지/Effects/img_effect_walk1.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Walk1", "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("DigSmoke", "Images/이미지/Effects/img_effect_digSmoke.bmp", 900, 100, 9, 1, true, RGB(255, 0, 255));
 

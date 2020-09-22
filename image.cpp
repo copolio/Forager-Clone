@@ -549,13 +549,8 @@ void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int wid
 
 	if (_isTrans) {
 		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, hdc, dx, dy, SRCCOPY);
-
-		//GdiTransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _transColor);
-		GdiAlphaBlend(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
-
-		TransparentBlt(hdc, dx, dy, width, height, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
-		//SetStretchBltMode(hdc, COLORONCOLOR);
-		//StretchBlt(hdc, dx, dy, width, height, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, SRCCOPY);
+		TransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+		GdiAlphaBlend(hdc, dx, dy, width, height, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
 	}
 	else {
 		SetStretchBltMode(hdc, COLORONCOLOR);
