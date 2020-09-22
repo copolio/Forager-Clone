@@ -3,13 +3,20 @@
 
 HRESULT basicmap::init()
 {
+	_player = new ForagerPlayer;
+	_statManager = new ForagerStatManager;
+
+	_player->init();
+	_statManager->init();
+
+
 	watertile = IMAGEMANAGER->addImage("watertile", "Images/이미지/타일/img_tile_water.bmp", TILESIZE, TILESIZE);
 	plaintile = IMAGEMANAGER->addFrameImage("plaintile", "Images/이미지/타일/img_tile_plain.bmp", 224, 56, 4, 1);
 	plainedge = IMAGEMANAGER->addFrameImage("plainedge", "Images/이미지/타일/img_tile_plainEdge.bmp", 224, 112, 4, 2, true, RGB(255, 0, 255));
 	wave = IMAGEMANAGER->addImage("wave", "Images/이미지/타일/img_tile_wave.bmp", 56, 56);
 	underwater = IMAGEMANAGER->addImage("underwater", "Images/이미지/타일/img_tile_bottomGround.bmp", 56, 56, true, RGB(255, 0, 255));
 	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
-	_rcPlayer = RectMakeCenter(WINSIZEX/2, WINSIZEY/2, 10, 10);
+	_rcPlayer = _player->getPlayerRect();
 
 	_count = wavetick = 0;
 
@@ -24,14 +31,18 @@ HRESULT basicmap::init()
 
 void basicmap::release()
 {
+	_player->release();
+	_statManager->release();
 }
 
 void basicmap::update()
 {
+	_rcPlayer = _player->getPlayerRect();
 	//타일 변경
 	this->setTile();
 	// 카메라 이동
 	this->cameraMove();
+	this->cameraFocus();
 
 	_count++;
 	if (_count % 10 == 0) {
@@ -44,6 +55,10 @@ void basicmap::update()
 	if (wavetick > 10) {
 		wavetick = 0;
 	}
+
+	//플레이어 업데이트
+	_player->update();
+	_statManager->update();
 }
 
 void basicmap::render()
@@ -105,6 +120,11 @@ void basicmap::render()
 			}
 		}
 	}
+
+	//플레이어
+	_player->render();
+	_statManager->render();
+
 	//오브젝트 렌더
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
@@ -204,7 +224,7 @@ void basicmap::cameraMove()
 {
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
-	if (_ptMouse.x > (WINSIZEX / 2) + 200 &&
+	if (_ptMouse.x > (WINSIZEX / 2) + 100 &&
 		_vTiles.back().rc.right > WINSIZEX &&
 		getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX/2, WINSIZEY/2) < CAMRANGE) {
 		for (int i = 0; i < MAPTILEY; i++) {
@@ -213,10 +233,14 @@ void basicmap::cameraMove()
 				_vTiles[i*MAPTILEY + j].rc.right -= CAMSPEED;
 			}
 		}
-		_rcPlayer.left -= CAMSPEED;
-		_rcPlayer.right -= CAMSPEED;
+		//_rcPlayer.left -= CAMSPEED;
+		//_rcPlayer.right -= CAMSPEED;
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.left -= CAMSPEED;
+		playerPos.right -= CAMSPEED;
+		_player->setPlayerRect(playerPos);
 	}
-	if (_ptMouse.x < (WINSIZEX / 2) - 200 &&
+	if (_ptMouse.x < (WINSIZEX / 2) - 100 &&
 		_vTiles[0].rc.left < 0 &&
 		getDistance(playerCenterX + CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2) < CAMRANGE) {
 		for (int i = 0; i < MAPTILEY; i++) {
@@ -225,10 +249,14 @@ void basicmap::cameraMove()
 				_vTiles[i*MAPTILEY + j].rc.right += CAMSPEED;
 			}
 		}
-		_rcPlayer.left += CAMSPEED;
-		_rcPlayer.right += CAMSPEED;
+		//_rcPlayer.left += CAMSPEED;
+		//_rcPlayer.right += CAMSPEED;
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.left += CAMSPEED;
+		playerPos.right += CAMSPEED;
+		_player->setPlayerRect(playerPos);
 	}
-	if (_ptMouse.y > WINSIZEY / 2 + 200 &&
+	if (_ptMouse.y > WINSIZEY / 2 + 100 &&
 		_vTiles.back().rc.bottom > WINSIZEY &&
 		getDistance(playerCenterX, playerCenterY - CAMSPEED, WINSIZEX / 2, WINSIZEY / 2) < CAMRANGE) {
 		for (int i = 0; i < MAPTILEY; i++) {
@@ -237,10 +265,14 @@ void basicmap::cameraMove()
 				_vTiles[i*MAPTILEY + j].rc.bottom -= CAMSPEED;
 			}
 		}
-		_rcPlayer.top -= CAMSPEED;
-		_rcPlayer.bottom -= CAMSPEED;
+		//_rcPlayer.top -= CAMSPEED;
+		//_rcPlayer.bottom -= CAMSPEED;
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.top -= CAMSPEED;
+		playerPos.bottom -= CAMSPEED;
+		_player->setPlayerRect(playerPos);
 	}
-	if (_ptMouse.y < WINSIZEY / 2 - 200 &&
+	if (_ptMouse.y < WINSIZEY / 2 - 100 &&
 		_vTiles[0].rc.top < 0 &&
 		getDistance(playerCenterX, playerCenterY + CAMSPEED, WINSIZEX / 2, WINSIZEY / 2) < CAMRANGE) {
 		for (int i = 0; i < MAPTILEY; i++) {
@@ -249,8 +281,47 @@ void basicmap::cameraMove()
 				_vTiles[i*MAPTILEY + j].rc.bottom += CAMSPEED;
 			}
 		}
-		_rcPlayer.top += CAMSPEED;
-		_rcPlayer.bottom += CAMSPEED;
+		//_rcPlayer.top += CAMSPEED;
+		//_rcPlayer.bottom += CAMSPEED;
+
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.top += CAMSPEED;
+		playerPos.bottom += CAMSPEED;
+		_player->setPlayerRect(playerPos);
+	}
+}
+
+void basicmap::cameraFocus()
+{
+	if (_ptMouse.x < WINSIZEX / 2 - 100 ||
+		_ptMouse.x > WINSIZEX / 2 + 100 ||
+		_ptMouse.y < WINSIZEY / 2 - 100 ||
+		_ptMouse.y > WINSIZEY / 2 + 100) return;
+	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
+	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
+	if (playerCenterX != WINSIZEX/2) {
+		for (int i = 0; i < MAPTILEY; i++) {
+			for (int j = 0; j < MAPTILEX; j++) {
+				_vTiles[i*MAPTILEY + j].rc.left += WINSIZEX/2 - playerCenterX < 0 ? -1 : 1;
+				_vTiles[i*MAPTILEY + j].rc.right += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
+			}
+		}
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.left += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
+		playerPos.right += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
+		_player->setPlayerRect(playerPos);
+	}
+	if (playerCenterY != WINSIZEY/2) {
+		for (int i = 0; i < MAPTILEY; i++) {
+			for (int j = 0; j < MAPTILEX; j++) {
+				_vTiles[i*MAPTILEY + j].rc.top += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+				_vTiles[i*MAPTILEY + j].rc.bottom += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+			}
+		}
+		RECT playerPos = _player->getPlayerRect();
+		playerPos.top += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+		playerPos.bottom += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+		_player->setPlayerRect(playerPos);
 	}
 }
 

@@ -36,7 +36,6 @@ private:
 	int _spinCount;
 	float _spinSpeed;
 
-
 	//플레이어 상태변수
 
 	bool _isLeft;		//왼쪽이냐?
@@ -95,6 +94,8 @@ public:
 	float getPlayerMaxHp() { return _playerMaxHp; }
 	float getPlayerCurrentHp(){ return _currentHp; }
 	void setCurrentPlayerHp(float _hp) { _currentHp -= _hp; }
+	RECT getPlayerRect() { return _rcForager; };
+	void setPlayerRect(RECT pos) { _rcForager = pos; };
 
 
 };

@@ -4,7 +4,7 @@
 
 HRESULT ForagerPlayer::init()
 {
-	_rcForager = RectMakeCenter(100, 615, 30, 41);
+	_rcForager = RectMakeCenter(WINSIZEX/2, WINSIZEY/2, 30, 41);
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 
 	//플레이어 가만히 있을 때 프레임 이미지 3*2
