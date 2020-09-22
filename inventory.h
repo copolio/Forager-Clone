@@ -11,7 +11,6 @@ enum Kinds
 {
 	ITEM,
 	EQUIP,
-
 };
 class inventory : public gameNode
 {
@@ -25,12 +24,12 @@ public:
 	void itemRemove();
 	void mouse_targetBox();
 	void mouse_setingRc(RECT rc);
-	
+	void keyDown();
 	bool isCheck;
 
 private:
 	vector<inventory_slot*> player_inventory;
-
+	vector<inventory_slot*> player_equip;
 	mouse_rc targetBox[4];
 	Kinds inven_kinds;
 	bool istargetBox;

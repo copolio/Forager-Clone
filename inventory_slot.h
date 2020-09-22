@@ -16,7 +16,8 @@ public:
 	int count;
 	string img_name;
 	ItemKinds Kinds;
-
+	string item_name;
+	string item_Info;
 private:
 
 };
