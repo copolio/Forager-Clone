@@ -150,6 +150,10 @@
     <ClCompile Include="startScene.cpp">
       <Filter>MainGame\Forager</Filter>
     </ClCompile>
+    <ClCompile Include="EffectManager.cpp" />
+    <ClCompile Include="reactImage.cpp" />
+    <ClCompile Include="targetingBox.cpp" />
+    <ClCompile Include="TextManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -245,5 +249,9 @@
     <ClInclude Include="startScene.h">
       <Filter>MainGame\Forager</Filter>
     </ClInclude>
+    <ClInclude Include="EffectManager.h" />
+    <ClInclude Include="reactImage.h" />
+    <ClInclude Include="targetingBox.h" />
+    <ClInclude Include="TextManager.h" />
   </ItemGroup>
 </Project>

@@ -14,7 +14,7 @@ HRESULT mainGame::init()
 
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("시작화면", new startScene);
-	SCENEMANAGER->addScene("맵툴화면", new maptoolScene);
+	SCENEMANAGER->addScene("맵툴화면", new basicmap);
 
 	/*현재씬*/
 	SCENEMANAGER->loadScene("시작화면");

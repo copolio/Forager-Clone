@@ -38,7 +38,7 @@ void basicmap::update()
 		wavetick++;
 	}
 	
-	if (_count % 100 == 0) {
+	if (_count % 1000 == 0) {
 		this->setRandomTile();
 	}
 	if (wavetick > 10) {
@@ -116,6 +116,8 @@ void basicmap::render()
 			}
 		}
 	}
+	// Ä¿¼­ ·»´õ
+	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
@@ -254,31 +256,28 @@ void basicmap::cameraMove()
 
 void basicmap::setRandomTile()
 {
-	for (int i = 0; i < TILEY*MAPY; i++) {
-		bool stop = false;
-		for (int j = 0; j < MAPTILEX; j++) {
-			if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
-				_vTiles[i*MAPTILEY + j].objHp == 0) {
-				switch (RANDOM->range(NUMOBJECTS)) {
-				case 0:
-					_vTiles[i*MAPTILEY + j].object = tree;
-					break;
+	while (true) {
+		int i = RANDOM->range(TILEY*MAPY);
+		int j = RANDOM->range(MAPTILEX);
+		if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
+			_vTiles[i*MAPTILEY + j].objHp == 0) {
+			switch (RANDOM->range(NUMOBJECTS)) {
+			case 0:
+				_vTiles[i*MAPTILEY + j].object = tree;
+				break;
 
-				case 1:
-					_vTiles[i*MAPTILEY + j].object = berry;
-					break;
+			case 1:
+				_vTiles[i*MAPTILEY + j].object = berry;
+				break;
 
-				case 2:
-					_vTiles[i*MAPTILEY + j].object = rock;
-					break;
-				}
-				_vTiles[i*MAPTILEY + j].objFrameX = 0;
-				_vTiles[i*MAPTILEY + j].objFrameY = 0;
-				_vTiles[i*MAPTILEY + j].objHp = 50;
-				stop = true;
+			case 2:
+				_vTiles[i*MAPTILEY + j].object = rock;
 				break;
 			}
+			_vTiles[i*MAPTILEY + j].objFrameX = 0;
+			_vTiles[i*MAPTILEY + j].objFrameY = 0;
+			_vTiles[i*MAPTILEY + j].objHp = 50;
+			break;
 		}
-		if (stop) break;
 	}
 }
