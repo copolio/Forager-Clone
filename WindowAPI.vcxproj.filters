@@ -52,7 +52,10 @@
     <Filter Include="MainGame\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\로딩화면\맵툴">
+    <Filter Include="MainGame\기본맵">
+      <UniqueIdentifier>{63257e59-4792-4231-8fd3-ef34c651e267}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\맵툴">
       <UniqueIdentifier>{93431713-14ff-4d4d-8275-eb93fdc6a054}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -139,9 +142,11 @@
       <Filter>MainGame\로딩화면</Filter>
     </ClCompile>
     <ClCompile Include="maptoolScene.cpp">
-      <Filter>MainGame\로딩화면\맵툴</Filter>
+      <Filter>MainGame\맵툴</Filter>
     </ClCompile>
-    <ClCompile Include="basicmap.cpp" />
+    <ClCompile Include="basicmap.cpp">
+      <Filter>MainGame\기본맵</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -229,11 +234,13 @@
       <Filter>MainGame\로딩화면</Filter>
     </ClInclude>
     <ClInclude Include="maptoolScene.h">
-      <Filter>MainGame\로딩화면\맵툴</Filter>
+      <Filter>MainGame\맵툴</Filter>
     </ClInclude>
     <ClInclude Include="tileNode.h">
-      <Filter>MainGame\로딩화면\맵툴</Filter>
+      <Filter>MainGame\맵툴</Filter>
     </ClInclude>
-    <ClInclude Include="basicmap.h" />
+    <ClInclude Include="basicmap.h">
+      <Filter>MainGame\기본맵</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

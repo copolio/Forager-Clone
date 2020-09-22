@@ -8,6 +8,10 @@
 #define MAPSIZE MAPX*MAPY
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
+#define CAMRANGE TILESIZE*3
+#define CAMSPEED 20
+#define PLAINHP 100
+
 enum GROUNDLEVEL {
 	TERRAIN, OBJECT
 };
@@ -16,7 +20,8 @@ struct tile {
 	GROUNDLEVEL level;
 	image* terrain;
 	image* object;
-
+	int terrainHp;
+	int objectHp;
 	int terrainFrameX;
 	int terrainFrameY;
 	int objFrameX;
@@ -42,6 +47,10 @@ public:
 	void release();
 	void update();
 	void render();
+
+	void mapSetup();
+	void setTile();
+	void cameraMove();
 };
 
 

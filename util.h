@@ -10,6 +10,7 @@
 #define PI_2 (PI / 2) //90도
 #define PI_4 (PI / 4) //45도
 #define PI_8 (PI / 8) //22.5도
+#define ABS(x) x < 0 ? -x : x  //절대값
 
 namespace MY_UTIL
 {
