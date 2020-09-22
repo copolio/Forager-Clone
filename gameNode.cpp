@@ -15,6 +15,8 @@ HRESULT gameNode::init()
 	SCENEMANAGER->init();				//씬매니져 초기화
 	INIDATA->init();					//INI데이터 초기화
 	SOUNDMANAGER->init();				//사운드매니져 초기화
+	TEXTMANAGER->init();				//텍스트매니저 초기화
+	EFFECTMANAGER->init();				//이펙트매니저 초기화
 
 	return S_OK;
 }
@@ -47,6 +49,12 @@ void gameNode::release()
 	//사운드매니져 해제
 	SOUNDMANAGER->release();
 	SOUNDMANAGER->releaseSingleton();
+	//텍스트매니저 해제
+	TEXTMANAGER->release();
+	TEXTMANAGER->releaseSingleton();
+	//이펙트매니저 해제
+	EFFECTMANAGER->release();
+	EFFECTMANAGER->releaseSingleton();
 
 	//HDC 해제
 	ReleaseDC(_hWnd, _hdc);

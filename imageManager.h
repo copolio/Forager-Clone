@@ -51,6 +51,13 @@ public:
 	void alphaRender(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
 
 //=============================================================
+//	## 스트레치렌더 ##
+//=============================================================
+	void stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight);
+	// + 알파
+	void stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
+
+//=============================================================
 //	## 프레임렌더 ##
 //=============================================================
 	void frameRender(string strKey, HDC hdc, int destX, int destY);

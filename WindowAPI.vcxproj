@@ -23,7 +23,7 @@
     <ProjectGuid>{5CFDEF9B-DA94-4BF5-A033-6A6386FC4E29}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WindowAPI</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
     <ProjectName>GameFramework2D</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -152,6 +152,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="gameNode.h" />
@@ -171,12 +172,15 @@
     <ClInclude Include="playerData.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="random.h" />
+    <ClInclude Include="reactImage.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="soundTestScene.h" />
     <ClInclude Include="startScene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetingBox.h" />
+    <ClInclude Include="TextManager.h" />
     <ClInclude Include="tileNode.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
@@ -184,6 +188,7 @@
     <ClCompile Include="basicmap.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -203,6 +208,7 @@
     <ClCompile Include="playerData.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="random.cpp" />
+    <ClCompile Include="reactImage.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="soundTestScene.cpp" />
@@ -213,6 +219,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="targetingBox.cpp" />
+    <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
