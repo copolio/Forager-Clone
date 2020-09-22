@@ -61,6 +61,9 @@
     <Filter Include="MainGame\Forager\기본맵">
       <UniqueIdentifier>{63257e59-4792-4231-8fd3-ef34c651e267}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Forager\매니저">
+      <UniqueIdentifier>{daf7d61a-5239-4b59-b44f-5fd0b29ce984}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -150,10 +153,18 @@
     <ClCompile Include="startScene.cpp">
       <Filter>MainGame\Forager</Filter>
     </ClCompile>
-    <ClCompile Include="EffectManager.cpp" />
-    <ClCompile Include="reactImage.cpp" />
-    <ClCompile Include="targetingBox.cpp" />
-    <ClCompile Include="TextManager.cpp" />
+    <ClCompile Include="TextManager.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="targetingBox.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="reactImage.cpp">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -249,9 +260,17 @@
     <ClInclude Include="startScene.h">
       <Filter>MainGame\Forager</Filter>
     </ClInclude>
-    <ClInclude Include="EffectManager.h" />
-    <ClInclude Include="reactImage.h" />
-    <ClInclude Include="targetingBox.h" />
-    <ClInclude Include="TextManager.h" />
+    <ClInclude Include="TextManager.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="targetingBox.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="reactImage.h">
+      <Filter>MainGame\Forager\매니저</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
