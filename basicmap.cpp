@@ -442,6 +442,15 @@ void basicmap::setPlayerPosTile()
 		_playerPos -= 1;
 	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX].rc, _ptPlayerPos)) 
 		_playerPos += MAPTILEX;
-	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX].rc, _ptPlayerPos)) 
+	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX].rc, _ptPlayerPos))
 		_playerPos -= MAPTILEX;
+	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX + 1].rc, _ptPlayerPos))
+		_playerPos += MAPTILEX + 1;
+	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX - 1].rc, _ptPlayerPos))
+		_playerPos -= MAPTILEX - 1;
+	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX - 1].rc, _ptPlayerPos))
+		_playerPos -= MAPTILEX - 1;
+	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX + 1].rc, _ptPlayerPos))
+		_playerPos += MAPTILEX + 1;
+
 }
