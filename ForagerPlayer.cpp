@@ -291,6 +291,7 @@ void ForagerPlayer::animation()
 
 void ForagerPlayer::PlayerControll()
 {
+	_map->setPlayerPosTile();
 
 	if (_state != STATE::ROTATE) {
 		//가만히 있는 상태
@@ -338,7 +339,7 @@ void ForagerPlayer::PlayerControll()
 
 void ForagerPlayer::playerMove()
 {
-	_map->setPlayerPosTile();
+
 
 	//플레이어 좌우 움직임 처리 
 	if (_isMoveHorizon)

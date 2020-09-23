@@ -398,7 +398,7 @@ float basicmap::getResRatio()
 int basicmap::getPlayerPos()
 {
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
-	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
+	int playerCenterY = _rcPlayer.bottom;
 	_ptPlayerPos = { playerCenterX, playerCenterY };
 
 
@@ -414,14 +414,19 @@ int basicmap::getPlayerPos()
 // 이동 가능 여부 체크
 bool basicmap::checkCanMove(int index)
 {
-
-	cout << "체력 : " << _vTiles[_playerPos + index].objHp << endl;
-
 	// 이동 가능
 	if (_vTiles[_playerPos + index].terrain != watertile &&
-		_vTiles[_playerPos + index].objHp <= 0)
-		return false;
+		_vTiles[_playerPos + index].objHp <= 0) {
 
+
+		return false;
+	}
+		
+	RECT t_bound = RectMakeCenter(_ptPlayerPos.x, _ptPlayerPos.y, 20, 10);
+	RECT t_temp;
+	if (!IntersectRect(&t_temp, &t_bound, &_vTiles[_playerPos + index].rc)) {
+		return false;
+	}
 
 	// 이동 불가
 	return true;
@@ -436,7 +441,11 @@ void basicmap::setPlayerPosTile()
 
 	// 플레이어 좌표 기준 상하좌우 타일중에 
 	// 지금 밟고 있는 타일로 좌표 변경
-	if (PtInRect(&_vTiles[_playerPos + 1].rc, _ptPlayerPos)) 
+	if (PtInRect(&_vTiles[_playerPos].rc, _ptPlayerPos))
+		_playerPos = _playerPos;
+
+
+	else if (PtInRect(&_vTiles[_playerPos + 1].rc, _ptPlayerPos)) 
 		_playerPos += 1;
 	else if (PtInRect(&_vTiles[_playerPos - 1].rc, _ptPlayerPos)) 
 		_playerPos -= 1;
@@ -444,13 +453,18 @@ void basicmap::setPlayerPosTile()
 		_playerPos += MAPTILEX;
 	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX].rc, _ptPlayerPos))
 		_playerPos -= MAPTILEX;
+
+
 	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX + 1].rc, _ptPlayerPos))
 		_playerPos += MAPTILEX + 1;
 	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX - 1].rc, _ptPlayerPos))
 		_playerPos -= MAPTILEX - 1;
-	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX - 1].rc, _ptPlayerPos))
-		_playerPos -= MAPTILEX - 1;
 	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX + 1].rc, _ptPlayerPos))
 		_playerPos += MAPTILEX + 1;
+	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX - 1].rc, _ptPlayerPos))
+		_playerPos -= MAPTILEX - 1;
 
+	else 
+		_playerPos = getPlayerPos();
+	
 }
