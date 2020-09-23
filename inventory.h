@@ -26,6 +26,9 @@ public:
 	void mouse_setingRc(RECT rc);
 	void keyDown();
 	bool isCheck;
+	string item_count[9];
+	void item_check();
+
 
 private:
 	vector<inventory_slot*> player_inventory;  
