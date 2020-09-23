@@ -13,10 +13,16 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("img_equip_icon", "Images/이미지/GUI/img_equip_icon.bmp", 78, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("Img_UI_EquipmentSlotFilled", "Images/이미지/GUI/Img_UI_EquipmentSlotFilled.bmp", 72, 72, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("img_UI_TargetingBox", "Images/이미지/GUI/img_UI_TargetingBox.bmp", 48, 12,4,1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("img_UI_TargetingBox", "Images/이미지/GUI/img_UI_TargetingBox.bmp", 72, 21,4,1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_ItemTooltip", "Images/이미지/GUI/img_UI_ItemTooltip.bmp", 296, 216, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("item_slot", "Images/이미지/GUI/img_UI_InventorySlotBoundary.bmp", 88, 88, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_equip_slot", "Images/이미지/GUI/img_equip_slot.bmp", 582, 102, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_erection_icon", "Images/이미지/GUI/img_erection_icon.bmp", 78, 86, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("inventory_background", "Images/이미지/GUI/inventory_background.bmp", 1920, 1080, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_industry_icon", "Images/이미지/GUI/img_industry_icon.bmp", 226, 72, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_steelwork_icon", "Images/이미지/GUI/img_steelwork_icon.bmp", 205, 59, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("2", "Images/이미지/GUI/2.bmp", 15, 19, true, RGB(255, 0, 255));
@@ -29,7 +35,8 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 
 
-
+	_targetBox = new targetingBox;
+	_targetBox->init();
 	targetBox[0].img_num = 0;
 	targetBox[1].img_num = 1;
 	targetBox[2].img_num = 2;
@@ -76,21 +83,39 @@ HRESULT inventory::init()
 	player_inventory[0]->item_name = "목재";
 	istargetBox = false;
 	isCheck = false;
-
+	iserection - false;
+	is_erection_select = false;
 	return S_OK;
 }
 
 void inventory::release()
 {
+	player_inventory.clear();
+	player_equip.clear();
+	_targetBox = NULL;
 }
 
 void inventory::update()
 {
+	_targetBox->update();
 	keyDown();
 	if (isCheck) {
 		mouse_targetBox();
 	}
 	item_check();
+
+	if (INPUT->GetKeyDown(VK_RBUTTON)) {
+		if (is_erection_select) {
+			for (int i = 0; i < player_inventory.size(); i++) {
+				if (player_inventory[i]->item_name != "목재")continue;
+				if (player_inventory[i]->count > 2) {
+					player_inventory[i]->count += 2;
+					break;
+				}
+			}
+		}
+		is_erection_select = false;
+	}// 건물 선택 후 건설을 하지 않고 취소 하였을 경우 
 }
 
 void inventory::render()
@@ -104,12 +129,20 @@ void inventory::render()
 		
 	}
 	if (isCheck) {
+		if (inven_kinds != ERECTION) {
+
+			IMAGEMANAGER->alphaRender("inventory_background", getMemDC(),0,0,180);
+		}
+		else {
+			IMAGEMANAGER->alphaRender("inventory_background", getMemDC(), WINSIZEX-300, 0, 180);
+		}
 		IMAGEMANAGER->render("inventory_Kinds", getMemDC(), WINSIZEX/2-180, 15);
 		IMAGEMANAGER->render("Q", getMemDC(), 400, 70);
 		IMAGEMANAGER->render("E", getMemDC(), 850, 70);
 		switch (inven_kinds)
 		{
 		case ITEM:
+
 			IMAGEMANAGER->render("img_item_icon", getMemDC(), 562, 30);
 			for (int i = 0; i < player_inventory.size(); i++) {
 				//Rectangle(getMemDC(), player_inventory[i]->_rc);
@@ -145,12 +178,31 @@ void inventory::render()
 				for (int i = 0; i < 4; i++) {
 					IMAGEMANAGER->frameRender("img_UI_TargetingBox", getMemDC(), targetBox[i].x, targetBox[i].y, targetBox[i].img_num, 0);
 				}
-			}
+			}	
 			break;
 
+		case ERECTION:
+			IMAGEMANAGER->render("img_erection_icon", getMemDC(), 660, 30);
+			IMAGEMANAGER->render("img_industry_icon", getMemDC(), WINSIZEX - 250, 30);
+
+			if (istargetBox) {
+				for (int i = 0; i < 4; i++) {
+					IMAGEMANAGER->frameRender("img_UI_TargetingBox", getMemDC(), targetBox[i].x, targetBox[i].y, targetBox[i].img_num, 0);
+				}
+			}
+			if (iserection) {
+
+				IMAGEMANAGER->render("img_steelwork_icon", getMemDC(), WINSIZEX - 240, 100);
+			}
+			if (is_erection_select) {
+				IMAGEMANAGER->alphaRender("용광로",getMemDC(),_ptMouse.x - IMAGEMANAGER->findImage("용광로")->getWidth()/2, _ptMouse.y - IMAGEMANAGER->findImage("용광로")->getHeight() / 2,160);
+			}
+			break;
 		}
 		
 	}
+	_targetBox->render(getMemDC());
+	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 
 }
 
@@ -161,11 +213,14 @@ void inventory::itemRemove()
 
 void inventory::mouse_targetBox()
 {
+	
+	
 	switch (inven_kinds)
 	{
 	case ITEM:
 		for (int i = 0; i < player_inventory.size(); i++) {
 			if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
+				//_targetBox->SetTarget(player_inventory[i]->_rc);
 				mouse_setingRc(player_inventory[i]->_rc);
 				istargetBox = true;
 				break;
@@ -175,14 +230,46 @@ void inventory::mouse_targetBox()
 	case EQUIP:
 		for (int i = 0; i < player_equip.size(); i++) {
 			if (PtInRect(&player_equip[i]->_rc, _ptMouse)) {
+				//_targetBox->SetTarget(player_inventory[i]->_rc);
 				mouse_setingRc(player_equip[i]->_rc);
 				istargetBox = true;
 				break;
 			}
 		}
 		break;
-	}
+	case ERECTION:
+		RECT temp = RectMake(WINSIZEX - 250, 30, 226, 72);
+		if (PtInRect(&temp, _ptMouse)) {
+			mouse_setingRc(temp);
+			istargetBox = true;
+		}
+		if (PtInRect(&temp, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON)) {
+			if (iserection) {
+				iserection = false;
+			}
+			else {
+				iserection = true;
+			}
+		}
 
+		if (iserection) {
+			RECT temp1 = RectMake(WINSIZEX - 210, 110, 150, 30);
+			if (PtInRect(&temp1, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON)) {
+				for (int i = 0; i < player_inventory.size(); i++) {
+					if (player_inventory[i]->item_name != "목재")continue;
+					if (player_inventory[i]->count > 2) {
+						player_inventory[i]->count -= 2;
+						is_erection_select = true;
+						break;
+					}
+				}
+				
+			}// 건물 선택 재료 검사
+		}
+
+		break;
+	}
+	
 }
 
 void inventory::mouse_setingRc(RECT rc )
@@ -190,14 +277,14 @@ void inventory::mouse_setingRc(RECT rc )
 	targetBox[0].x = rc.left-5;
 	targetBox[0].y = rc.top-5;
 
-	targetBox[1].x = rc.right-7;
+	targetBox[1].x = rc.right-15;
 	targetBox[1].y = rc.top-5;
 
-	targetBox[2].x = rc.right-7;
-	targetBox[2].y = rc.bottom - 7;
+	targetBox[2].x = rc.right-15;
+	targetBox[2].y = rc.bottom - 15;
 
 	targetBox[3].x = rc.left-5;
-	targetBox[3].y = rc.bottom-7;
+	targetBox[3].y = rc.bottom-15;
 }
 
 void inventory::keyDown()
@@ -211,17 +298,35 @@ void inventory::keyDown()
 		}
 	}
 
-	if (INPUT->GetKeyDown('Q')|| INPUT->GetKeyDown('E')) {
+	if (INPUT->GetKeyDown('Q')) {
 		if (inven_kinds == ITEM) {
 			inven_kinds = EQUIP;
 		}
-		else {
+		else if(inven_kinds == EQUIP){
+			inven_kinds = ERECTION;
+		}
+		else if (inven_kinds == ERECTION) {
 			inven_kinds = ITEM;
+
 		}
 		istargetBox = false;
+		iserection = false;
 	}
+	if (INPUT->GetKeyDown('E')) {
+		if (inven_kinds == ITEM) {
+			inven_kinds = ERECTION;
+		}
+		else if (inven_kinds == EQUIP) {
+			inven_kinds = ITEM;
+		}
+		else if (inven_kinds == ERECTION) {
+			inven_kinds = EQUIP;
 
-}
+		}
+		istargetBox = false;
+		iserection = false;
+	}
+} 
 
 void inventory::item_check()
 {

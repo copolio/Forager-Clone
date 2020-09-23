@@ -7,6 +7,7 @@ enum ItemKinds
 	ITEM_MATERIAL
 
 };
+
 class inventory_slot
 {
 public:
