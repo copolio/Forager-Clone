@@ -335,36 +335,36 @@ void ForagerPlayer::PlayerControll()
 	}
 }
 
+
 void ForagerPlayer::playerMove()
 {
+	_map->setPlayerPosTile();
+
 	//플레이어 좌우 움직임 처리 
 	if (_isMoveHorizon)
 	{
-		
+
 		int applySpeed = (_isLeft) ? -3 : 3;
 		if (_isLeft) {
-			if (_map->getTiles()[_map->getPlayerPos()-1].terrain == IMAGEMANAGER->findImage("watertile") ||
-				_map->getTiles()[_map->getPlayerPos()-1].objHp > 0) {
+			if (_map->checkCanMove(-1)) 
 				applySpeed = 0;
-			}
+
 		}
 		else {
-			if (_map->getTiles()[_map->getPlayerPos()+1].terrain == IMAGEMANAGER->findImage("watertile") ||
-				_map->getTiles()[_map->getPlayerPos()+1].objHp > 0) {
+			if (_map->checkCanMove(1)) 
 				applySpeed = 0;
-			}
 		}
+
 		//int applySpeed = (_isUp) ? -3 : 3;
 		_spinSpeed = applySpeed * 2;
-		
+
 		if (_rcForager.left >= 0)
 		{
 			OffsetRect(&_rcForager, applySpeed, 0);
+
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE)
-			{
 				OffsetRect(&_rcForager, _spinSpeed, 0);
-			}
 		}
 
 		//플레이어가 화면 왼쪽으로 안나가게끔 처리 
@@ -387,16 +387,12 @@ void ForagerPlayer::playerMove()
 		int applySpeed = (_isUp) ? -3 : 3;
 
 		if (_isUp) {
-			if (_map->getTiles()[_map->getPlayerPos()-MAPTILEX].terrain == IMAGEMANAGER->findImage("watertile") ||
-				_map->getTiles()[_map->getPlayerPos() - MAPTILEX].objHp > 0) {
+			if (_map->checkCanMove(-MAPTILEX)) 
 				applySpeed = 0;
-			}
 		}
 		else {
-			if (_map->getTiles()[_map->getPlayerPos()+MAPTILEX].terrain == IMAGEMANAGER->findImage("watertile") ||
-				_map->getTiles()[_map->getPlayerPos() + MAPTILEX].objHp > 0) {
+			if (_map->checkCanMove(MAPTILEX)) 
 				applySpeed = 0;
-			}
 		}
 
 		_spinSpeed = applySpeed * 2;
@@ -426,6 +422,7 @@ void ForagerPlayer::playerMove()
 		}
 	}
 }
+
 
 //플레이어가 보는 시선이 마우스 위치에 따라 변경 
 void ForagerPlayer::playerLookingDirection()

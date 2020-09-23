@@ -16,8 +16,8 @@ HRESULT playerTestScene::init()
 void playerTestScene::release()
 {
 
-	_player->release();
-	_statManager->release();
+	//_player->release();
+	//_statManager->release();
 }
 
 void playerTestScene::update()

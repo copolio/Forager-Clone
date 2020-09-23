@@ -26,6 +26,7 @@ HRESULT basicmap::init()
 	tree = IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
 	this->mapSetup();
+	_playerPos = getPlayerPos();
 
 	// 타겟팅 박스 설정
 	_targetingBox = new targetingBox;
@@ -133,7 +134,7 @@ void basicmap::render()
 		}
 	}
 	//플레이어 위치 좌표 렉트
-	Rectangle(getMemDC(), _vTiles[getPlayerPos()].rc);
+	Rectangle(getMemDC(), _vTiles[_playerPos].rc);
 	//플레이어
 	_player->render();
 	_statManager->render();
@@ -156,7 +157,7 @@ void basicmap::render()
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
 	//textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
-	textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(getPlayerPos())).c_str());
+	textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(_playerPos)).c_str());
 	//Rectangle(getMemDC(), _rcPlayer);
 }
 
@@ -392,17 +393,55 @@ float basicmap::getResRatio()
 	return nResTile / float(nPlainTile);
 }
 
+
+// 최초 1회 실행
 int basicmap::getPlayerPos()
 {
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
-	//int playerCenterY = _rcPlayer.bottom;
-	POINT playerPos = { playerCenterX, playerCenterY };
+	_ptPlayerPos = { playerCenterX, playerCenterY };
+
+
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
-			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, playerPos)) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptPlayerPos)) {
 				return (i*MAPTILEY + j);
 			}
 		}
 	}
+}
+
+// 이동 가능 여부 체크
+bool basicmap::checkCanMove(int index)
+{
+
+	cout << "체력 : " << _vTiles[_playerPos + index].objHp << endl;
+
+	// 이동 가능
+	if (_vTiles[_playerPos + index].terrain != watertile &&
+		_vTiles[_playerPos + index].objHp <= 0)
+		return false;
+
+
+	// 이동 불가
+	return true;
+}
+
+// 플레이어 좌표 세팅.
+void basicmap::setPlayerPosTile()
+{
+	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
+	int playerCenterY = _rcPlayer.bottom;
+	_ptPlayerPos = { playerCenterX, playerCenterY };
+
+	// 플레이어 좌표 기준 상하좌우 타일중에 
+	// 지금 밟고 있는 타일로 좌표 변경
+	if (PtInRect(&_vTiles[_playerPos + 1].rc, _ptPlayerPos)) 
+		_playerPos += 1;
+	else if (PtInRect(&_vTiles[_playerPos - 1].rc, _ptPlayerPos)) 
+		_playerPos -= 1;
+	else if (PtInRect(&_vTiles[_playerPos + MAPTILEX].rc, _ptPlayerPos)) 
+		_playerPos += MAPTILEX;
+	else if (PtInRect(&_vTiles[_playerPos - MAPTILEX].rc, _ptPlayerPos)) 
+		_playerPos -= MAPTILEX;
 }

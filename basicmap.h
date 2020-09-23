@@ -55,6 +55,8 @@ private:
 	targetingBox* _targetingBox;
 private:
 	ForagerPlayer* _player;
+	int _playerPos;
+	POINT _ptPlayerPos;
 	ForagerStatManager* _statManager;
 public:
 	HRESULT init();
@@ -71,9 +73,11 @@ public:
 	void setRandomTile();
 	float getResRatio();
 
-	//충돌처리용 플레이어 좌표구하기
-	int getPlayerPos();
-	int getPlayerPos(int distance);
+	
+	int getPlayerPos();				// 플레이어의 최초 좌표값 구하기
+	void setPlayerPosTile(); 		// 플레이어 좌표 세팅
+	bool checkCanMove(int index);	// 플레이어가 이동할 타일 이동 가능 여부 체크
+
 	vector<tile> getTiles() { return _vTiles; };
 };
 

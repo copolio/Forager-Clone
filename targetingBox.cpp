@@ -75,5 +75,6 @@ void targetingBox::CursorOut()
 
 void targetingBox::RemoveTarget()
 {
+	_isCursorOn = false;
 	_isTargetting = false;
 }
