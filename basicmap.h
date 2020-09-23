@@ -3,6 +3,7 @@
 #include "ForagerPlayer.h"
 #include "ForagerStatManager.h"
 #include "targetingBox.h"
+#include "inventory.h"
 
 #define TILEX 12
 #define TILEY 12
@@ -58,6 +59,7 @@ private:
 	int _playerPos;
 	POINT _ptPlayerPos;
 	ForagerStatManager* _statManager;
+	inventory* _inventory;
 public:
 	HRESULT init();
 	void release();

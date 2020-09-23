@@ -11,6 +11,10 @@ HRESULT basicmap::init()
 
 	_player->setPMLink(this);
 
+	//인벤토리
+	_inventory = new inventory;
+	_inventory->init();
+
 	watertile = IMAGEMANAGER->addImage("watertile", "Images/이미지/타일/img_tile_water.bmp", TILESIZE, TILESIZE);
 	plaintile = IMAGEMANAGER->addFrameImage("plaintile", "Images/이미지/타일/img_tile_plain.bmp", 224, 56, 4, 1);
 	plainedge = IMAGEMANAGER->addFrameImage("plainedge", "Images/이미지/타일/img_tile_plainEdge.bmp", 224, 112, 4, 2, true, RGB(255, 0, 255));
@@ -39,6 +43,7 @@ void basicmap::release()
 {
 	_player->release();
 	_statManager->release();
+	_inventory->release();
 }
 
 void basicmap::update()
@@ -65,6 +70,7 @@ void basicmap::update()
 	//플레이어 업데이트
 	_player->update();
 	_statManager->update();
+	_inventory->update();
 	//for (int i = 0; i < _vTiles.size(); i++) {
 	//	if (PtInRect(&_vTiles[i].rc, _ptMouse)) {
 	//		_targetingBox->SetTarget(_vTiles[i].rc);
@@ -154,11 +160,13 @@ void basicmap::render()
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 	_targetingBox->render(getMemDC());
 
-	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
-	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
+	//int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
+	//int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
 	//textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
-	textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(_playerPos)).c_str());
+	//textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(_playerPos)).c_str());
 	//Rectangle(getMemDC(), _rcPlayer);
+
+	_inventory->render();
 }
 
 void basicmap::mapSetup()
