@@ -17,8 +17,8 @@ HRESULT loadingScene::init()
 void loadingScene::release()
 {
 	//로딩클래스 해제
-	_loading->release();
-	SAFE_DELETE(_loading);
+	//_loading->release();
+	//SAFE_DELETE(_loading);
 }
 
 void loadingScene::update()
@@ -55,8 +55,6 @@ void loadingScene::loadingImage()
 
 	_loading->loadImage("mountain", "Images/mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	_loading->loadImage("ball", "Images/ball.bmp", 60, 60, true, RGB(255, 0, 255));
-
-
 
 }
 

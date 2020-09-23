@@ -56,6 +56,8 @@ private:
 	LPIMAGE_INFO	_blendImage;	//알파블렌드 이미지
 	BLENDFUNCTION	_blendFunc;		//알파블렌드 기능
 
+	LPIMAGE_INFO _stretchImage;		//스트레치 이미지
+
 public:
 	image();
 	~image();
@@ -71,7 +73,7 @@ public:
 	
 	//알파블렌드 초기화
 	HRESULT initForAlphaBlend();
-
+	HRESULT initStretch();
 
 	//해제
 	void release();
@@ -87,7 +89,10 @@ public:
 	//프레임렌더
 	void frameRender(HDC hdc, int destX, int destY);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
-
+	//스트레치렌더
+	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight);
+	//알파스트레치렌더
+	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height, BYTE alpha);
 	//루프렌더
 	void loopRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY);
 	void loopAlphaRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY, BYTE alpha);
@@ -108,6 +113,8 @@ public:
 	}
 	//이미지 가로, 세로길이 가져오기
 	inline int getWidth() { return _imageInfo->width; }
+	inline void setWidth(int num) { _imageInfo->width -= num; }
+	inline void settingWidth(int num) { _imageInfo->width = num; }
 	inline int getHeight() { return _imageInfo->height; }
 	//바운딩 박스(충돌용 렉트)
 	inline RECT boundingBox()
@@ -149,6 +156,9 @@ public:
 	//맥스 프레임 가져오기
 	inline int getMaxFrameX() { return _imageInfo->maxFrameX; }
 	inline int getMaxFrameY() { return _imageInfo->maxFrameY; }
+
+
+
 
 };
 

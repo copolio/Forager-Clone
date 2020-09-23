@@ -7,6 +7,11 @@
 #include "pixelCollisionScene.h"
 #include "loadingScene.h"
 #include "maptoolScene.h"
+#include "ForagerPlayer.h"
+#include "playerTestScene.h"
+#include "basicmap.h"
+#include "startScene.h"
+#include "inventory.h"
 
 class mainGame : public gameNode
 {

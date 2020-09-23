@@ -38,6 +38,8 @@ using namespace MY_UTIL;
 #include "sceneManager.h"
 #include "iniData.h"
 #include "soundManager.h"
+#include "TextManager.h"
+#include "EffectManager.h"
 
 
 //=============================================================
@@ -50,6 +52,8 @@ using namespace MY_UTIL;
 #define SCENEMANAGER sceneManager::getSingleton()
 #define INIDATA iniData::getSingleton()
 #define SOUNDMANAGER soundManager::getSingleton()
+#define TEXTMANAGER TextManager::getSingleton()
+#define EFFECTMANAGER EffectManager::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)
@@ -57,8 +61,8 @@ using namespace MY_UTIL;
 #define WINNAME (LPTSTR)(TEXT(" 프로그래밍 22기 "))
 #define WINSTARTX	100
 #define WINSTARTY	100
-#define WINSIZEX		640 + 20 + 640
-#define WINSIZEY		640
+#define WINSIZEX		1280
+#define WINSIZEY		720
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
 
 //=============================================================

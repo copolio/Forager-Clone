@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "image.h"
-image::image() : _imageInfo(NULL), _fileName(NULL), _blendImage(NULL)
+
+#pragma comment(lib, "msimg32.lib")
+
+image::image() : _imageInfo(NULL), _fileName(NULL), _stretchImage(NULL), _blendImage(NULL)
 {
 }
 image::~image()
@@ -233,6 +236,28 @@ HRESULT image::initForAlphaBlend()
 	_blendImage->hOBit = (HBITMAP)SelectObject(_blendImage->hMemDC, _blendImage->hBit);
 	_blendImage->width = WINSIZEX;
 	_blendImage->height = WINSIZEY;
+
+	//DC 해제하기
+	ReleaseDC(_hWnd, hdc);
+
+	return S_OK;
+}
+
+
+HRESULT image::initStretch()
+{
+	//DC 가져오기
+	HDC hdc = GetDC(_hWnd);
+
+	//이미지 정보 구조체 새로 생성후 초기화 하기
+	_stretchImage = new IMAGE_INFO;
+	_stretchImage->loadType = LOAD_FILE;
+	_stretchImage->hMemDC = CreateCompatibleDC(hdc);
+	_stretchImage->hBit = (HBITMAP)LoadImage(_hInstance, _fileName, IMAGE_BITMAP, _imageInfo->width, _imageInfo->height, LR_LOADFROMFILE);
+	_stretchImage->hOBit = (HBITMAP)SelectObject(_stretchImage->hMemDC, _stretchImage->hBit);
+	_stretchImage->width = WINSIZEX;
+	_stretchImage->height = WINSIZEY;
+
 
 	//DC 해제하기
 	ReleaseDC(_hWnd, hdc);
@@ -496,6 +521,43 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 			_imageInfo->currentFrameX * _imageInfo->frameWidth,
 			_imageInfo->currentFrameY * _imageInfo->frameHeight, SRCCOPY);
 	}
+}
+
+void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height)
+{
+	if (!_stretchImage) initStretch();
+
+	if (_isTrans) {
+		BitBlt(_stretchImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, hdc, dx, dy, SRCCOPY);
+
+		GdiTransparentBlt(_stretchImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _transColor);
+
+		SetStretchBltMode(hdc, COLORONCOLOR);
+		StretchBlt(hdc, dx, dy, width, height, _stretchImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, SRCCOPY);
+	}
+	else {
+		SetStretchBltMode(hdc, COLORONCOLOR);
+		StretchBlt(hdc, dx, dy, width, height, _stretchImage->hMemDC, sourX, sourY, _imageInfo->width, _imageInfo->height, SRCCOPY);
+	}
+}
+
+void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height, BYTE alpha)
+{
+	if (!_stretchImage) initStretch();
+	if (!_blendImage) this->initForAlphaBlend();
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	if (_isTrans) {
+		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, hdc, dx, dy, SRCCOPY);
+		TransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+		GdiAlphaBlend(hdc, dx, dy, width, height, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
+	}
+	else {
+		SetStretchBltMode(hdc, COLORONCOLOR);
+		StretchBlt(hdc, dx, dy, width, height, _stretchImage->hMemDC, sourX, sourY, _imageInfo->width, _imageInfo->height, SRCCOPY);
+	}
+
+
 }
 
 //루프렌더
