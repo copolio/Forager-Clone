@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
 #include "ForagerStatManager.h"
+#include "basicmap.h"
 
 HRESULT ForagerPlayer::init()
 {
@@ -339,8 +340,20 @@ void ForagerPlayer::playerMove()
 	//플레이어 좌우 움직임 처리 
 	if (_isMoveHorizon)
 	{
+		
 		int applySpeed = (_isLeft) ? -3 : 3;
-
+		if (_isLeft) {
+			if (_map->getTiles()[_map->getPlayerPos()-1].terrain == IMAGEMANAGER->findImage("watertile") ||
+				_map->getTiles()[_map->getPlayerPos()-1].objHp > 0) {
+				applySpeed = 0;
+			}
+		}
+		else {
+			if (_map->getTiles()[_map->getPlayerPos()+1].terrain == IMAGEMANAGER->findImage("watertile") ||
+				_map->getTiles()[_map->getPlayerPos()+1].objHp > 0) {
+				applySpeed = 0;
+			}
+		}
 		//int applySpeed = (_isUp) ? -3 : 3;
 		_spinSpeed = applySpeed * 2;
 		
@@ -372,6 +385,19 @@ void ForagerPlayer::playerMove()
 	if (_isMoveVertical)
 	{
 		int applySpeed = (_isUp) ? -3 : 3;
+
+		if (_isUp) {
+			if (_map->getTiles()[_map->getPlayerPos()-MAPTILEX].terrain == IMAGEMANAGER->findImage("watertile") ||
+				_map->getTiles()[_map->getPlayerPos() - MAPTILEX].objHp > 0) {
+				applySpeed = 0;
+			}
+		}
+		else {
+			if (_map->getTiles()[_map->getPlayerPos()+MAPTILEX].terrain == IMAGEMANAGER->findImage("watertile") ||
+				_map->getTiles()[_map->getPlayerPos() + MAPTILEX].objHp > 0) {
+				applySpeed = 0;
+			}
+		}
 
 		_spinSpeed = applySpeed * 2;
 

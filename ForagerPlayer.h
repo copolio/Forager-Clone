@@ -13,12 +13,13 @@ enum STATE
 
 };
 
-
+class basicmap;
 class ForagerStatManager;
 
 class ForagerPlayer :public gameNode
 {
-
+private:
+	basicmap* _map;
 private:
 	image* _foragerIdle;
 	image* _foragerRun;
@@ -97,6 +98,6 @@ public:
 	RECT getPlayerRect() { return _rcForager; };
 	void setPlayerRect(RECT pos) { _rcForager = pos; };
 
-
+	void setPMLink(basicmap* map) { _map = map; };
 };
 

@@ -9,6 +9,7 @@ HRESULT basicmap::init()
 	_player->init();
 	_statManager->init();
 
+	_player->setPMLink(this);
 
 	watertile = IMAGEMANAGER->addImage("watertile", "Images/이미지/타일/img_tile_water.bmp", TILESIZE, TILESIZE);
 	plaintile = IMAGEMANAGER->addFrameImage("plaintile", "Images/이미지/타일/img_tile_plain.bmp", 224, 56, 4, 1);
@@ -25,6 +26,10 @@ HRESULT basicmap::init()
 	tree = IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
 	this->mapSetup();
+
+	// 타겟팅 박스 설정
+	_targetingBox = new targetingBox;
+	_targetingBox->init();
 
 	return S_OK;
 }
@@ -59,6 +64,13 @@ void basicmap::update()
 	//플레이어 업데이트
 	_player->update();
 	_statManager->update();
+	//for (int i = 0; i < _vTiles.size(); i++) {
+	//	if (PtInRect(&_vTiles[i].rc, _ptMouse)) {
+	//		_targetingBox->SetTarget(_vTiles[i].rc);
+	//		break;
+	//	}
+	//}
+	_targetingBox->update();
 }
 
 void basicmap::render()
@@ -120,7 +132,8 @@ void basicmap::render()
 			}
 		}
 	}
-
+	//플레이어 위치 좌표 렉트
+	Rectangle(getMemDC(), _vTiles[getPlayerPos()].rc);
 	//플레이어
 	_player->render();
 	_statManager->render();
@@ -138,10 +151,12 @@ void basicmap::render()
 	}
 	// 커서 렌더
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
+	_targetingBox->render(getMemDC());
 
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
-	textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
+	//textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
+	textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(getPlayerPos())).c_str());
 	//Rectangle(getMemDC(), _rcPlayer);
 }
 
@@ -190,6 +205,8 @@ void basicmap::setTile()
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
 				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+					//_targetingBox->RemoveTarget();
+					//_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 						_vTiles[i*MAPTILEY + j].objHp -= 1;
 					}
@@ -203,7 +220,7 @@ void basicmap::setTile()
 			if (stop) break;
 		}
 	}
-	if (INPUT->GetKey(VK_RBUTTON)) {
+	if (INPUT->GetKey(VK_RBUTTON)) {		
 		for (int i = 0; i < MAPTILEY; i++) {
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
@@ -293,10 +310,10 @@ void basicmap::cameraMove()
 
 void basicmap::cameraFocus()
 {
-	if (_ptMouse.x < WINSIZEX / 2 - 100 ||
-		_ptMouse.x > WINSIZEX / 2 + 100 ||
-		_ptMouse.y < WINSIZEY / 2 - 100 ||
-		_ptMouse.y > WINSIZEY / 2 + 100) return;
+	//if (_ptmouse.x < winsizex / 2 - 100 ||
+	//	_ptmouse.x > winsizex / 2 + 100 ||
+	//	_ptmouse.y < winsizey / 2 - 100 ||
+	//	_ptmouse.y > winsizey / 2 + 100) return;
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
 	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
 	if (playerCenterX != WINSIZEX/2) {
@@ -331,6 +348,8 @@ void basicmap::setRandomTile()
 	while (true) {
 		int i = RANDOM->range(TILEY*MAPY);
 		int j = RANDOM->range(MAPTILEX);
+		//현재 플레이어가 서있는 타일은 스킵
+		if (i + j == getPlayerPos()) continue;
 		if (_vTiles[i*MAPTILEY + j].terrain == plaintile &&
 			_vTiles[i*MAPTILEY + j].objHp == 0) {
 			switch (RANDOM->range(NUMOBJECTS)) {
@@ -371,4 +390,19 @@ float basicmap::getResRatio()
 		}
 	}
 	return nResTile / float(nPlainTile);
+}
+
+int basicmap::getPlayerPos()
+{
+	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
+	int playerCenterY = _rcPlayer.top + (_rcPlayer.bottom - _rcPlayer.top) / 2;
+	//int playerCenterY = _rcPlayer.bottom;
+	POINT playerPos = { playerCenterX, playerCenterY };
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, playerPos)) {
+				return (i*MAPTILEY + j);
+			}
+		}
+	}
 }

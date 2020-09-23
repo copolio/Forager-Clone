@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "ForagerPlayer.h"
 #include "ForagerStatManager.h"
+#include "targetingBox.h"
 
 #define TILEX 12
 #define TILEY 12
@@ -48,10 +49,10 @@ private:
 	image* rock;
 	image* tree;
 private:
-	tile _tiles[TILEY][TILEX];
 	vector<tile> _vTiles;
 	RECT _rcCam;
 	RECT _rcPlayer;
+	targetingBox* _targetingBox;
 private:
 	ForagerPlayer* _player;
 	ForagerStatManager* _statManager;
@@ -69,6 +70,11 @@ public:
 	//무작위 타일에 자원 생성
 	void setRandomTile();
 	float getResRatio();
+
+	//충돌처리용 플레이어 좌표구하기
+	int getPlayerPos();
+	int getPlayerPos(int distance);
+	vector<tile> getTiles() { return _vTiles; };
 };
 
 
