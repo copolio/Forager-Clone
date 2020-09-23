@@ -7,6 +7,7 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("Q", "Images/이미지/GUI/Q버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("E", "Images/이미지/GUI/E버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("커서", "Images/이미지/GUI/커서.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory_Kinds", "Images/이미지/GUI/inventory_Kinds.bmp", 383, 104, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_item_icon", "Images/이미지/GUI/img_item_icon.bmp", 78, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_equip_icon", "Images/이미지/GUI/img_equip_icon.bmp", 78, 86, true, RGB(255, 0, 255));
@@ -17,6 +18,15 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("item_slot", "Images/이미지/GUI/img_UI_InventorySlotBoundary.bmp", 88, 88, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_equip_slot", "Images/이미지/GUI/img_equip_slot.bmp", 582, 102, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("2", "Images/이미지/GUI/2.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("3", "Images/이미지/GUI/3.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("4", "Images/이미지/GUI/4.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("5", "Images/이미지/GUI/5.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("6", "Images/이미지/GUI/6.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("7", "Images/이미지/GUI/7.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("8", "Images/이미지/GUI/8.bmp", 15, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 
 
 
@@ -26,7 +36,9 @@ HRESULT inventory::init()
 	targetBox[3].img_num = 3;
 
 	inven_kinds = ITEM;
-
+	for (int i = 1; i < 10; i++) {
+		item_count[i-1] = i;
+	}
 	for (int i = 0; i < 2; i++){
 		for (int j = 0; j < 8; j++) {
 
@@ -42,6 +54,7 @@ HRESULT inventory::init()
 		}
 	}
 
+	
 	for (int i = 0; i < 7; i++) {
 		inventory_slot* inven = new inventory_slot;
 		inven->isCheck = false;
@@ -56,6 +69,11 @@ HRESULT inventory::init()
 	player_equip[0]->Kinds = ITEM_FPPD;
 	player_equip[0]->img_name = "pick";
 
+	player_inventory[0]->Kinds = ITEM_MATERIAL;
+	player_inventory[0]->isCheck = true;
+	player_inventory[0]->count = 7;
+	player_inventory[0]->img_name = "wood";
+	player_inventory[0]->item_name = "목재";
 	istargetBox = false;
 	isCheck = false;
 
@@ -72,7 +90,7 @@ void inventory::update()
 	if (isCheck) {
 		mouse_targetBox();
 	}
-	
+	item_check();
 }
 
 void inventory::render()
@@ -96,13 +114,21 @@ void inventory::render()
 			for (int i = 0; i < player_inventory.size(); i++) {
 				//Rectangle(getMemDC(), player_inventory[i]->_rc);
 				IMAGEMANAGER->render("item_slot", getMemDC(), player_inventory[i]->_rc.left, player_inventory[i]->_rc.top);
+				if (player_inventory[i]->img_name != "") {
+					IMAGEMANAGER->render(player_inventory[i]->img_name, getMemDC(), player_inventory[i]->_rc.left+15, player_inventory[i]->_rc.top+15);
+				}
+				
+				if (player_inventory[i]->count > 0) {
+					IMAGEMANAGER->render(to_string(player_inventory[i]->count), getMemDC(), player_inventory[i]->_rc.left + 55, player_inventory[i]->_rc.top + 55);
+				}
 			}
-
+			
 			if (istargetBox) {
 				for (int i = 0; i < 4; i++) {
 					IMAGEMANAGER->frameRender("img_UI_TargetingBox", getMemDC(), targetBox[i].x, targetBox[i].y, targetBox[i].img_num, 0);
 				}
 				IMAGEMANAGER->render("img_UI_ItemTooltip", getMemDC(), 900, 150);
+				
 			}
 			break;
 		case EQUIP:
@@ -195,4 +221,17 @@ void inventory::keyDown()
 		istargetBox = false;
 	}
 
+}
+
+void inventory::item_check()
+{
+	if (INPUT->GetKeyDown('C')) {
+		for (int i = 0; i < player_inventory.size(); i++) {
+
+			if (player_inventory[i]->item_name != "목재")continue;
+			if (player_inventory[i]->count > 2) {
+				player_inventory[i]->count -= 2;
+			}
+		}
+	}
 }
