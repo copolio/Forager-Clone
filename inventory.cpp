@@ -21,8 +21,11 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("inventory_background", "Images/이미지/GUI/inventory_background.bmp", 1920, 1080, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_industry_icon", "Images/이미지/GUI/img_industry_icon.bmp", 226, 72, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_steelwork_icon", "Images/이미지/GUI/img_steelwork_icon.bmp", 205, 59, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_anvil_icon", "Images/이미지/GUI/img_anvil_icon.bmp", 205, 59, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_sewingmachine_icon", "Images/이미지/GUI/img_sewingmachine_icon.bmp", 205, 59, true, RGB(255, 0, 255));
 	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112/2, 160/2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("모루", "Images/이미지/오브젝트/모루.bmp", 100/2, 90/2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
 
@@ -229,6 +232,8 @@ void inventory::render()
 			if (iserection) {
 
 				IMAGEMANAGER->render("img_steelwork_icon", getMemDC(), WINSIZEX - 240, 100);
+				IMAGEMANAGER->render("img_anvil_icon", getMemDC(), WINSIZEX - 240, 100+59);
+				IMAGEMANAGER->render("img_sewingmachine_icon", getMemDC(), WINSIZEX - 240, 100+59*2);
 
 			}
 			if (is_erection_select) {
