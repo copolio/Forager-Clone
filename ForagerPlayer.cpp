@@ -45,6 +45,8 @@ HRESULT ForagerPlayer::init()
 	_hammer = IMAGEMANAGER->findImage("Hammer");
 	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
 	
+	_footWalkCount = 0;
+	_footWalkEffectInterval = 5;
 
 	//플레이어 회전
 	for(int i = 1 ; i < 12; i++)
@@ -153,6 +155,8 @@ void ForagerPlayer::render()
 
 void ForagerPlayer::animation()
 {
+
+
 	switch (_state)
 	{
 	case IDLE:
@@ -389,6 +393,17 @@ void ForagerPlayer::playerMove()
 			OffsetRect(&_rcForager, 0, _spinSpeed);
 		}
 
+	}
+
+	if (_state == ROTATE || _state == RUN) {
+		// 발걸음 이펙트
+		if (_footWalkCount++ >= _footWalkEffectInterval) {
+			_footWalkCount = 0;
+			POINT ptCenter = { _rcForager.left + (_rcForager.right - _rcForager.left) / 2 + RANDOM->range(-10, 0),
+							 _rcForager.bottom - RANDOM->range(-1, -6) };
+			float randomScale = RANDOM->range(0.01f, 0.03f);
+			EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, randomScale, 50, 150, true);
+		}
 	}
 }
 

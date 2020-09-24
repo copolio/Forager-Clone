@@ -96,7 +96,7 @@ void basicmap::update()
 	//} 인벤토리 창을 열었을경우 플레이어 움직임 멈춤
 	
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
-
+	EFFECTMANAGER->update();
 	_statManager->update();
 	_inventory->update();
 
@@ -171,7 +171,7 @@ void basicmap::render()
 	//플레이어
 	_player->render();
 	_statManager->render();
-
+	EFFECTMANAGER->render(getMemDC());
 	//오브젝트 렌더
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
@@ -215,7 +215,11 @@ void basicmap::render()
 					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
 					_vDropItems.push_back(_dropItem);
 				}
-				
+				// 연기 이펙트
+				POINT ptCenter = { _vTiles[i*MAPTILEY + j].rc.left + (_vTiles[i*MAPTILEY + j].rc.right - _vTiles[i*MAPTILEY + j].rc.left) / 2,
+									_vTiles[i*MAPTILEY + j].rc.top + (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].rc.top) / 2 };
+				EFFECTMANAGER->ShowEffectFrame("DigSmoke", ptCenter, true);
+
 				_vTiles[i*MAPTILEY + j].objHp = -5;
 			
 			}
@@ -240,7 +244,10 @@ void basicmap::render()
 					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
 					_vDropItems.push_back(_dropItem);
 				}
-
+				// 연기 이펙트
+				POINT ptCenter = { _vTiles[i*MAPTILEY + j].rc.left + (_vTiles[i*MAPTILEY + j].rc.right - _vTiles[i*MAPTILEY + j].rc.left) / 2,
+									_vTiles[i*MAPTILEY + j].rc.top + (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].rc.top) / 2 };
+				EFFECTMANAGER->ShowEffectFrame("DigSmoke", ptCenter, true);
 				_vTiles[i*MAPTILEY + j].objHp = -5;
 			}
 
@@ -263,6 +270,10 @@ void basicmap::render()
 					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
 					_vDropItems.push_back(_dropItem);
 				}
+				// 연기 이펙트
+				POINT ptCenter = { _vTiles[i*MAPTILEY + j].rc.left + (_vTiles[i*MAPTILEY + j].rc.right - _vTiles[i*MAPTILEY + j].rc.left) / 2,
+									_vTiles[i*MAPTILEY + j].rc.top + (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].rc.top) / 2 };
+				EFFECTMANAGER->ShowEffectFrame("DigSmoke", ptCenter, true);
 
 				_vTiles[i*MAPTILEY + j].objHp = -5;
 			}
@@ -364,6 +375,10 @@ void basicmap::setTile()
 						//}
 						if (_vTiles[i*MAPTILEY + j].objHp == 0 && 
 							_vTiles[i*MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile")) {
+								// 연기 이펙트 (추후 함수로 대체할 예정)
+								POINT ptCenter = { _vTiles[i*MAPTILEY + j].rc.left + (_vTiles[i*MAPTILEY + j].rc.right - _vTiles[i*MAPTILEY + j].rc.left) / 2,
+													_vTiles[i*MAPTILEY + j].rc.top + (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].rc.top) / 2 };
+								EFFECTMANAGER->ShowEffectFrame("DigSmoke", ptCenter, true);
 								_vTiles[i*MAPTILEY + j].object = steelwork;
 								_vTiles[i*MAPTILEY + j].objHp = 500;
 								_vTiles[i*MAPTILEY + j].objFrameX = 0;
