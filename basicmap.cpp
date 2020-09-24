@@ -320,7 +320,6 @@ void basicmap::setTile()
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
 				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-					_targetingBox->RemoveTarget();
 					_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc, 2, i * MAPTILEY + j, 4, true);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 						_vTiles[i*MAPTILEY + j].objHp -= 1;
