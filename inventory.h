@@ -16,6 +16,8 @@ enum Kinds
 	EQUIP,
 	ERECTION
 };
+
+//class basicmap;
 class inventory : public gameNode
 {
 private:
@@ -27,7 +29,6 @@ public:
 	void release();
 	void update();
 	void render();
-
 	void itemRemove();
 	void mouse_targetBox();
 	void mouse_setingRc(RECT rc);
@@ -36,6 +37,8 @@ public:
 	string item_count[9];
 	void item_check();
 
+	vector<inventory_slot*> getPlayerInventory() { return player_inventory; }
+	void setPlayerInven(vector<inventory_slot*> playerInven) { player_inventory = playerInven; }
 private:
 	vector<inventory_slot*> player_inventory;  
 	vector<inventory_slot*> player_equip;

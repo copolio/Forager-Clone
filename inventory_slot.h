@@ -2,9 +2,9 @@
 enum ItemKinds
 {
 	ITEM_NULL,
-	ITEM_FPPD,
+	ITEM_FOOD,
 	ITEM_EQUIP,
-	ITEM_MATERIAL
+	ITEM_MATERIAL,
 
 };
 

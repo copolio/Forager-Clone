@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "basicmap.h"
 
+
 HRESULT basicmap::init()
 {
 	_player = new ForagerPlayer;
@@ -10,7 +11,7 @@ HRESULT basicmap::init()
 	_statManager->init();
 
 	_player->setPMLink(this);
-
+	is_item_check = true;
 	//인벤토리
 	_inventory = new inventory;
 	_inventory->init();
@@ -32,15 +33,28 @@ HRESULT basicmap::init()
 	rock = IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	tree = IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
+	berryDrop = IMAGEMANAGER->addImage("berryDrop", "Images/이미지/아이템/berry.bmp", 56, 56, true, RGB(255, 0, 255));
+	rockDrop = IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
+	treeDrop = IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
+
 	//건물
 	steelwork = IMAGEMANAGER->addFrameImage("steelwork", "Images/이미지/오브젝트/building/img_object_steelwork.bmp", 336/2, 168/2, 3, 1, true, RGB(255,0,255));
 
 	this->mapSetup();
+	
+
 	_playerPos = getPlayerPos();
 
 	// 타겟팅 박스 설정
 	_targetingBox = new targetingBox;
 	_targetingBox->init();
+
+	//_farming->setBMLink(_vTiles);
+
+
+
+	
+	
 
 	return S_OK;
 }
@@ -98,6 +112,9 @@ void basicmap::update()
 		if (stop) break;
 	}
 	_targetingBox->update();
+
+	dropItemCollision();
+
 }
 
 void basicmap::render()
@@ -153,9 +170,7 @@ void basicmap::render()
 					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 3, 0);
 					underwater->render(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom);
 					wave->alphaRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom+20+wavetick, 100);
-
 				}
-
 			}
 		}
 	}
@@ -188,6 +203,75 @@ void basicmap::render()
 				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
 				//Rectangle(getMemDC(), _vTiles[i*MAPTILEY + j].rc);
 			}
+			
+			//부수면 열매나옴
+			if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("berry")))
+			{
+
+				int dropItemLot = RANDOM->range(2, 3);
+				for (int c = 0; c < dropItemLot; c++)
+				{
+					float dX = (_vTiles[i*MAPTILEY + j].rc.left + RANDOM->range(-30,30));
+					float dY = (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight()+ RANDOM->range(-30, 30));
+					
+					dropItem _dropItem;
+
+					_dropItem.dropItems = berryDrop;
+					_dropItem.imgName = "열매";
+					_dropItem.dropItemX = dX;
+					_dropItem.dropItemY = dY;
+					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
+					_vDropItems.push_back(_dropItem);
+				}
+				
+				_vTiles[i*MAPTILEY + j].objHp = -5;
+			
+			}
+
+			//부수면 통나무나옴
+			else if (_vTiles[i*MAPTILEY + j].objHp == 1 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("tree")))
+			{
+				int dropItemLot = RANDOM->range(2, 3);
+				for (int c = 0; c < dropItemLot; c++)
+				{
+					float dX = (_vTiles[i*MAPTILEY + j].rc.left + _vTiles[i*MAPTILEY + j].rc.right) / 2 + RANDOM->range(-20, 20);
+					float dY = (_vTiles[i*MAPTILEY + j].rc.top + _vTiles[i*MAPTILEY + j].rc.bottom) / 2 + RANDOM->range(-20, 20);
+					cout << dX << endl;
+					cout << dY << endl;
+					dropItem _dropItem;
+
+					_dropItem.dropItems = treeDrop;
+					_dropItem.imgName = "목재";
+					_dropItem.dropItemX = dX;
+					_dropItem.dropItemY = dY;
+					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
+					_vDropItems.push_back(_dropItem);
+				}
+
+				_vTiles[i*MAPTILEY + j].objHp = -5;
+			}
+
+			//부수면 돌나옴 
+			else if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("rock")))
+			{
+				int dropItemLot = RANDOM->range(2, 3);
+				for (int c = 0; c < dropItemLot; c++)
+				{
+					float dX = (_vTiles[i*MAPTILEY + j].rc.left + _vTiles[i*MAPTILEY + j].rc.right) / 2 + RANDOM->range(-30, 30);
+					float dY = (_vTiles[i*MAPTILEY + j].rc.top + _vTiles[i*MAPTILEY + j].rc.bottom) / 2 + RANDOM->range(-30, 30);
+
+					dropItem _dropItem;
+
+					_dropItem.dropItems = rockDrop;
+					_dropItem.imgName = "돌";
+					_dropItem.dropItemX = dX;
+					_dropItem.dropItemY = dY;
+					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
+					_vDropItems.push_back(_dropItem);
+				}
+
+				_vTiles[i*MAPTILEY + j].objHp = -5;
+			}
 		}
 	}
 	// 커서 렌더
@@ -199,6 +283,12 @@ void basicmap::render()
 	//textOut(getMemDC(), 0, 0, (to_string(CAMRANGE)+" "+ to_string(getDistance(playerCenterX - CAMSPEED, playerCenterY, WINSIZEX / 2, WINSIZEY / 2))).c_str());
 	//textOut(getMemDC(), 0, 0, ("플레이어 좌표 : "+ to_string(_playerPos)).c_str());
 	//Rectangle(getMemDC(), _rcPlayer);
+	
+	//드랍아이템 벡터 rc위치에 해당하는 드랍아이템 이미지 그리기 
+	for (int i = 0; i < _vDropItems.size(); i++)
+	{
+		_vDropItems[i].dropItems->render(getMemDC(), _vDropItems[i].rc.left, _vDropItems[i].rc.top);
+	}
 
 	_inventory->render();
 }
@@ -347,6 +437,12 @@ void basicmap::cameraMove()
 		playerPos.left -= CAMSPEED;
 		playerPos.right -= CAMSPEED;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.left -= CAMSPEED;
+			_vDropItems[i].rc.right -= CAMSPEED;
+		}
 	}
 	if (_ptMouse.x < (WINSIZEX / 2) - 100 &&
 		_vTiles[0].rc.left < 0 &&
@@ -363,6 +459,12 @@ void basicmap::cameraMove()
 		playerPos.left += CAMSPEED;
 		playerPos.right += CAMSPEED;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.left += CAMSPEED;
+			_vDropItems[i].rc.right += CAMSPEED;
+		}
 	}
 	if (_ptMouse.y > WINSIZEY / 2 + 100 &&
 		_vTiles.back().rc.bottom > WINSIZEY &&
@@ -379,6 +481,12 @@ void basicmap::cameraMove()
 		playerPos.top -= CAMSPEED;
 		playerPos.bottom -= CAMSPEED;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.top -= CAMSPEED;
+			_vDropItems[i].rc.bottom -= CAMSPEED;
+		}
 	}
 	if (_ptMouse.y < WINSIZEY / 2 - 100 &&
 		_vTiles[0].rc.top < 0 &&
@@ -396,6 +504,12 @@ void basicmap::cameraMove()
 		playerPos.top += CAMSPEED;
 		playerPos.bottom += CAMSPEED;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.top += CAMSPEED;
+			_vDropItems[i].rc.bottom += CAMSPEED;
+		}
 	}
 }
 
@@ -418,6 +532,12 @@ void basicmap::cameraFocus()
 		playerPos.left += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
 		playerPos.right += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.left += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
+			_vDropItems[i].rc.right += WINSIZEX / 2 - playerCenterX < 0 ? -1 : 1;
+		}
 	}
 	if (playerCenterY != WINSIZEY/2) {
 		for (int i = 0; i < MAPTILEY; i++) {
@@ -430,11 +550,18 @@ void basicmap::cameraFocus()
 		playerPos.top += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
 		playerPos.bottom += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
 		_player->setPlayerRect(playerPos);
+
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			_vDropItems[i].rc.top += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+			_vDropItems[i].rc.bottom += WINSIZEY / 2 - playerCenterY < 0 ? -1 : 1;
+		}
 	}
 }
 
 void basicmap::setRandomTile()
 {
+	
 	if (this->getResRatio() > RESRATIOLIMIT) return;
 	while (true) {
 		int i = RANDOM->range(TILEY*MAPY);
@@ -446,14 +573,17 @@ void basicmap::setRandomTile()
 			switch (RANDOM->range(NUMOBJECTS)) {
 			case 0:
 				_vTiles[i*MAPTILEY + j].object = tree;
+
 				break;
 
 			case 1:
 				_vTiles[i*MAPTILEY + j].object = berry;
+			
 				break;
 
 			case 2:
 				_vTiles[i*MAPTILEY + j].object = rock;
+				
 				break;
 			}
 			_vTiles[i*MAPTILEY + j].objFrameX = 0;
@@ -521,6 +651,87 @@ bool basicmap::checkCanMove(int index)
 	// 이동 불가
 	return true;
 }
+
+
+//드랍아이템 삭제 
+void basicmap::removeDropItem(int index)
+{
+	_vDropItems.erase(_vDropItems.begin() + index);
+}
+
+//드랍아이템과 플레이어 충돌(충돌시 아이템 획득)
+void basicmap::dropItemCollision()
+{
+	RECT temp;
+	bool is_check = true;
+	for (int i = 0; i < _vDropItems.size(); i++)
+	{
+		if (IntersectRect(&temp, &_rcPlayer, &_vDropItems[i].rc))
+		{
+			for (int k = 0; k < _inventory->getPlayerInventory().size(); k++)
+			{
+				if (_inventory->getPlayerInventory()[k]->item_name == _vDropItems[i].imgName)
+				{
+					is_item_check = false;
+					_inventory->getPlayerInventory()[k]->count++;
+					removeDropItem(i);
+					break;
+				}
+				else {
+					is_check = false;
+				}
+
+			}
+
+
+		}
+	}
+		
+	if (!is_check) {
+		for (int i = 0; i < _vDropItems.size(); i++)
+		{
+			if (IntersectRect(&temp, &_rcPlayer, &_vDropItems[i].rc))
+			{
+
+				for (int c = 0; c < _inventory->getPlayerInventory().size(); c++)
+				{
+					if (_inventory->getPlayerInventory()[c]->img_name != "")continue;		//인벤토리 안에 아이템이 없다면~ 
+
+					if (_vDropItems[i].imgName == "목재")
+					{
+						_inventory->getPlayerInventory()[c]->isCheck = true;
+						_inventory->getPlayerInventory()[c]->Kinds = ITEM_MATERIAL;
+						_inventory->getPlayerInventory()[c]->count = 1;
+						_inventory->getPlayerInventory()[c]->item_name = "목재";
+						_inventory->getPlayerInventory()[c]->img_name = "treeDrop";
+					}
+					else if (_vDropItems[i].imgName == "돌")
+					{
+						_inventory->getPlayerInventory()[c]->isCheck = true;
+						_inventory->getPlayerInventory()[c]->Kinds = ITEM_MATERIAL;
+						_inventory->getPlayerInventory()[c]->count = 1;
+						_inventory->getPlayerInventory()[c]->item_name = "돌";
+						_inventory->getPlayerInventory()[c]->img_name = "rockDrop";
+					}
+					else if (_vDropItems[i].imgName == "열매")
+					{
+						_inventory->getPlayerInventory()[c]->isCheck = true;
+						_inventory->getPlayerInventory()[c]->Kinds = ITEM_FOOD;
+						_inventory->getPlayerInventory()[c]->count = 1;
+						_inventory->getPlayerInventory()[c]->item_name = "열매";
+						_inventory->getPlayerInventory()[c]->img_name = "berryDrop";
+					}
+					removeDropItem(i);
+					break;
+				}
+			}
+		}
+	}
+
+
+	
+}
+
 
 // 플레이어 좌표 세팅.
 void basicmap::setPlayerPosTile()

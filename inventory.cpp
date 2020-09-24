@@ -2,13 +2,12 @@
 #include "inventory.h"
 #include "basicmap.h"
 
+
 HRESULT inventory::init()
 {
-
 	IMAGEMANAGER->addImage("Q", "Images/이미지/GUI/Q버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("E", "Images/이미지/GUI/E버튼.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("커서", "Images/이미지/GUI/커서.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory_Kinds", "Images/이미지/GUI/inventory_Kinds.bmp", 383, 104, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_item_icon", "Images/이미지/GUI/img_item_icon.bmp", 78, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_equip_icon", "Images/이미지/GUI/img_equip_icon.bmp", 78, 86, true, RGB(255, 0, 255));
@@ -26,6 +25,8 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112/2, 160/2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("0", "Images/이미지/GUI/0.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("2", "Images/이미지/GUI/2.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("3", "Images/이미지/GUI/3.bmp", 15, 19, true, RGB(255, 0, 255));
@@ -59,13 +60,13 @@ HRESULT inventory::init()
 			inven->x = 80 + j * 95;
 			inven->y = 150 + i * 95;
 			inven->count = 0;
+			inven->item_name = "";
 			inven->img_name = "";
 			inven->_rc = RectMake( inven->x, inven->y, 88, 88);
 			player_inventory.push_back(inven);
 		}
 	}
 
-	
 	for (int i = 0; i < 7; i++) {
 		inventory_slot* inven = new inventory_slot;
 		inven->isCheck = false;
@@ -77,14 +78,8 @@ HRESULT inventory::init()
 		inven->_rc = RectMake(inven->x, inven->y, 72, 72);
 		player_equip.push_back(inven);
 	}
-	player_equip[0]->Kinds = ITEM_FPPD;
+	player_equip[0]->Kinds = ITEM_EQUIP;
 	player_equip[0]->img_name = "pick";
-
-	player_inventory[0]->Kinds = ITEM_MATERIAL;
-	player_inventory[0]->isCheck = true;
-	player_inventory[0]->count = 7;
-	player_inventory[0]->img_name = "wood";
-	player_inventory[0]->item_name = "목재";
 	istargetBox = false;
 	isCheck = false;
 	iserection - false;
@@ -154,7 +149,46 @@ void inventory::render()
 				if (player_inventory[i]->img_name != "") {
 					IMAGEMANAGER->render(player_inventory[i]->img_name, getMemDC(), player_inventory[i]->_rc.left+15, player_inventory[i]->_rc.top+15);
 				}
-				
+				int item_count = player_inventory[i]->count;
+				int c=0;
+				while (item_count != NULL) {
+					switch (item_count %10)
+					{
+					case 0:
+						IMAGEMANAGER->render(to_string(0), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 1:
+						IMAGEMANAGER->render(to_string(1), getMemDC(), player_inventory[i]->_rc.left + 55- c *10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 2:
+						IMAGEMANAGER->render(to_string(2), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 3:
+						IMAGEMANAGER->render(to_string(3), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 4:
+						IMAGEMANAGER->render(to_string(4), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 5:
+						IMAGEMANAGER->render(to_string(5), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 6:
+						IMAGEMANAGER->render(to_string(6), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 7:
+						IMAGEMANAGER->render(to_string(7), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 8:
+						IMAGEMANAGER->render(to_string(8), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					case 9:
+						IMAGEMANAGER->render(to_string(9), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
+						break;
+					}
+					c++;
+					item_count /= 10;
+
+				}
 				if (player_inventory[i]->count > 0) {
 					IMAGEMANAGER->render(to_string(player_inventory[i]->count), getMemDC(), player_inventory[i]->_rc.left + 55, player_inventory[i]->_rc.top + 55);
 				}

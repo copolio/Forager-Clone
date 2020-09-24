@@ -4,6 +4,7 @@
 #include "ForagerStatManager.h"
 #include "targetingBox.h"
 #include "inventory.h"
+#include "farming.h"
 
 #define TILEX 12
 #define TILEY 12
@@ -23,6 +24,7 @@
 enum GROUNDLEVEL {
 	TERRAIN, OBJECT
 };
+
 struct tile {
 	RECT rc;
 	GROUNDLEVEL level;
@@ -35,6 +37,16 @@ struct tile {
 	int objFrameX;
 	int objFrameY;
 };
+
+struct dropItem {
+	RECT rc;
+	image* dropItems;
+	string imgName;
+	float dropItemX;
+	float dropItemY;
+
+};
+
 class basicmap : public gameNode
 {
 private:
@@ -52,6 +64,11 @@ private:
 	image* rock;
 	image* tree;
 private:
+	image* treeDrop;
+	image* rockDrop;
+	image* berryDrop;
+	
+private:
 	vector<tile> _vTiles;
 	RECT _rcCam;
 	RECT _rcPlayer;
@@ -62,6 +79,10 @@ private:
 	POINT _ptPlayerPos;
 	ForagerStatManager* _statManager;
 	inventory* _inventory;
+
+private:
+	vector<dropItem> _vDropItems;
+	bool is_item_check = false;
 public:
 	HRESULT init();
 	void release();
@@ -82,7 +103,12 @@ public:
 	void setPlayerPosTile(); 		// 플레이어 좌표 세팅
 	bool checkCanMove(int index);	// 플레이어가 이동할 타일 이동 가능 여부 체크
 
+	void removeDropItem(int index);
+	void dropItemCollision();
+
+
 	vector<tile> getTiles() { return _vTiles; };
+	void setMapTiles(vector<tile> checkTiles) { _vTiles = checkTiles; }
 	void setTiles(vector<tile> _tiles) { _vTiles = _tiles; };
 };
 

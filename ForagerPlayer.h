@@ -28,7 +28,6 @@ private:
 	image* _playerHammering;
 	image* _hammer;
 	image* _hammerLeft;
-
 	int _count;
 	int _index;
 
@@ -96,6 +95,8 @@ public:
 	float getPlayerCurrentHp(){ return _currentHp; }
 	void setCurrentPlayerHp(float _hp) { _currentHp -= _hp; }
 	RECT getPlayerRect() { return _rcForager; };
+
+
 	void setPlayerRect(RECT pos) { _rcForager = pos; };
 
 	void setPMLink(basicmap* map) { _map = map; };
