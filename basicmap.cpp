@@ -621,6 +621,10 @@ bool basicmap::checkCanMove(int index)
 
 void basicmap::createDropItem(int i, int j, string pitemName, int minDrop, int maxDrop)
 {
+	POINT ptPos = { _vTiles[i*MAPTILEY + j].rc.left + (_vTiles[i*MAPTILEY + j].rc.right - _vTiles[i*MAPTILEY + j].rc.left) / 2 ,
+					_vTiles[i*MAPTILEY + j].rc.top + (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].rc.top) / 2 };
+	EFFECTMANAGER->ShowEffectFrame("DigSmoke", ptPos, true);
+
 	int dropItemLot = RANDOM->range(minDrop, maxDrop);
 	for (int c = 0; c < dropItemLot; c++)
 	{
