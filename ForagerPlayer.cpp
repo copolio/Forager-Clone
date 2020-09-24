@@ -304,18 +304,18 @@ void ForagerPlayer::PlayerControll()
 			_isMoveVertical = false;
 		}
 		//뛰어다니는 상태 (좌우 움직임)
-		if (INPUT->GetKey(VK_LEFT) || INPUT->GetKey(VK_RIGHT))
+		if (INPUT->GetKey('A') || INPUT->GetKey('D'))
 		{
 			_isMoveHorizon = true;
 			_state = RUN;
-			_isLeft = (INPUT->GetKey(VK_LEFT)) ? true : false;	//방향설정
+			_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
 		}
 		//뛰어다니는 상태 (상하 움직임)
-		if (INPUT->GetKey(VK_UP) || INPUT->GetKey(VK_DOWN))
+		if (INPUT->GetKey('W') || INPUT->GetKey('S'))
 		{
 			_isMoveVertical = true;
 			_state = RUN;
-			_isUp = (INPUT->GetKey(VK_UP)) ? true : false;	//방향 설정
+			_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
 		}
 
 		// 움직일 떄만 굴러갈 수 있게
@@ -333,7 +333,7 @@ void ForagerPlayer::PlayerControll()
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
 			_state = HAMMERING;
-			IMAGEMANAGER->findImage("스테미나")->setWidth(1);
+			
 		}
 	}
 }

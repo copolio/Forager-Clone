@@ -91,7 +91,10 @@ void basicmap::update()
 	}
 
 	//플레이어 업데이트
-	_player->update();
+	//if (!_inventory->inventory_alreadyopen()) {
+		_player->update();
+	//} 인벤토리 창을 열었을경우 플레이어 움직임 멈춤
+	
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
 
 	_statManager->update();
@@ -196,7 +199,7 @@ void basicmap::render()
 			//부수면 열매나옴
 			if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("berry")))
 			{
-
+				IMAGEMANAGER->findImage("스테미나")->setWidth(1);
 				int dropItemLot = RANDOM->range(2, 3);
 				for (int c = 0; c < dropItemLot; c++)
 				{
@@ -220,6 +223,7 @@ void basicmap::render()
 			//부수면 통나무나옴
 			else if (_vTiles[i*MAPTILEY + j].objHp == 1 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("tree")))
 			{
+				IMAGEMANAGER->findImage("스테미나")->setWidth(1);
 				int dropItemLot = RANDOM->range(2, 3);
 				for (int c = 0; c < dropItemLot; c++)
 				{
@@ -243,6 +247,7 @@ void basicmap::render()
 			//부수면 돌나옴 
 			else if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("rock")))
 			{
+				IMAGEMANAGER->findImage("스테미나")->setWidth(1);
 				int dropItemLot = RANDOM->range(2, 3);
 				for (int c = 0; c < dropItemLot; c++)
 				{
@@ -677,6 +682,7 @@ void basicmap::dropItemCollision()
 					is_item_check = false;
 					_inventory->getPlayerInventory()[k]->count++;
 					removeDropItem(i);
+					
 					break;
 				}
 				else {

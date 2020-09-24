@@ -39,7 +39,7 @@ HRESULT inventory::init()
 
 	greentile = IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
 	redtile = IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
-
+	StaminaMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	_targetBox = new targetingBox;
 	_targetBox->init();
 	targetBox[0].img_num = 0;
@@ -100,6 +100,7 @@ void inventory::update()
 	keyDown();
 	if (isCheck) {
 		mouse_targetBox();
+		food_eat();
 	}
 	item_check();
 
@@ -386,6 +387,7 @@ void inventory::keyDown()
 		else {
 			isCheck = true;
 		}
+		inventory_setting();
 	}
 
 	if (INPUT->GetKeyDown('Q')) {
@@ -429,4 +431,59 @@ void inventory::item_check()
 			}
 		}
 	}
+}
+
+void inventory::food_eat()
+{
+	if (inven_kinds == ITEM) {
+		
+		for (int i = 0; i < player_inventory.size(); i++) {
+			if (PtInRect(&player_inventory[i]->_rc,_ptMouse )&& INPUT->GetKeyDown(VK_LBUTTON)) {
+				if (player_inventory[i]->Kinds == ITEM_FOOD) {
+					player_inventory[i]->count--;
+					if (player_inventory[i]->count == 0) {
+						player_inventory[i]->isCheck = false;
+						player_inventory[i]->Kinds = ITEM_NULL;
+						player_inventory[i]->count = 0;
+						player_inventory[i]->item_name = "";
+						player_inventory[i]->img_name = "";
+					}
+					IMAGEMANAGER->findImage("스테미나")->setWidth(-5);
+					if (IMAGEMANAGER->findImage("스테미나")->getWidth() >= StaminaMax) {
+						IMAGEMANAGER->findImage("스테미나")->settingWidth(StaminaMax);
+					}
+					break;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+void inventory::inventory_setting()
+{
+	bool _br = false;;
+	for (int i = 0; i < player_inventory.size(); i++) {
+		if (player_inventory[i]->item_name == "")continue;
+		for (int j = 0; j < player_inventory.size(); j++) {
+			if (player_inventory[j]->item_name == ""|| i==j)continue;
+			if (player_inventory[i]->item_name == player_inventory[j]->item_name) {
+				player_inventory[i]->count += player_inventory[j]->count;
+
+				player_inventory[j]->isCheck = false;
+				player_inventory[j]->Kinds = ITEM_NULL;
+				player_inventory[j]->count = 0;
+				player_inventory[j]->item_name = "";
+				player_inventory[j]->img_name = "";
+				_br = true;
+				break;
+			}
+
+		}
+		if (_br) break;
+	}
+
 }
