@@ -147,18 +147,18 @@ void inventory::render()
 				//Rectangle(getMemDC(), player_inventory[i]->_rc);
 				IMAGEMANAGER->render("item_slot", getMemDC(), player_inventory[i]->_rc.left, player_inventory[i]->_rc.top);
 				if (player_inventory[i]->img_name != "") {
-					IMAGEMANAGER->render(player_inventory[i]->img_name, getMemDC(), player_inventory[i]->_rc.left+15, player_inventory[i]->_rc.top+15);
+					IMAGEMANAGER->render(player_inventory[i]->img_name, getMemDC(), player_inventory[i]->_rc.left + 15, player_inventory[i]->_rc.top + 15);
 				}
 				int item_count = player_inventory[i]->count;
-				int c=0;
+				int c = 0;
 				while (item_count != NULL) {
-					switch (item_count %10)
+					switch (item_count % 10)
 					{
 					case 0:
 						IMAGEMANAGER->render(to_string(0), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
 						break;
 					case 1:
-						IMAGEMANAGER->render(to_string(1), getMemDC(), player_inventory[i]->_rc.left + 55- c *10, player_inventory[i]->_rc.top + 55);
+						IMAGEMANAGER->render(to_string(1), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
 						break;
 					case 2:
 						IMAGEMANAGER->render(to_string(2), getMemDC(), player_inventory[i]->_rc.left + 55 - c * 10, player_inventory[i]->_rc.top + 55);
@@ -193,30 +193,30 @@ void inventory::render()
 					IMAGEMANAGER->render(to_string(player_inventory[i]->count), getMemDC(), player_inventory[i]->_rc.left + 55, player_inventory[i]->_rc.top + 55);
 				}
 			}
-			
+
 			if (istargetBox) {
 				for (int i = 0; i < 4; i++) {
 					IMAGEMANAGER->frameRender("img_UI_TargetingBox", getMemDC(), targetBox[i].x, targetBox[i].y, targetBox[i].img_num, 0);
 				}
 				IMAGEMANAGER->render("img_UI_ItemTooltip", getMemDC(), 900, 150);
-				
+
 			}
 			break;
 		case EQUIP:
 			IMAGEMANAGER->render("img_equip_icon", getMemDC(), 470, 30);
 
-			IMAGEMANAGER->render("img_equip_slot", getMemDC(), WINSIZEX / 2 - (IMAGEMANAGER->findImage("img_equip_slot")->getWidth()/2), WINSIZEY/2);
+			IMAGEMANAGER->render("img_equip_slot", getMemDC(), WINSIZEX / 2 - (IMAGEMANAGER->findImage("img_equip_slot")->getWidth() / 2), WINSIZEY / 2);
 
 			for (int i = 0; i < player_equip.size(); i++) {
 				if (player_equip[i]->Kinds == ITEM_NULL)continue;
 				IMAGEMANAGER->render("Img_UI_EquipmentSlotFilled", getMemDC(), player_equip[i]->_rc.left, player_equip[i]->_rc.top);
-				IMAGEMANAGER->render(player_equip[i]->img_name,getMemDC(), player_equip[i]->_rc.left+15, player_equip[i]->_rc.top);
+				IMAGEMANAGER->render(player_equip[i]->img_name, getMemDC(), player_equip[i]->_rc.left + 15, player_equip[i]->_rc.top);
 			}
 			if (istargetBox) {
 				for (int i = 0; i < 4; i++) {
 					IMAGEMANAGER->frameRender("img_UI_TargetingBox", getMemDC(), targetBox[i].x, targetBox[i].y, targetBox[i].img_num, 0);
 				}
-			}	
+			}
 			break;
 
 		case ERECTION:
@@ -235,58 +235,66 @@ void inventory::render()
 			}
 			if (is_erection_select) {
 				//°Ç¼³ °¡´É Å¸ÀÏ ·»´õ
-				POINT _ptBuilding = { _ptMouse.x-1, _ptMouse.y + IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2 };
-				for (int i = 0; i < TILEY*MAPY; i++) {
-					bool stop = false;
-					for (int j = 0; j < MAPTILEX; j++) {
-						if (PtInRect(&_map->getTiles()[i*MAPTILEY + j].rc, _ptMouse)) {
-							if (_map->getTiles()[i*MAPTILEY + j].objHp > 0 ||
-								_map->getTiles()[i*MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
-								redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							}
-							else {
-								greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							}
-							//if (_map->getTiles()[i*MAPTILEY + j+1].objHp > 0 ||
-							//	_map->getTiles()[i*MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
-							//	redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							//}
-							//else {
-							//	greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							//}
-							//if (_map->getTiles()[(i - 1)*MAPTILEY + j].objHp > 0 ||
-							//	_map->getTiles()[(i - 1) *MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
-							//	redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
-							//}
-							//else {
-							//	greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
-							//}
-							//if (_map->getTiles()[(i - 1)*MAPTILEY + j + 1].objHp > 0 ||
-							//	_map->getTiles()[(i - 1) * MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
-							//	redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
-							//}
-							//else {
-							//	greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j +1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
-							//}
-							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc);
-							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc);
-							//Rectangle(getMemDC(), _map->getTiles()[(i-1)*MAPTILEY + j].rc);
-							//Rectangle(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j+1].rc);
-							stop = true;
-							break;
-						}
+				POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2 };
+				if (PtInRect(&_map->tileMouseTarget().rc, _ptMouse)) {
+					if (_map->tileMouseTarget().objHp > 0 ||
+						_map->tileMouseTarget().terrain != IMAGEMANAGER->findImage("plaintile")) {
+						redtile->alphaRender(getMemDC(), _map->tileMouseTarget().rc.left, _map->tileMouseTarget().rc.top, 100);
 					}
-					if (stop) break;
+					else {
+						greentile->alphaRender(getMemDC(), _map->tileMouseTarget().rc.left, _map->tileMouseTarget().rc.top, 100);
+					}
+					IMAGEMANAGER->alphaRender("¿ë±¤·Î", getMemDC(), _ptMouse.x - IMAGEMANAGER->findImage("¿ë±¤·Î")->getWidth() / 2, _ptMouse.y - IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2, 160);
 				}
-
-				IMAGEMANAGER->alphaRender("¿ë±¤·Î",getMemDC(),_ptMouse.x - IMAGEMANAGER->findImage("¿ë±¤·Î")->getWidth()/2, _ptMouse.y - IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2,160);
+				//	for (int i = 0; i < TILEY*MAPY; i++) {
+				//		bool stop = false;
+				//		for (int j = 0; j < MAPTILEX; j++) {
+				//			if (PtInRect(&_map->getTiles()[i*MAPTILEY + j].rc, _ptMouse)) {
+				//				if (_map->getTiles()[i*MAPTILEY + j].objHp > 0 ||
+				//					_map->getTiles()[i*MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
+				//					redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				else {
+				//					greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				if (_map->getTiles()[i*MAPTILEY + j+1].objHp > 0 ||
+				//					_map->getTiles()[i*MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+				//					redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				else {
+				//					greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				if (_map->getTiles()[(i - 1)*MAPTILEY + j].objHp > 0 ||
+				//					_map->getTiles()[(i - 1) *MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
+				//					redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				else {
+				//					greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+				//				}
+				//				if (_map->getTiles()[(i - 1)*MAPTILEY + j + 1].objHp > 0 ||
+				//					_map->getTiles()[(i - 1) * MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+				//					redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+				//				}
+				//				else {
+				//					greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j +1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+				//				}
+				//				Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc);
+				//				Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc);
+				//				Rectangle(getMemDC(), _map->getTiles()[(i-1)*MAPTILEY + j].rc);
+				//				Rectangle(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j+1].rc);
+				//				stop = true;
+				//				break;
+				//			}
+				//		}
+				//		if (stop) break;
+				//	}
+				//	IMAGEMANAGER->alphaRender("¿ë±¤·Î",getMemDC(),_ptMouse.x - IMAGEMANAGER->findImage("¿ë±¤·Î")->getWidth()/2, _ptMouse.y - IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2,160);
+				//}
 			}
 			break;
 		}
-		
 	}
 	_targetBox->render(getMemDC());
-	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 
 }
 

@@ -110,6 +110,7 @@ public:
 	vector<tile> getTiles() { return _vTiles; };
 	void setMapTiles(vector<tile> checkTiles) { _vTiles = checkTiles; }
 	void setTiles(vector<tile> _tiles) { _vTiles = _tiles; };
+	tile tileMouseTarget();
 };
 
 

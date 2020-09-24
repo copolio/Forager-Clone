@@ -93,24 +93,7 @@ void basicmap::update()
 	_inventory->update();
 
 	//¸¶¿ì½º Å¸°ÙÆÃ
-	for (int i = 0; i < TILEY*MAPY; i++) {
-		bool stop = false;
-		for (int j = 0; j < MAPTILEX; j++) {
-			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
-				_targetingBox->RemoveTarget();
-				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
-				if (_vTiles[i*MAPTILEY + j].objHp > 0) {
-					_vTiles[i*MAPTILEY + j].objHp -= 1;
-				}
-				else {
-					_vTiles[i*MAPTILEY + j].terrainHp -= 1;
-				}
-				stop = true;
-				break;
-			}
-		}
-		if (stop) break;
-	}
+	this->tileMouseTarget();
 	_targetingBox->update();
 
 	dropItemCollision();
@@ -274,8 +257,7 @@ void basicmap::render()
 			}
 		}
 	}
-	// Ä¿¼­ ·»´õ
-	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
+
 	_targetingBox->render(getMemDC());
 
 	//int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
@@ -291,6 +273,8 @@ void basicmap::render()
 	}
 
 	_inventory->render();
+	// Ä¿¼­ ·»´õ
+	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }
 
 void basicmap::mapSetup()
@@ -730,6 +714,20 @@ void basicmap::dropItemCollision()
 
 
 	
+}
+
+tile basicmap::tileMouseTarget()
+{
+	for (int i = 0; i < TILEY*MAPY; i++) {
+		bool stop = false;
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+				_targetingBox->RemoveTarget();
+				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
+				return _vTiles[i*MAPTILEY + j];
+			}
+		}
+	}
 }
 
 
