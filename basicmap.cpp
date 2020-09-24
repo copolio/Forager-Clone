@@ -26,7 +26,7 @@ HRESULT basicmap::init()
 	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
 	_rcPlayer = _player->getPlayerRect();
 
-	_count = wavetick = 0;
+	_count = wavetick = _frameCount = 0;
 
 	//자원
 	berry = IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -105,6 +105,7 @@ void basicmap::update()
 	_targetingBox->update();
 
 	dropItemCollision();
+	this->animation();
 
 }
 
@@ -314,6 +315,7 @@ void basicmap::mapSetup()
 			_tile.objHp = 0;
 			_tile.objFrameX = 0;
 			_tile.objFrameY = 0;
+			_tile.objStatus = OBJECTSTATUS::IDLE;
 
 			_vTiles.push_back(_tile);
 		}
@@ -400,6 +402,7 @@ void basicmap::setTile()
 					_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 						_vTiles[i*MAPTILEY + j].objHp -= 1;
+						_vTiles[i*MAPTILEY + j].objStatus = OBJECTSTATUS::ATTACKED;
 					}
 					else {
 						_vTiles[i*MAPTILEY + j].terrainHp -= 1;
@@ -764,6 +767,51 @@ tile basicmap::tileMouseTarget()
 				_targetingBox->RemoveTarget();
 				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc, true);
 				return _vTiles[i*MAPTILEY + j];
+			}
+		}
+	}
+}
+
+void basicmap::animation()
+{
+	for (int i = 0; i < _vTiles.size(); i++) {
+		if (_vTiles[i].objStatus == OBJECTSTATUS::ATTACKED) {
+			_frameCount++;
+			if (_vTiles[i].object == berry) {
+				if (_vTiles[i].objFrameX < 1 && _frameCount %5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == rock) {
+				if (_vTiles[i].objFrameX < 1 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == tree) {
+				if (_vTiles[i].objFrameX < 5 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == steelwork) {
+				if (_vTiles[i].objFrameX < 3 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
 			}
 		}
 	}

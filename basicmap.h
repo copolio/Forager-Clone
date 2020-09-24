@@ -21,6 +21,7 @@ private:
 	image* wave;
 	image* underwater;
 	int _count;
+	int _frameCount;
 	int wavetick;
 private:
 	image* steelwork;
@@ -79,6 +80,8 @@ public:
 	void setMapTiles(vector<tile> checkTiles) { _vTiles = checkTiles; }
 	void setTiles(vector<tile> _tiles) { _vTiles = _tiles; };
 	tile tileMouseTarget();
+
+	void animation();
 };
 
 

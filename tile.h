@@ -14,6 +14,11 @@ enum GROUNDLEVEL {
 	TERRAIN, OBJECT
 };
 
+enum class OBJECTSTATUS {
+	IDLE,
+	ATTACKED
+};
+
 struct tile {
 	RECT rc;
 	GROUNDLEVEL level;
@@ -25,6 +30,7 @@ struct tile {
 	int objHp;
 	int objFrameX;
 	int objFrameY;
+	OBJECTSTATUS objStatus;
 };
 
 struct dropItem {
