@@ -54,11 +54,6 @@ HRESULT basicmap::init()
 
 	//_farming->setBMLink(_vTiles);
 
-
-
-	
-	
-
 	return S_OK;
 }
 
@@ -71,6 +66,7 @@ void basicmap::release()
 
 void basicmap::update()
 {
+
 	_rcPlayer = _player->getPlayerRect();
 	//타일 변경
 	this->setTile();
@@ -103,6 +99,15 @@ void basicmap::update()
 
 	dropItemCollision();
 
+
+	if (INPUT->GetKeyDown(VK_F1))
+	{
+		save();
+	}
+	if (INPUT->GetKeyDown(VK_F2))
+	{
+		load();
+	}
 }
 
 void basicmap::render()
@@ -734,6 +739,8 @@ void basicmap::dropItemCollision()
 	
 }
 
+
+
 tile basicmap::tileMouseTarget()
 {
 	for (int i = 0; i < TILEY*MAPY; i++) {
@@ -784,4 +791,23 @@ void basicmap::setPlayerPosTile()
 	else 
 		_playerPos = getPlayerPos();
 	
+}
+
+void basicmap::save()
+{
+	SAVEMANAGER->exchangeToArray(_vTiles);
+	//cout << SAVEMANAGER->arraySize() << endl;
+	SAVEMANAGER->save();
+
+}
+
+void basicmap::load()
+{
+	SAVEMANAGER->load();
+	cout << SAVEMANAGER->arraySize() << endl;
+	_vTiles.clear();
+	for (int i = 0; i <7056; i++)
+	{
+		_vTiles.push_back(SAVEMANAGER->_tiles[i]);
+	}
 }

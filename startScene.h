@@ -22,9 +22,15 @@ private:
 	reactImage _button[BUTTON_MAX];
 
 	targetingBox *_targetingBox;
+
+	saveManager* _saveManager;
 	
 	int testWalkEffectCount = 0;
 	int testWalkEffectInterval = 10;
+
+	bool gameSlotCheck;
+
+	RECT saveRc; 
 
 public:
 	HRESULT init();

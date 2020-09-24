@@ -6,7 +6,6 @@
 #include "soundTestScene.h"
 #include "pixelCollisionScene.h"
 #include "loadingScene.h"
-#include "maptoolScene.h"
 #include "ForagerPlayer.h"
 #include "playerTestScene.h"
 #include "basicmap.h"

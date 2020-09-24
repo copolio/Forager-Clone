@@ -4,6 +4,9 @@
 
 HRESULT startScene::init()
 {
+	//¼¼ÀÌºê ¹öÆ° Ä­ ·ºÆ®
+	saveRc = RectMake(100, 100, 100, 100);
+
 	// ¸¶¿ì½º ¼û±â±â
 	ShowCursor(false);
 
@@ -32,6 +35,8 @@ HRESULT startScene::init()
 	// Å¸°ÙÆÃ ¹Ú½º ¼³Á¤
 	_targetingBox = new targetingBox;
 	_targetingBox->init();
+	
+	gameSlotCheck = 0;
 
 	return S_OK;
 }
@@ -58,6 +63,24 @@ void startScene::update()
 	}
 
 	EFFECTMANAGER->update();
+
+	//if (SAVEMANAGER->slotName == "gaem1")
+	{
+		if (INPUT->GetKeyDown(VK_F1))
+		{
+			_saveManager->getSaveTile();
+		}
+	}
+
+	//if (SAVEMANAGER->slotName == "gaem1")
+	{
+		if (INPUT->GetKeyDown(VK_F2))
+		{
+			_saveManager->getLoadTile();
+		}
+	}
+
+	
 }
 
 void startScene::render()
@@ -137,9 +160,18 @@ void startScene::CheckButtonClick()
 				case BTN::SETTING:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// È¯°æ¼³Á¤ Ã¢
 				case BTN::CREDIT:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// Å©·¹µ÷ Ã¢
 				case BTN::EXIT:		SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// °ÔÀÓ Á¾·á
-				case BTN::SLOT1:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// °ÔÀÓ ½½·Ô 1
-				case BTN::SLOT2:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// °ÔÀÓ ½½·Ô 2
-				case BTN::SLOT3:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); break;	// °ÔÀÓ ½½·Ô 3
+
+				case BTN::SLOT1:	
+					SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); 
+					SAVEMANAGER->slotName = "game1.map";
+					break;	// °ÔÀÓ ½½·Ô 1
+				
+				case BTN::SLOT2:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é"); 
+					SAVEMANAGER->slotName = "game2.map";
+					break;	// °ÔÀÓ ½½·Ô 2
+				case BTN::SLOT3:	SCENEMANAGER->loadScene("¸ÊÅøÈ­¸é");
+					SAVEMANAGER->slotName = "game3.map";
+					break;	// °ÔÀÓ ½½·Ô 3
 				}
 			}
 		}

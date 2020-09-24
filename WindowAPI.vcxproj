@@ -171,7 +171,6 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
-    <ClInclude Include="maptoolScene.h" />
     <ClInclude Include="minion.h" />
     <ClInclude Include="pixelCollisionScene.h" />
     <ClInclude Include="player.h" />
@@ -180,6 +179,7 @@
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
+    <ClInclude Include="saveManager.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="soundManager.h" />
@@ -189,7 +189,6 @@
     <ClInclude Include="targetingBox.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="tile.h" />
-    <ClInclude Include="tileNode.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +214,6 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
-    <ClCompile Include="maptoolScene.cpp" />
     <ClCompile Include="minion.cpp" />
     <ClCompile Include="pixelCollisionScene.cpp" />
     <ClCompile Include="player.cpp" />
@@ -224,6 +222,7 @@
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="reactImage.cpp" />
+    <ClCompile Include="saveManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="soundTestScene.cpp" />
