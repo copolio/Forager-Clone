@@ -62,6 +62,9 @@ private:
 	float _currentHp;		//플레이어 현재체력 
 	
 
+	//플레이어 발걸음 연출
+	int _footWalkCount;
+	int _footWalkEffectInterval;
 
 	//플레이어 영역
 	RECT _rcForager;
