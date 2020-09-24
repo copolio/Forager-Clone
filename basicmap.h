@@ -5,47 +5,12 @@
 #include "targetingBox.h"
 #include "inventory.h"
 #include "farming.h"
+#include "tile.h"
 
-#define TILEX 12
-#define TILEY 12
-#define TILESIZE 56
-#define MAPX 7
-#define MAPY 7
-#define MAPSIZE MAPX*MAPY
-#define MAPTILEX MAPX*TILEX
-#define MAPTILEY MAPY*TILEY
-#define CAMRANGE TILESIZE*4
-#define CAMSPEED 10
 #define PLAINHP 100
 #define NUMOBJECTS 3
 #define RESRATIOLIMIT 0.7
 #define RESGENTIME 100
-
-enum GROUNDLEVEL {
-	TERRAIN, OBJECT
-};
-
-struct tile {
-	RECT rc;
-	GROUNDLEVEL level;
-	image* terrain;
-	image* object;
-	int terrainHp;
-	int terrainFrameX;
-	int terrainFrameY;
-	int objHp;
-	int objFrameX;
-	int objFrameY;
-};
-
-struct dropItem {
-	RECT rc;
-	image* dropItems;
-	string imgName;
-	float dropItemX;
-	float dropItemY;
-
-};
 
 class basicmap : public gameNode
 {

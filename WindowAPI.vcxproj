@@ -188,6 +188,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetingBox.h" />
     <ClInclude Include="TextManager.h" />
+    <ClInclude Include="tile.h" />
     <ClInclude Include="tileNode.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

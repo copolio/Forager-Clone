@@ -186,6 +186,7 @@
     <ClCompile Include="cameraManager.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
+    <ClCompile Include="farming.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -310,6 +311,10 @@
     </ClInclude>
     <ClInclude Include="cameraManager.h">
       <Filter>GameFramework\매니져</Filter>
+    </ClInclude>
+    <ClInclude Include="farming.h" />
+    <ClInclude Include="tile.h">
+      <Filter>MainGame\Forager\기본맵</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -107,13 +107,11 @@ void inventory::update()
 		if (is_erection_select) {
 			for (int i = 0; i < player_inventory.size(); i++) {
 				if (player_inventory[i]->item_name != "목재")continue;
-				if (player_inventory[i]->count > 2) {
-					player_inventory[i]->count += 2;
-					break;
-				}
+				player_inventory[i]->count += 2;
+				break;
 			}
+			is_erection_select = false;
 		}
-		is_erection_select = false;
 	}// 건물 선택 후 건설을 하지 않고 취소 하였을 경우 
 }
 
@@ -236,15 +234,15 @@ void inventory::render()
 			if (is_erection_select) {
 				//건설 가능 타일 렌더
 				POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("용광로")->getHeight() / 2 };
-				if (PtInRect(&_map->tileMouseTarget().rc, _ptMouse)) {
+				if (PtInRect(&_map->tileMouseTarget().rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 					if (_map->tileMouseTarget().objHp > 0 ||
 						_map->tileMouseTarget().terrain != IMAGEMANAGER->findImage("plaintile")) {
-						redtile->alphaRender(getMemDC(), _map->tileMouseTarget().rc.left, _map->tileMouseTarget().rc.top, 100);
+						redtile->alphaRender(getMemDC(), CAMERA->GetRelativeX(_map->tileMouseTarget().rc.left), CAMERA->GetRelativeY(_map->tileMouseTarget().rc.top), 100);
 					}
 					else {
-						greentile->alphaRender(getMemDC(), _map->tileMouseTarget().rc.left, _map->tileMouseTarget().rc.top, 100);
+						greentile->alphaRender(getMemDC(), CAMERA->GetRelativeX(_map->tileMouseTarget().rc.left), CAMERA->GetRelativeY(_map->tileMouseTarget().rc.top), 100);
 					}
-					IMAGEMANAGER->alphaRender("용광로", getMemDC(), _ptMouse.x - IMAGEMANAGER->findImage("용광로")->getWidth() / 2, _ptMouse.y - IMAGEMANAGER->findImage("용광로")->getHeight() / 2, 160);
+					IMAGEMANAGER->alphaRender("용광로", getMemDC(), CAMERA->GetRelativeX(CAMERA->GetMouseRelativePos(_ptMouse).x - IMAGEMANAGER->findImage("용광로")->getWidth() / 2)  , CAMERA->GetRelativeY(CAMERA->GetMouseRelativePos(_ptMouse).y - IMAGEMANAGER->findImage("용광로")->getHeight() / 2), 160);
 				}
 				//	for (int i = 0; i < TILEY*MAPY; i++) {
 				//		bool stop = false;
@@ -349,7 +347,7 @@ void inventory::mouse_targetBox()
 			if (PtInRect(&temp1, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON)) {
 				for (int i = 0; i < player_inventory.size(); i++) {
 					if (player_inventory[i]->item_name != "목재")continue;
-					if (player_inventory[i]->count > 2) {
+					if (player_inventory[i]->count >= 2) {
 						player_inventory[i]->count -= 2;
 						is_erection_select = true;
 						break;
