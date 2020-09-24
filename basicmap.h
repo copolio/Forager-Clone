@@ -71,6 +71,7 @@ public:
 	void setPlayerPosTile(); 		// 플레이어 좌표 세팅
 	bool checkCanMove(int index);	// 플레이어가 이동할 타일 이동 가능 여부 체크
 
+	void createDropItem(int i, int j, string pitemName, int minDrop, int maxDrop);
 	void removeDropItem(int index);
 	void dropItemCollision();
 	void save();

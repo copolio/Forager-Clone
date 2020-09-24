@@ -17,7 +17,7 @@ HRESULT startScene::init()
 	IMAGEMANAGER->addImage("BtnSetting", "Images/이미지/GUI/img_UI_BtnSetting.bmp", 213, 104, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("GameSlot", "Images/이미지/GUI/img_UI_GameSlotBoundary.bmp", 227, 227, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("GameSlotInner", "Images/이미지/GUI/img_UI_GameSlotInner.bmp", 227, 227, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 2000, 1300, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 1960, 1280, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleCursor", "Images/이미지/GUI/커서.bmp", 15, 15, true, RGB(255, 0, 255));
 
 	

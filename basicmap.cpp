@@ -112,21 +112,24 @@ void basicmap::update()
 
 void basicmap::render()
 {
-	//바다 렌더
+	// 물배경 렌더
+	IMAGEMANAGER->findImage("TitleBG")->render(getMemDC(), -500, -400);
+
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
+
+			// 카메라 범위만 렌더
 			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
-			if (_vTiles[i*MAPTILEY + j].terrain == watertile) {
-				_vTiles[i*MAPTILEY + j].terrain->render(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top));
+
+			// 지형 체력이 0이하면 바다로 변경.
+			if (_vTiles[i*MAPTILEY + j].terrainHp <= 0) {
+				_vTiles[i*MAPTILEY + j].terrain = watertile;
+				_vTiles[i*MAPTILEY + j].terrainFrameX = 0;
+				_vTiles[i*MAPTILEY + j].terrainHp = 0;
 			}
-		}
-	}
-	//지형 렌더
-	for (int i = 0; i < MAPTILEY; i++) {
-		for (int j = 0; j < MAPTILEX; j++) {
-			RECT temp;
-			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
+
+			// 지형 렌더
 			if (_vTiles[i*MAPTILEY + j].terrain != watertile) {
 				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
 				//textOut(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, to_string(_vTiles[i*MAPTILEY + j].rc.left).c_str());
@@ -135,50 +138,39 @@ void basicmap::render()
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 0, 1);
 				}
 				//동북 꼭짓점
-				if (i - 1 >= 0 && j + 1 < MAPTILEX && _vTiles[(i - 1)*MAPTILEY +(j + 1)].terrain == watertile) {
+				if (i - 1 >= 0 && j + 1 < MAPTILEX && _vTiles[(i - 1)*MAPTILEY + (j + 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 1, 1);
 				}
 				//동남 꼭짓점
-				if (i + 1 < MAPTILEY && j + 1 < MAPTILEX && _vTiles[(i + 1)*MAPTILEY +(j + 1)].terrain == watertile) {
+				if (i + 1 < MAPTILEY && j + 1 < MAPTILEX && _vTiles[(i + 1)*MAPTILEY + (j + 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 2, 1);
 				}
 				//서남 꼭짓점
-				if (i + 1 < MAPTILEY && j - 1 >= 0 && _vTiles[(i + 1)*MAPTILEY +(j - 1)].terrain == watertile) {
+				if (i + 1 < MAPTILEY && j - 1 >= 0 && _vTiles[(i + 1)*MAPTILEY + (j - 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 3, 1);
 				}
 				//서
-				if (j-1 >= 0 && _vTiles[i*MAPTILEY +(j - 1)].terrain == watertile) {
+				if (j - 1 >= 0 && _vTiles[i*MAPTILEY + (j - 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 0, 0);
 				}
 				//동
-				if (j + 1 < MAPTILEX && _vTiles[i*MAPTILEY +(j + 1)].terrain == watertile) {
+				if (j + 1 < MAPTILEX && _vTiles[i*MAPTILEY + (j + 1)].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 1, 0);
 				}
 				//북
-				if (i - 1 >= 0 && _vTiles[(i - 1)*MAPTILEY +j].terrain == watertile) {
+				if (i - 1 >= 0 && _vTiles[(i - 1)*MAPTILEY + j].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 2, 0);
 				}
 				//남
-				if (i + 1 < MAPTILEY && _vTiles[(i + 1)*MAPTILEY +j].terrain == watertile) {
+				if (i + 1 < MAPTILEY && _vTiles[(i + 1)*MAPTILEY + j].terrain == watertile) {
 					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 3, 0);
 					underwater->render(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom));
-					wave->alphaRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom+20+wavetick), 100);
+					wave->alphaRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom + 20 + wavetick), 100);
 
 				}
 			}
-		}
-	}
-	//플레이어 위치 좌표 렉트
-	//Rectangle(getMemDC(), _vTiles[_playerPos].rc);
-	//플레이어
-	_player->render();
-	_statManager->render();
 
-	//오브젝트 렌더
-	for (int i = 0; i < MAPTILEY; i++) {
-		for (int j = 0; j < MAPTILEX; j++) {
-			RECT temp;
-			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
+			// 오브젝트 렌더
 			if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 				//if (_vTiles[i*MAPTILEY + j].object == steelwork) {
 				//	if (_vTiles[i*MAPTILEY + j + 1].object == steelwork &&
@@ -197,78 +189,35 @@ void basicmap::render()
 				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight()), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
 				//Rectangle(getMemDC(), _vTiles[i*MAPTILEY + j].rc);
 			}
-			
+
 			//부수면 열매나옴
 			if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("berry")))
 			{
-
-				int dropItemLot = RANDOM->range(2, 3);
-				for (int c = 0; c < dropItemLot; c++)
-				{
-					float dX = (_vTiles[i*MAPTILEY + j].rc.left + RANDOM->range(-30,30));
-					float dY = (_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight()+ RANDOM->range(-30, 30));
-					
-					dropItem _dropItem;
-
-					_dropItem.dropItems = berryDrop;
-					_dropItem.imgName = "열매";
-					_dropItem.dropItemX = dX;
-					_dropItem.dropItemY = dY;
-					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
-					_vDropItems.push_back(_dropItem);
-				}
-				
+				createDropItem(i, j, "열매", 2, 3);
 				_vTiles[i*MAPTILEY + j].objHp = -5;
-			
 			}
 
 			//부수면 통나무나옴
 			else if (_vTiles[i*MAPTILEY + j].objHp == 1 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("tree")))
 			{
-				int dropItemLot = RANDOM->range(2, 3);
-				for (int c = 0; c < dropItemLot; c++)
-				{
-					float dX = (_vTiles[i*MAPTILEY + j].rc.left + _vTiles[i*MAPTILEY + j].rc.right) / 2 + RANDOM->range(-20, 20);
-					float dY = (_vTiles[i*MAPTILEY + j].rc.top + _vTiles[i*MAPTILEY + j].rc.bottom) / 2 + RANDOM->range(-20, 20);
-					cout << dX << endl;
-					cout << dY << endl;
-					dropItem _dropItem;
-
-					_dropItem.dropItems = treeDrop;
-					_dropItem.imgName = "목재";
-					_dropItem.dropItemX = dX;
-					_dropItem.dropItemY = dY;
-					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
-					_vDropItems.push_back(_dropItem);
-				}
-
+				createDropItem(i, j, "목재", 2, 3);
 				_vTiles[i*MAPTILEY + j].objHp = -5;
 			}
 
 			//부수면 돌나옴 
 			else if (_vTiles[i*MAPTILEY + j].objHp == 0 && (_vTiles[i*MAPTILEY + j].object == IMAGEMANAGER->findImage("rock")))
 			{
-				int dropItemLot = RANDOM->range(2, 3);
-				for (int c = 0; c < dropItemLot; c++)
-				{
-					float dX = (_vTiles[i*MAPTILEY + j].rc.left + _vTiles[i*MAPTILEY + j].rc.right) / 2 + RANDOM->range(-30, 30);
-					float dY = (_vTiles[i*MAPTILEY + j].rc.top + _vTiles[i*MAPTILEY + j].rc.bottom) / 2 + RANDOM->range(-30, 30);
-
-					dropItem _dropItem;
-
-					_dropItem.dropItems = rockDrop;
-					_dropItem.imgName = "돌";
-					_dropItem.dropItemX = dX;
-					_dropItem.dropItemY = dY;
-					_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
-					_vDropItems.push_back(_dropItem);
-				}
-
+				createDropItem(i, j, "돌", 2, 3);
 				_vTiles[i*MAPTILEY + j].objHp = -5;
 			}
 		}
 	}
 
+	//플레이어 위치 좌표 렉트
+	//Rectangle(getMemDC(), _vTiles[_playerPos].rc);
+	//플레이어
+	_player->render();
+	_statManager->render();
 	_targetingBox->render(getMemDC());
 
 	//int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
@@ -318,16 +267,6 @@ void basicmap::mapSetup()
 
 void basicmap::setTile()
 {
-	//지형 체력 0 -> 바다 타일로 바꿈
-	for (int i = 0; i < TILEY*MAPY; i++) {
-		for (int j = 0; j < MAPTILEX; j++) {
-			if (_vTiles[i*MAPTILEY + j].terrainHp <= 0) {
-				_vTiles[i*MAPTILEY + j].terrain = watertile;
-				_vTiles[i*MAPTILEY + j].terrainFrameX = 0;
-				_vTiles[i*MAPTILEY + j].terrainHp = 0;
-			}
-		}
-	}
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (_inventory->getBuildingStatus()) {
 			//POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("용광로")->getHeight() / 2 };
@@ -659,6 +598,32 @@ bool basicmap::checkCanMove(int index)
 	return true;
 }
 
+
+void basicmap::createDropItem(int i, int j, string pitemName, int minDrop, int maxDrop)
+{
+	int dropItemLot = RANDOM->range(minDrop, maxDrop);
+	for (int c = 0; c < dropItemLot; c++)
+	{
+		float dX = (_vTiles[i*MAPTILEY + j].rc.left + _vTiles[i*MAPTILEY + j].rc.right) / 2 + RANDOM->range(-30, 30);
+		float dY = (_vTiles[i*MAPTILEY + j].rc.top + _vTiles[i*MAPTILEY + j].rc.bottom) / 2 + RANDOM->range(-30, 30);
+
+		dropItem _dropItem;
+
+		if (pitemName == "돌")
+			_dropItem.dropItems = rockDrop;
+		else if (pitemName == "열매")
+			_dropItem.dropItems = berryDrop;
+		else if (pitemName == "목재")
+			_dropItem.dropItems = treeDrop;
+
+		
+		_dropItem.imgName = pitemName;
+		_dropItem.dropItemX = dX;
+		_dropItem.dropItemY = dY;
+		_dropItem.rc = RectMakeCenter(_dropItem.dropItemX, _dropItem.dropItemY, 56, 56);
+		_vDropItems.push_back(_dropItem);
+	}
+}
 
 //드랍아이템 삭제 
 void basicmap::removeDropItem(int index)
