@@ -126,7 +126,7 @@ void startScene::CheckCursorOnButton()
 
 		// 버튼 위에 커서
 		if (PtInRect(&_button[i].GetRect(), _ptMouse)) {
-			_targetingBox->SetTarget(_button[i].GetRect());
+			_targetingBox->SetTarget(_button[i].GetRect(), 4, i);
 			_button[i].CursorIn();
 			_cursor = true;
 		}

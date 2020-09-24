@@ -3,6 +3,7 @@
 class targetingBox
 {
 private:
+	int _targetID;			// 타겟팅된 녀석의 아이디.
 	RECT _rcTargetBox;		// 타겟팅된 상대의 RC
 	int _minSize;			// 줌 아웃 최소 사이즈
 	int _maxSize;			// 줌 인 최대 사이즈
@@ -22,7 +23,7 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	void SetTarget(RECT rcTarget, bool isRelative = false);
+	void SetTarget(RECT rcTarget, int moveDistance, int id = 0, int narrow = 0, bool isRelative = false);
 	void CursorOut();
 	void RemoveTarget();
 
