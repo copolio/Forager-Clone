@@ -745,7 +745,7 @@ void basicmap::animation()
 	for (int i = 0; i < _vTiles.size(); i++) {
 		if (_vTiles[i].objStatus == OBJECTSTATUS::ATTACKED) {
 			_frameCount++;
-			if (_vTiles[i].object == berry) {
+			if (_vTiles[i].objKey == "berry") {
 				if (_vTiles[i].objFrameX < 1 && _frameCount %5 == 0) {
 					_vTiles[i].objFrameX++;
 				}
@@ -754,7 +754,7 @@ void basicmap::animation()
 					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
 				}
 			}
-			if (_vTiles[i].object == rock) {
+			if (_vTiles[i].objKey == "rock") {
 				if (_vTiles[i].objFrameX < 1 && _frameCount % 5 == 0) {
 					_vTiles[i].objFrameX++;
 				}
@@ -763,7 +763,7 @@ void basicmap::animation()
 					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
 				}
 			}
-			if (_vTiles[i].object == tree) {
+			if (_vTiles[i].objKey == "tree") {
 				if (_vTiles[i].objFrameX < 5 && _frameCount % 5 == 0) {
 					_vTiles[i].objFrameX++;
 				}
@@ -772,7 +772,7 @@ void basicmap::animation()
 					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
 				}
 			}
-			if (_vTiles[i].object == steelwork) {
+			if (_vTiles[i].objKey == "steelwork") {
 				if (_vTiles[i].objFrameX < 3 && _frameCount % 5 == 0) {
 					_vTiles[i].objFrameX++;
 				}
