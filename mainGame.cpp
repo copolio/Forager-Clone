@@ -42,6 +42,7 @@ void mainGame::release()
 void mainGame::update()
 {
 	gameNode::update();
+	cout << SAVEMANAGER->slotName << endl;
 	
 	//씬매니져 업데이트
 	SCENEMANAGER->update();

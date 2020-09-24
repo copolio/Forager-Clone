@@ -1,7 +1,7 @@
 #pragma once
 #include "singletonBase.h"
 #include "tile.h"
-#define SAVEFILE 8000
+#define SAVEFILE 7056
 
 class saveManager :public singletonBase<saveManager>
 {

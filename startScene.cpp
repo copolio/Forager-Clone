@@ -64,21 +64,21 @@ void startScene::update()
 
 	EFFECTMANAGER->update();
 
-	//if (SAVEMANAGER->slotName == "gaem1")
-	{
-		if (INPUT->GetKeyDown(VK_F1))
-		{
-			_saveManager->getSaveTile();
-		}
-	}
+	////if (SAVEMANAGER->slotName == "gaem1")
+	//{
+	//	if (INPUT->GetKeyDown(VK_F1))
+	//	{
+	//		_saveManager->getSaveTile();
+	//	}
+	//}
 
-	//if (SAVEMANAGER->slotName == "gaem1")
-	{
-		if (INPUT->GetKeyDown(VK_F2))
-		{
-			_saveManager->getLoadTile();
-		}
-	}
+	////if (SAVEMANAGER->slotName == "gaem1")
+	//{
+	//	if (INPUT->GetKeyDown(VK_F2))
+	//	{
+	//		_saveManager->getLoadTile();
+	//	}
+	//}
 
 	
 }
