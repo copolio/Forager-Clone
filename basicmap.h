@@ -46,6 +46,8 @@ private:
 	int _count;
 	int wavetick;
 private:
+	image* steelwork;
+private:
 	image* berry;
 	image* rock;
 	image* tree;
@@ -81,6 +83,7 @@ public:
 	bool checkCanMove(int index);	// 플레이어가 이동할 타일 이동 가능 여부 체크
 
 	vector<tile> getTiles() { return _vTiles; };
+	void setTiles(vector<tile> _tiles) { _vTiles = _tiles; };
 };
 
 

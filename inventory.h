@@ -2,6 +2,8 @@
 #include "inventory_slot.h"
 #include "targetingBox.h"
 #include "gameNode.h"
+
+class basicmap;
 struct mouse_rc
 {
 	float x, y;
@@ -16,7 +18,10 @@ enum Kinds
 };
 class inventory : public gameNode
 {
-
+private:
+	basicmap* _map;
+	image* greentile;
+	image* redtile;
 public:
 	HRESULT init();
 	void release();
@@ -38,10 +43,13 @@ private:
 	mouse_rc targetBox[4];
 	Kinds inven_kinds;
 
-
 	targetingBox* _targetBox;
 	bool istargetBox;
 	bool iserection;
 	bool is_erection_select;		//용광로 선택 건축 많아지면 enum값으로 변경
+public:
+	void setIMLink(basicmap* map) { _map = map; };
+	bool getBuildingStatus() { return is_erection_select; };
+	void setBuildingStatus(bool status) { is_erection_select = status; };
 };
 

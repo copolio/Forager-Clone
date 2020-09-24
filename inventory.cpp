@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "inventory.h"
+#include "basicmap.h"
 
 HRESULT inventory::init()
 {
@@ -34,6 +35,8 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("8", "Images/이미지/GUI/8.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 
+	greentile = IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
+	redtile = IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
 
 	_targetBox = new targetingBox;
 	_targetBox->init();
@@ -193,8 +196,54 @@ void inventory::render()
 			if (iserection) {
 
 				IMAGEMANAGER->render("img_steelwork_icon", getMemDC(), WINSIZEX - 240, 100);
+
 			}
 			if (is_erection_select) {
+				//건설 가능 타일 렌더
+				POINT _ptBuilding = { _ptMouse.x-1, _ptMouse.y + IMAGEMANAGER->findImage("용광로")->getHeight() / 2 };
+				for (int i = 0; i < TILEY*MAPY; i++) {
+					bool stop = false;
+					for (int j = 0; j < MAPTILEX; j++) {
+						if (PtInRect(&_map->getTiles()[i*MAPTILEY + j].rc, _ptBuilding)) {
+							if (_map->getTiles()[i*MAPTILEY + j].objHp > 0 ||
+								_map->getTiles()[i*MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
+								redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							}
+							else {
+								greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							}
+							if (_map->getTiles()[i*MAPTILEY + j+1].objHp > 0 ||
+								_map->getTiles()[i*MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+								redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							}
+							else {
+								greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							}
+							if (_map->getTiles()[(i - 1)*MAPTILEY + j].objHp > 0 ||
+								_map->getTiles()[(i - 1) *MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
+								redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+							}
+							else {
+								greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+							}
+							if (_map->getTiles()[(i - 1)*MAPTILEY + j + 1].objHp > 0 ||
+								_map->getTiles()[(i - 1) * MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+								redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+							}
+							else {
+								greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j +1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+							}
+							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc);
+							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc);
+							//Rectangle(getMemDC(), _map->getTiles()[(i-1)*MAPTILEY + j].rc);
+							//Rectangle(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j+1].rc);
+							stop = true;
+							break;
+						}
+					}
+					if (stop) break;
+				}
+
 				IMAGEMANAGER->alphaRender("용광로",getMemDC(),_ptMouse.x - IMAGEMANAGER->findImage("용광로")->getWidth()/2, _ptMouse.y - IMAGEMANAGER->findImage("용광로")->getHeight() / 2,160);
 			}
 			break;
