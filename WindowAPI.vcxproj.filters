@@ -183,6 +183,7 @@
     <ClCompile Include="ForagerPlayer.cpp">
       <Filter>MainGame\Forager</Filter>
     </ClCompile>
+    <ClCompile Include="farming.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -305,5 +306,6 @@
     <ClInclude Include="ForagerPlayer.h">
       <Filter>MainGame\Forager</Filter>
     </ClInclude>
+    <ClInclude Include="farming.h" />
   </ItemGroup>
 </Project>

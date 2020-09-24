@@ -155,6 +155,7 @@
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="farming.h" />
     <ClInclude Include="ForagerPlayer.h" />
     <ClInclude Include="ForagerStatManager.h" />
     <ClInclude Include="gameNode.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="farming.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
     <ClCompile Include="ForagerStatManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
