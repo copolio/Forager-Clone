@@ -33,7 +33,7 @@ HRESULT basicmap::init()
 	tree = IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
 	//건물
-	steelwork = IMAGEMANAGER->addFrameImage("steelwork", "Images/이미지/오브젝트/building/img_object_steelwork.bmp", 336, 168, 3, 1, true, RGB(255,0,255));
+	steelwork = IMAGEMANAGER->addFrameImage("steelwork", "Images/이미지/오브젝트/building/img_object_steelwork.bmp", 336/2, 168/2, 3, 1, true, RGB(255,0,255));
 
 	this->mapSetup();
 	_playerPos = getPlayerPos();
@@ -77,12 +77,26 @@ void basicmap::update()
 	_player->update();
 	_statManager->update();
 	_inventory->update();
-	//for (int i = 0; i < _vTiles.size(); i++) {
-	//	if (PtInRect(&_vTiles[i].rc, _ptMouse)) {
-	//		_targetingBox->SetTarget(_vTiles[i].rc);
-	//		break;
-	//	}
-	//}
+
+	//마우스 타겟팅
+	for (int i = 0; i < TILEY*MAPY; i++) {
+		bool stop = false;
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+				_targetingBox->RemoveTarget();
+				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
+				if (_vTiles[i*MAPTILEY + j].objHp > 0) {
+					_vTiles[i*MAPTILEY + j].objHp -= 1;
+				}
+				else {
+					_vTiles[i*MAPTILEY + j].terrainHp -= 1;
+				}
+				stop = true;
+				break;
+			}
+		}
+		if (stop) break;
+	}
 	_targetingBox->update();
 }
 
@@ -157,20 +171,21 @@ void basicmap::render()
 			RECT temp;
 			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].objHp > 0) {
-				if (_vTiles[i*MAPTILEY + j].object == steelwork) {
-					if (_vTiles[i*MAPTILEY + j + 1].object == steelwork &&
-						_vTiles[(i+1)*MAPTILEY + j].object == steelwork &&
-						_vTiles[(i + 1)*MAPTILEY + j+1].object == steelwork) {
-						steelwork->frameRender(getMemDC(), 
-							_vTiles[(i-1)*MAPTILEY + j].rc.left, 
-							_vTiles[(i-1)*MAPTILEY + j].rc.top, 
-							_vTiles[i*MAPTILEY + j].objFrameX,  
-							_vTiles[i*MAPTILEY + j].objFrameY);
-					}
-				}
-				else {
-					_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
-				}
+				//if (_vTiles[i*MAPTILEY + j].object == steelwork) {
+				//	if (_vTiles[i*MAPTILEY + j + 1].object == steelwork &&
+				//		_vTiles[(i+1)*MAPTILEY + j].object == steelwork &&
+				//		_vTiles[(i + 1)*MAPTILEY + j+1].object == steelwork) {
+				//		steelwork->frameRender(getMemDC(), 
+				//			_vTiles[(i-1)*MAPTILEY + j].rc.left, 
+				//			_vTiles[(i-1)*MAPTILEY + j].rc.top, 
+				//			_vTiles[i*MAPTILEY + j].objFrameX,  
+				//			_vTiles[i*MAPTILEY + j].objFrameY);
+				//	}
+				//}
+				//else {
+				//	_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
+				//}
+				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
 				//Rectangle(getMemDC(), _vTiles[i*MAPTILEY + j].rc);
 			}
 		}
@@ -230,36 +245,45 @@ void basicmap::setTile()
 	}
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (_inventory->getBuildingStatus()) {
-			POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("용광로")->getHeight() / 2 };
+			//POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("용광로")->getHeight() / 2 };
 			for (int i = 0; i < TILEY*MAPY; i++) {
 				bool stop = false;
 				for (int j = 0; j < MAPTILEX; j++) {
-					if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptBuilding)) {
-						if (_vTiles[i*MAPTILEY + j].objHp == 0 &&
-							_vTiles[i*MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile") &&
-							_vTiles[i*MAPTILEY + j + 1].objHp == 0 &&
-							_vTiles[i*MAPTILEY + j + 1].terrain == IMAGEMANAGER->findImage("plaintile") &&
-							_vTiles[(i - 1)*MAPTILEY + j].objHp == 0 &&
-							_vTiles[(i - 1) *MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile") &&
-							_vTiles[(i - 1)*MAPTILEY + j + 1].objHp == 0 &&
-							_vTiles[(i - 1) * MAPTILEY + j + 1].terrain == IMAGEMANAGER->findImage("plaintile")) {
-							_vTiles[i*MAPTILEY + j].object = steelwork;
-							_vTiles[i*MAPTILEY + j].objHp = 10;
-							_vTiles[i*MAPTILEY + j].objFrameX = 0;
-							_vTiles[i*MAPTILEY + j].objFrameY = 0;
-							_vTiles[i*MAPTILEY + j + 1].object = _vTiles[i*MAPTILEY + j].object;
-							_vTiles[i*MAPTILEY + j + 1].objHp = _vTiles[i*MAPTILEY + j].objHp;
-							_vTiles[i*MAPTILEY + j + 1].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
-							_vTiles[i*MAPTILEY + j + 1].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
-							_vTiles[(i - 1)*MAPTILEY + j].object = _vTiles[i*MAPTILEY + j].object;
-							_vTiles[(i - 1)*MAPTILEY + j].objHp = _vTiles[i*MAPTILEY + j].objHp;
-							_vTiles[(i - 1)*MAPTILEY + j].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
-							_vTiles[(i - 1)*MAPTILEY + j].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
-							_vTiles[(i - 1)*MAPTILEY + j + 1].object = _vTiles[i*MAPTILEY + j].object;
-							_vTiles[(i - 1)*MAPTILEY + j + 1].objHp = _vTiles[i*MAPTILEY + j].objHp;
-							_vTiles[(i - 1)*MAPTILEY + j + 1].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
-							_vTiles[(i - 1)*MAPTILEY + j + 1].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
-							_inventory->setBuildingStatus(false);
+					if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+						//타일 4개
+						//if (_vTiles[i*MAPTILEY + j].objHp == 0 &&
+						//	_vTiles[i*MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile") &&
+						//	_vTiles[i*MAPTILEY + j + 1].objHp == 0 &&
+						//	_vTiles[i*MAPTILEY + j + 1].terrain == IMAGEMANAGER->findImage("plaintile") &&
+						//	_vTiles[(i - 1)*MAPTILEY + j].objHp == 0 &&
+						//	_vTiles[(i - 1) *MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile") &&
+						//	_vTiles[(i - 1)*MAPTILEY + j + 1].objHp == 0 &&
+						//	_vTiles[(i - 1) * MAPTILEY + j + 1].terrain == IMAGEMANAGER->findImage("plaintile")) {
+						//	_vTiles[i*MAPTILEY + j].object = steelwork;
+						//	_vTiles[i*MAPTILEY + j].objHp = 10;
+						//	_vTiles[i*MAPTILEY + j].objFrameX = 0;
+						//	_vTiles[i*MAPTILEY + j].objFrameY = 0;
+						//	_vTiles[i*MAPTILEY + j + 1].object = _vTiles[i*MAPTILEY + j].object;
+						//	_vTiles[i*MAPTILEY + j + 1].objHp = _vTiles[i*MAPTILEY + j].objHp;
+						//	_vTiles[i*MAPTILEY + j + 1].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
+						//	_vTiles[i*MAPTILEY + j + 1].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
+						//	_vTiles[(i - 1)*MAPTILEY + j].object = _vTiles[i*MAPTILEY + j].object;
+						//	_vTiles[(i - 1)*MAPTILEY + j].objHp = _vTiles[i*MAPTILEY + j].objHp;
+						//	_vTiles[(i - 1)*MAPTILEY + j].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
+						//	_vTiles[(i - 1)*MAPTILEY + j].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
+						//	_vTiles[(i - 1)*MAPTILEY + j + 1].object = _vTiles[i*MAPTILEY + j].object;
+						//	_vTiles[(i - 1)*MAPTILEY + j + 1].objHp = _vTiles[i*MAPTILEY + j].objHp;
+						//	_vTiles[(i - 1)*MAPTILEY + j + 1].objFrameX = _vTiles[i*MAPTILEY + j].objFrameX;
+						//	_vTiles[(i - 1)*MAPTILEY + j + 1].objFrameY = _vTiles[i*MAPTILEY + j].objFrameY;
+						//	_inventory->setBuildingStatus(false);
+						//}
+						if (_vTiles[i*MAPTILEY + j].objHp == 0 && 
+							_vTiles[i*MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile")) {
+								_vTiles[i*MAPTILEY + j].object = steelwork;
+								_vTiles[i*MAPTILEY + j].objHp = 500;
+								_vTiles[i*MAPTILEY + j].objFrameX = 0;
+								_vTiles[i*MAPTILEY + j].objFrameY = 0;
+								_inventory->setBuildingStatus(false);
 						}
 						stop = true;
 						break;
@@ -272,8 +296,8 @@ void basicmap::setTile()
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
 				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
-					//_targetingBox->RemoveTarget();
-					//_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
+					_targetingBox->RemoveTarget();
+					_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 						_vTiles[i*MAPTILEY + j].objHp -= 1;
 					}

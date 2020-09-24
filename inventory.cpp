@@ -22,7 +22,8 @@ HRESULT inventory::init()
 	IMAGEMANAGER->addImage("inventory_background", "Images/이미지/GUI/inventory_background.bmp", 1920, 1080, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_industry_icon", "Images/이미지/GUI/img_industry_icon.bmp", 226, 72, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_steelwork_icon", "Images/이미지/GUI/img_steelwork_icon.bmp", 205, 59, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112/2, 160/2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
@@ -204,7 +205,7 @@ void inventory::render()
 				for (int i = 0; i < TILEY*MAPY; i++) {
 					bool stop = false;
 					for (int j = 0; j < MAPTILEX; j++) {
-						if (PtInRect(&_map->getTiles()[i*MAPTILEY + j].rc, _ptBuilding)) {
+						if (PtInRect(&_map->getTiles()[i*MAPTILEY + j].rc, _ptMouse)) {
 							if (_map->getTiles()[i*MAPTILEY + j].objHp > 0 ||
 								_map->getTiles()[i*MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
 								redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
@@ -212,27 +213,27 @@ void inventory::render()
 							else {
 								greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
 							}
-							if (_map->getTiles()[i*MAPTILEY + j+1].objHp > 0 ||
-								_map->getTiles()[i*MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
-								redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							}
-							else {
-								greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
-							}
-							if (_map->getTiles()[(i - 1)*MAPTILEY + j].objHp > 0 ||
-								_map->getTiles()[(i - 1) *MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
-								redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
-							}
-							else {
-								greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
-							}
-							if (_map->getTiles()[(i - 1)*MAPTILEY + j + 1].objHp > 0 ||
-								_map->getTiles()[(i - 1) * MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
-								redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
-							}
-							else {
-								greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j +1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
-							}
+							//if (_map->getTiles()[i*MAPTILEY + j+1].objHp > 0 ||
+							//	_map->getTiles()[i*MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+							//	redtile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							//}
+							//else {
+							//	greentile->alphaRender(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc.left, _map->getTiles()[i*MAPTILEY + j].rc.top, 100);
+							//}
+							//if (_map->getTiles()[(i - 1)*MAPTILEY + j].objHp > 0 ||
+							//	_map->getTiles()[(i - 1) *MAPTILEY + j].terrain != IMAGEMANAGER->findImage("plaintile")) {
+							//	redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+							//}
+							//else {
+							//	greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j].rc.top, 100);
+							//}
+							//if (_map->getTiles()[(i - 1)*MAPTILEY + j + 1].objHp > 0 ||
+							//	_map->getTiles()[(i - 1) * MAPTILEY + j + 1].terrain != IMAGEMANAGER->findImage("plaintile")) {
+							//	redtile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+							//}
+							//else {
+							//	greentile->alphaRender(getMemDC(), _map->getTiles()[(i - 1)*MAPTILEY + j +1].rc.left, _map->getTiles()[(i - 1)*MAPTILEY + j + 1].rc.top, 100);
+							//}
 							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j].rc);
 							//Rectangle(getMemDC(), _map->getTiles()[i*MAPTILEY + j+1].rc);
 							//Rectangle(getMemDC(), _map->getTiles()[(i-1)*MAPTILEY + j].rc);
