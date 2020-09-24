@@ -91,8 +91,11 @@ public:
 
 	void mapSetup();
 	void setTile();
+
+	/* 카메라 매니저로 대체
 	void cameraMove();
 	void cameraFocus();
+	*/
 
 	//무작위 타일에 자원 생성
 	void setRandomTile();

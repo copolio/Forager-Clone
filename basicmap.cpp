@@ -45,6 +45,9 @@ HRESULT basicmap::init()
 
 	_playerPos = getPlayerPos();
 
+	// 카메라
+	CAMERA->init(_ptPlayerPos.x, _ptPlayerPos.y, _ptPlayerPos.x, _ptPlayerPos.y, 0.5f, 0.5f, WINSIZEX + 250, WINSIZEY + 250, -2000, -2000, 2000, 2000);
+
 	// 타겟팅 박스 설정
 	_targetingBox = new targetingBox;
 	_targetingBox->init();
@@ -72,8 +75,8 @@ void basicmap::update()
 	//타일 변경
 	this->setTile();
 	// 카메라 이동
-	this->cameraMove();
-	this->cameraFocus();
+	/*this->cameraMove();
+	this->cameraFocus();*/
 
 	_count++;
 	if (_count % 10 == 0) {
@@ -89,6 +92,8 @@ void basicmap::update()
 
 	//플레이어 업데이트
 	_player->update();
+	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
+
 	_statManager->update();
 	_inventory->update();
 
@@ -106,9 +111,9 @@ void basicmap::render()
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
-			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].terrain == watertile) {
-				_vTiles[i*MAPTILEY + j].terrain->render(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top);
+				_vTiles[i*MAPTILEY + j].terrain->render(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top));
 			}
 		}
 	}
@@ -116,49 +121,50 @@ void basicmap::render()
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
-			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].terrain != watertile) {
-				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
+				_vTiles[i*MAPTILEY + j].terrain->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), _vTiles[i*MAPTILEY + j].terrainFrameX, _vTiles[i*MAPTILEY + j].terrainFrameY);
 				//textOut(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, to_string(_vTiles[i*MAPTILEY + j].rc.left).c_str());
 				//서북 꼭짓점
 				if (j - 1 >= 0 && _vTiles[(i)*MAPTILEY + (j - 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 0, 1);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 0, 1);
 				}
 				//동북 꼭짓점
 				if (i - 1 >= 0 && j + 1 < MAPTILEX && _vTiles[(i - 1)*MAPTILEY +(j + 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 1, 1);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 1, 1);
 				}
 				//동남 꼭짓점
 				if (i + 1 < MAPTILEY && j + 1 < MAPTILEX && _vTiles[(i + 1)*MAPTILEY +(j + 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 2, 1);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 2, 1);
 				}
 				//서남 꼭짓점
 				if (i + 1 < MAPTILEY && j - 1 >= 0 && _vTiles[(i + 1)*MAPTILEY +(j - 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 3, 1);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 3, 1);
 				}
 				//서
 				if (j-1 >= 0 && _vTiles[i*MAPTILEY +(j - 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 0, 0);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 0, 0);
 				}
 				//동
 				if (j + 1 < MAPTILEX && _vTiles[i*MAPTILEY +(j + 1)].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 1, 0);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 1, 0);
 				}
 				//북
 				if (i - 1 >= 0 && _vTiles[(i - 1)*MAPTILEY +j].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 2, 0);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 2, 0);
 				}
 				//남
 				if (i + 1 < MAPTILEY && _vTiles[(i + 1)*MAPTILEY +j].terrain == watertile) {
-					plainedge->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.top, 3, 0);
-					underwater->render(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom);
-					wave->alphaRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom+20+wavetick, 100);
+					plainedge->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.top), 3, 0);
+					underwater->render(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom));
+					wave->alphaRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom+20+wavetick), 100);
+
 				}
 			}
 		}
 	}
 	//플레이어 위치 좌표 렉트
-	Rectangle(getMemDC(), _vTiles[_playerPos].rc);
+	//Rectangle(getMemDC(), _vTiles[_playerPos].rc);
 	//플레이어
 	_player->render();
 	_statManager->render();
@@ -167,7 +173,7 @@ void basicmap::render()
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;
-			if (!IntersectRect(&temp, &_rcCam, &_vTiles[i*MAPTILEY + j].rc)) continue;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 				//if (_vTiles[i*MAPTILEY + j].object == steelwork) {
 				//	if (_vTiles[i*MAPTILEY + j + 1].object == steelwork &&
@@ -389,7 +395,7 @@ void basicmap::setTile()
 		for (int i = 0; i < MAPTILEY; i++) {
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
-				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 					_vTiles[i*MAPTILEY + j].terrain = plaintile;
 					_vTiles[i*MAPTILEY + j].terrainFrameX = RANDOM->range(4);
 					_vTiles[i*MAPTILEY + j].terrainHp = PLAINHP;
@@ -402,6 +408,10 @@ void basicmap::setTile()
 	}
 }
 
+
+#pragma region 카메라 매니저로 대체 (cameraMove, cameraFocus)
+
+/* 카메라 메니저로 대체
 void basicmap::cameraMove()
 {
 	int playerCenterX = _rcPlayer.left + (_rcPlayer.right - _rcPlayer.left) / 2;
@@ -496,7 +506,11 @@ void basicmap::cameraMove()
 		}
 	}
 }
+*/
 
+
+
+/* 카메라 메니저로 대체
 void basicmap::cameraFocus()
 {
 	//if (_ptmouse.x < winsizex / 2 - 100 ||
@@ -542,6 +556,10 @@ void basicmap::cameraFocus()
 		}
 	}
 }
+*/
+
+#pragma endregion
+
 
 void basicmap::setRandomTile()
 {

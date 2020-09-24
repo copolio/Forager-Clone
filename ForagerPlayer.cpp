@@ -103,6 +103,8 @@ void ForagerPlayer::update()
 	playerLookingDirection();
 	
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2 , (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
+	CAMERA->targetFollow(_rcForager.left, _rcForager.top);
+
 }
 
 void ForagerPlayer::render()
@@ -110,29 +112,29 @@ void ForagerPlayer::render()
 	switch (_state)
 	{
 	case IDLE:
-		IMAGEMANAGER->frameRender("playerStop", getMemDC(), _rcForager.left, _rcForager.top);
+		IMAGEMANAGER->frameRender("playerStop", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	case RUN:
-		IMAGEMANAGER->frameRender("playerRUN", getMemDC(), _rcForager.left, _rcForager.top);
+		IMAGEMANAGER->frameRender("playerRUN", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	case ROTATE: 
 		if (_isLeft) 
 		{
-			IMAGEMANAGER->frameRender("playerRotateLeft", getMemDC(), _rcForager.left, _rcForager.top);
+			IMAGEMANAGER->frameRender("playerRotateLeft", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 
-			IMAGEMANAGER->frameRender("HammerImgLeft", getMemDC(), _rcForager.left, _rcForager.top);
+			IMAGEMANAGER->frameRender("HammerImgLeft", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		}
 		else 
 		{
-			IMAGEMANAGER->frameRender("playerRotate", getMemDC(), _rcForager.left, _rcForager.top);
+			IMAGEMANAGER->frameRender("playerRotate", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 
-			IMAGEMANAGER->frameRender("HammerImg", getMemDC(), _rcForager.left, _rcForager.top);
+			IMAGEMANAGER->frameRender("HammerImg", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		}
 
 		break;
 	case HAMMERING :
-		IMAGEMANAGER->frameRender("playerWork", getMemDC(), _rcForager.left, _rcForager.top);
-		IMAGEMANAGER->frameRender("playerHammering", getMemDC(), _rcForager.left, _rcForager.top);
+		IMAGEMANAGER->frameRender("playerWork", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerHammering", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	}
 
@@ -140,11 +142,11 @@ void ForagerPlayer::render()
 	{
 		if (_isLeft)
 		{
-			IMAGEMANAGER->render("Hammer", getMemDC(), _rcHammer.left, _rcHammer.top);
+			IMAGEMANAGER->render("Hammer", getMemDC(), CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top));
 		}
 		else
 		{
-			IMAGEMANAGER->render("HammerLeft", getMemDC(), _rcHammer.left - 40, _rcHammer.top);
+			IMAGEMANAGER->render("HammerLeft", getMemDC(), CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
 		}
 	}
 }

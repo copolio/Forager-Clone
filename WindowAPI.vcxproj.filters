@@ -183,7 +183,9 @@
     <ClCompile Include="ForagerPlayer.cpp">
       <Filter>MainGame\Forager</Filter>
     </ClCompile>
-    <ClCompile Include="farming.cpp" />
+    <ClCompile Include="cameraManager.cpp">
+      <Filter>GameFramework\매니져</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -306,6 +308,8 @@
     <ClInclude Include="ForagerPlayer.h">
       <Filter>MainGame\Forager</Filter>
     </ClInclude>
-    <ClInclude Include="farming.h" />
+    <ClInclude Include="cameraManager.h">
+      <Filter>GameFramework\매니져</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
