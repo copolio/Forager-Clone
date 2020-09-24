@@ -66,7 +66,7 @@ void targetingBox::render(HDC hdc)
 	}
 }
 
-void targetingBox::SetTarget(RECT rcTarget, int moveDistance, int id, bool isRelative)
+void targetingBox::SetTarget(RECT rcTarget, int moveDistance, int id, int narrow, bool isRelative)
 {
 	_isRelative = isRelative;
 	
@@ -75,7 +75,7 @@ void targetingBox::SetTarget(RECT rcTarget, int moveDistance, int id, bool isRel
 		_maxSize = moveDistance;
 		_targetID = id;
 		_isCursorOn = true;
-		_rcTargetBox = RectMake(rcTarget.left - 14, rcTarget.top - 14, rcTarget.right - rcTarget.left + 10, rcTarget.bottom - rcTarget.top + 10);
+		_rcTargetBox = RectMake(rcTarget.left - 14 + narrow, rcTarget.top - 14 + narrow, rcTarget.right - rcTarget.left + 10 - narrow, rcTarget.bottom - rcTarget.top + 10 - narrow);
 		_isTargetting = true;
 		_currentSize = 0;
 		_isZoomIn = true;

@@ -23,7 +23,7 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	void SetTarget(RECT rcTarget, int moveDistance, int id = 0, bool isRelative = false);
+	void SetTarget(RECT rcTarget, int moveDistance, int id = 0, int narrow = 0, bool isRelative = false);
 	void CursorOut();
 	void RemoveTarget();
 

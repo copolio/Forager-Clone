@@ -310,9 +310,9 @@ void inventory::mouse_targetBox()
 	case ITEM:
 		for (int i = 0; i < player_inventory.size(); i++) {
 			if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
-				//_targetBox->SetTarget(player_inventory[i]->_rc);
-				mouse_setingRc(player_inventory[i]->_rc);
-				istargetBox = true;
+				_targetBox->SetTarget(player_inventory[i]->_rc, 2, i, 4, false);
+				//mouse_setingRc(player_inventory[i]->_rc);
+				//istargetBox = true;
 				break;
 			}
 		}
@@ -320,9 +320,9 @@ void inventory::mouse_targetBox()
 	case EQUIP:
 		for (int i = 0; i < player_equip.size(); i++) {
 			if (PtInRect(&player_equip[i]->_rc, _ptMouse)) {
-				//_targetBox->SetTarget(player_inventory[i]->_rc);
-				mouse_setingRc(player_equip[i]->_rc);
-				istargetBox = true;
+				_targetBox->SetTarget(player_equip[i]->_rc, 2, i, 4, false);
+				//mouse_setingRc(player_equip[i]->_rc);
+				//istargetBox = true;
 				break;
 			}
 		}
@@ -330,8 +330,9 @@ void inventory::mouse_targetBox()
 	case ERECTION:
 		RECT temp = RectMake(WINSIZEX - 250, 30, 226, 72);
 		if (PtInRect(&temp, _ptMouse)) {
-			mouse_setingRc(temp);
-			istargetBox = true;
+			//mouse_setingRc(temp);
+			//istargetBox = true;
+			_targetBox->SetTarget(temp, 2, 100, false);
 		}
 		if (PtInRect(&temp, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON)) {
 			if (iserection) {
@@ -382,6 +383,7 @@ void inventory::keyDown()
 	if (INPUT->GetKeyDown('I')) {
 		if (isCheck) {
 			isCheck = false;
+			_targetBox->RemoveTarget();
 		}
 		else {
 			isCheck = true;
@@ -389,6 +391,7 @@ void inventory::keyDown()
 	}
 
 	if (INPUT->GetKeyDown('Q')) {
+		_targetBox->RemoveTarget();
 		if (inven_kinds == ITEM) {
 			inven_kinds = EQUIP;
 		}
@@ -403,6 +406,7 @@ void inventory::keyDown()
 		iserection = false;
 	}
 	if (INPUT->GetKeyDown('E')) {
+		_targetBox->RemoveTarget();
 		if (inven_kinds == ITEM) {
 			inven_kinds = ERECTION;
 		}
