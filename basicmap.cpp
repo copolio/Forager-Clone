@@ -189,7 +189,7 @@ void basicmap::render()
 				//else {
 				//	_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
 				//}
-				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), _vTiles[i*MAPTILEY + j].rc.left, _vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight(), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
+				_vTiles[i*MAPTILEY + j].object->frameRender(getMemDC(), CAMERA->GetRelativeX(_vTiles[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTiles[i*MAPTILEY + j].rc.bottom - _vTiles[i*MAPTILEY + j].object->getFrameHeight()), _vTiles[i*MAPTILEY + j].objFrameX, _vTiles[i*MAPTILEY + j].objFrameY);
 				//Rectangle(getMemDC(), _vTiles[i*MAPTILEY + j].rc);
 			}
 			
@@ -275,7 +275,7 @@ void basicmap::render()
 	//드랍아이템 벡터 rc위치에 해당하는 드랍아이템 이미지 그리기 
 	for (int i = 0; i < _vDropItems.size(); i++)
 	{
-		_vDropItems[i].dropItems->render(getMemDC(), _vDropItems[i].rc.left, _vDropItems[i].rc.top);
+		_vDropItems[i].dropItems->render(getMemDC(), CAMERA->GetRelativeX(_vDropItems[i].rc.left), CAMERA->GetRelativeY(_vDropItems[i].rc.top));
 	}
 
 	_inventory->render();
@@ -739,7 +739,7 @@ tile basicmap::tileMouseTarget()
 	for (int i = 0; i < TILEY*MAPY; i++) {
 		bool stop = false;
 		for (int j = 0; j < MAPTILEX; j++) {
-			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, (_ptMouse))) {
 				_targetingBox->RemoveTarget();
 				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
 				return _vTiles[i*MAPTILEY + j];

@@ -434,7 +434,7 @@ void ForagerPlayer::playerLookingDirection()
 
 
 	if (_state != STATE::ROTATE) {
-		if (forgaerCenter < _ptMouse.x)
+		if (forgaerCenter < CAMERA->GetMouseRelativePos(_ptMouse).x)
 			_isLeft = false;
 		else
 			_isLeft = true;
