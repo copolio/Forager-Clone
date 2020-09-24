@@ -16,6 +16,10 @@ enum Kinds
 	EQUIP,
 	ERECTION
 };
+enum building {
+	STEELWORK,
+	ANVIL
+};
 
 //class basicmap;
 class inventory : public gameNode
