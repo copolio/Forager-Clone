@@ -8,7 +8,8 @@ class saveManager :public singletonBase<saveManager>
 
 public:
 	tile _tiles[SAVEFILE];
-	LPCSTR slotName;
+	//LPCSTR slotName;
+	string slotName;
 
 
 
@@ -20,8 +21,6 @@ public:
 	void exchangeToArray(vector<tile> _vTiles);
 	void getSaveTile() { return save(); }
 	void getLoadTile() { return load(); }
-
-	
 
 	int arraySize();
 	//void g

@@ -233,10 +233,9 @@ void inventory::render()
 			}
 			if (is_erection_select) {
 				//°Ç¼³ °¡´É Å¸ÀÏ ·»´õ
-				POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2 };
 				if (PtInRect(&_map->tileMouseTarget().rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 					if (_map->tileMouseTarget().objHp > 0 ||
-						_map->tileMouseTarget().terrain != IMAGEMANAGER->findImage("plaintile")) {
+						_map->tileMouseTarget().terrKey != ("plaintile")) {
 						redtile->alphaRender(getMemDC(), CAMERA->GetRelativeX(_map->tileMouseTarget().rc.left), CAMERA->GetRelativeY(_map->tileMouseTarget().rc.top), 100);
 					}
 					else {
@@ -244,6 +243,7 @@ void inventory::render()
 					}
 					IMAGEMANAGER->alphaRender("¿ë±¤·Î", getMemDC(), CAMERA->GetRelativeX(CAMERA->GetMouseRelativePos(_ptMouse).x - IMAGEMANAGER->findImage("¿ë±¤·Î")->getWidth() / 2)  , CAMERA->GetRelativeY(CAMERA->GetMouseRelativePos(_ptMouse).y - IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2), 160);
 				}
+				//POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage("¿ë±¤·Î")->getHeight() / 2 };
 				//	for (int i = 0; i < TILEY*MAPY; i++) {
 				//		bool stop = false;
 				//		for (int j = 0; j < MAPTILEX; j++) {

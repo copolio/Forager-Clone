@@ -17,8 +17,8 @@ enum GROUNDLEVEL {
 struct tile {
 	RECT rc;
 	GROUNDLEVEL level;
-	image* terrain;
-	image* object;
+	string terrKey;
+	string objKey;
 	int terrainHp;
 	int terrainFrameX;
 	int terrainFrameY;
@@ -29,7 +29,8 @@ struct tile {
 
 struct dropItem {
 	RECT rc;
-	image* dropItems;
+	//image* dropItems;
+	string itemKey;
 	string imgName;
 	float dropItemX;
 	float dropItemY;
