@@ -17,7 +17,6 @@ HRESULT gameNode::init()
 	SOUNDMANAGER->init();				//사운드매니져 초기화
 	TEXTMANAGER->init();				//텍스트매니저 초기화
 	EFFECTMANAGER->init();				//이펙트매니저 초기화
-
 	return S_OK;
 }
 
@@ -55,7 +54,8 @@ void gameNode::release()
 	//이펙트매니저 해제
 	EFFECTMANAGER->release();
 	EFFECTMANAGER->releaseSingleton();
-
+	//카메라매니저 해제 (초기화는 맵씬에서)
+	CAMERA->releaseSingleton();
 	//HDC 해제
 	ReleaseDC(_hWnd, _hdc);
 }

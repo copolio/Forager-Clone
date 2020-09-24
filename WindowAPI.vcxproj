@@ -151,6 +151,7 @@
     <ClInclude Include="basicmap.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="basicmap.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="enemyManager.cpp" />
