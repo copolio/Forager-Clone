@@ -50,15 +50,25 @@ void targetingBox::update()
 void targetingBox::render(HDC hdc)
 {
 	if (_isTargetting) {
-		IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.left, _rcTargetBox.top, 0, 0);
-		IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.right, _rcTargetBox.top, 1, 0);
-		IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.right, _rcTargetBox.bottom, 2, 0);
-		IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.left, _rcTargetBox.bottom, 3, 0);
+		if (_isRelative) {
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, CAMERA->GetRelativeX(_rcTargetBox.left), CAMERA->GetRelativeY(_rcTargetBox.top), 0, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, CAMERA->GetRelativeX(_rcTargetBox.right), CAMERA->GetRelativeY(_rcTargetBox.top), 1, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, CAMERA->GetRelativeX(_rcTargetBox.right), CAMERA->GetRelativeY(_rcTargetBox.bottom), 2, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, CAMERA->GetRelativeX(_rcTargetBox.left), CAMERA->GetRelativeY(_rcTargetBox.bottom), 3, 0);
+		}
+		else {
+
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.left, _rcTargetBox.top, 0, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.right, _rcTargetBox.top, 1, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.right, _rcTargetBox.bottom, 2, 0);
+			IMAGEMANAGER->findImage("TargetingBox")->frameRender(hdc, _rcTargetBox.left, _rcTargetBox.bottom, 3, 0);
+		}
 	}
 }
 
-void targetingBox::SetTarget(RECT rcTarget)
+void targetingBox::SetTarget(RECT rcTarget, bool isRelative)
 {
+	_isRelative = isRelative;
 	if (!_isCursorOn) {
 		_isCursorOn = true;
 		_rcTargetBox = RectMake(rcTarget.left - 14, rcTarget.top - 14, rcTarget.right - rcTarget.left + 10, rcTarget.bottom - rcTarget.top + 10);

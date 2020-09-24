@@ -80,7 +80,6 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 	lerpX = (float)(distanceX) * lerpValueX;
 	lerpY = (float)(distanceY) * lerpValueY;
 
-	cout << lerpX << endl;
 
 	_posX += (IsRight)? lerpX : -lerpX;
 	_posY += (IsDown) ? lerpY : -lerpY;

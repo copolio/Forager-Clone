@@ -370,18 +370,18 @@ void ForagerPlayer::playerMove()
 				OffsetRect(&_rcForager, _spinSpeed, 0);
 		}
 
-		//플레이어가 화면 왼쪽으로 안나가게끔 처리 
-		else
-		{
-			_rcForager.left = 0;
-			_rcForager.right = 80;
-		}
-		//플레이어가 화면 오른쪽으로 안나가게끔 처리 
-		if (_rcForager.right >= 1300)
-		{
-			_rcForager.right = 1300;
-			_rcForager.left = 1260;
-		}
+		////플레이어가 화면 왼쪽으로 안나가게끔 처리 
+		//else
+		//{
+		//	_rcForager.left = 0;
+		//	_rcForager.right = 80;
+		//}
+		////플레이어가 화면 오른쪽으로 안나가게끔 처리 
+		//if (_rcForager.right >= 1300)
+		//{
+		//	_rcForager.right = 1300;
+		//	_rcForager.left = 1260;
+		//}
 	}
 
 	//플레이어 상하 움직임 처리 
@@ -411,18 +411,18 @@ void ForagerPlayer::playerMove()
 			}
 		}
 
-		//플레이어가 화면 위쪽으로 안나가게끔 처리 
-		else
-		{
-			_rcForager.top = 0;
-			_rcForager.bottom = 40;
-		}
-		//플레이어가 화면 아래쪽으로 안나가게끔 처리
-		if (_rcForager.bottom >= 640)
-		{
-			_rcForager.top = 600;
-			_rcForager.bottom = 640;
-		}
+		////플레이어가 화면 위쪽으로 안나가게끔 처리 
+		//else
+		//{
+		//	_rcForager.top = 0;
+		//	_rcForager.bottom = 40;
+		//}
+		////플레이어가 화면 아래쪽으로 안나가게끔 처리
+		//if (_rcForager.bottom >= 640)
+		//{
+		//	_rcForager.top = 600;
+		//	_rcForager.bottom = 640;
+		//}
 	}
 }
 

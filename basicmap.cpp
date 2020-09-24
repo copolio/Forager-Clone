@@ -329,7 +329,7 @@ void basicmap::setTile()
 			for (int i = 0; i < TILEY*MAPY; i++) {
 				bool stop = false;
 				for (int j = 0; j < MAPTILEX; j++) {
-					if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+					if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 						//Å¸ÀÏ 4°³
 						//if (_vTiles[i*MAPTILEY + j].objHp == 0 &&
 						//	_vTiles[i*MAPTILEY + j].terrain == IMAGEMANAGER->findImage("plaintile") &&
@@ -375,7 +375,7 @@ void basicmap::setTile()
 		for (int i = 0; i < TILEY*MAPY; i++) {
 			bool stop = false;
 			for (int j = 0; j < MAPTILEX; j++) {
-				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptMouse)) {
+				if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 					_targetingBox->RemoveTarget();
 					_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
@@ -739,9 +739,9 @@ tile basicmap::tileMouseTarget()
 	for (int i = 0; i < TILEY*MAPY; i++) {
 		bool stop = false;
 		for (int j = 0; j < MAPTILEX; j++) {
-			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, (_ptMouse))) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 				_targetingBox->RemoveTarget();
-				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc);
+				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc, true);
 				return _vTiles[i*MAPTILEY + j];
 			}
 		}

@@ -11,6 +11,7 @@ private:
 	int _currentCount;		// 줌 무빙 인터벌 카운트
 	int _zoomSpeed;			// 줌 스피드
 
+	bool _isRelative;		// 상대좌표가 필요한지
 	bool _isTargetting;		// 타겟팅 중인지 체크
 	bool _isZoomIn;			// 줌인 상태인지 줌 아웃 상태인지 구분
 	bool _isCursorOn;		// 커서가 올라온 상태인지 체크
@@ -21,7 +22,7 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	void SetTarget(RECT rcTarget);
+	void SetTarget(RECT rcTarget, bool isRelative = false);
 	void CursorOut();
 	void RemoveTarget();
 
