@@ -26,7 +26,7 @@ HRESULT basicmap::init()
 	_rcCam = RectMake(0, 0, WINSIZEX, WINSIZEY);
 	_rcPlayer = _player->getPlayerRect();
 
-	_count = wavetick = 0;
+	_count = wavetick = _frameCount = 0;
 
 	//자원
 	berry = IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -87,9 +87,12 @@ void basicmap::update()
 	}
 
 	//플레이어 업데이트
-	_player->update();
+	//if (!_inventory->inventory_alreadyopen()) {
+		_player->update();
+	//} 인벤토리 창을 열었을경우 플레이어 움직임 멈춤
+	
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
-
+	EFFECTMANAGER->update();
 	_statManager->update();
 	_inventory->update();
 
@@ -98,6 +101,7 @@ void basicmap::update()
 	_targetingBox->update();
 
 	dropItemCollision();
+	this->animation();
 
 
 	if (INPUT->GetKeyDown(VK_F1))
@@ -170,8 +174,19 @@ void basicmap::render()
 
 				}
 			}
-
-			// 오브젝트 렌더
+		}
+	}
+	//플레이어 위치 좌표 렉트
+	//Rectangle(getMemDC(), _vTiles[_playerPos].rc);
+	//플레이어
+	_player->render();
+	_statManager->render();
+	EFFECTMANAGER->render(getMemDC());
+	//오브젝트 렌더
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			RECT temp;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTiles[i*MAPTILEY + j].rc)) continue;
 			if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 				//if (_vTiles[i*MAPTILEY + j].object == steelwork) {
 				//	if (_vTiles[i*MAPTILEY + j + 1].object == steelwork &&
@@ -256,6 +271,7 @@ void basicmap::mapSetup()
 			_tile.objHp = 0;
 			_tile.objFrameX = 0;
 			_tile.objFrameY = 0;
+			_tile.objStatus = OBJECTSTATUS::IDLE;
 
 			_vTiles.push_back(_tile);
 		}
@@ -327,6 +343,7 @@ void basicmap::setTile()
 					_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc, 2, i * MAPTILEY + j, 4, true);
 					if (_vTiles[i*MAPTILEY + j].objHp > 0) {
 						_vTiles[i*MAPTILEY + j].objHp -= 1;
+						_vTiles[i*MAPTILEY + j].objStatus = OBJECTSTATUS::ATTACKED;
 					}
 					else {
 						_vTiles[i*MAPTILEY + j].terrainHp -= 1;
@@ -650,6 +667,7 @@ void basicmap::dropItemCollision()
 					is_item_check = false;
 					_inventory->getPlayerInventory()[k]->count++;
 					removeDropItem(i);
+					
 					break;
 				}
 				else {
@@ -717,6 +735,51 @@ tile basicmap::tileMouseTarget()
 			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
 				_targetingBox->SetTarget(_vTiles[i*MAPTILEY + j].rc, 2, i*MAPTILEY + j, 4, true);
 				return _vTiles[i*MAPTILEY + j];
+			}
+		}
+	}
+}
+
+void basicmap::animation()
+{
+	for (int i = 0; i < _vTiles.size(); i++) {
+		if (_vTiles[i].objStatus == OBJECTSTATUS::ATTACKED) {
+			_frameCount++;
+			if (_vTiles[i].object == berry) {
+				if (_vTiles[i].objFrameX < 1 && _frameCount %5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == rock) {
+				if (_vTiles[i].objFrameX < 1 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == tree) {
+				if (_vTiles[i].objFrameX < 5 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
+			}
+			if (_vTiles[i].object == steelwork) {
+				if (_vTiles[i].objFrameX < 3 && _frameCount % 5 == 0) {
+					_vTiles[i].objFrameX++;
+				}
+				else {
+					_vTiles[i].objFrameX = 0;
+					_vTiles[i].objStatus = OBJECTSTATUS::IDLE;
+				}
 			}
 		}
 	}

@@ -50,9 +50,17 @@ private:
 	bool istargetBox;
 	bool iserection;
 	bool is_erection_select;		//용광로 선택 건축 많아지면 enum값으로 변경
+
+
+	int StaminaMax;
 public:
 	void setIMLink(basicmap* map) { _map = map; };
 	bool getBuildingStatus() { return is_erection_select; };
 	void setBuildingStatus(bool status) { is_erection_select = status; };
+	void food_eat();
+	void inventory_setting();
+	bool inventory_alreadyopen() {
+		return isCheck;
+	}
 };
 

@@ -5,7 +5,7 @@ void EffectManager::init()
 {
 	IMAGEMANAGER->addImage("Walk1", "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("DigSmoke", "Images/이미지/Effects/img_effect_digSmoke.bmp", 900, 100, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("DigSmoke", "Images/이미지/Effects/img_effect_digSmoke.bmp", 1080, 120, 9, 1, true, RGB(255, 0, 255));
 
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		_effects[i] = new tagEffect;
@@ -13,6 +13,7 @@ void EffectManager::init()
 		_effects[i]->isAppear = false;
 		_effects[i]->isFrameImage = false;
 		_effects[i]->isReset = false;
+		_effects[i]->isRelative = false;
 		_effects[i]->ptPos = { 0, 0 };
 	}
 }
@@ -91,23 +92,32 @@ void EffectManager::render(HDC hdc)
 		for (iter = _listEffect.begin(); iter != _listEffect.end(); ++iter) {
 			if ((*iter)->isAppear) {
 				if ((*iter)->isFrameImage)
-					IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * 0.5f), (*iter)->ptPos.y - ((*iter)->height * 0.5f), (*iter)->frameX, 0);
-				else
-					IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f), (*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha);
+				{
+					if (!(*iter)->isRelative)
+						IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * 0.5f), (*iter)->ptPos.y - ((*iter)->height * 0.5f), (*iter)->frameX, 0);
+					else
+						IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * 0.5f)), (*iter)->frameX, 0);
+				}
+				else {
+					if(!(*iter)->isRelative)
+						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f), (*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha);
+					else
+						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f)), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha);
+				}
 			}
 		}
 	}
 
 }
 
-void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos)
+void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative)
 {
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		if (!_effects[i]->isAppear) {
 			_effects[i]->isAppear = true;
 			_effects[i]->isFrameImage = true;
 			_effects[i]->isReset = false;
-
+			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = 255;
@@ -129,7 +139,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos)
 
 }
 
-void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval)
+void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, bool isRelative)
 {
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		if (!_effects[i]->isAppear) {
@@ -138,7 +148,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAppear = true;
 			_effects[i]->isFrameImage = true;
 			_effects[i]->isReset = false;
-
+			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
@@ -158,7 +168,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 
 }
 
-void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, float size)
+void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, float size, bool isRelative)
 {
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		if (!_effects[i]->isAppear) {
@@ -166,7 +176,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAppear = true;
 			_effects[i]->isFrameImage = true;
 			_effects[i]->isReset = false;
-
+			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
@@ -187,7 +197,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 
 }
 
-void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB)
+void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, bool isRelative)
 {
 
 	for (int i = 0; i < MAX_EFFECT; i++) {
@@ -196,7 +206,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isAppear = true;
 			_effects[i]->isFrameImage = false;
 			_effects[i]->isReset = false;
-
+			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = fromAlphaA;
@@ -217,7 +227,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 
 }
 
-void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, int waitCount)
+void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, int waitCount, bool isRelative)
 {
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		if (!_effects[i]->isAppear) {
@@ -225,7 +235,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isAppear = true;
 			_effects[i]->isFrameImage = false;
 			_effects[i]->isReset = false;
-
+			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
 			_effects[i]->interval = waitCount;
 			_effects[i]->currentAlpha = fromAlphaA;

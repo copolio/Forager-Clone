@@ -23,6 +23,7 @@ private:
 		bool isAppear;
 		int width;
 		int height;
+		bool isRelative;
 	};
 
 private:
@@ -36,12 +37,12 @@ public:
 	void update();
 	void render(HDC hdc);
 
-	void ShowEffectFrame(string _imgKey, POINT ptPos);
-	void ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval);
-	void ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, float size);
+	void ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative = false);
+	void ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, bool isRelative = false);
+	void ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, float size, bool isRelative = false);
 	// size example : 0.5f -> 1.0f
-	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB);
-	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, int waitCount);
+	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, bool isRelative = false);
+	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, int waitCount, bool isRelative = false);
 
 };
 
