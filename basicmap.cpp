@@ -608,7 +608,7 @@ bool basicmap::checkCanMove(int index)
 		return false;
 	}
 		
-	RECT t_bound = RectMakeCenter(_ptPlayerPos.x, _ptPlayerPos.y, 20, 10);
+	RECT t_bound = RectMakeCenter(_ptPlayerPos.x, _ptPlayerPos.y, 20, 20);
 	RECT t_temp;
 	if (!IntersectRect(&t_temp, &t_bound, &_vTiles[_playerPos + index].rc)) {
 		return false;

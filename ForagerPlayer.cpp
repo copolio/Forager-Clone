@@ -350,49 +350,43 @@ void ForagerPlayer::playerMove()
 	//플레이어 좌우 움직임 처리 
 	if (_isMoveHorizon)
 	{
-
+		bool _cantMove = false;
 		int applySpeed = (_isLeft) ? -3 : 3;
-		if (_isLeft) {
-			if (_map->checkCanMove(-1))
-				applySpeed = 0;
-		}
-		else {
-			if (_map->checkCanMove(1))
-				applySpeed = 0;
-		}
-		_spinSpeed = applySpeed * 2;
 
-		OffsetRect(&_rcForager, applySpeed, 0);
+		_cantMove = (_isLeft) ? _map->checkCanMove(-1) : _map->checkCanMove(1);
 
-		//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
-		if (_state == STATE::ROTATE)
-			OffsetRect(&_rcForager, _spinSpeed, 0);
+		if (!_cantMove) {
+
+			OffsetRect(&_rcForager, applySpeed, 0);
+			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
+			if (_state == STATE::ROTATE) {
+				_spinSpeed = applySpeed * 2;
+				OffsetRect(&_rcForager, _spinSpeed, 0);
+			}
+		}
+		
 
 	}
 
 	//플레이어 상하 움직임 처리 
 	if (_isMoveVertical)
 	{
+		bool _cantMove = false;
 		int applySpeed = (_isUp) ? -3 : 3;
 
-		if (_isUp) {
-			if (_map->checkCanMove(-MAPTILEX))
-				applySpeed = 0;
-		}
-		else {
-			if (_map->checkCanMove(MAPTILEX))
-				applySpeed = 0;
-		}
+		_cantMove = (_isUp) ? _map->checkCanMove(-MAPTILEX) : _map->checkCanMove(MAPTILEX);
 
-		_spinSpeed = applySpeed * 2;
+		if (!_cantMove) {
 
-		OffsetRect(&_rcForager, 0, applySpeed);
-		//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
-		if (_state == STATE::ROTATE)
-		{
-			OffsetRect(&_rcForager, 0, _spinSpeed);
+			OffsetRect(&_rcForager, 0, applySpeed);
+
+			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
+			if (_state == STATE::ROTATE)
+			{
+				_spinSpeed = applySpeed * 2;
+				OffsetRect(&_rcForager, 0, _spinSpeed);
+			}
 		}
-
 	}
 
 	if (_state == ROTATE || _state == RUN) {
