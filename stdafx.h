@@ -60,7 +60,7 @@ using namespace MY_UTIL;
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)
 //=============================================================
-#define WINNAME (LPTSTR)(TEXT(" 프로그래밍 22기 "))
+#define WINNAME (LPTSTR)(TEXT("Forager by KGA22 - 김기정, 김으뜸, 전영은, 한유인"))
 #define WINSTARTX	100
 #define WINSTARTY	100
 #define WINSIZEX		1280
