@@ -11,7 +11,6 @@ HRESULT gameNode::init()
 	INPUT->init();						//입력매니져 초기화
 	RANDOM->init();						//랜덤매니져 초기화
 	IMAGEMANAGER->init();				//이미지매니져 초기화
-	PLAYERDATA->init();					//플레이어데이터 초기화
 	SCENEMANAGER->init();				//씬매니져 초기화
 	INIDATA->init();					//INI데이터 초기화
 	SOUNDMANAGER->init();				//사운드매니져 초기화
@@ -36,9 +35,6 @@ void gameNode::release()
 	//이미지매니져 해제
 	IMAGEMANAGER->release();
 	IMAGEMANAGER->releaseSingleton();
-	//플레이어데이터 해제
-	PLAYERDATA->release();
-	PLAYERDATA->releaseSingleton();
 	//씬매니져 해제
 	SCENEMANAGER->release();
 	SCENEMANAGER->releaseSingleton();

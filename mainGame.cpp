@@ -14,7 +14,6 @@ HRESULT mainGame::init()
 	/*씬추가*/
 	SCENEMANAGER->addScene("INI테스트", new iniTestScene);
 	//SCENEMANAGER->addScene("사운드", new soundTestScene);
-	SCENEMANAGER->addScene("픽셀충돌", new pixelCollisionScene);
 	SCENEMANAGER->addScene("로딩화면", new loadingScene);
 	SCENEMANAGER->addScene("맵툴화면", new basicmap);
 	SCENEMANAGER->addScene("포레이져화면", new ForagerPlayer);

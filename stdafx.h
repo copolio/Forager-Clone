@@ -34,7 +34,6 @@ using namespace std;
 #include "imageManager.h"
 #include "util.h"
 using namespace MY_UTIL;
-#include "playerData.h"
 #include "sceneManager.h"
 #include "iniData.h"
 #include "soundManager.h"

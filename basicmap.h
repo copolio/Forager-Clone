@@ -4,7 +4,6 @@
 #include "ForagerStatManager.h"
 #include "targetingBox.h"
 #include "inventory.h"
-#include "farming.h"
 #include "tile.h"
 
 #define PLAINHP 100

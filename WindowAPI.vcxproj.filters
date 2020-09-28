@@ -249,4 +249,7 @@
       <Filter>MainGame\Forager\Unit\Player</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
 </Project>
