@@ -179,6 +179,7 @@
     <ClInclude Include="targetingBox.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="timeManager.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +216,7 @@
     </ClCompile>
     <ClCompile Include="targetingBox.cpp" />
     <ClCompile Include="TextManager.cpp" />
+    <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>

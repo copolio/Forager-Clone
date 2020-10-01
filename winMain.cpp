@@ -95,6 +95,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 	*/
+	//게임용 나중에 사용한다
+	while (true)
+	{
+		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE))
+		{
+			if (message.message == WM_QUIT) break;
+			TranslateMessage(&message);
+			DispatchMessage(&message);
+		}
+		else
+		{
+			TIME->update(60.0f);
+			_mg->update();
+			_mg->render();
+		}
+	}
 
 	//일반 프로그래밍용
 	while (GetMessage(&message, 0, 0, 0))
