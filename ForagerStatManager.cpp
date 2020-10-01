@@ -17,7 +17,20 @@ HRESULT ForagerStatManager::init()
 	_foragerStamina = new tagStamina;
 	_foragerStamina->staminaRc = RectMake(10, 50, 74, 26);
 
+	_foragerExp = new tagExp;
+	_foragerExp->expRc = RectMakeCenter(WINSIZEX/ 2, 30, 800, 30);
+
 	
+	needExp[0] = 80;
+
+	for (int i = 1; i < 65; i++) {
+		needExp[i] += needExp[i - 1] * 2.5f;
+	}
+
+	currentExp = 0;
+	level = 0;
+
+
 
 	IMAGEMANAGER->addImage("하트모양체력", "Images/이미지/GUI/하트모양체력.bmp", 34, 30,true,RGB(255,0,255));
 	IMAGEMANAGER->addImage("하트모양체력(뒤)", "Images/이미지/GUI/하트모양체력(뒤).bmp", 34, 30, true, RGB(255, 0, 255));
@@ -25,7 +38,12 @@ HRESULT ForagerStatManager::init()
 	IMAGEMANAGER->addImage("스테미나", "Images/이미지/GUI/img_UI_StaminaGaugeBar.bmp", 63, 16, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("스테미나(뒤)", "Images/이미지/GUI/img_UI_StaminaGaugeBoard.bmp", 74, 26, true, RGB(255, 0, 255));
 
+	//플레이어 경험치 바 이미지
+	IMAGEMANAGER->addImage("expBar", "Images/이미지/GUI/img_UI_ExpGaugeBar.bmp", 792, 22, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("expBarBack", "Images/이미지/GUI/img_UI_ExpGaugeBoard.bmp", 800, 30, true, RGB(255, 0, 255));
+
 	_staminaImgSizeMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
+	_expImgSizeMax = IMAGEMANAGER->findImage("expBar")->getWidth();
 	playerStaminaCount = 0;
 	staminaLoss = false;
 	
@@ -50,10 +68,6 @@ void ForagerStatManager::update()
 			break;
 		}
 	}
-	
-
-
-
 }
 
 void ForagerStatManager::render()
@@ -68,19 +82,20 @@ void ForagerStatManager::render()
 		{
 			IMAGEMANAGER->render("하트모양체력(뒤)", getMemDC(), _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
 		}
-		
-		
 	}
 
 	IMAGEMANAGER->render("스테미나(뒤)", getMemDC(), _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
 	IMAGEMANAGER->render("스테미나", getMemDC(), _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
 
+	IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
+	IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
 	
-	
-
 }
 
-void ForagerStatManager::setGauge(float maxHp, float currentHp)
+void ForagerStatManager::IncreaseExp(int exp)
 {
-	
+	currentExp += exp;
+	if (currentExp >= needExp[level])
+		level++;
+	_foragerExp->expRc.right = _expImgSizeMax * ((currentExp - (needExp[level - 1])) / needExp[level]);
 }

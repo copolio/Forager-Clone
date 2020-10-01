@@ -13,6 +13,7 @@ protected:
 	int layer;
 	string tag;
 	RECT rc;
+
 public:
 	virtual HRESULT init();
 	virtual void release();
