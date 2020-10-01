@@ -1,6 +1,6 @@
 #pragma once
 #include "inGameMenu.h"
-class inventory :
+class purchase_land :
 	public inGameMenu
 {
 };

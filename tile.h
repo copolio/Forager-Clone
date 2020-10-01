@@ -1,4 +1,7 @@
 #pragma once
+
+#include "gameObject.h"
+
 #define TILEX 12
 #define TILEY 12
 #define TILESIZE 56
@@ -10,18 +13,14 @@
 #define CAMRANGE TILESIZE*4
 #define CAMSPEED 10
 
-enum GROUNDLEVEL {
-	TERRAIN, OBJECT
-};
 
 enum class OBJECTSTATUS {
 	IDLE,
 	ATTACKED
 };
 
-struct tile {
-	RECT rc;
-	GROUNDLEVEL level;
+class tile : public gameObject {
+
 	string terrKey;
 	string objKey;
 	int terrainHp;
@@ -33,12 +32,4 @@ struct tile {
 	OBJECTSTATUS objStatus;
 };
 
-struct dropItem {
-	RECT rc;
-	//image* dropItems;
-	string itemKey;
-	string imgName;
-	float dropItemX;
-	float dropItemY;
 
-};

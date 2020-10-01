@@ -43,7 +43,7 @@ private:
 	int _playerPos;
 	POINT _ptPlayerPos;
 	ForagerStatManager* _statManager;
-	inventory* _inventory;
+	inGameMenu* _inventory;
 
 private:
 	vector<dropItem> _vDropItems;

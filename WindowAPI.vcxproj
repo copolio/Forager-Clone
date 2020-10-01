@@ -149,24 +149,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="basicmap.h" />
+    <ClInclude Include="building.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="construction.h" />
     <ClInclude Include="EffectManager.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="equipMent.h" />
     <ClInclude Include="ForagerPlayer.h" />
     <ClInclude Include="ForagerStatManager.h" />
     <ClInclude Include="gameNode.h" />
+    <ClInclude Include="gameObject.h" />
+    <ClInclude Include="gameScene.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="iniData.h" />
     <ClInclude Include="iniTestScene.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="inGameMenu.h" />
     <ClInclude Include="inventory.h" />
     <ClInclude Include="inventory_slot.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="object.h" />
     <ClInclude Include="playerTestScene.h" />
     <ClInclude Include="progressBar.h" />
+    <ClInclude Include="purchase_land.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
     <ClInclude Include="saveManager.h" />
@@ -180,27 +190,38 @@
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="timeManager.h" />
+    <ClInclude Include="unit.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="basicmap.cpp" />
+    <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="construction.cpp" />
     <ClCompile Include="EffectManager.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="equipMent.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
     <ClCompile Include="ForagerStatManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="gameObject.cpp" />
+    <ClCompile Include="gameScene.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="iniData.cpp" />
     <ClCompile Include="iniTestScene.cpp" />
     <ClCompile Include="input.cpp" />
+    <ClCompile Include="inGameMenu.cpp" />
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="inventory_slot.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="map.cpp" />
+    <ClCompile Include="object.cpp" />
     <ClCompile Include="playerTestScene.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="purchase_land.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="reactImage.cpp" />
     <ClCompile Include="saveManager.cpp" />
@@ -217,6 +238,7 @@
     <ClCompile Include="targetingBox.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="timeManager.cpp" />
+    <ClCompile Include="unit.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
