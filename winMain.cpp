@@ -112,12 +112,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
-	//일반 프로그래밍용
-	while (GetMessage(&message, 0, 0, 0))
-	{
-		TranslateMessage(&message);
-		DispatchMessage(&message);
-	}
+	////일반 프로그래밍용
+	//while (GetMessage(&message, 0, 0, 0))
+	//{
+	//	TranslateMessage(&message);
+	//	DispatchMessage(&message);
+	//}
 
 	//메인게임 클래스 해제
 	_mg->release();
