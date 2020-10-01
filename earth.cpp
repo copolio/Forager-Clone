@@ -53,7 +53,7 @@ void earth::render(HDC hdc)
 			RECT temp;
 
 			// 카메라 범위만 렌더
-			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTile[i*MAPTILEY + j].rc)) continue;
+			//if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTile[i*MAPTILEY + j].rc)) continue;
 
 			// 지형 렌더
 			if (_vTile[i*MAPTILEY + j].terrKey != "watertile") {
