@@ -10,26 +10,12 @@
 #define MAPSIZE MAPX*MAPY
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
-#define CAMRANGE TILESIZE*4
-#define CAMSPEED 10
-
-
-enum class OBJECTSTATUS {
-	IDLE,
-	ATTACKED
-};
 
 class tile : public gameObject {
-
+public:
 	string terrKey;
-	string objKey;
-	int terrainHp;
 	int terrainFrameX;
 	int terrainFrameY;
-	int objHp;
-	int objFrameX;
-	int objFrameY;
-	OBJECTSTATUS objStatus;
 };
 
 

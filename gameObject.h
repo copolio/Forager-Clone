@@ -1,28 +1,31 @@
 #pragma once
 enum class LAYER
 {
-	WATER,
-	LAND,
-	SKY
+	TERRAIN,
+	OBJECT
+};
+enum class TAG
+{
+	TERRAIN,
+	ITEM,
+	ENEMY,
+	PLAYER,
+	OBJECT,
+	BUILDING
 };
 class gameObject
 {
-protected:
-
-	int x, y;
-	int layer;
-	string tag;
+public:
 	RECT rc;
+	LAYER layer;
+	TAG tag;	
 public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 	virtual void render(HDC hdc);
-
 public:
-	int getX() { return x; };
-	int getY() { return y; };
-	int getLayer() { return layer; };
+	LAYER getLayer() { return layer; };
 	string getTag() { return tag; };
 	RECT getRect() { return rc; };
 };

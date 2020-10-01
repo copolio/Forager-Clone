@@ -169,7 +169,6 @@
     <ClCompile Include="inGameMenu.cpp">
       <Filter>MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
-    <ClCompile Include="map.cpp" />
     <ClCompile Include="object.cpp">
       <Filter>MainGame\Forager\Unit\object</Filter>
     </ClCompile>
@@ -190,6 +189,12 @@
     </ClCompile>
     <ClCompile Include="construction.cpp">
       <Filter>MainGame\Forager\inGameMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="earth.cpp">
+      <Filter>MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="gamemap.cpp">
+      <Filter>MainGame\Forager\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,7 +304,6 @@
     <ClInclude Include="inGameMenu.h">
       <Filter>MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
-    <ClInclude Include="map.h" />
     <ClInclude Include="object.h">
       <Filter>MainGame\Forager\Unit\object</Filter>
     </ClInclude>
@@ -320,6 +324,12 @@
     </ClInclude>
     <ClInclude Include="construction.h">
       <Filter>MainGame\Forager\inGameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="earth.h">
+      <Filter>MainGame\Forager\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemap.h">
+      <Filter>MainGame\Forager\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

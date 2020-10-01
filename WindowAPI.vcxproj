@@ -153,6 +153,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="construction.h" />
+    <ClInclude Include="earth.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="equipMent.h" />
@@ -172,7 +173,7 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
-    <ClInclude Include="map.h" />
+    <ClInclude Include="gamemap.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="playerTestScene.h" />
     <ClInclude Include="progressBar.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
+    <ClCompile Include="earth.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="equipMent.cpp" />
@@ -217,7 +219,7 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
-    <ClCompile Include="map.cpp" />
+    <ClCompile Include="gamemap.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="playerTestScene.cpp" />
     <ClCompile Include="progressBar.cpp" />
