@@ -20,6 +20,5 @@ public:
 	void render(HDC hdc);
 
 	void mapSetup();
-	void animation();
 };
 

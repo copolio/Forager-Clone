@@ -52,9 +52,6 @@
     <Filter Include="MainGame\Forager\Unit">
       <UniqueIdentifier>{f7047ebf-71af-47e6-a3d2-d79afb3b23a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\Player">
-      <UniqueIdentifier>{537ca8a6-5264-41e9-905f-b3f612cee5f9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\Forager\Unit\building">
       <UniqueIdentifier>{2ca11124-b48b-4e38-8302-700db3d1f823}</UniqueIdentifier>
     </Filter>
@@ -63,9 +60,6 @@
     </Filter>
     <Filter Include="MainGame\Forager\Unit\object">
       <UniqueIdentifier>{dd06ca30-8667-418b-9f3f-4b0f2acbf364}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Forager\inGameMenu">
-      <UniqueIdentifier>{3a2aa4c4-fcc3-48ab-badc-0e421a389a7d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +114,6 @@
     <ClCompile Include="loadingScene.cpp">
       <Filter>GameFramework\로딩화면</Filter>
     </ClCompile>
-    <ClCompile Include="basicmap.cpp">
-      <Filter>MainGame\Forager\Map</Filter>
-    </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClCompile>
@@ -132,29 +123,11 @@
     <ClCompile Include="reactImage.cpp">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="ForagerStatManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="playerTestScene.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="inventory_slot.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
     <ClCompile Include="TextManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="saveManager.cpp">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="startScene.cpp">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ForagerPlayer.cpp">
-      <Filter>MainGame\Forager\Unit\Player</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
       <Filter>GameFramework\매니져</Filter>
@@ -166,9 +139,6 @@
     <ClCompile Include="gameScene.cpp">
       <Filter>MainGame\Forager\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="inGameMenu.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
     <ClCompile Include="object.cpp">
       <Filter>MainGame\Forager\Unit\object</Filter>
     </ClCompile>
@@ -177,18 +147,6 @@
     </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>MainGame\Forager\Unit\enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="purchase_land.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="equipMent.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="inventory.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="construction.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="earth.cpp">
       <Filter>MainGame\Forager\Map</Filter>
@@ -252,9 +210,6 @@
     <ClInclude Include="loadingScene.h">
       <Filter>GameFramework\로딩화면</Filter>
     </ClInclude>
-    <ClInclude Include="basicmap.h">
-      <Filter>MainGame\Forager\Map</Filter>
-    </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClInclude>
@@ -264,32 +219,14 @@
     <ClInclude Include="reactImage.h">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ForagerStatManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="playerTestScene.h">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="inventory_slot.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
     <ClInclude Include="TextManager.h">
       <Filter>MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>MainGame\Forager\Map</Filter>
     </ClInclude>
-    <ClInclude Include="saveManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="cameraManager.h">
       <Filter>MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="startScene.h">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ForagerPlayer.h">
-      <Filter>MainGame\Forager\Unit\Player</Filter>
     </ClInclude>
     <ClInclude Include="timeManager.h">
       <Filter>GameFramework\매니져</Filter>
@@ -301,9 +238,6 @@
     <ClInclude Include="gameScene.h">
       <Filter>MainGame\Forager\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="inGameMenu.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
     <ClInclude Include="object.h">
       <Filter>MainGame\Forager\Unit\object</Filter>
     </ClInclude>
@@ -312,18 +246,6 @@
     </ClInclude>
     <ClInclude Include="enemy.h">
       <Filter>MainGame\Forager\Unit\enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="purchase_land.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="equipMent.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="inventory.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="construction.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="earth.h">
       <Filter>MainGame\Forager\Map</Filter>

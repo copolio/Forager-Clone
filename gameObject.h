@@ -19,14 +19,14 @@ public:
 	RECT rc;
 	LAYER layer;
 	TAG tag;	
-public:
-	virtual HRESULT init();
-	virtual void release();
-	virtual void update();
-	virtual void render(HDC hdc);
+//public:
+//	virtual HRESULT init();
+//	virtual void release();
+//	virtual void update();
+//	virtual void render(HDC hdc);
 public:
 	LAYER getLayer() { return layer; };
-	string getTag() { return tag; };
+	TAG getTag() { return tag; };
 	RECT getRect() { return rc; };
 };
 
