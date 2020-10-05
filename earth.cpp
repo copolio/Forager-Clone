@@ -36,18 +36,7 @@ void earth::update()
 void earth::render(HDC hdc)
 {
 	// ¹°¹è°æ ·»´õ
-	//IMAGEMANAGER->findImage("TitleBG")->render(hdc, -500, -400);
-	for (int i = 0; i < MAPTILEY; i++) {
-		for (int j = 0; j < MAPTILEX; j++) {
-			RECT temp;
-			// Ä«¸Þ¶ó ¹üÀ§¸¸ ·»´õ
-			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vTile[i*MAPTILEY + j].rc)) continue;
-			// ¹° ·»´õ
-			if (_vTile[i*MAPTILEY + j].terrKey == "watertile") {
-				IMAGEMANAGER->render(_vTile[i*MAPTILEY + j].terrKey, hdc, CAMERA->GetRelativeX(_vTile[i*MAPTILEY + j].rc.left), CAMERA->GetRelativeY(_vTile[i*MAPTILEY + j].rc.top));
-			}
-		}
-	}
+	IMAGEMANAGER->findImage("TitleBG")->render(hdc, -500, -400);
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			RECT temp;

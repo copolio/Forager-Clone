@@ -1,7 +1,6 @@
 #pragma once
-#include "unit.h"
-class building :
-	public unit
+#include "object.h"
+class building : public object
 {
 };
 

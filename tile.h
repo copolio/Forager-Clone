@@ -16,6 +16,7 @@ public:
 	string terrKey;
 	int terrainFrameX;
 	int terrainFrameY;
+	bool hasBuilding;
 };
 
 
