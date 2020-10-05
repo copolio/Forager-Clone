@@ -7,7 +7,7 @@ HRESULT ForagerPlayer::init()
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
 	_rcForager = RectMakeCenter(x, y, 30, 41);
-	
+	inven_open = false;
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 
 	//플레이어 가만히 있을 때 프레임 이미지 3*2
@@ -102,9 +102,11 @@ void ForagerPlayer::release()
 void ForagerPlayer::update()
 {
 	animation();
+	if (!inven_open) {
 	PlayerControll();
-	playerMove();
-	playerLookingDirection();
+		playerMove();
+		playerLookingDirection();
+	}
 	
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2 , (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(_rcForager.left, _rcForager.top);

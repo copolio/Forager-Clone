@@ -28,8 +28,10 @@ void gameScene::update()
 	if (INPUT->GetKeyDown('I')) {
 		if (inven_open) {
 			inven_open = false;
+			_player->setInvenOpen(false);
 		}
 		else {
+			_player->setInvenOpen(true);
 			inven_open = true;
 		}
 	}
