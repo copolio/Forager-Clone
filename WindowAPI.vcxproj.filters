@@ -10,12 +10,6 @@
     <Filter Include="GameFramework\유틸">
       <UniqueIdentifier>{82ed7401-0ae2-484e-9601-12b179f70e74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame">
-      <UniqueIdentifier>{9c69a583-1983-4b33-912a-e558098cf29c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\GameNode">
-      <UniqueIdentifier>{8c4b8dd0-80cb-4dc5-bfed-01e6b65dba74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="WinMain">
       <UniqueIdentifier>{68b7cb8f-01ee-485e-8a9d-54f0e06f6040}</UniqueIdentifier>
     </Filter>
@@ -28,9 +22,6 @@
     <Filter Include="GameFramework\로딩">
       <UniqueIdentifier>{380f7478-b624-45de-aeae-2ccb9055ab48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager">
-      <UniqueIdentifier>{76499772-7872-499a-8318-bbc485184c19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
@@ -40,31 +31,37 @@
     <Filter Include="GameFramework\INI테스트">
       <UniqueIdentifier>{8e6d480c-fe29-46b8-90ae-1b8ccd219b09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Scenes">
+    <Filter Include="GameFramework\MainGame">
+      <UniqueIdentifier>{9c69a583-1983-4b33-912a-e558098cf29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\GameNode">
+      <UniqueIdentifier>{8c4b8dd0-80cb-4dc5-bfed-01e6b65dba74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager">
+      <UniqueIdentifier>{76499772-7872-499a-8318-bbc485184c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Scenes">
       <UniqueIdentifier>{aa76a045-e625-46a5-9598-b06f8935541c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Map">
+    <Filter Include="GameFramework\MainGame\Forager\Map">
       <UniqueIdentifier>{63257e59-4792-4231-8fd3-ef34c651e267}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Manager">
+    <Filter Include="GameFramework\MainGame\Forager\Manager">
       <UniqueIdentifier>{daf7d61a-5239-4b59-b44f-5fd0b29ce984}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit">
+    <Filter Include="GameFramework\MainGame\Forager\Unit">
       <UniqueIdentifier>{f7047ebf-71af-47e6-a3d2-d79afb3b23a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\Player">
-      <UniqueIdentifier>{537ca8a6-5264-41e9-905f-b3f612cee5f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Forager\Unit\building">
+    <Filter Include="GameFramework\MainGame\Forager\Unit\building">
       <UniqueIdentifier>{2ca11124-b48b-4e38-8302-700db3d1f823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\enemy">
+    <Filter Include="GameFramework\MainGame\Forager\Unit\enemy">
       <UniqueIdentifier>{82c8fd22-45a7-49d0-bbb0-18186417b905}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\object">
+    <Filter Include="GameFramework\MainGame\Forager\Unit\object">
       <UniqueIdentifier>{dd06ca30-8667-418b-9f3f-4b0f2acbf364}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\inGameMenu">
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu">
       <UniqueIdentifier>{3a2aa4c4-fcc3-48ab-badc-0e421a389a7d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -76,10 +73,10 @@
       <Filter>WinMain</Filter>
     </ClCompile>
     <ClCompile Include="gameNode.cpp">
-      <Filter>MainGame\GameNode</Filter>
+      <Filter>GameFramework\MainGame\GameNode</Filter>
     </ClCompile>
     <ClCompile Include="mainGame.cpp">
-      <Filter>MainGame</Filter>
+      <Filter>GameFramework\MainGame</Filter>
     </ClCompile>
     <ClCompile Include="input.cpp">
       <Filter>GameFramework\매니져</Filter>
@@ -120,87 +117,94 @@
     <ClCompile Include="loadingScene.cpp">
       <Filter>GameFramework\로딩화면</Filter>
     </ClCompile>
-    <ClCompile Include="basicmap.cpp">
-      <Filter>MainGame\Forager\Map</Filter>
-    </ClCompile>
     <ClCompile Include="EffectManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="targetingBox.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="reactImage.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="ForagerStatManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="playerTestScene.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="inventory_slot.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="TextManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="saveManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="startScene.cpp">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ForagerPlayer.cpp">
-      <Filter>MainGame\Forager\Unit\Player</Filter>
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="timeManager.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="unit.cpp">
-      <Filter>MainGame\Forager\Unit</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClCompile>
     <ClCompile Include="gameScene.cpp">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="inGameMenu.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="map.cpp" />
     <ClCompile Include="object.cpp">
-      <Filter>MainGame\Forager\Unit\object</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\object</Filter>
     </ClCompile>
     <ClCompile Include="building.cpp">
-      <Filter>MainGame\Forager\Unit\building</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\building</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
-      <Filter>MainGame\Forager\Unit\enemy</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
     <ClCompile Include="purchase_land.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="equipMent.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="inventory.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="construction.cpp">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
+    <ClCompile Include="inventory_images.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory_test_scenes.cpp">
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="inGameMenu11.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="inGameMenu.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="gamesetting.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="ForagerPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
-      <Filter>MainGame\GameNode</Filter>
+      <Filter>GameFramework\MainGame\GameNode</Filter>
     </ClInclude>
     <ClInclude Include="mainGame.h">
-      <Filter>MainGame</Filter>
+      <Filter>GameFramework\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
-      <Filter>MainGame</Filter>
+      <Filter>GameFramework\MainGame</Filter>
     </ClInclude>
     <ClInclude Include="commonMacroFunction.h">
       <Filter>GameFramework\유틸</Filter>
@@ -247,80 +251,87 @@
     <ClInclude Include="loadingScene.h">
       <Filter>GameFramework\로딩화면</Filter>
     </ClInclude>
-    <ClInclude Include="basicmap.h">
-      <Filter>MainGame\Forager\Map</Filter>
-    </ClInclude>
     <ClInclude Include="EffectManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="targetingBox.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="reactImage.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="ForagerStatManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="playerTestScene.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="inventory_slot.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="TextManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="tile.h">
-      <Filter>MainGame\Forager\Map</Filter>
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClInclude>
     <ClInclude Include="saveManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cameraManager.h">
-      <Filter>MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="startScene.h">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ForagerPlayer.h">
-      <Filter>MainGame\Forager\Unit\Player</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="timeManager.h">
       <Filter>GameFramework\매니져</Filter>
     </ClInclude>
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="unit.h">
-      <Filter>MainGame\Forager\Unit</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClInclude>
     <ClInclude Include="gameScene.h">
-      <Filter>MainGame\Forager\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="inGameMenu.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="map.h" />
     <ClInclude Include="object.h">
-      <Filter>MainGame\Forager\Unit\object</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\object</Filter>
     </ClInclude>
     <ClInclude Include="building.h">
-      <Filter>MainGame\Forager\Unit\building</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\building</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
-      <Filter>MainGame\Forager\Unit\enemy</Filter>
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
     <ClInclude Include="purchase_land.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="equipMent.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="inventory.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="construction.h">
-      <Filter>MainGame\Forager\inGameMenu</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
+    <ClInclude Include="inventory_images.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="startScene.h">
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory_test_scenes.h">
+      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="inGameMenu11.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="inGameMenu.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="gamesetting.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="ForagerPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

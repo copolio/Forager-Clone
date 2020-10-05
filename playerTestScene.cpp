@@ -3,11 +3,7 @@
 
 HRESULT playerTestScene::init()
 {
-	_player = new ForagerPlayer;
-	_statManager = new ForagerStatManager;
 
-	_player->init();
-	_statManager->init();
 
 
 	return S_OK;
@@ -16,18 +12,15 @@ HRESULT playerTestScene::init()
 void playerTestScene::release()
 {
 
-	//_player->release();
-	//_statManager->release();
+
 }
 
 void playerTestScene::update()
 {
-	_player->update();
-	_statManager->update();
+
 }
 
 void playerTestScene::render()
 {
-	_player->render();
-	_statManager->render();
+
 }

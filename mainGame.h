@@ -5,11 +5,8 @@
 #include "iniTestScene.h"
 #include "soundTestScene.h"
 #include "loadingScene.h"
-#include "ForagerPlayer.h"
-#include "playerTestScene.h"
-#include "basicmap.h"
 #include "startScene.h"
-#include "inventory.h"
+#include "gameScene.h"
 
 class mainGame : public gameNode
 {

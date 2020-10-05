@@ -148,7 +148,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="basicmap.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -161,14 +160,18 @@
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameScene.h" />
+    <ClInclude Include="gamesetting.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
+    <ClInclude Include="inGameMenu.h" />
     <ClInclude Include="iniData.h" />
     <ClInclude Include="iniTestScene.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="inGameMenu.h" />
+    <ClInclude Include="inGameMenu11.h" />
     <ClInclude Include="inventory.h" />
+    <ClInclude Include="inventory_images.h" />
     <ClInclude Include="inventory_slot.h" />
+    <ClInclude Include="inventory_test_scenes.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
@@ -194,7 +197,6 @@
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="basicmap.cpp" />
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
@@ -206,14 +208,18 @@
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="gameScene.cpp" />
+    <ClCompile Include="gamesetting.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
+    <ClCompile Include="inGameMenu.cpp" />
     <ClCompile Include="iniData.cpp" />
     <ClCompile Include="iniTestScene.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="inGameMenu.cpp" />
+    <ClCompile Include="inGameMenu11.cpp" />
     <ClCompile Include="inventory.cpp" />
+    <ClCompile Include="inventory_images.cpp" />
     <ClCompile Include="inventory_slot.cpp" />
+    <ClCompile Include="inventory_test_scenes.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />

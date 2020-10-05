@@ -163,14 +163,14 @@ void startScene::CheckButtonClick()
 
 				case BTN::SLOT1:	
 					SCENEMANAGER->loadScene("∏ ≈¯»≠∏È"); 
-					SAVEMANAGER->slotName = "game1.map";
+
 					break;	// ∞‘¿” ΩΩ∑‘ 1
 				
 				case BTN::SLOT2:	SCENEMANAGER->loadScene("∏ ≈¯»≠∏È"); 
-					SAVEMANAGER->slotName = "game2.map";
+
 					break;	// ∞‘¿” ΩΩ∑‘ 2
 				case BTN::SLOT3:	SCENEMANAGER->loadScene("∏ ≈¯»≠∏È");
-					SAVEMANAGER->slotName = "game3.map";
+
 					break;	// ∞‘¿” ΩΩ∑‘ 3
 				}
 			}

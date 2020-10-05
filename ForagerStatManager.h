@@ -15,6 +15,11 @@ struct tagStamina
 	string imgName;
 	
 };
+struct tagExp
+{
+	RECT expRc;
+	string imgName;
+};
 
 class ForagerPlayer;
 class ForagerStatManager :public gameNode
@@ -28,7 +33,11 @@ private:
 	float _staminaImgSizeMax;		//최대 스테미나 
 	tagStamina* _foragerStamina;
 	ForagerPlayer* _player;
-
+	tagExp* _foragerExp;
+	int needExp[65];
+	int currentExp;
+	int level;
+	float _expImgSizeMax;
 	
 
 public :
@@ -48,7 +57,9 @@ public :
 
 	//체력바 위치 세팅하기
 	void setPos(float x, float y) { _x = x; _y = y; }
-	//체력바 게이지 세팅하기
-	void setGauge(float maxHp, float currentHp);
+
+	//경험치바 최적화
+	void IncreaseExp(int exp);
+
 };
 

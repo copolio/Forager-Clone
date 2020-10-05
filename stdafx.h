@@ -40,9 +40,8 @@ using namespace MY_UTIL;
 #include "TextManager.h"
 #include "EffectManager.h"
 #include "cameraManager.h"
-#include "saveManager.h"
 #include "timeManager.h"
-
+#include "targetingBox.h"
 //=============================================================
 //	## 싱글톤을 추가한다 ##
 //=============================================================
@@ -56,7 +55,6 @@ using namespace MY_UTIL;
 #define TEXTMANAGER TextManager::getSingleton()
 #define EFFECTMANAGER EffectManager::getSingleton()
 #define CAMERA cameraManager::getSingleton()
-#define SAVEMANAGER saveManager::getSingleton()
 #define TIME timeManager::getSingleton()
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)

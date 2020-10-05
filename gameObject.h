@@ -13,11 +13,12 @@ protected:
 	int layer;
 	string tag;
 	RECT rc;
+
 public:
-	virtual HRESULT init();
-	virtual void release();
-	virtual void update();
-	virtual void render(HDC hdc);
+	virtual HRESULT init() = 0;
+	virtual void release() = 0;
+	virtual void update() = 0;
+	virtual void render(HDC hdc) = 0;
 
 public:
 	int getX() { return x; };

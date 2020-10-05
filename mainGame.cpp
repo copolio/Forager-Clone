@@ -12,17 +12,10 @@ HRESULT mainGame::init()
 	/*이곳에서 각각의 씬들을 추가하고 현재씬을 설정한다*/
 
 	/*씬추가*/
-	SCENEMANAGER->addScene("INI테스트", new iniTestScene);
-	//SCENEMANAGER->addScene("사운드", new soundTestScene);
-	SCENEMANAGER->addScene("로딩화면", new loadingScene);
-	SCENEMANAGER->addScene("맵툴화면", new basicmap);
-	SCENEMANAGER->addScene("포레이져화면", new ForagerPlayer);
-	SCENEMANAGER->addScene("시작화면", new startScene);
-	SCENEMANAGER->addScene("플레이어테스트화면", new playerTestScene);
-	SCENEMANAGER->addScene("인벤토리", new inventory);
 
+	SCENEMANAGER->addScene("게임 화면", new gameScene);
 	/*현재씬*/
-	SCENEMANAGER->loadScene("시작화면");
+	SCENEMANAGER->loadScene("게임 화면");
 
 	return S_OK;
 }
@@ -55,7 +48,7 @@ void mainGame::update()
 void mainGame::render()
 {
 	//흰색 빈 비트맵 (이것은 렌더에 그냥 두기)
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
 //=============================================================
 	
 	//글자색 배경 없애기

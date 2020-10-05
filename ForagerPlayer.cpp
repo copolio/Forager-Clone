@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
 #include "ForagerStatManager.h"
-#include "basicmap.h"
 
 HRESULT ForagerPlayer::init()
 {
-	_rcForager = RectMakeCenter(WINSIZEX/2, WINSIZEY/2, 30, 41);
+	x = WINSIZEX / 2;
+	y = WINSIZEY / 2;
+	_rcForager = RectMakeCenter(x, y, 30, 41);
+	
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 
 	//플레이어 가만히 있을 때 프레임 이미지 3*2
@@ -41,6 +43,7 @@ HRESULT ForagerPlayer::init()
 	_foragerRotate = IMAGEMANAGER->findImage("playerRotate");
 	_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
 	_playerHammering = IMAGEMANAGER->findImage("playerWork");
+	_state = STATE::IDLE;
 
 	_hammer = IMAGEMANAGER->findImage("Hammer");
 	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
@@ -86,8 +89,6 @@ HRESULT ForagerPlayer::init()
 	_isRun = false;
 	_isHammering = false;
 	
-	_currentHp = _playerMaxHp = 100;
-
 
 	return S_OK;
 }
@@ -109,47 +110,41 @@ void ForagerPlayer::update()
 
 }
 
-void ForagerPlayer::render()
+void ForagerPlayer::render(HDC hdc)
 {
 	switch (_state)
 	{
 	case IDLE:
-		IMAGEMANAGER->frameRender("playerStop", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerStop", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	case RUN:
-		IMAGEMANAGER->frameRender("playerRUN", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerRUN", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	case ROTATE: 
 		if (_isLeft) 
 		{
-			IMAGEMANAGER->frameRender("playerRotateLeft", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-
-			IMAGEMANAGER->frameRender("HammerImgLeft", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		}
 		else 
 		{
-			IMAGEMANAGER->frameRender("playerRotate", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-
-			IMAGEMANAGER->frameRender("HammerImg", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("playerRotate", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("HammerImg", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		}
 
 		break;
 	case HAMMERING :
-		IMAGEMANAGER->frameRender("playerWork", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-		IMAGEMANAGER->frameRender("playerHammering", getMemDC(), CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
 		break;
 	}
 
 	if (_isMoveRotate == false && _state != ROTATE && _state != HAMMERING)
 	{
 		if (_isLeft)
-		{
-			IMAGEMANAGER->render("Hammer", getMemDC(), CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top));
-		}
+			IMAGEMANAGER->render("Hammer", hdc, CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top));
 		else
-		{
-			IMAGEMANAGER->render("HammerLeft", getMemDC(), CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
-		}
+			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
 	}
 }
 
@@ -162,30 +157,22 @@ void ForagerPlayer::animation()
 	case IDLE:
 		if (_isLeft)
 		{
-			_count++;
 			_foragerIdle->setFrameY(1);
-			if (_count % 5 == 0)
+			_foragerIdle->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index--;
-				if (_index < 0)
-				{
-					_index = 3;
-				}
-				_foragerIdle->setFrameX(_index);
+				if (_index-- <= 0)
+					_index = 2;
 			}
 		}
 		else
 		{
-			_count++;
 			_foragerIdle->setFrameY(0);
-			if (_count % 5 == 0)
+			_foragerIdle->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index++;
-				if (_index > 3)
-				{
+				if (_index++ > 3)
 					_index = 0;
-				}
-				_foragerIdle->setFrameX(_index);
 			}
 		}
 		break;
@@ -193,67 +180,52 @@ void ForagerPlayer::animation()
 	case RUN:
 		if (_isLeft)
 		{
-			_count++;
 			_foragerRun->setFrameY(1);
-			if (_count % 5 == 0)
+			_foragerRun->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index--;
-				if (_index < 0)
-				{
+				if (_index-- <= 0)
 					_index = 3;
-				}
-				_foragerRun->setFrameX(_index);
 			}
 		}
 		else
 		{
-			_count++;
 			_foragerRun->setFrameY(0);
-			if (_count % 5 == 0)
+			_foragerRun->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index++;
-				if (_index > 3)
-				{
+				if (_index++ > 4)
 					_index = 0;
-				}
-				_foragerRun->setFrameX(_index);
 			}
 		}
 		break;
 	case ROTATE:
 		if (_isLeft)
 		{
-			_count++;
-			
-			if (_count % 1 == 0)
+			if (_count++ % 1 == 0)
 			{
-				_index++;
-				if (_index > 11)
+				if (_index++ > 11)
 				{
 					_index = 0;
 					_state = STATE::IDLE;
 					_isMoveRotate = false;
 				}
-				
 				IMAGEMANAGER->findImage("playerRotateLeft")->setFrameX(_index);
 				IMAGEMANAGER->findImage("HammerImgLeft")->setFrameX(_index);
-				
 			}
 		}
 		else
 		{
-			_count++;
 			_foragerRotate->setFrameY(0);
-			if (_count % 1 == 0)
+			_foragerRotate->setFrameX(_index);
+			if (_count++ % 1 == 0)
 			{
-				_index++;
-				if (_index >11)
+				if (_index++ >11)
 				{
 					_index = 0;
 					_state = STATE::IDLE;
 					_isMoveRotate = false;
 				}
-				_foragerRotate->setFrameX(_index);
 				IMAGEMANAGER->findImage("HammerImg")->setFrameX(_index);
 			}
 		}
@@ -261,34 +233,26 @@ void ForagerPlayer::animation()
 	case HAMMERING :
 		if (_isLeft)
 		{
-			_count++;
 			_foragerHammering->setFrameY(1);
 			_playerHammering->setFrameY(1);
-			if (_count % 5 == 0)
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index--;
-				if (_index < 0)
-				{
+				if (_index-- < 0)
 					_index = 3;
-				}
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
 			}
 		}
 		else
 		{
-			_count++;
 			_foragerHammering->setFrameY(0);
 			_playerHammering->setFrameY(0);
-			if (_count % 5 == 0)
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_index++;
-				if (_index > 3)
-				{
+				if (_index++ > 3)
 					_index = 0;
-				}
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
 			}
 		}
 		break;
@@ -297,7 +261,7 @@ void ForagerPlayer::animation()
 
 void ForagerPlayer::PlayerControll()
 {
-	_map->setPlayerPosTile();
+	//_map->setPlayerPosTile();
 
 	if (_state != STATE::ROTATE) {
 		//가만히 있는 상태
@@ -353,7 +317,7 @@ void ForagerPlayer::playerMove()
 		bool _cantMove = false;
 		int applySpeed = (_isLeft) ? -3 : 3;
 
-		_cantMove = (_isLeft) ? _map->checkCanMove(-1) : _map->checkCanMove(1);
+		//_cantMove = (_isLeft) ? _map->checkCanMove(-1) : _map->checkCanMove(1);
 
 		if (!_cantMove) {
 
@@ -374,7 +338,7 @@ void ForagerPlayer::playerMove()
 		bool _cantMove = false;
 		int applySpeed = (_isUp) ? -3 : 3;
 
-		_cantMove = (_isUp) ? _map->checkCanMove(-MAPTILEX) : _map->checkCanMove(MAPTILEX);
+		//_cantMove = (_isUp) ? _map->checkCanMove(-MAPTILEX) : _map->checkCanMove(MAPTILEX);
 
 		if (!_cantMove) {
 

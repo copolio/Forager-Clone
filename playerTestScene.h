@@ -1,6 +1,5 @@
 #pragma once
 #include "gameNode.h"
-#include "ForagerPlayer.h"
 #include "ForagerStatManager.h"
 
 class playerTestScene : public gameNode

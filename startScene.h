@@ -23,7 +23,7 @@ private:
 
 	targetingBox *_targetingBox;
 
-	saveManager* _saveManager;
+	//saveManager* _saveManager;
 	
 	int testWalkEffectCount = 0;
 	int testWalkEffectInterval = 10;
