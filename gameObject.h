@@ -15,18 +15,14 @@ enum class TAG
 };
 class gameObject
 {
-protected:
-
+public:
 	int x, y;
-	int layer;
-	string tag;
 	RECT rc;
 	LAYER layer;
 	TAG tag;	
-//public:
-//	virtual HRESULT init();
-//	virtual void release();
-//	virtual void update();
-//	virtual void render(HDC hdc);
+public:
+	int getX() { return x; };
+	int getY() { return y; };
+	RECT getRect() { return rc; };
 };
 
