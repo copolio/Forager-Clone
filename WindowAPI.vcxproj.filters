@@ -132,9 +132,6 @@
     <ClCompile Include="ForagerStatManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="playerTestScene.cpp">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="inventory_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
@@ -267,9 +264,6 @@
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="ForagerStatManager.h">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="playerTestScene.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="inventory_slot.h">

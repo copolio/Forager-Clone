@@ -175,7 +175,6 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
-    <ClInclude Include="playerTestScene.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="purchase_land.h" />
     <ClInclude Include="random.h" />
@@ -222,7 +221,6 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
-    <ClCompile Include="playerTestScene.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="purchase_land.cpp" />
     <ClCompile Include="random.cpp" />
