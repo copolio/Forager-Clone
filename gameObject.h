@@ -24,9 +24,5 @@ public:
 //	virtual void release();
 //	virtual void update();
 //	virtual void render(HDC hdc);
-public:
-	LAYER getLayer() { return layer; };
-	TAG getTag() { return tag; };
-	RECT getRect() { return rc; };
 };
 

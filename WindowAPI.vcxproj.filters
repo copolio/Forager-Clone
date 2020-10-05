@@ -55,13 +55,10 @@
     <Filter Include="MainGame\Forager\Unit\enemy">
       <UniqueIdentifier>{82c8fd22-45a7-49d0-bbb0-18186417b905}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\object">
-      <UniqueIdentifier>{dd06ca30-8667-418b-9f3f-4b0f2acbf364}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Forager\Unit\object\building">
+    <Filter Include="MainGame\Forager\Unit\building">
       <UniqueIdentifier>{2ca11124-b48b-4e38-8302-700db3d1f823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Forager\Unit\object\resource">
+    <Filter Include="MainGame\Forager\Unit\resource">
       <UniqueIdentifier>{a3ca23fc-67fa-4c5e-8fa0-f487c0f5a9ff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -135,18 +132,14 @@
     <ClCompile Include="timeManager.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="unit.cpp">
       <Filter>MainGame\Forager\Unit</Filter>
     </ClCompile>
     <ClCompile Include="gameScene.cpp">
       <Filter>MainGame\Forager\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="object.cpp">
-      <Filter>MainGame\Forager\Unit\object</Filter>
-    </ClCompile>
     <ClCompile Include="building.cpp">
-      <Filter>MainGame\Forager\Unit\object\building</Filter>
+      <Filter>MainGame\Forager\Unit\building</Filter>
     </ClCompile>
     <ClCompile Include="enemy.cpp">
       <Filter>MainGame\Forager\Unit\enemy</Filter>
@@ -156,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="gamemap.cpp">
       <Filter>MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>MainGame\Forager</Filter>
+    </ClCompile>
+    <ClCompile Include="resource.cpp">
+      <Filter>MainGame\Forager\Unit\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,18 +233,14 @@
     <ClInclude Include="timeManager.h">
       <Filter>GameFramework\매니져</Filter>
     </ClInclude>
-    <ClInclude Include="gameObject.h" />
     <ClInclude Include="unit.h">
       <Filter>MainGame\Forager\Unit</Filter>
     </ClInclude>
     <ClInclude Include="gameScene.h">
       <Filter>MainGame\Forager\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="object.h">
-      <Filter>MainGame\Forager\Unit\object</Filter>
-    </ClInclude>
     <ClInclude Include="building.h">
-      <Filter>MainGame\Forager\Unit\object\building</Filter>
+      <Filter>MainGame\Forager\Unit\building</Filter>
     </ClInclude>
     <ClInclude Include="enemy.h">
       <Filter>MainGame\Forager\Unit\enemy</Filter>
@@ -255,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="gamemap.h">
       <Filter>MainGame\Forager\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>MainGame\Forager</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>MainGame\Forager\Unit\resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

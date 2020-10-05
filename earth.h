@@ -1,9 +1,13 @@
 #pragma once
 #include "gamemap.h"
+#include "unit.h"
+#include "building.h"
+#include "resource.h"
 class earth : public gamemap
 {
 private:
 	vector<tile> _vTile;
+	vector<unit> _vUnit; //아이템, 빌딩
 private:
 	image* watertile;
 	image* plaintile;
@@ -20,6 +24,8 @@ public:
 	void render(HDC hdc);
 
 	void mapSetup();
-	int g
+	void setRandomObject();
+	float getResRatio();
+	int getPlayerPos();
 };
 

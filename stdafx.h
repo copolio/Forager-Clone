@@ -61,8 +61,8 @@ using namespace MY_UTIL;
 //	## 디파인문 ## (윈도우창 초기화)
 //=============================================================
 #define WINNAME (LPTSTR)(TEXT("Forager by KGA22 - 김기정, 김으뜸, 전영은, 한유인"))
-#define WINSTARTX	100
-#define WINSTARTY	100
+#define WINSTARTX	0
+#define WINSTARTY	0
 #define WINSIZEX		1280
 #define WINSIZEY		720
 #define WINSTYLE		WS_CAPTION | WS_SYSMENU
