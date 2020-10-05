@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "ForagerPlayer.h"
 #include "inGameMenu.h"
+#include "earth.h"
 class gameScene :public gameNode
 {
 private:

@@ -1,12 +1,8 @@
 #pragma once
 #include "tile.h"
-class map
+class gamemap
 {
 public:
 	vector<tile> _vTile;
-
-	
-
-
 };
 

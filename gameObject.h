@@ -1,9 +1,17 @@
 #pragma once
 enum class LAYER
 {
-	WATER,
-	LAND,
-	SKY
+	TERRAIN,
+	OBJECT
+};
+enum class TAG
+{
+	TERRAIN,
+	ITEM,
+	ENEMY,
+	PLAYER,
+	OBJECT,
+	BUILDING
 };
 class gameObject
 {
@@ -13,6 +21,13 @@ protected:
 	int layer;
 	string tag;
 	RECT rc;
+	LAYER layer;
+	TAG tag;	
+//public:
+//	virtual HRESULT init();
+//	virtual void release();
+//	virtual void update();
+//	virtual void render(HDC hdc);
 
 public:
 	virtual HRESULT init() = 0;
