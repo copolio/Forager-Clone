@@ -1,7 +1,13 @@
 #pragma once
 #include "unit.h"
-class building :
-	public unit
+enum class builType {
+	STEELWORK,
+	ANVIL,
+};
+class building : public unit
 {
+private:
+	builType builId;
+	RECT interactionRc;
 };
 

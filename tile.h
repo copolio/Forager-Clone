@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameObject.h"
+#include <algorithm>
 
 #define TILEX 12
 #define TILEY 12
@@ -10,26 +11,15 @@
 #define MAPSIZE MAPX*MAPY
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
-#define CAMRANGE TILESIZE*4
-#define CAMSPEED 10
-
-
-enum class OBJECTSTATUS {
-	IDLE,
-	ATTACKED
-};
+#define RESRATIOLIMIT 0.5
+#define RESGENTIME 100
 
 class tile : public gameObject {
-
+public:
 	string terrKey;
-	string objKey;
-	int terrainHp;
 	int terrainFrameX;
 	int terrainFrameY;
-	int objHp;
-	int objFrameX;
-	int objFrameY;
-	OBJECTSTATUS objStatus;
+	bool hasUnit;
 };
 
 
