@@ -241,7 +241,7 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameX(_index);
 			if (_count++ % 5 == 0)
 			{
-				if (_index-- < 0)
+				if (_index-- <= 0)
 					_index = 3;
 			}
 		}
