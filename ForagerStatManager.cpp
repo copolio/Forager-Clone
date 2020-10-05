@@ -19,16 +19,18 @@ HRESULT ForagerStatManager::init()
 
 	_foragerExp = new tagExp;
 	_foragerExp->expRc = RectMakeCenter(WINSIZEX/ 2, 30, 800, 30);
-	_foragerExp->expRc.right = 0;
+
 	
 	needExp[0] = 80;
 
 	for (int i = 1; i < 65; i++) {
-		needExp[i] = (float)needExp[i - 1] * 2.5f;
+		needExp[i] += needExp[i - 1] * 2.5f;
 	}
 
 	currentExp = 0;
 	level = 0;
+
+
 
 	IMAGEMANAGER->addImage("하트모양체력", "Images/이미지/GUI/하트모양체력.bmp", 34, 30,true,RGB(255,0,255));
 	IMAGEMANAGER->addImage("하트모양체력(뒤)", "Images/이미지/GUI/하트모양체력(뒤).bmp", 34, 30, true, RGB(255, 0, 255));
@@ -66,13 +68,6 @@ void ForagerStatManager::update()
 			break;
 		}
 	}
-
-	//플레이어가 1번을 누르면 경험치(노란색 앞면 바)가 찬다. 
-	if (INPUT->GetKeyDown('1'))
-	{
-		IncreaseExp(10);
-	}
-
 }
 
 void ForagerStatManager::render()
@@ -93,19 +88,14 @@ void ForagerStatManager::render()
 	IMAGEMANAGER->render("스테미나", getMemDC(), _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
 
 	IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
-
-	if(level > 0)
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top, 0, 0, 
-			_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
-	else
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left+4, _foragerExp->expRc.top, 0, 0, 
-			_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
+	IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
 	
 }
 
 void ForagerStatManager::IncreaseExp(int exp)
 {
 	currentExp += exp;
-	if (currentExp > needExp[level])
+	if (currentExp >= needExp[level])
 		level++;
+	_foragerExp->expRc.right = _expImgSizeMax * ((currentExp - (needExp[level - 1])) / needExp[level]);
 }

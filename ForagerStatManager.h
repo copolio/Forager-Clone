@@ -52,6 +52,8 @@ public :
 	//플레이어 스테미나 관련 카운트
 	int playerStaminaCount;
 	bool staminaLoss;
+	
+
 
 	//체력바 위치 세팅하기
 	void setPos(float x, float y) { _x = x; _y = y; }
