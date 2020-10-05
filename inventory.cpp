@@ -103,6 +103,7 @@ void inventory::render(HDC hdc)
 
 	if (isCheck) {
 		IMAGEMANAGER->render("img_UI_ItemTooltip", hdc, 900, 150);
+		IMAGEMANAGER->render("bag", hdc, 1000, 450);
 		_targetBox->render(hdc);
 	}
 }

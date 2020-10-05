@@ -64,7 +64,7 @@ private:
 	ForagerStatManager* _foragerHp;
 
 
-
+	bool inven_open;
 public: 
 	HRESULT init();
 	void release();
@@ -86,6 +86,7 @@ public:
 
 	
 	void setPlayerRect(RECT pos) { _rcForager = pos; };
+	void setInvenOpen(bool isOpen) { inven_open = isOpen; };
 //	void setPMLink(basicmap* map) { _map = map; };
 };
 

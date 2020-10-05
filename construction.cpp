@@ -7,11 +7,11 @@ HRESULT construction::init()
 	_targetBox->init();
 	//_industry_Rc.push_back(RectMake(WINSIZEX - 280, 30, 226, 72));
 	Con_Info* con = new Con_Info;
-	con->rc = RectMake(WINSIZEX - 280, 30, 226, 72);
+	con->rc = RectMake(WINSIZEX - 280, 30, 250, 80);
 	con->kind = INDUSTRY;
 	_industry_Rc.push_back(con);
 	con = new Con_Info;
-	con->rc = RectMake(WINSIZEX - 280, 150, 226, 72);
+	con->rc = RectMake(WINSIZEX - 280, 150, 250, 80);
 	con->kind = AGRICULTURE;
 	_industry_Rc.push_back(con);
 	isCheck = false;
@@ -50,7 +50,7 @@ void construction::render(HDC hdc)
 		}
 	}
 	if (isCheck) {
-		IMAGEMANAGER->render("img_steelwork_icon", hdc, WINSIZEX - 267, 98);
+		IMAGEMANAGER->render("img_steelwork_icon", hdc, WINSIZEX - 267, 115);
 	}
 	if (isTargetBox) {
 		_targetBox->render(hdc);
@@ -67,7 +67,7 @@ void construction::BoxMove()
 		for (int i = 0; i < _industry_Rc.size(); i++) {
 			if (_industry_Rc[i]->kind == INDUSTRY) continue;
 
-			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150+60, 226, 72);
+			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150+60, 250, 80);
 		}
 
 	}
@@ -75,7 +75,7 @@ void construction::BoxMove()
 		for (int i = 0; i < _industry_Rc.size(); i++) {
 			if (_industry_Rc[i]->kind == INDUSTRY) continue;
 
-			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150 , 226, 72);
+			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150 , 250, 80);
 		}
 	}
 }
