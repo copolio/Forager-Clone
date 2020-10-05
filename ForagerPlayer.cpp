@@ -88,7 +88,8 @@ HRESULT ForagerPlayer::init()
 	_isMoveRotate = false;
 	_isRun = false;
 	_isHammering = false;
-	
+	_foragerHp = new ForagerStatManager;
+	_foragerHp->init();
 
 	return S_OK;
 }
@@ -109,6 +110,8 @@ void ForagerPlayer::update()
 	
 	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2 , (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(_rcForager.left, _rcForager.top);
+	
+	_foragerHp->update();
 
 }
 
@@ -141,13 +144,15 @@ void ForagerPlayer::render(HDC hdc)
 		break;
 	}
 
-	if (_isMoveRotate == false && _state != ROTATE && _state != HAMMERING)
+	if (_state != ROTATE && _state != HAMMERING)
 	{
 		if (_isLeft)
 			IMAGEMANAGER->render("Hammer", hdc, CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top));
 		else
 			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
 	}
+
+	_foragerHp->render();
 }
 
 void ForagerPlayer::animation()
@@ -241,7 +246,7 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameX(_index);
 			if (_count++ % 5 == 0)
 			{
-				if (_index-- < 0)
+				if (_index-- <= 0)
 					_index = 3;
 			}
 		}
@@ -303,7 +308,6 @@ void ForagerPlayer::PlayerControll()
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
 			_state = HAMMERING;
-			
 		}
 	}
 }
@@ -311,8 +315,6 @@ void ForagerPlayer::PlayerControll()
 
 void ForagerPlayer::playerMove()
 {
-
-
 	//플레이어 좌우 움직임 처리 
 	if (_isMoveHorizon)
 	{
