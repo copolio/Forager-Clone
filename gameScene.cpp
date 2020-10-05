@@ -4,13 +4,24 @@
 HRESULT gameScene::init()
 {
 	_map = new earth;
-	_player = new ForagerPlayer;
-	_Meun = new inGameMenu;
-	inven_open = false;
-	_player->init();
-	CAMERA->init(_player->getX(), _player->getY(), _player->getX(), _player->getY(), 0.5f, 0.5f, WINSIZEX, WINSIZEY, -2000, -2000, 2000, 2000);
-	_Meun->init();
 	_map->init();
+	_player = new ForagerPlayer;
+	_player->setPMLink(_map);
+	_player->init();
+	_map->setLinkPlayer(_player);
+
+	_cursor = new cursor;
+	_cursor->init();
+	_cursor->LinkMap(_map);
+	_player->setCursorLink(_cursor);
+
+	_Meun = new inGameMenu;
+	_Meun->init();
+
+	inven_open = false;
+
+	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000, -2000, 2000, 2000);
+
 	return S_OK;
 }
 
@@ -20,6 +31,7 @@ void gameScene::release()
 	_player->release();
 	_Meun->release();
 	_map->release();
+	SAFE_DELETE(_cursor);
 }
 
 void gameScene::update()
@@ -38,14 +50,19 @@ void gameScene::update()
 			inven_open = true;
 		}
 	}
-	CAMERA->targetFollow(_player->getX(), _player->getY());
+	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
 	_map->update();
+
+	// 인벤토리 열면 커서 타겟팅 업데이트 중지
+	if(!inven_open)
+		_cursor->update();
 }
 
 void gameScene::render()
 {
 	_map->render(getMemDC());
+	_cursor->render(getMemDC());
 	_player->render(getMemDC());
 	if (inven_open) {
 		_Meun->render(getMemDC());

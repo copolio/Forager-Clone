@@ -16,7 +16,7 @@ HRESULT targetingBox::init()
 	_isTargetting = false;
 	_currentCount = 0;
 	_count = 0;
-
+	_targetID = 10000;
 	return S_OK;
 }
 
@@ -91,4 +91,5 @@ void targetingBox::RemoveTarget()
 {
 	_isCursorOn = false;
 	_isTargetting = false;
+	_targetID = 10000;
 }

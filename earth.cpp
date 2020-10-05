@@ -17,6 +17,11 @@ HRESULT earth::init()
 	IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
+	//필드 아이템 (임시)
+	IMAGEMANAGER->addImage("berryDrop", "Images/이미지/아이템/berry.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
+
 	//월드맵 초기화
 	this->mapSetup();
 
@@ -27,8 +32,8 @@ void earth::release()
 {
 }
 
-bool compare(unit i, unit j) {
-	return i.rc.top < j.rc.top;
+bool compare(unit* i, unit* j) {
+	return (*i).rc.top < (*j).rc.top;
 }
 
 void earth::update()
@@ -44,12 +49,40 @@ void earth::update()
 		wavetick = 0;
 	}
 	sort(_vUnit.begin(), _vUnit.end(), compare);
+
+	// 유닛 매니저 구현 전 임시 코드.
+	// 유닛 죽으면 벡터에서 제거.
+	if (_vUnit.size() > 0) {
+		for (auto iter = _vUnit.begin(); iter != _vUnit.end();) {
+			if ((*iter)->isDead()) {
+
+
+				int dX = (*iter)->GetCenterX();
+				int dY = (*iter)->GetCenterY() - 28; // 아이템 절반 크기 (임시)
+				_ptItemPos = { dX, dY };
+				_itemKey = (*iter)->dropItem.itemKey;
+				_canCreateDropItem = true;
+
+				SAFE_DELETE((*iter));
+				iter = _vUnit.erase(iter);
+			}
+			else
+				++iter;
+		}
+	}
+
+	if (_canCreateDropItem)
+		AddUnits();
+
 }
 
 void earth::render(HDC hdc)
 {
+	//<텍스쳐 매니저 구현 전까지 사용>
 	// 물배경 렌더
 	IMAGEMANAGER->findImage("TitleBG")->render(hdc, -500, -400);
+
+	//<텍스쳐 매니저 구현 전까지 사용>
 	//지형 렌더
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
@@ -99,14 +132,25 @@ void earth::render(HDC hdc)
 			}
 		}
 	}
-	//유닛(자원, 빌딩) 렌더
+	//유닛(자원, 빌딩) 렌더 <텍스쳐 매니저 구현 전까지 사용>
 	for (int i = 0; i < _vUnit.size();  i++) {
 		RECT temp;
-		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vUnit[i].rc)) continue;
-		IMAGEMANAGER->frameRender(_vUnit[i].objKey, hdc, 
-								  CAMERA->GetRelativeX(_vUnit[i].rc.left), 
-								  CAMERA->GetRelativeY(_vUnit[i].rc.bottom - IMAGEMANAGER->findImage(_vUnit[i].objKey)->getFrameHeight()), 
-								  _vUnit[i].objFrameX, _vUnit[i].objFrameY);
+		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &(*_vUnit[i]).rc)) continue;
+
+		// Resource 프레임렌더
+		if ((*_vUnit[i]).tag == TAG::OBJECT) {
+			IMAGEMANAGER->frameRender((*_vUnit[i]).objKey, hdc,
+				CAMERA->GetRelativeX((*_vUnit[i]).rc.left),
+				CAMERA->GetRelativeY((*_vUnit[i]).rc.bottom - IMAGEMANAGER->findImage((*_vUnit[i]).objKey)->getFrameHeight()),
+				(*_vUnit[i]).objFrameX, (*_vUnit[i]).objFrameY);
+		}
+		// fieldItem 렌더
+		else {
+			IMAGEMANAGER->render((*_vUnit[i]).objKey, hdc,
+				CAMERA->GetRelativeX((*_vUnit[i]).rc.left),
+				CAMERA->GetRelativeY((*_vUnit[i]).rc.bottom));
+		}
+
 	}
 }
 
@@ -140,13 +184,15 @@ void earth::setRandomObject()
 	while (true) {
 		int i = RANDOM->range(TILEY*MAPY);
 		int j = RANDOM->range(MAPTILEX);
+
 		//현재 플레이어가 서있는 타일은 스킵
-		if (i + j == getPlayerPos()) continue;
+		if (i + j == _player->GetPlayerTilePos()) continue;
+
 		if (!_vTile[i*MAPTILEY + j].hasUnit &&
 			_vTile[i*MAPTILEY + j].terrKey == "plaintile") {
 			_vTile[i*MAPTILEY + j].hasUnit = true;
-			resource _res;
-			_res.setRandomRes(_vTile[i*MAPTILEY + j].rc);
+			resource* _res = new resource;
+			_res->setRandomRes(&_vTile[i*MAPTILEY + j]);
 			_vUnit.push_back(_res);
 			break;
 		}	
@@ -172,19 +218,12 @@ float earth::getResRatio()
 	return nResTile / float(nPlainTile);
 }
 
-int earth::getPlayerPos()
+void earth::AddUnits()
 {
-	//int playerCenterX = _player->rc.left + (_player->rc.right - _player->rc.left) / 2;
-	//int playerCenterY = _player->rc.bottom;
-	//POINT _ptPlayerPos = { playerCenterX, playerCenterY };
-
-
-	//for (int i = 0; i < MAPTILEY; i++) {
-	//	for (int j = 0; j < MAPTILEX; j++) {
-	//		if (PtInRect(&_vTile[i*MAPTILEY + j].rc, _ptPlayerPos)) {
-	//			return (i*MAPTILEY + j);
-	//		}
-	//	}
-	//}
-	return 0;
+	for (int i = 0; i < 3; i++) {
+		resource* t_resource = new resource;
+		t_resource->setFieldItem(_ptItemPos, _itemKey);
+		_vUnit.push_back(t_resource);
+	}
+	_canCreateDropItem = false;
 }

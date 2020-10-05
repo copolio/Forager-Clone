@@ -3,13 +3,14 @@
 #include "ForagerPlayer.h"
 #include "inGameMenu.h"
 #include "earth.h"
+#include "cursor.h"
 class gameScene :public gameNode
 {
 private:
 	ForagerPlayer* _player;
 	inGameMenu* _Meun;
 	earth* _map;
-
+	cursor* _cursor;
 private:
 	bool inven_open;
 public:

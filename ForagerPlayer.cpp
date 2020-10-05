@@ -6,9 +6,11 @@ HRESULT ForagerPlayer::init()
 {
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
-	_rcForager = RectMakeCenter(x, y, 30, 41);
+	rc = RectMakeCenter(x, y, 30, 41);
+	_playerTilePos = FindPlayerTilePos();
 	inven_open = false;
-	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2, (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
+
+	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56);
 
 	//플레이어 가만히 있을 때 프레임 이미지 3*2
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
@@ -103,13 +105,15 @@ void ForagerPlayer::update()
 {
 	animation();
 	if (!inven_open) {
-	PlayerControll();
+		PlayerControll();
 		playerMove();
 		playerLookingDirection();
+		CheckPlayerTile();
+		CheckCollision();
 	}
 	
-	_rcHammer = RectMake((_rcForager.left + _rcForager.right) / 2 , (_rcForager.top + _rcForager.bottom) / 2 - 28, 56, 56);
-	CAMERA->targetFollow(_rcForager.left, _rcForager.top);
+	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
+	CAMERA->targetFollow(rc.left, rc.top);
 	
 	_foragerHp->update();
 
@@ -120,27 +124,27 @@ void ForagerPlayer::render(HDC hdc)
 	switch (_state)
 	{
 	case IDLE:
-		IMAGEMANAGER->frameRender("playerStop", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerStop", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		break;
 	case RUN:
-		IMAGEMANAGER->frameRender("playerRUN", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerRUN", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		break;
 	case ROTATE: 
 		if (_isLeft) 
 		{
-			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		}
 		else 
 		{
-			IMAGEMANAGER->frameRender("playerRotate", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-			IMAGEMANAGER->frameRender("HammerImg", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+			IMAGEMANAGER->frameRender("playerRotate", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+			IMAGEMANAGER->frameRender("HammerImg", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		}
 
 		break;
 	case HAMMERING :
-		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
-		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(_rcForager.left), CAMERA->GetRelativeY(_rcForager.top));
+		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		break;
 	}
 
@@ -307,6 +311,13 @@ void ForagerPlayer::PlayerControll()
 		// 망치질 하는 상태 
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
+			unit* targetUnit = _cursor->GetTargetUnit();
+			if (targetUnit != nullptr) {
+				if (targetUnit->tag == TAG::OBJECT) {
+					targetUnit->hurt(1);
+				}
+			}
+
 			_state = HAMMERING;
 		}
 	}
@@ -321,15 +332,15 @@ void ForagerPlayer::playerMove()
 		bool _cantMove = false;
 		int applySpeed = (_isLeft) ? -3 : 3;
 
-		//_cantMove = (_isLeft) ? _map->checkCanMove(-1) : _map->checkCanMove(1);
+		_cantMove = (_isLeft) ? CanCheckMove(-1) : CanCheckMove(1);
 
 		if (!_cantMove) {
 
-			OffsetRect(&_rcForager, applySpeed, 0);
+			OffsetRect(&rc, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE) {
 				_spinSpeed = applySpeed * 2;
-				OffsetRect(&_rcForager, _spinSpeed, 0);
+				OffsetRect(&rc, _spinSpeed, 0);
 			}
 		}
 		
@@ -342,17 +353,17 @@ void ForagerPlayer::playerMove()
 		bool _cantMove = false;
 		int applySpeed = (_isUp) ? -3 : 3;
 
-		//_cantMove = (_isUp) ? _map->checkCanMove(-MAPTILEX) : _map->checkCanMove(MAPTILEX);
+		_cantMove = (_isUp) ? CanCheckMove(-MAPTILEX) : CanCheckMove(MAPTILEX);
 
 		if (!_cantMove) {
 
-			OffsetRect(&_rcForager, 0, applySpeed);
+			OffsetRect(&rc, 0, applySpeed);
 
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE)
 			{
 				_spinSpeed = applySpeed * 2;
-				OffsetRect(&_rcForager, 0, _spinSpeed);
+				OffsetRect(&rc, 0, _spinSpeed);
 			}
 		}
 	}
@@ -361,8 +372,8 @@ void ForagerPlayer::playerMove()
 		// 발걸음 이펙트
 		if (_footWalkCount++ >= _footWalkEffectInterval) {
 			_footWalkCount = 0;
-			POINT ptCenter = { _rcForager.left + (_rcForager.right - _rcForager.left) / 2 + RANDOM->range(-10, 0),
-							 _rcForager.bottom - RANDOM->range(-1, -6) };
+			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0),
+							 rc.bottom - RANDOM->range(-1, -6) };
 			float randomScale = RANDOM->range(0.01f, 0.03f);
 			EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, randomScale, 50, 150, true);
 		}
@@ -373,7 +384,7 @@ void ForagerPlayer::playerMove()
 //플레이어가 보는 시선이 마우스 위치에 따라 변경 
 void ForagerPlayer::playerLookingDirection()
 {
-	int forgaerCenter = (_rcForager.left + _rcForager.right) / 2;
+	int forgaerCenter = (rc.left + rc.right) / 2;
 
 
 	if (_state != STATE::ROTATE) {
@@ -417,6 +428,108 @@ void ForagerPlayer::Rotate(image* img, int sizeX, int sizeY, int frameX, bool le
 
 			if ((orig_y >= 0 && orig_y < sizeY) && (orig_x >= 0 && orig_x < sizeX)) // (4)
 				SetPixel(img->getMemDC(), frameX * sizeX + x, y, GetPixel(img->getMemDC(), orig_x, orig_y));
+
+		}
+	}
+}
+
+
+// 플레이어 타일 좌표 탐색
+int ForagerPlayer::FindPlayerTilePos()
+{
+	vector<tile> _vTiles = _map->GetTiles();
+	POINT _ptPlayerPos = { GetCenterX(), PLAYER_OFFSET_Y };
+
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptPlayerPos)) {
+				return (i*MAPTILEY + j);
+			}
+		}
+	}
+}
+
+// 플레이어 움직임 가능 체크
+bool ForagerPlayer::CanCheckMove(int index)
+{
+	tile tile = _map->GetTile(_playerTilePos + index);
+
+	// 일반 타일이거나 장애물이 없으면 움직임 가능
+	if (tile.terrKey != "watertile" && !tile.hasUnit)
+		return false;
+	
+	// 물 타일이면 일정 거리까진 움직임 가능
+	RECT t_bound = RectMakeCenter(GetCenterX(), PLAYER_OFFSET_Y, 20, 20);
+	RECT t_temp;
+	if (!IntersectRect(&t_temp, &t_bound, &tile.rc)) {
+		return false;
+	}
+
+	// 이동 불가
+	return true;
+}
+
+// 플레이어 인접 타일 충돌 체크
+void ForagerPlayer::CheckPlayerTile()
+{
+	POINT ptPlayerPos = { GetCenterX(), PLAYER_OFFSET_Y };
+
+	// 플레이어 좌표 기준 상하좌우 타일중에 
+	// 지금 밟고 있는 타일로 좌표 변경
+	if (PtInRect(&_map->GetTileRc(_playerTilePos), ptPlayerPos))
+		_playerTilePos = _playerTilePos;
+
+
+	// 플레이어 좌표 기준 상하좌우 타일 충돌 체크
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos + 1), ptPlayerPos))
+		_playerTilePos += 1;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos - 1), ptPlayerPos))
+		_playerTilePos -= 1;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX), ptPlayerPos))
+		_playerTilePos += MAPTILEX;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX), ptPlayerPos))
+		_playerTilePos -= MAPTILEX;
+
+	// 플레이어 좌표 기준 대각선 타일 충돌 체크
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX + 1), ptPlayerPos))
+		_playerTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX - 1), ptPlayerPos))
+		_playerTilePos -= MAPTILEX - 1;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX + 1), ptPlayerPos))
+		_playerTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX - 1), ptPlayerPos))
+		_playerTilePos -= MAPTILEX - 1;
+
+	// 플레이어의 좌표가 어긋날 경우 다시 받아옴.
+	else
+		_playerTilePos = FindPlayerTilePos();
+}
+
+
+
+// Unit 충돌
+void ForagerPlayer::CheckCollision()
+{
+	vector<unit*> t_vUnit = _map->GetUnits();
+
+	for (int i = 0; i < t_vUnit.size(); i++) {
+
+		// 아이템 충돌
+		if (t_vUnit[i]->tag == TAG::ITEM) {
+
+			// 임시(필드아이템 클래스 구현 필요)
+			RECT temp;
+			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
+			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
+				t_vUnit[i]->getItem();
+			}
+		}
+		// 빌딩 상호작용 렉트 충돌
+		else if (t_vUnit[i]->tag == TAG::BUILDING) {
+
+		}
+		// 에너미 충돌
+		else if (t_vUnit[i]->tag == TAG::ENEMY) {
 
 		}
 	}

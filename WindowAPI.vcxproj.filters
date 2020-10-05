@@ -67,6 +67,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\resource">
       <UniqueIdentifier>{09c7a421-4091-44a5-800d-853b3adce9c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Cursor">
+      <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="resource.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="cursor.cpp">
+      <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="cursor.h">
+      <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

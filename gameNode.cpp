@@ -56,6 +56,7 @@ void gameNode::release()
 	//타임매니져 해제
 	TIME->release();
 	TIME->releaseSingleton();
+
 	//HDC 해제
 	ReleaseDC(_hWnd, _hdc);
 }
