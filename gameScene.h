@@ -8,7 +8,7 @@ class gameScene :public gameNode
 private:
 	ForagerPlayer* _player;
 	inGameMenu* _Meun;
-
+	earth* _map;
 
 private:
 	bool inven_open;

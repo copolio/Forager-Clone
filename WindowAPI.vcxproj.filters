@@ -58,11 +58,14 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\enemy">
       <UniqueIdentifier>{82c8fd22-45a7-49d0-bbb0-18186417b905}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\Unit\object">
-      <UniqueIdentifier>{dd06ca30-8667-418b-9f3f-4b0f2acbf364}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu">
       <UniqueIdentifier>{3a2aa4c4-fcc3-48ab-badc-0e421a389a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\player">
+      <UniqueIdentifier>{3e8cd6b6-6200-4b41-9762-e69e136adb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\resource">
+      <UniqueIdentifier>{09c7a421-4091-44a5-800d-853b3adce9c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,16 +153,11 @@
     <ClCompile Include="timeManager.cpp">
       <Filter>GameFramework\매니져</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="unit.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClCompile>
     <ClCompile Include="gameScene.cpp">
       <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="map.cpp" />
-    <ClCompile Include="object.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\object</Filter>
     </ClCompile>
     <ClCompile Include="building.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\building</Filter>
@@ -182,9 +180,6 @@
     <ClCompile Include="inventory_images.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
-    <ClCompile Include="inventory_test_scenes.cpp">
-      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="inGameMenu11.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
@@ -194,7 +189,18 @@
     <ClCompile Include="gamesetting.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
-    <ClCompile Include="ForagerPlayer.cpp" />
+    <ClCompile Include="earth.cpp">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ForagerPlayer.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\player</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="resource.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -284,16 +290,11 @@
     <ClInclude Include="timeManager.h">
       <Filter>GameFramework\매니져</Filter>
     </ClInclude>
-    <ClInclude Include="gameObject.h" />
     <ClInclude Include="unit.h">
       <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClInclude>
     <ClInclude Include="gameScene.h">
       <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="map.h" />
-    <ClInclude Include="object.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\object</Filter>
     </ClInclude>
     <ClInclude Include="building.h">
       <Filter>GameFramework\MainGame\Forager\Unit\building</Filter>
@@ -319,9 +320,6 @@
     <ClInclude Include="startScene.h">
       <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="inventory_test_scenes.h">
-      <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="inGameMenu11.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
@@ -331,7 +329,18 @@
     <ClInclude Include="gamesetting.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
-    <ClInclude Include="ForagerPlayer.h" />
+    <ClInclude Include="earth.h">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ForagerPlayer.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\player</Filter>
+    </ClInclude>
+    <ClInclude Include="gameObject.h">
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
