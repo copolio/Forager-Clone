@@ -70,6 +70,7 @@ void Agriculture::update()
 		_targetBox->update();
 	}
 	mouse_targetBox();
+	cout << agricultureItemCheck() << endl;
 }
 
 void Agriculture::render(HDC hdc)
@@ -81,7 +82,6 @@ void Agriculture::render(HDC hdc)
 			IMAGEMANAGER->render("img_Agriculture_missing_icon", hdc, agriRc[i]->rc.left, agriRc[i]->rc.top);
 			break;
 		case AGRICULTUREKIND_BRIDGE:
-			cout << "a" << endl;
 			IMAGEMANAGER->render("img_bridge_icon", hdc, agriRc[i]->rc.left, agriRc[i]->rc.top);
 			break;
 		case AGRICULTUREKIND_FISHTRAP:
@@ -109,4 +109,20 @@ void Agriculture::mouse_targetBox()
 void Agriculture::RemoveTarget()
 {
 	_targetBox->RemoveTarget();
+}
+
+bool Agriculture::agricultureItemCheck()
+{
+	for (int i = 0; i < agriRc.size(); i++) {
+		if (PtInRect(&agriRc[i]->rc, _ptMouse) && agriRc[i]->kind != AGRICULTUREKIND_MISSING && INPUT->GetKeyDown(VK_LBUTTON)) {
+
+			if (agriRc[i]->kind == AGRICULTUREKIND_BRIDGE) {
+				return ITEMMANAGER->Item_industry_check("bridge");
+			}
+			else if (agriRc[i]->kind == AGRICULTUREKIND_FISHTRAP) {
+				return ITEMMANAGER->Item_industry_check("fishtrap");
+			}
+		}
+	}
+	return false;
 }

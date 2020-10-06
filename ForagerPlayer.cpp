@@ -7,7 +7,7 @@ HRESULT ForagerPlayer::init()
 	tag == TAG::PLAYER;
 	layer == LAYER::OBJECT;
 	exp = 0;
-
+	
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
 	rc = RectMakeCenter(x, y, 30, 41);
@@ -123,7 +123,7 @@ void ForagerPlayer::update()
 	CAMERA->targetFollow(rc.left, rc.top);
 	
 	_foragerHp->update();
-
+	_foragerHp->setinvenopen(inven_open);
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -162,15 +162,11 @@ void ForagerPlayer::render(HDC hdc)
 		else
 			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
 	}
-	if (!inven_open) {
-		_foragerHp->render();
-	}
+	_foragerHp->render();
 }
 
 void ForagerPlayer::animation()
 {
-
-
 	switch (_state)
 	{
 	case IDLE:
@@ -281,7 +277,6 @@ void ForagerPlayer::animation()
 void ForagerPlayer::PlayerControll()
 {
 	//_map->setPlayerPosTile();
-
 	if (_state != STATE::ROTATE) {
 		//가만히 있는 상태
 		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
@@ -331,7 +326,6 @@ void ForagerPlayer::PlayerControll()
 					}
 				}
 			}
-
 			_state = HAMMERING;
 		}
 	}
@@ -535,7 +529,6 @@ void ForagerPlayer::CheckCollision()
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				t_vUnit[i]->collision();
-				cout << t_vUnit[i]->dropItem.itemKey << " 을/를 획득했습니다." << endl;
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
 				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);		
 				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);

@@ -37,11 +37,9 @@ void construction::update()
 	mouse_targetBox();
 	if (isCheck) {
 		_industry->update();
-
 	}
 	if (agrocultureCheck) {
 		_agriculture->update();
-		
 	}
 	BoxMove();
 	if (isTargetBox) {
@@ -121,7 +119,6 @@ void construction::mouse_Click()
 	for (int i = 0; i < _industry_Rc.size(); i++) {
 		if (PtInRect(&_industry_Rc[i]->rc, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON))
 		{
-			
 			if (_industry_Rc[i]->kind == INDUSTRY) {
 				agrocultureCheck = false;
 				if (isCheck) {
