@@ -13,6 +13,7 @@ void resource::setRandomRes(tile* tile)
 	case 0:
 		this->objKey = "berry";
 		this->dropItem.itemKey = "berryDrop";
+		this->maxHp = BERRYHP;
 		this->hp = BERRYHP;
 		this->exp = 20;
 		break;
@@ -21,15 +22,17 @@ void resource::setRandomRes(tile* tile)
 		this->dropItem.itemKey = "rockDrop";
 		this->hp = ROCKHP;
 		this->exp = 20;
+		this->maxHp = ROCKHP;
 		break;
 	case 2:
 		this->objKey = "tree";
 		this->dropItem.itemKey = "treeDrop";
 		this->hp = TREEHP;
 		this->exp = 20;
+		this->maxHp = TREEHP;
 		break;
 	}
-	currentHp = hp;
+	currentHp = maxHp;
 }
 
 void resource::dead()

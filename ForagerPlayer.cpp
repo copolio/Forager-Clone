@@ -95,7 +95,7 @@ HRESULT ForagerPlayer::init()
 	_isRun = false;
 	_isHammering = false;
 
-	hp = 3;
+	maxHp = 3;
 	currentHp = 3;
 	_foragerHp = new ForagerStatManager;
 	_foragerHp->init();

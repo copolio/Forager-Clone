@@ -93,7 +93,7 @@ public:
 	void RotateImage(image* img);
 	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
 
-	float getPlayerMaxHp() { return hp; }
+	float getPlayerMaxHp() { return maxHp; }
 	float getPlayerCurrentHp(){ return currentHp; }
 	void setCurrentPlayerHp(float _hp) { currentHp -= _hp; }
 
