@@ -14,16 +14,19 @@ void resource::setRandomRes(tile* tile)
 		this->objKey = "berry";
 		this->dropItem.itemKey = "berryDrop";
 		this->hp = BERRYHP;
+		this->exp = 20;
 		break;
 	case 1:
 		this->objKey = "rock";
 		this->dropItem.itemKey = "rockDrop";
 		this->hp = ROCKHP;
+		this->exp = 20;
 		break;
 	case 2:
 		this->objKey = "tree";
 		this->dropItem.itemKey = "treeDrop";
 		this->hp = TREEHP;
+		this->exp = 20;
 		break;
 	}
 	currentHp = hp;
@@ -34,8 +37,12 @@ void resource::dead()
 	// 파괴되면 필드아이템 생성
 	UNITMANAGER->AddUnits(dropItem.itemKey, { GetCenterX(), GetCenterY() - 25});
 
-	if(_tile != nullptr)
+	if (_tile != nullptr)
+	{
 		_tile->hasUnit = false;
+		
+	}
+		
 }
 
 void resource::render(HDC hdc)
@@ -45,3 +52,5 @@ void resource::render(HDC hdc)
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
 		objFrameX, objFrameY);
 }
+
+

@@ -16,5 +16,6 @@ public:
 	void setRandomRes(tile* tile);
 	void dead() override;
 	void render(HDC hdc) override;
+	
 };
 

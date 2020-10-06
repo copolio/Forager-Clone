@@ -38,6 +38,9 @@ private:
 	int currentExp;
 	int level;
 	float _expImgSizeMax;
+
+	
+	image* _levelNum[10];
 	
 
 public :

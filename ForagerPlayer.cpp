@@ -320,14 +320,14 @@ void ForagerPlayer::PlayerControll()
 		{
 			unit* targetUnit = _cursor->GetTargetUnit();
 			if (targetUnit != nullptr) {
-				if (targetUnit->tag == TAG::OBJECT) {
+				if (targetUnit->tag == TAG::OBJECT) 
+				{
 					targetUnit->hurt(1);
-					
-					/* À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
-					if (targetUnit->isDead()) {
+					// À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
+					if (targetUnit->isDead()) 
+					{
 						_foragerHp->IncreaseExp(targetUnit->exp);
 					}
-					*/
 				}
 			}
 
