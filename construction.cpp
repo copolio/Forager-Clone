@@ -16,6 +16,14 @@ HRESULT construction::init()
 	_industry_Rc.push_back(con);
 	isCheck = false;
 	isTargetBox = false;
+	agrocultureCheck = false;
+
+	_industry = new industry;
+	_industry->init();
+
+	_agriculture = new Agriculture;
+	_agriculture->init();
+
 	return S_OK;
 }
 
@@ -27,7 +35,18 @@ void construction::update()
 {
 	_targetBox->update();
 	mouse_targetBox();
+	if (isCheck) {
+		_industry->update();
+
+	}
+	if (agrocultureCheck) {
+		_agriculture->update();
+		
+	}
 	BoxMove();
+	if (isTargetBox) {
+		mouse_Click();
+	}
 }
 
 void construction::render(HDC hdc)
@@ -50,14 +69,17 @@ void construction::render(HDC hdc)
 		}
 	}
 	if (isCheck) {
-		IMAGEMANAGER->render("img_steelwork_icon", hdc, WINSIZEX - 267, 115);
+		_industry->render(hdc);
 	}
-	if (isTargetBox) {
-		_targetBox->render(hdc);
+	if (agrocultureCheck) {
+		_agriculture->render(hdc);
 	}
-	/*for (int i = 0; i < _industry_Rc.size(); i++) {
-		Rectangle(hdc, _industry_Rc[i]);
-	}*/
+	if (!_agriculture->getTarget() && !_industry->getTarget()) {
+		if (isTargetBox) {
+			_targetBox->render(hdc);
+		}
+	}
+
 	
 }
 
@@ -66,15 +88,13 @@ void construction::BoxMove()
 	if (isCheck) {
 		for (int i = 0; i < _industry_Rc.size(); i++) {
 			if (_industry_Rc[i]->kind == INDUSTRY) continue;
-
-			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150+60, 250, 80);
+			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150+480, 250, 80);
 		}
 
 	}
 	else {
 		for (int i = 0; i < _industry_Rc.size(); i++) {
 			if (_industry_Rc[i]->kind == INDUSTRY) continue;
-
 			_industry_Rc[i]->rc = RectMake(WINSIZEX - 280, 150 , 250, 80);
 		}
 	}
@@ -86,24 +106,44 @@ void construction::mouse_targetBox()
 	for (int i = 0; i < _industry_Rc.size(); i++) {
 		if (PtInRect(&_industry_Rc[i]->rc, _ptMouse)) {
 			_targetBox->SetTarget(_industry_Rc[i]->rc, 2, i, 4, false);
+			_agriculture->setTarget(false);
+			_industry->setTarget(false);
 			isTargetBox = true;
-			if (INPUT->GetKeyDown(VK_LBUTTON)&& _industry_Rc[i]->kind == INDUSTRY) {
+			_agriculture->RemoveTarget();
+			_industry->RemoveTarget();
+			break;
+		}
+	}
+}
+
+void construction::mouse_Click()
+{
+	for (int i = 0; i < _industry_Rc.size(); i++) {
+		if (PtInRect(&_industry_Rc[i]->rc, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON))
+		{
+			
+			if (_industry_Rc[i]->kind == INDUSTRY) {
+				agrocultureCheck = false;
 				if (isCheck) {
 					isCheck = false;
-
 				}
 				else {
 					isCheck = true;
 
 				}
 			}
-			break;
+			else if (_industry_Rc[i]->kind == AGRICULTURE) {
+				isCheck = false;
+				if (agrocultureCheck) {
+
+					agrocultureCheck = false;
+				}
+				else {
+					agrocultureCheck = true;
+				}
+			}
+
 		}
+		
 	}
-
-	if (isCheck) {
-
-
-	}
-	
 }
