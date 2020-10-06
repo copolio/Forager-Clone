@@ -17,6 +17,7 @@ HRESULT gameScene::init()
 
 	_Meun = new inGameMenu;
 	_Meun->init();
+	_player->setInvenLink(_Meun->GetInven());
 
 	inven_open = false;
 

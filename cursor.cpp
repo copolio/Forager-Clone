@@ -24,7 +24,7 @@ void cursor::render(HDC hdc)
 void cursor::CheckObject()
 {
 
-	vector<unit*> vUnit = _map->GetUnits();
+	vector<unit*> vUnit = UNITMANAGER->GetUnits();
 	
 	// 태그가 오브젝트 (자연) 인 것만 타겟팅
 	for (int i = 0; i < vUnit.size(); i++) {

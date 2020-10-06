@@ -14,9 +14,6 @@ public:
 	tile* _tile;
 public:
 	void setRandomRes(tile* tile);
-	void setFieldItem(POINT ptPos, string itemKey);
-
-	void getItem() override;
 	void dead() override;
 };
 

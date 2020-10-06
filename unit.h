@@ -17,19 +17,11 @@ public:
 	int objFrameX;
 	int objFrameY;
 public:
-	void setDropItem();
-	void setMapTile();
 
-
-	void hurt(int damage) {
-		currentHp -= damage;
-		if (currentHp <= 0)
-			dead();
-	};
-	virtual void getItem() { ; };
+	void hurt(int damage);
+	virtual void collision() { ; };
 	virtual void dead() { ; };
 
-
-	bool isDead() { if (currentHp <= 0) return true; else return false; }
+	bool isDead();
 };
 

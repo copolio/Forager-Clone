@@ -32,4 +32,7 @@ public:
 	void render(HDC hdc);
 
 	void inven_Change_Key_Down();
+
+public:
+	inventory* GetInven() { return _inven; };
 };

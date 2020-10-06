@@ -510,18 +510,20 @@ void ForagerPlayer::CheckPlayerTile()
 // Unit 충돌
 void ForagerPlayer::CheckCollision()
 {
-	vector<unit*> t_vUnit = _map->GetUnits();
+	vector<unit*> t_vUnit = UNITMANAGER->GetUnits();
 
 	for (int i = 0; i < t_vUnit.size(); i++) {
 
 		// 아이템 충돌
 		if (t_vUnit[i]->tag == TAG::ITEM) {
 
-			// 임시(필드아이템 클래스 구현 필요)
 			RECT temp;
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
-				t_vUnit[i]->getItem();
+				t_vUnit[i]->collision();
+				cout << t_vUnit[i]->dropItem.itemKey << " 을/를 획득했습니다." << endl;
+				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
+				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
 			}
 		}
 		// 빌딩 상호작용 렉트 충돌

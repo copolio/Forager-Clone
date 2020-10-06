@@ -157,6 +157,7 @@
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="equipMent.h" />
+    <ClInclude Include="fieldItem.h" />
     <ClInclude Include="ForagerPlayer.h" />
     <ClInclude Include="ForagerStatManager.h" />
     <ClInclude Include="gameNode.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="tile.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="unit.h" />
+    <ClInclude Include="UnitManager.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +206,7 @@
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="equipMent.cpp" />
+    <ClCompile Include="fieldItem.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
     <ClCompile Include="ForagerStatManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -243,6 +246,7 @@
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="unit.cpp" />
+    <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>

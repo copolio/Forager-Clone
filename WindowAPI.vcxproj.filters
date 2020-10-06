@@ -70,6 +70,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Cursor">
       <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\FieldItem">
+      <UniqueIdentifier>{ca79da24-a19c-44e8-9263-935fe4207cfd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -203,6 +206,12 @@
     </ClCompile>
     <ClCompile Include="cursor.cpp">
       <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="fieldItem.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\FieldItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitManager.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +352,12 @@
     </ClInclude>
     <ClInclude Include="cursor.h">
       <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="fieldItem.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\FieldItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitManager.h">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

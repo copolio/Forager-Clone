@@ -3,11 +3,12 @@
 #include "unit.h"
 #include "earth.h"
 #include "cursor.h"
-
+#include "inventory.h"
 
 #define PI 3.1415926f
 #define PLAYER_OFFSET_Y rc.bottom + 12
 
+class inventory;
 class earth;
 class cursor;
 
@@ -76,6 +77,7 @@ private:
 	ForagerStatManager* _foragerHp;
 	earth* _map;
 	cursor* _cursor;
+	inventory* _theInven;
 
 public: 
 	HRESULT init();
@@ -98,7 +100,7 @@ public:
 	void setInvenOpen(bool isOpen) { inven_open = isOpen; };
 	void setPMLink(earth* map) { _map = map; };
 	void setCursorLink(cursor* cursor) { _cursor = cursor; };
-
+	void setInvenLink(inventory* inven) { _theInven = inven; };
 
 
 	int FindPlayerTilePos();
