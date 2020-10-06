@@ -142,12 +142,12 @@ bool industry::industryItemCheck()
 		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyDown(VK_LBUTTON)) {
 			cout << "map size: " << _map->GetTiles().size() << endl;
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
-				//if (ITEMMANAGER->Item_industry_check("steelwork")) {
-				//	is_building_check = true;
-				//	building = "steelwork_design";
-				//}
-				is_building_check = true;
-				building = "steelwork";
+				if (ITEMMANAGER->Item_industry_check("steelwork")) {
+					is_building_check = true;
+					building = "steelwork";
+				}
+				//is_building_check = true;
+				//building = "steelwork";
 				return ITEMMANAGER->Item_industry_check("steelwork");
 			}
 			else if (indu_rc[i]->kind == INDUSTRY_ANVIL) {
