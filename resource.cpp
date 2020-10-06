@@ -34,8 +34,13 @@ void resource::setRandomRes(tile* tile)
 
 void resource::dead()
 {
+	POINT ptCenterPos = { GetCenterX(), GetCenterY() - 10 };
+
 	// 파괴되면 필드아이템 생성
-	UNITMANAGER->AddUnits(dropItem.itemKey, { GetCenterX(), GetCenterY() - 25});
+	UNITMANAGER->AddUnits(dropItem.itemKey, ptCenterPos);
+
+	// 연기 이펙트
+	EFFECTMANAGER->ShowEffectFrame(EFFECTMANAGER->smokeEff, ptCenterPos, 4, true);
 
 	if (_tile != nullptr)
 	{

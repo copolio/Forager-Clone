@@ -32,6 +32,10 @@ private:
 	list<tagEffect*>::iterator iter;
 
 public:
+	const string smokeEff = "DigSmoke";
+	const string walkEff = "Walk1";
+
+public:
 	void init();
 	void release();
 	void update();
