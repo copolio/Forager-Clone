@@ -55,7 +55,7 @@ HRESULT ForagerPlayer::init()
 	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
 	
 	_footWalkCount = 0;
-	_footWalkEffectInterval = 5;
+	_footWalkEffectInterval = 12;
 
 	//플레이어 회전
 	for(int i = 1 ; i < 12; i++)

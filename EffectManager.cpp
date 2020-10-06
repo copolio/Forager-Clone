@@ -3,9 +3,9 @@
 
 void EffectManager::init()
 {
-	IMAGEMANAGER->addImage("Walk1", "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage(walkEff, "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("DigSmoke", "Images/이미지/Effects/img_effect_digSmoke.bmp", 1080, 120, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage(smokeEff, "Images/이미지/Effects/img_effect_digSmoke.bmp", 1080, 120, 9, 1, true, RGB(255, 0, 255));
 
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		_effects[i] = new tagEffect;

@@ -3,8 +3,8 @@
 
 void fieldItem::setFieldItem(POINT ptPos, string itemKey)
 {
-	x = ptPos.x + RANDOM->range(-30, 30);
-	y = ptPos.y + RANDOM->range(-30, 30);
+	x = ptPos.x + RANDOM->range(-40, 40);
+	y = ptPos.y + RANDOM->range(-80, 0);
 	objKey = itemKey;
 	dropItem.itemKey = itemKey;
 	layer = LAYER::OBJECT;
