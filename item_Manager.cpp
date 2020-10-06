@@ -17,6 +17,20 @@ void item_Manager::vItem_push(string key)
 
 }//아이템 인벤에 넣어주는곳
 
+void item_Manager::vItem_count_zoro()
+{
+	for (int i = 0; i < _item_push.size(); i++) {
+		if (_item_push[i]->img_name == "")continue;
+		if (_item_push[i]->count <= 0) {
+			_item_push[i]->Kinds = ITEM_NULL;
+			_item_push[i]->img_name = "";
+			_item_push[i]->item_name = "";
+			_item_push[i]->item_Info = "";
+		}
+	}
+}
+
+
 bool item_Manager::Item_industry_check(string key)
 {			//rockDrop treeDrop
 		int first_material_num = itemfind("rockDrop");
@@ -24,29 +38,35 @@ bool item_Manager::Item_industry_check(string key)
 
 		cout << first_material_num << endl;
 		cout << second_material_num << endl;
-		if (key == "steelwork") {
+		if (first_material_num != -1 && second_material_num != -1) {
+			if (key == "steelwork") {
 
-			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
-				_item_push[first_material_num]->count -= 5;
-				_item_push[second_material_num]->count -= 3;
-				return true;
+				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
+					_item_push[first_material_num]->count -= 5;
+					_item_push[second_material_num]->count -= 3;
+					vItem_count_zoro();
+					return true;
+				}
+			}
+			else if (key == "anvil") {
+
+				if (_item_push[first_material_num]->count >= 10) {
+					_item_push[first_material_num]->count -= 10;
+					vItem_count_zoro();
+					return true;
+				}
+			}
+			else if (key == "sewingmachine") {
+
+				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
+					_item_push[first_material_num]->count -= 5;
+					_item_push[second_material_num]->count -= 5;
+					vItem_count_zoro();
+					return true;
+				}
 			}
 		}
-		else if (key == "anvil") {
-
-			if (_item_push[first_material_num]->count >= 10) {
-				_item_push[first_material_num]->count -= 10;
-				return true;
-			}
-		}
-		else if (key == "sewingmachine") {
-
-			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
-				_item_push[first_material_num]->count -= 5;
-				_item_push[second_material_num]->count -= 5;
-				return true;
-			}
-		}
+		
 	return false;
 }
 //인벤토리에서 건설시 아이템 체크 있으면 true 없으면 false
