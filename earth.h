@@ -27,5 +27,6 @@ public:
 	void setRandomObject();
 	float getResRatio();
 	int getPlayerPos();
+	void setIsland(int x, int y);
 };
 
