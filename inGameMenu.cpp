@@ -20,6 +20,9 @@ HRESULT inGameMenu::init()
 	_construction->init();
 	_purchaese->init();
 	_game_setting->init();
+
+	ITEMMANAGER->setvInventory_info(_inven->get_inven());
+
 	return S_OK;
 }
 

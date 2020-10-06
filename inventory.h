@@ -19,5 +19,6 @@ public:
 	void setIsCheck(bool check) {
 		isCheck = check;
 	}
+	vector<inventory_slot*> get_inven() { return player_inventory; };
 };
 
