@@ -1,16 +1,17 @@
 #pragma once
 #include "unit.h"
-enum class builType {
-	STEELWORK,
-	ANVIL,
-};
+#include "tile.h"
+#define BUILDINGHP 500
+
 class building : public unit
 {
-private:
-	builType builId;
+public:
+	vector<tile*> _tiles;
 	RECT interactionRc;
 
 public:
+	void setBuilding(string buildingName, vector<tile*> tiles);
+	void dead() override;
 	void render(HDC hdc) override;
 };
 

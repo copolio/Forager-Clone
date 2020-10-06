@@ -9,7 +9,7 @@ void fieldItem::setFieldItem(POINT ptPos, string itemKey)
 	dropItem.itemKey = itemKey;
 	layer = LAYER::OBJECT;
 	tag = TAG::ITEM;
-	hp = 100;
+	maxHp = 100;
 	currentHp = 100;
 	objFrameX = 0;
 	objFrameY = 0;

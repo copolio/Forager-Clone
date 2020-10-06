@@ -9,7 +9,7 @@ public:
 class unit : public gameObject
 {
 public:
-	int hp;
+	int maxHp;
 	int currentHp;
 	int exp;
 	dropItem dropItem;
