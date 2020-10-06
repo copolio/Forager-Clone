@@ -1,5 +1,6 @@
 #pragma once
 #include"targetingBox.h"
+class earth;
 enum INDUSTRYKIND
 {
 	INDUSTRY_MISSING,
@@ -20,9 +21,15 @@ private:
 	targetingBox *_targetBox;
 	vector<IndustryRc*> indu_rc;
 	bool _target;
-
 	void mouse_targetBox();
-
+private:
+	bool is_building_check;
+	string building;
+	image* greentile;
+	image* redtile;
+	earth* _map;
+public:
+	void setInMapLink(earth* map) { _map = map; };
 public:
 	HRESULT init();
 	void release();
@@ -32,8 +39,8 @@ public:
 	bool getTarget() { return _target; };
 	void setTarget(bool target) { _target = target; };
 	void RemoveTarget();
-
 public:
 	bool industryItemCheck();
+	void addBuilding();
 };
 

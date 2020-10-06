@@ -15,9 +15,10 @@ HRESULT gameScene::init()
 	_cursor->LinkMap(_map);
 	_player->setCursorLink(_cursor);
 
-	_Meun = new inGameMenu;
-	_Meun->init();
-	_player->setInvenLink(_Meun->GetInven());
+	_Menu = new inGameMenu;
+	_Menu->init();
+	_Menu->setInMapLink(_map);
+	_player->setInvenLink(_Menu->GetInven());
 
 	inven_open = false;
 	
@@ -30,7 +31,7 @@ void gameScene::release()
 {
 
 	_player->release();
-	_Meun->release();
+	_Menu->release();
 	_map->release();
 	SAFE_DELETE(_cursor);
 }
@@ -39,7 +40,7 @@ void gameScene::update()
 {
 	_player->update();
 	if (inven_open) {
-		_Meun->update();
+		_Menu->update();
 	}
 	if (INPUT->GetKeyDown('I')) {
 		if (inven_open) {
@@ -67,6 +68,6 @@ void gameScene::render()
 	EFFECTMANAGER->render(getMemDC());
 	_cursor->render(getMemDC());
 	if (inven_open) {
-		_Meun->render(getMemDC());
+		_Menu->render(getMemDC());
 	}
 }

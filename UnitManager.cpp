@@ -91,3 +91,10 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 		_vUnits.push_back(t_fieldItem);
 	}
 }
+
+void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
+{
+	building* _building = new building;
+	_building->setBuilding(buildkey, tiles);
+	_vUnits.push_back(_building);
+}

@@ -8,7 +8,7 @@ class gameScene :public gameNode
 {
 private:
 	ForagerPlayer* _player;
-	inGameMenu* _Meun;
+	inGameMenu* _Menu;
 	earth* _map;
 	cursor* _cursor;
 private:

@@ -2,6 +2,7 @@
 #include "targetingBox.h"
 #include "industry.h"
 #include "Agriculture.h"
+
 enum CONSTRUCTIONKIND
 {
 	INDUSTRY,
@@ -43,5 +44,7 @@ public:
 	void setisTargetBox(bool check) {
 		isTargetBox = check;
 	}
+public:
+	void setInMapLink(earth* map) { _industry->setInMapLink(map); };
 };
 

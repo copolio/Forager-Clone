@@ -4,6 +4,7 @@
 #include "enemy.h"
 #include "fieldItem.h"
 #include "resource.h"
+#include "building.h"
 #include "unit.h"
 
 class UnitManager : public singletonBase<UnitManager>
@@ -24,6 +25,8 @@ public:
 	void AddUnits(unit* p_unit);
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_itemKey, POINT p_pos);
+
+	void AddBuilding(string _building, vector<tile*> tiles);
 
 
 public:

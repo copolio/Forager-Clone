@@ -240,12 +240,14 @@
     <ClCompile Include="item_Manager.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp" />
     <ClCompile Include="industry.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
     </ClCompile>
     <ClCompile Include="Agriculture.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
