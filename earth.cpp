@@ -119,12 +119,7 @@ void earth::mapSetup()
 			_vTile.push_back(_tile);
 		}
 	}
-	for (int i = 0; i < TILEY; i++) {
-		for (int j = 0; j < TILEX; j++) {
-			_vTile[(3 * MAPTILEY*TILEY + i * MAPTILEY) + 3 * TILEX + j].terrKey = "plaintile";
-			_vTile[(3 * MAPTILEY*TILEY + i * MAPTILEY) + 3 * TILEX + j].terrainFrameX = RANDOM->range(4);
-		}
-	}
+	this->setIsland(3, 3);
 }
 
 void earth::setRandomObject()
@@ -165,4 +160,43 @@ float earth::getResRatio()
 		}
 	}
 	return nResTile / float(nPlainTile);
+}
+
+int earth::getPlayerPos()
+{
+	//int playerCenterX = _player->rc.left + (_player->rc.right - _player->rc.left) / 2;
+	//int playerCenterY = _player->rc.bottom;
+	//POINT _ptPlayerPos = { playerCenterX, playerCenterY };
+
+
+	//for (int i = 0; i < MAPTILEY; i++) {
+	//	for (int j = 0; j < MAPTILEX; j++) {
+	//		if (PtInRect(&_vTile[i*MAPTILEY + j].rc, _ptPlayerPos)) {
+	//			return (i*MAPTILEY + j);
+	//		}
+	//	}
+	//}
+	return 0;
+}
+
+void earth::setIsland(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (j == 0 || j == TILEX - 1 || i == 0 || i == TILEY -1 ) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey = "plaintile";
+					_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrainFrameX = RANDOM->range(4);
+					break;
+				case 1:
+					break;
+				}
+			}
+			else {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey = "plaintile";
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrainFrameX = RANDOM->range(4);
+			}
+		}
+	}
 }
