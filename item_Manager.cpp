@@ -13,10 +13,9 @@ void item_Manager::vItem_push(string key)
 		_item_push[number]->img_name = key;
 		_item_push[number]->Kinds = itemKind(key);
 		_item_push[number]->count += 1;
-		cout << _item_push[number]->count << endl;
 	}
 
-}
+}//아이템 인벤에 넣어주는곳
 
 
 
