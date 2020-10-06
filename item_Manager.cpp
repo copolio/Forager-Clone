@@ -33,45 +33,97 @@ void item_Manager::vItem_count_zoro()
 
 bool item_Manager::Item_industry_check(string key)
 {			//rockDrop treeDrop
-		int first_material_num = itemfind("rockDrop");
-		int second_material_num = itemfind("treeDrop");
-
-		cout << first_material_num << endl;
-		cout << second_material_num << endl;
+	int first_material_num = itemfind("rockDrop");
+	int second_material_num = itemfind("treeDrop");
+	if (key == "steelwork") {
 		if (first_material_num != -1 && second_material_num != -1) {
-			if (key == "steelwork") {
-
-				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
-					_item_push[first_material_num]->count -= 5;
-					_item_push[second_material_num]->count -= 3;
-					vItem_count_zoro();
-					return true;
-				}
-			}
-			else if (key == "anvil") {
-
-				if (_item_push[first_material_num]->count >= 10) {
-					_item_push[first_material_num]->count -= 10;
-					vItem_count_zoro();
-					return true;
-				}
-			}
-			else if (key == "sewingmachine") {
-
-				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
-					_item_push[first_material_num]->count -= 5;
-					_item_push[second_material_num]->count -= 5;
-					vItem_count_zoro();
-					return true;
-				}
+			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
+				return true;
 			}
 		}
-		
+	}
+	else if (key == "anvil") {
+		if (first_material_num != -1) {
+			if (_item_push[first_material_num]->count >= 10) {
+				return true;
+			}
+		}
+	}
+	else if (key == "sewingmachine") {
+		if (first_material_num != -1 && second_material_num != -1) {
+			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
+				return true;
+			}
+		}
+	}
+	else if (key == "bridge") {
+		if (second_material_num != -1) {
+			if (_item_push[second_material_num]->count >= 5) {
+				
+				return true;
+			}
+		}
+	}
+	else if (key == "fishtrap") {
+		if (second_material_num != -1) {
+			if (_item_push[second_material_num]->count >= 5) {
+				return true;
+			}
+		}
+	}
+
+
 	return false;
 }
 //인벤토리에서 건설시 아이템 체크 있으면 true 없으면 false
 
-
+void item_Manager::_Item_industry_decrease(string key)
+{
+	int first_material_num = itemfind("rockDrop");
+	int second_material_num = itemfind("treeDrop");
+	if (key == "steelwork") {
+		if (first_material_num != -1 && second_material_num != -1) {
+			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
+				_item_push[first_material_num]->count -= 5;
+				_item_push[second_material_num]->count -= 3;
+				vItem_count_zoro();
+			}
+		}
+	}
+	else if (key == "anvil") {
+		if (first_material_num != -1) {
+			if (_item_push[first_material_num]->count >= 10) {
+				_item_push[first_material_num]->count -= 10;
+				vItem_count_zoro();
+			}
+		}
+	}
+	else if (key == "sewingmachine") {
+		if (first_material_num != -1 && second_material_num != -1) {
+			if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
+				_item_push[first_material_num]->count -= 5;
+				_item_push[second_material_num]->count -= 5;
+				vItem_count_zoro();
+			}
+		}
+	}
+	else if (key == "bridge") {
+		if (second_material_num != -1) {
+			if (_item_push[second_material_num]->count >= 5) {
+				_item_push[second_material_num]->count -= 5;
+				vItem_count_zoro();
+			}
+		}
+	}
+	else if (key == "fishtrap") {
+		if (second_material_num != -1) {
+			if (_item_push[second_material_num]->count >= 5) {
+				_item_push[second_material_num]->count -= 5;
+				vItem_count_zoro();
+			}
+		}
+	}
+}//건설 완료시 재료 삭제
 
 
 bool item_Manager::isItemCheck(string key)

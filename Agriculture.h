@@ -31,6 +31,7 @@ public:
 	bool getTarget() { return _target; };
 	void setTarget(bool target) { _target = target; };
 
-
+public:
+	bool agricultureItemCheck();
 };
 

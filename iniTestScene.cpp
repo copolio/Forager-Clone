@@ -36,7 +36,7 @@ void iniTestScene::update()
 	if (INPUT->GetKeyDown(VK_RBUTTON))
 	{
 		int num = INIDATA->loadDataInteger("플밍플밍", "플밍22기", "정연");
-		cout << num << endl;
+
 	}
 
 }

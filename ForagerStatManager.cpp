@@ -4,6 +4,7 @@
 
 HRESULT ForagerStatManager::init()
 {
+	inven_open = false;
 	for (int i = 0; i < 3; i++)		//하트모양 체력 3개 
 	{
 		tagForagerHp* _hp = new tagForagerHp;
@@ -97,16 +98,16 @@ void ForagerStatManager::render()
 
 	IMAGEMANAGER->render("스테미나(뒤)", getMemDC(), _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
 	IMAGEMANAGER->render("스테미나", getMemDC(), _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
+	if (!inven_open) {
+		IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
 
-	IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
-
-	if(level > 0)
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top+3, 0, 0, 
-			_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
-	else
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left+4, _foragerExp->expRc.top+3, 0, 0, 
-			_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
-
+		if (level > 0)
+			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+				_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
+		else
+			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+				_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
+	}
 	//level = (((float)currentExp / (float)needExp[level]) * 100);
 	//
 	//int score = level;

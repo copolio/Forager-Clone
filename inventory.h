@@ -15,6 +15,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	void mouse_targetBox();
+	void food_eat();
 
 	void setIsCheck(bool check) {
 		isCheck = check;

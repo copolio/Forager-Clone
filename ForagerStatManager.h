@@ -42,7 +42,7 @@ private:
 	
 	image* _levelNum[10];
 	
-
+	bool inven_open;
 public :
 
 	HRESULT init();
@@ -52,6 +52,9 @@ public :
 
 	vector<tagForagerHp*> _foragerHp;
 
+	void setinvenopen(bool open) {
+		inven_open = open;
+	}
 	//플레이어 스테미나 관련 카운트
 	int playerStaminaCount;
 	bool staminaLoss;

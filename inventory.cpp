@@ -39,6 +39,7 @@ void inventory::update()
 {
 	_targetBox->update();
 	mouse_targetBox();
+	food_eat();
 
 }
 
@@ -117,6 +118,22 @@ void inventory::mouse_targetBox()
 			isCheck = true;
 			
 			break;
+		}
+	}
+}
+
+void inventory::food_eat()
+{
+	for (int i = 0; i < player_inventory.size(); i++) {
+		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->Kinds == ITEM_FOOD && INPUT->GetKeyDown(VK_LBUTTON)) {
+			player_inventory[i]->count--;
+
+			IMAGEMANAGER->findImage("스테미나")->setWidth(-5);
+			if (IMAGEMANAGER->findImage("스테미나")->getWidth() >= StaminaMax) {
+				IMAGEMANAGER->findImage("스테미나")->settingWidth(StaminaMax);
+			}
+
+			ITEMMANAGER->vItem_count_zoro();
 		}
 	}
 }

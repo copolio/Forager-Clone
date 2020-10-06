@@ -71,7 +71,7 @@ void industry::update()
 		_targetBox->update();
 	}
 	mouse_targetBox();
-	industryItemCheck();
+	
 }
 
 void industry::render(HDC hdc)

@@ -26,6 +26,7 @@ public:
 	void vItem_count_zoro();
 public:
 	bool Item_industry_check(string key);
+	void _Item_industry_decrease(string key);
 
 };
 

@@ -20,7 +20,8 @@ private:
 	targetingBox *_targetBox;
 	vector<IndustryRc*> indu_rc;
 	bool _target;
-
+	string Selection_building;
+	
 	void mouse_targetBox();
 
 public:
