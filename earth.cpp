@@ -162,23 +162,6 @@ float earth::getResRatio()
 	return nResTile / float(nPlainTile);
 }
 
-int earth::getPlayerPos()
-{
-	//int playerCenterX = _player->rc.left + (_player->rc.right - _player->rc.left) / 2;
-	//int playerCenterY = _player->rc.bottom;
-	//POINT _ptPlayerPos = { playerCenterX, playerCenterY };
-
-
-	//for (int i = 0; i < MAPTILEY; i++) {
-	//	for (int j = 0; j < MAPTILEX; j++) {
-	//		if (PtInRect(&_vTile[i*MAPTILEY + j].rc, _ptPlayerPos)) {
-	//			return (i*MAPTILEY + j);
-	//		}
-	//	}
-	//}
-	return 0;
-}
-
 void earth::setIsland(int x, int y)
 {
 	for (int i = 0; i < TILEY; i++) {

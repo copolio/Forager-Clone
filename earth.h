@@ -31,7 +31,6 @@ public:
 	void mapSetup();
 	void setRandomObject();
 	float getResRatio();
-	int getPlayerPos();
 	void setIsland(int x, int y);
 	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
 public:
