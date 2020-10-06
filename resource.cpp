@@ -14,20 +14,17 @@ void resource::setRandomRes(tile* tile)
 		this->objKey = "berry";
 		this->dropItem.itemKey = "berryDrop";
 		this->maxHp = BERRYHP;
-		this->hp = BERRYHP;
 		this->exp = 20;
 		break;
 	case 1:
 		this->objKey = "rock";
 		this->dropItem.itemKey = "rockDrop";
-		this->hp = ROCKHP;
 		this->exp = 20;
 		this->maxHp = ROCKHP;
 		break;
 	case 2:
 		this->objKey = "tree";
 		this->dropItem.itemKey = "treeDrop";
-		this->hp = TREEHP;
 		this->exp = 20;
 		this->maxHp = TREEHP;
 		break;
