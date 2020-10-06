@@ -10,6 +10,7 @@ struct  AGRICULTURERc
 {
 	RECT rc;
 	AGRICULTUREKIND kind;
+	string name;
 };
 class Agriculture
 {

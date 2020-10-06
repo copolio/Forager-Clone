@@ -12,6 +12,7 @@ struct IndustryRc
 {
 	RECT rc;
 	INDUSTRYKIND kind;
+	string name;
 };
 class industry
 {
@@ -31,5 +32,8 @@ public:
 	bool getTarget() { return _target; };
 	void setTarget(bool target) { _target = target; };
 	void RemoveTarget();
+
+public:
+	bool industryItemCheck();
 };
 

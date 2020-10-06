@@ -8,43 +8,52 @@ HRESULT Agriculture::init()
 	_target = false;
 	_targetBox = new targetingBox;
 	_targetBox->init();
+
 	AGRICULTURERc *push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_BRIDGE;
+	push->name = "bridge";
 	push->rc = RectMake(WINSIZEX - 267, 235, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_FISHTRAP;
+	push->name = "fishtrap";
 	push->rc = RectMake(WINSIZEX - 267, 295, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 355, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 415, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 475, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 535, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 595, 220, 50);
 	agriRc.push_back(push);
 
 	push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_MISSING;
+	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 655, 220, 50);
 	agriRc.push_back(push);
 

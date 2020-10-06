@@ -22,5 +22,10 @@ public:
 	};
 
 	void vItem_push(string key);
+
+
+public:
+	bool Item_industry_check(string key);
+
 };
 
