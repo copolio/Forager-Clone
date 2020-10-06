@@ -1,33 +1,29 @@
 #pragma once
 #include "targetingBox.h"
+#include "industry.h"
+#include "Agriculture.h"
 enum CONSTRUCTIONKIND
 {
 	INDUSTRY,
 	AGRICULTURE,
 };
-enum INDUSTRYKIND
-{
-	STEELWORK,
-	SEWINGMACHINE,
-};
+
 struct Con_Info
 {
 	CONSTRUCTIONKIND kind;
 	RECT rc;
 	bool isInfo;
 };
-struct IndustryRc
-{
-	INDUSTRYKIND kind;
-	RECT rc;
-};
+
 class construction
 {
 private:
 	targetingBox *_targetBox;
 	vector<Con_Info*> _industry_Rc;
-
+	industry* _industry;
+	Agriculture* _agriculture;
 	bool isCheck;
+	bool agrocultureCheck;
 	bool isTargetBox;
 public:
 
@@ -37,6 +33,8 @@ public:
 	void render(HDC hdc);
 	void BoxMove();
 	void mouse_targetBox();
+
+	void mouse_Click();
 
 	void setIsCheck(bool check) {
 		isCheck = check;

@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Agriculture.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="gamesetting.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
+    <ClInclude Include="industry.h" />
     <ClInclude Include="inGameMenu.h" />
     <ClInclude Include="iniData.h" />
     <ClInclude Include="iniTestScene.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Agriculture.cpp" />
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
@@ -216,6 +219,7 @@
     <ClCompile Include="gamesetting.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
+    <ClCompile Include="industry.cpp" />
     <ClCompile Include="inGameMenu.cpp" />
     <ClCompile Include="iniData.cpp" />
     <ClCompile Include="iniTestScene.cpp" />

@@ -17,6 +17,61 @@ void item_Manager::vItem_push(string key)
 
 }//아이템 인벤에 넣어주는곳
 
+void item_Manager::vItem_count_zoro()
+{
+	for (int i = 0; i < _item_push.size(); i++) {
+		if (_item_push[i]->img_name == "")continue;
+		if (_item_push[i]->count <= 0) {
+			_item_push[i]->Kinds = ITEM_NULL;
+			_item_push[i]->img_name = "";
+			_item_push[i]->item_name = "";
+			_item_push[i]->item_Info = "";
+		}
+	}
+}
+
+
+bool item_Manager::Item_industry_check(string key)
+{			//rockDrop treeDrop
+		int first_material_num = itemfind("rockDrop");
+		int second_material_num = itemfind("treeDrop");
+
+		cout << first_material_num << endl;
+		cout << second_material_num << endl;
+		if (first_material_num != -1 && second_material_num != -1) {
+			if (key == "steelwork") {
+
+				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 3) {
+					_item_push[first_material_num]->count -= 5;
+					_item_push[second_material_num]->count -= 3;
+					vItem_count_zoro();
+					return true;
+				}
+			}
+			else if (key == "anvil") {
+
+				if (_item_push[first_material_num]->count >= 10) {
+					_item_push[first_material_num]->count -= 10;
+					vItem_count_zoro();
+					return true;
+				}
+			}
+			else if (key == "sewingmachine") {
+
+				if (_item_push[first_material_num]->count >= 5 && _item_push[second_material_num]->count >= 5) {
+					_item_push[first_material_num]->count -= 5;
+					_item_push[second_material_num]->count -= 5;
+					vItem_count_zoro();
+					return true;
+				}
+			}
+		}
+		
+	return false;
+}
+//인벤토리에서 건설시 아이템 체크 있으면 true 없으면 false
+
+
 
 
 bool item_Manager::isItemCheck(string key)
@@ -71,7 +126,8 @@ int item_Manager::itemfind(string key)
 			return i;
 		}
 	}
-}//인벤토리에 아이템이 어디있는지 찾는함수
+	return -1;
+}//인벤토리에 아이템이 어디있는지 찾는함수 -1는 없다는뜻
 
 void item_Manager::inventorysection()
 {

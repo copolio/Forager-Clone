@@ -162,8 +162,9 @@ void ForagerPlayer::render(HDC hdc)
 		else
 			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
 	}
-
-	_foragerHp->render();
+	if (!inven_open) {
+		_foragerHp->render();
+	}
 }
 
 void ForagerPlayer::animation()
