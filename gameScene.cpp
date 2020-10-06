@@ -20,7 +20,7 @@ HRESULT gameScene::init()
 	_player->setInvenLink(_Meun->GetInven());
 
 	inven_open = false;
-
+	
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000, -2000, 2000, 2000);
 	UNITMANAGER->AddUnits(_player);
 	return S_OK;

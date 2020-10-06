@@ -536,6 +536,7 @@ void ForagerPlayer::CheckCollision()
 				t_vUnit[i]->collision();
 				cout << t_vUnit[i]->dropItem.itemKey << " 을/를 획득했습니다." << endl;
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
+				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);		
 				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
 			}
 		}

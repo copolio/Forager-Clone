@@ -67,11 +67,35 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\resource">
       <UniqueIdentifier>{09c7a421-4091-44a5-800d-853b3adce9c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\Cursor">
-      <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\Unit\FieldItem">
       <UniqueIdentifier>{ca79da24-a19c-44e8-9263-935fe4207cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory">
+      <UniqueIdentifier>{fae402a9-7d0a-43e5-9c65-7095efb6b615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\construction">
+      <UniqueIdentifier>{27ea1450-75bf-470b-80bd-340819f959f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\equip">
+      <UniqueIdentifier>{f2ee56d4-31de-4374-ba80-dbca6246db2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\gamesetting">
+      <UniqueIdentifier>{5d096536-056f-4ae1-b459-4a3187473503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_images">
+      <UniqueIdentifier>{4cb3efe6-fb88-4f44-9063-2a149da22b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Cursor">
+      <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\pruchase_land">
+      <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_slot">
+      <UniqueIdentifier>{6a99b852-7052-40d8-9154-61ac413f101b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_Manager">
+      <UniqueIdentifier>{93313403-169f-4085-9daa-b51e472d1e09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +162,6 @@
     <ClCompile Include="ForagerStatManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="inventory_slot.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
     <ClCompile Include="TextManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
@@ -168,28 +189,10 @@
     <ClCompile Include="enemy.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="purchase_land.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="equipMent.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="inventory.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="construction.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="inventory_images.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
     <ClCompile Include="inGameMenu11.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="inGameMenu.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
-    <ClCompile Include="gamesetting.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
     <ClCompile Include="earth.cpp">
@@ -205,7 +208,7 @@
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
     </ClCompile>
     <ClCompile Include="cursor.cpp">
-      <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
+      <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClCompile>
     <ClCompile Include="fieldItem.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\FieldItem</Filter>
@@ -213,8 +216,29 @@
     <ClCompile Include="UnitManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    <ClCompile Include="inventory.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="construction.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
+    </ClCompile>
+    <ClCompile Include="equipMent.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\equip</Filter>
+    </ClCompile>
+    <ClCompile Include="gamesetting.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\gamesetting</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory_images.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
+    </ClCompile>
+    <ClCompile Include="purchase_land.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory_slot.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
+    </ClCompile>
+    <ClCompile Include="item_Manager.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,9 +308,6 @@
     <ClInclude Include="ForagerStatManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="inventory_slot.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
     <ClInclude Include="TextManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
@@ -314,21 +335,6 @@
     <ClInclude Include="enemy.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="purchase_land.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="equipMent.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="inventory.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="construction.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="inventory_images.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
     <ClInclude Include="startScene.h">
       <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
     </ClInclude>
@@ -336,9 +342,6 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="inGameMenu.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClInclude>
-    <ClInclude Include="gamesetting.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="earth.h">
@@ -354,13 +357,37 @@
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
     </ClInclude>
     <ClInclude Include="cursor.h">
-      <Filter>GameFramework\MainGame\Forager\Cursor</Filter>
+      <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClInclude>
     <ClInclude Include="fieldItem.h">
       <Filter>GameFramework\MainGame\Forager\Unit\FieldItem</Filter>
     </ClInclude>
     <ClInclude Include="UnitManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="construction.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
+    </ClInclude>
+    <ClInclude Include="equipMent.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\equip</Filter>
+    </ClInclude>
+    <ClInclude Include="gamesetting.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\gamesetting</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory_images.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
+    </ClInclude>
+    <ClInclude Include="purchase_land.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory_slot.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
+    </ClInclude>
+    <ClInclude Include="item_Manager.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
