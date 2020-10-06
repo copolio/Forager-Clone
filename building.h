@@ -9,5 +9,8 @@ class building : public unit
 private:
 	builType builId;
 	RECT interactionRc;
+
+public:
+	void render(HDC hdc) override;
 };
 

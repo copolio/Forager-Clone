@@ -13,6 +13,15 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("treeDrop", "Images/ÀÌ¹ÌÁö/¾ÆÀÌÅÛ/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 }
 
+void UnitManager::release()
+{
+	for(int i = 0 ; i < _vUnits.size(); i++)
+		SAFE_DELETE(_vUnits[i]);
+
+	_vUnits.clear();
+
+}
+
 
 void UnitManager::update()
 {
@@ -23,32 +32,18 @@ void UnitManager::update()
 
 void UnitManager::render(HDC hdc)
 {
-	//À¯´Ö(ÀÚ¿ø, ºôµù) ·»´õ
+	//À¯´Ö(ÀÚ¿ø, ºôµù) ·»´õ (virtual render - override ÀÌ¿ë)
 	for (int i = 0; i < _vUnits.size(); i++) {
 		RECT temp;
 		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &(*_vUnits[i]).rc)) continue;
-
-		// Resource ÇÁ·¹ÀÓ·»´õ
-		if ((*_vUnits[i]).tag == TAG::OBJECT) {
-			IMAGEMANAGER->frameRender((*_vUnits[i]).objKey, hdc,
-				CAMERA->GetRelativeX((*_vUnits[i]).rc.left),
-				CAMERA->GetRelativeY((*_vUnits[i]).rc.bottom - IMAGEMANAGER->findImage((*_vUnits[i]).objKey)->getFrameHeight()),
-				(*_vUnits[i]).objFrameX, (*_vUnits[i]).objFrameY);
-		}
-		// fieldItem ·»´õ
-		else {
-			IMAGEMANAGER->render((*_vUnits[i]).objKey, hdc,
-				CAMERA->GetRelativeX((*_vUnits[i]).rc.left),
-				CAMERA->GetRelativeY((*_vUnits[i]).rc.bottom));
-		}
-
+			(*_vUnits[i]).render(hdc);
 	}
 }
 
 
 
 bool compare(unit* i, unit* j) {
-	return (*i).rc.top < (*j).rc.top;
+	return (*i).GetCenterY() < (*j).GetCenterY();
 }
 
 // yÃà Á¤·Ä
@@ -70,6 +65,14 @@ void UnitManager::CheckRemoveUnit()
 				++iter;
 		}
 	}
+}
+
+
+
+
+void UnitManager::AddUnits(unit* p_unit)
+{
+	_vUnits.push_back(p_unit);
 }
 
 void UnitManager::AddUnits(tile* p_tile)

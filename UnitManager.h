@@ -17,9 +17,11 @@ private:
 
 public:
 	void init();
+	void release();
 	void update();
 	void render(HDC hdc);
 
+	void AddUnits(unit* p_unit);
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_itemKey, POINT p_pos);
 

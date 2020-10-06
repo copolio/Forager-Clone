@@ -4,6 +4,10 @@
 
 HRESULT ForagerPlayer::init()
 {
+	tag == TAG::PLAYER;
+	layer == LAYER::OBJECT;
+	exp = 0;
+
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
 	rc = RectMakeCenter(x, y, 30, 41);
@@ -90,6 +94,9 @@ HRESULT ForagerPlayer::init()
 	_isMoveRotate = false;
 	_isRun = false;
 	_isHammering = false;
+
+	hp = 3;
+	currentHp = 3;
 	_foragerHp = new ForagerStatManager;
 	_foragerHp->init();
 
@@ -315,6 +322,12 @@ void ForagerPlayer::PlayerControll()
 			if (targetUnit != nullptr) {
 				if (targetUnit->tag == TAG::OBJECT) {
 					targetUnit->hurt(1);
+					
+					/* À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
+					if (targetUnit->isDead()) {
+						_foragerHp->IncreaseExp(targetUnit->exp);
+					}
+					*/
 				}
 			}
 

@@ -21,6 +21,7 @@ public:
 	void hurt(int damage);
 	virtual void collision() { ; };
 	virtual void dead() { ; };
+	virtual void render(HDC hdc) override;
 
 	bool isDead();
 };

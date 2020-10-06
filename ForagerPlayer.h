@@ -83,7 +83,7 @@ public:
 	HRESULT init();
 	void release();
 	void update();
-	void render(HDC hdc);
+	void render(HDC hdc) override;
 
 	//플레이어 애니메이션
 	void animation();

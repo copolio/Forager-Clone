@@ -66,13 +66,6 @@ void ForagerStatManager::update()
 			break;
 		}
 	}
-
-	//플레이어가 1번을 누르면 경험치(노란색 앞면 바)가 찬다. 
-	if (INPUT->GetKeyDown('1'))
-	{
-		IncreaseExp(10);
-	}
-
 }
 
 void ForagerStatManager::render()

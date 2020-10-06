@@ -244,6 +244,7 @@
     </ClCompile>
     <ClCompile Include="targetingBox.cpp" />
     <ClCompile Include="TextManager.cpp" />
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="UnitManager.cpp" />

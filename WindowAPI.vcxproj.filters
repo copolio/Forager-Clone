@@ -213,6 +213,9 @@
     <ClCompile Include="UnitManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">

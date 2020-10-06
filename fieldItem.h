@@ -7,5 +7,6 @@ public:
 
 	void setFieldItem(POINT ptPos, string itemKey);
 	void collision() override;
+	void render(HDC hdc) override;
 };
 

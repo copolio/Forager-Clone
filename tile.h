@@ -20,6 +20,10 @@ public:
 	int terrainFrameX;
 	int terrainFrameY;
 	bool hasUnit;
+
+
+public:
+	void render(HDC hdc) override;
 };
 
 

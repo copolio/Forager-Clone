@@ -20,3 +20,8 @@ void fieldItem::collision()
 {
 	currentHp = 0;
 }
+
+void fieldItem::render(HDC hdc)
+{
+	IMAGEMANAGER->render(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom));
+}
