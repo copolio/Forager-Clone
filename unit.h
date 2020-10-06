@@ -21,7 +21,6 @@ public:
 	void hurt(int damage);
 	virtual void collision() { ; };
 	virtual void dead() { ; };
-
 	bool isDead();
 };
 
