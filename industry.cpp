@@ -176,6 +176,7 @@ void industry::addBuilding()
 			tiles.push_back(&_map->tileMouseTarget());
 			is_building_check = false;
 			UNITMANAGER->AddBuilding(building, tiles);
+			ITEMMANAGER->_Item_industry_decrease(building);
 		}
 	}
 }
