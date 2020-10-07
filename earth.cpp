@@ -184,11 +184,11 @@ void earth::setIsland(int x, int y)
 	}
 }
 
-tile earth::tileMouseTarget()
+tile* earth::tileMouseTarget()
 {
 	for (int i = 0; i < _vTile.size(); i++) {
 		if (PtInRect(&_vTile[i].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-			return _vTile[i];
+			return &_vTile[i];
 		}
 	}
 }
