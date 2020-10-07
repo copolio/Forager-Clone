@@ -20,6 +20,7 @@ HRESULT gameScene::init()
 	_Menu->setMapLink(_map);
 	_player->setInvenLink(_Menu->GetInven());
 
+
 	inven_open = false;
 	
 	_quick_slot = new quick_slot;
@@ -28,6 +29,11 @@ HRESULT gameScene::init()
 	_quick_slot->target(0);
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000, -2000, 2000, 2000);
 	UNITMANAGER->AddUnits(_player);
+	
+
+	//스폰 매니져 구현시, 삭제!
+	enemy* _enemy = new enemy;
+	UNITMANAGER->AddUnits(_enemy,"skull");
 
 	return S_OK;
 }
@@ -71,6 +77,8 @@ void gameScene::update()
 	// 인벤토리 열면 커서 타겟팅 업데이트 중지
 	if(!inven_open)
 		_cursor->update();
+
+	
 }
 
 void gameScene::render()

@@ -59,6 +59,7 @@ HRESULT ForagerStatManager::init()
 	playerStaminaCount = 0;
 	staminaLoss = false;
 	
+	
 
 	return S_OK;
 }
@@ -108,50 +109,7 @@ void ForagerStatManager::render()
 			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
 				_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
 	}
-	//level = (((float)currentExp / (float)needExp[level]) * 100);
-	//
-	//int score = level;
-	//int i = 0;
-	//
-	//while (score != NULL)
-	//{
-	//	switch (score % 10)
-	//	{
-	//	case 0:
-	//		IMAGEMANAGER->findImage("0")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top +3);
-	//		break;
-	//	case 1:
-	//		IMAGEMANAGER->findImage("1")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 2:
-	//		IMAGEMANAGER->findImage("2")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 3:
-	//		IMAGEMANAGER->findImage("3")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 4:
-	//		IMAGEMANAGER->findImage("4")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 5:
-	//		IMAGEMANAGER->findImage("5")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 6:
-	//		IMAGEMANAGER->findImage("6")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 7:
-	//		IMAGEMANAGER->findImage("7")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 8:
-	//		IMAGEMANAGER->findImage("8")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	case 9:
-	//		IMAGEMANAGER->findImage("9")->render(getMemDC(), _foragerExp->expRc.left - i * 20, _foragerExp->expRc.top + 3);
-	//		break;
-	//	}
-	//	i++;
-	//	score /= 10;
-	//}
-	
+
 }
 
 void ForagerStatManager::IncreaseExp(int exp)
@@ -160,3 +118,5 @@ void ForagerStatManager::IncreaseExp(int exp)
 	if (currentExp > needExp[level])
 		level++;
 }
+
+

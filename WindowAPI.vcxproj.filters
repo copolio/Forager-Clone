@@ -256,6 +256,9 @@
     <ClCompile Include="quick_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClCompile>
+    <ClCompile Include="skull.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -413,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="quick_slot.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
+    </ClInclude>
+    <ClInclude Include="skull.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
