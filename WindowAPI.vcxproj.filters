@@ -249,6 +249,9 @@
     <ClCompile Include="tile.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
+    <ClCompile Include="skull.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -403,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="Agriculture.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
+    </ClInclude>
+    <ClInclude Include="skull.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

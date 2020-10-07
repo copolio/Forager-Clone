@@ -30,7 +30,7 @@ HRESULT ForagerPlayer::init()
 	IMAGEMANAGER->addFrameImage("playerWork", "Images/ÀÌ¹ÌÁö/ÇÃ·¹ÀÌ¾î/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
 
 	//ÇÃ·¹ÀÌ¾î°¡ °î±ªÀÌ'Áú'ÇÒ ¶§ °î±ªÀÌÀÇ ÇÁ·¹ÀÓ ÀÌ¹ÌÁö 3*1 
-	IMAGEMANAGER->addFrameImage("playerHammering", "Images/ÀÌ¹ÌÁö/¾ÆÀÌÅÛ/°î±ªÀÌÁúÇÏ±â.bmp",170,112, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("playerHammering", "Images/ÀÌ¹ÌÁö/¾ÆÀÌÅÛ/°î±ªÀÌÁúÇÏ±â2.bmp",168,140, 3, 2, true, RGB(255, 0, 255));
 
 	//°î±ªÀÌ°¡ ÇÃ·¹ÀÌ¾î¶û °°ÀÌ È¸ÀüÇÒ ¶§ ÇÁ·¹ÀÓ ÀÌ¹ÌÁö 12*1 2°³
 	IMAGEMANAGER->addFrameImage("HammerImg", "Images/ÀÌ¹ÌÁö/¾ÆÀÌÅÛ/°î±ªÀÌright.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
@@ -100,6 +100,8 @@ HRESULT ForagerPlayer::init()
 	_foragerHp = new ForagerStatManager;
 	_foragerHp->init();
 
+	Atk = 15;
+
 	return S_OK;
 }
 
@@ -151,7 +153,7 @@ void ForagerPlayer::render(HDC hdc)
 		break;
 	case HAMMERING :
 		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
-		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left+10) ,CAMERA->GetRelativeY(rc.top-15));
 		break;
 	}
 
@@ -246,17 +248,42 @@ void ForagerPlayer::animation()
 		}
 		break;
 	case HAMMERING :
+		image *hammerLeft = IMAGEMANAGER->findImage("HammerImgLeft");
+		image *hammerRight = IMAGEMANAGER->findImage("HammerImg");
 		if (_isLeft)
 		{
 			_foragerHammering->setFrameY(1);
 			_playerHammering->setFrameY(1);
 			_foragerHammering->setFrameX(_index);
 			_playerHammering->setFrameX(_index);
-			if (_count++ % 5 == 0)
+			if (_count++ % 20 == 0)
 			{
 				if (_index-- <= 0)
 					_index = 3;
 			}
+			
+			if (5 <= _count && _count <= 15)
+			{
+				hammerLeft->setFrameX(6);
+				
+			}
+			else if (15 < _count && _count <= 25)
+			{
+				hammerLeft->setFrameX(4);
+				
+			}
+			else if (25 < _count && _count <= 30)
+			{
+				hammerLeft->setFrameX(1);
+				
+			}
+			else if (_count > 30)
+			{
+				hammerLeft->setFrameX(0);
+				_count = 0;
+			}
+				
+	
 		}
 		else
 		{
@@ -264,10 +291,30 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameY(0);
 			_foragerHammering->setFrameX(_index);
 			_playerHammering->setFrameX(_index);
-			if (_count++ % 5 == 0)
+			if (_count++ % 20 == 0)
 			{
 				if (_index++ > 3)
 					_index = 0;
+			}
+			if (5 <= _count && _count <= 15)
+			{
+				hammerRight->setFrameX(6);
+
+			}
+			else if (15 < _count && _count <= 25)
+			{
+				hammerRight->setFrameX(4);
+
+			}
+			else if (25 < _count && _count <= 30)
+			{
+				hammerRight->setFrameX(1);
+
+			}
+			else if (_count > 30)
+			{
+				hammerRight->setFrameX(0);
+				_count = 0;
 			}
 		}
 		break;
@@ -318,12 +365,17 @@ void ForagerPlayer::PlayerControll()
 			if (targetUnit != nullptr) {
 				if (targetUnit->tag == TAG::OBJECT) 
 				{
-					targetUnit->hurt(1);
-					// À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
-					if (targetUnit->isDead()) 
+					if (_count == 5)
 					{
-						_foragerHp->IncreaseExp(targetUnit->exp);
+						targetUnit->hurt(Atk);
+						// À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
+						if (targetUnit->isDead())
+						{
+							_foragerHp->IncreaseExp(targetUnit->exp);
+							IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->setWidth(5);
+						}
 					}
+					
 				}
 			}
 			_state = HAMMERING;

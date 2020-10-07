@@ -11,6 +11,7 @@ private:
 	inGameMenu* _Menu;
 	earth* _map;
 	cursor* _cursor;
+	
 private:
 	bool inven_open;
 public:

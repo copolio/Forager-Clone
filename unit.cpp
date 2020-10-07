@@ -8,6 +8,11 @@ void unit::hurt(int damage)
 		dead();
 }
 
+void unit::update()
+{
+
+}
+
 void unit::render(HDC hdc)
 {
 	IMAGEMANAGER->frameRender(objKey, hdc,

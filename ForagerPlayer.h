@@ -79,6 +79,8 @@ private:
 	cursor* _cursor;
 	inventory* _theInven;
 
+	int Atk;
+
 public: 
 	HRESULT init();
 	void release();

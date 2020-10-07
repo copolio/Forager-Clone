@@ -65,5 +65,6 @@ public :
 	//경험치바 최적화
 	void IncreaseExp(int exp);
 
+
 };
 
