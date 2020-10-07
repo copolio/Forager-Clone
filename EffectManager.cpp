@@ -86,8 +86,6 @@ void EffectManager::update()
 
 void EffectManager::render(HDC hdc)
 {
-	TEXTMANAGER->ShowText(hdc, "우클릭 -> 히트 이펙트");
-
 	if (!_listEffect.empty()) {
 		for (iter = _listEffect.begin(); iter != _listEffect.end(); ++iter) {
 			if ((*iter)->isAppear) {

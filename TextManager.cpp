@@ -9,7 +9,7 @@ void TextManager::init()
 	_count = 0;
 	ZeroMemory(_floatingTexts, sizeof(tagFloatingText) * FLOATINGTEXT_MAX);
 	for (int i = 0; i < FLOATINGTEXT_MAX; i++)
-		_floatingTexts[i].str = "";
+		_floatingTexts[i].str = "a";
 }
 
 void TextManager::release()
@@ -70,7 +70,9 @@ void TextManager::render(HDC hdc)
 				TextOut(hdc, CAMERA->GetRelativeX(_floatingTexts[i].x), CAMERA->GetRelativeY(_floatingTexts[i].y), _floatingTexts[i].str.c_str(), strlen(_floatingTexts[i].str.c_str()));
 			}
 		}
-		oldFont = (HFONT)SelectObject(hdc, hFont);
+
+		SetTextAlign(hdc, TA_LEFT);
+		DeleteObject((HFONT)SelectObject(hdc, oldFont));
 	}
 	
 }
@@ -121,11 +123,12 @@ void TextManager::ShowFloatingText(string str, POINT ptPos, COLORREF color, COLO
 			_floatingTexts[i].x = ptPos.x;
 			_floatingTexts[i].y = ptPos.y;
 			_floatingTexts[i].str = str;
+			cout << _floatingTexts[i].str << endl;
 			_floatingTexts[i].color = color;
 			_floatingTexts[i].bgColor = bgColor;
 			_floatingTexts[i].count = 0;
 			_count++;
-			break;
+			return;
 		}
 
 	}
