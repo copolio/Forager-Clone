@@ -15,6 +15,7 @@ void building::setBuilding(string buildingName, tile* _tile)
 	RECT temp = _tile->rc;
 	this->rc = temp;
 	this->layer = LAYER::OBJECT;
+	if (buildingName == "bridge") this->layer = LAYER::TERRAIN;
 	this->tag = TAG::OBJECT;
 	this->objFrameX = 0;
 	this->objFrameY = 0;
