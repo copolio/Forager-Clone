@@ -1,5 +1,6 @@
 #pragma once
 #include "inventory_slot.h"
+#include "item_info.h"
 
 class inventory 
 {
@@ -9,6 +10,7 @@ private:
 	string item_count[9];							//숫자 이미지 이름
 	int StaminaMax;									//스테미너 최대값
 	targetingBox* _targetBox;
+	item_info* _item_info;
 public:
 	HRESULT init();
 	void release();
@@ -17,6 +19,7 @@ public:
 	void mouse_targetBox();
 	void food_eat();
 
+	void item_info_print(HDC hdc);
 	void setIsCheck(bool check) {
 		isCheck = check;
 	}

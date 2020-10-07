@@ -5,6 +5,7 @@ HRESULT inventory::init()
 {
 	_targetBox = new targetingBox;
 	_targetBox->init();
+	
 	StaminaMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	for (int i = 1; i < 10; i++) {
 		item_count[i - 1] = i;
@@ -101,12 +102,12 @@ void inventory::render(HDC hdc)
 			IMAGEMANAGER->render(to_string(player_inventory[i]->count),hdc, player_inventory[i]->_rc.left + 55, player_inventory[i]->_rc.top + 55);
 		}
 	}
-
+	
 	if (isCheck) {
-		IMAGEMANAGER->render("img_UI_ItemTooltip", hdc, 900, 150);
-		IMAGEMANAGER->render("bag", hdc, 1000, 450);
+		item_info_print(hdc);
 		_targetBox->render(hdc);
 	}
+	
 }
 
 void inventory::mouse_targetBox()
@@ -114,7 +115,6 @@ void inventory::mouse_targetBox()
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
 			_targetBox->SetTarget(player_inventory[i]->_rc, 2, i, 4, false);
-			
 			isCheck = true;
 			
 			break;
@@ -134,6 +134,16 @@ void inventory::food_eat()
 			}
 
 			ITEMMANAGER->vItem_count_zoro();
+		}
+	}
+}
+
+void inventory::item_info_print(HDC hdc)
+{
+	for (int i = 0; i < player_inventory.size(); i++) {
+		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
+			_item_info->render(hdc, player_inventory[i]->img_name);
+			cout << player_inventory[i]->img_name << endl;
 		}
 	}
 }

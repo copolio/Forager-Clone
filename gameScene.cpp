@@ -50,6 +50,7 @@ void gameScene::update()
 		else {
 			_player->setInvenOpen(true);
 			inven_open = true;
+			_Menu->settion();	
 		}
 	}
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);

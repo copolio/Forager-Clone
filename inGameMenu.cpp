@@ -157,3 +157,9 @@ void inGameMenu::inven_Change_Key_Down()
 	}
 
 }
+
+void inGameMenu::settion()
+{
+	_inven_Kind = INVENTORY;
+	_construction->setting();
+}

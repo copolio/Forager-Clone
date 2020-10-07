@@ -44,6 +44,8 @@ public:
 	void setisTargetBox(bool check) {
 		isTargetBox = check;
 	}
+
+	void setting();
 public:
 	void setInMapLink(earth* map) { _industry->setInMapLink(map); };
 };

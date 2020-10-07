@@ -97,6 +97,9 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_Manager">
       <UniqueIdentifier>{93313403-169f-4085-9daa-b51e472d1e09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render">
+      <UniqueIdentifier>{4a6043e7-8f71-4950-8923-13cd1208e103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -240,14 +243,15 @@
     <ClCompile Include="item_Manager.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_Manager</Filter>
     </ClCompile>
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="industry.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
     </ClCompile>
     <ClCompile Include="Agriculture.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
     </ClCompile>
-    <ClCompile Include="tile.cpp">
-      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    <ClCompile Include="item_info.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +407,9 @@
     </ClInclude>
     <ClInclude Include="Agriculture.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
+    </ClInclude>
+    <ClInclude Include="item_info.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

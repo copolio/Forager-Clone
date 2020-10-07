@@ -33,6 +33,8 @@ public:
 
 	void inven_Change_Key_Down();
 
+	void settion();
+
 public:
 	inventory* GetInven() { return _inven; };
 public:

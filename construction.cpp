@@ -144,3 +144,10 @@ void construction::mouse_Click()
 		
 	}
 }
+
+void construction::setting()
+{
+	isCheck = false;
+	isTargetBox = false;
+	agrocultureCheck = false;
+}
