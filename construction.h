@@ -47,6 +47,9 @@ public:
 
 	void setting();
 public:
-	void setInMapLink(earth* map) { _industry->setInMapLink(map); };
+	void setMapLink(earth* map) { 
+		_industry->setInMapLink(map);
+		_agriculture->setAgMapLink(map);
+	};
 };
 

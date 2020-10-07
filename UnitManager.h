@@ -26,7 +26,8 @@ public:
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_itemKey, POINT p_pos);
 
-	void AddBuilding(string _building, vector<tile*> tiles);
+	void AddBuilding(string buildkey, tile* _tile);
+	void AddBuilding(string buildkey, vector<tile*> tiles);
 
 
 public:

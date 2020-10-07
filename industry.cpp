@@ -59,10 +59,12 @@ HRESULT industry::init()
 	
 	//건물 건설 확인 렌더용 이미지 및 변수
 	is_building_check = false;
-	greentile = IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
-	redtile = IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
 	IMAGEMANAGER->addImage("steelworkdesign", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("anvildesign", "Images/이미지/오브젝트/모루.bmp", 100, 90, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("sewingmachinedesign", "Images/이미지/오브젝트/재봉소.bmp", 127, 155, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("steelwork", "Images/이미지/오브젝트/building/img_object_steelwork.bmp", 336, 168, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("anvil", "Images/이미지/오브젝트/building/img_object_anvil.bmp", 285, 95, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("sewingmachine", "Images/이미지/오브젝트/building/img_object_sewingmachine.bmp", 378, 155, 3, 1, true, RGB(255, 0, 255));
 	return S_OK;
 }
 
@@ -102,19 +104,7 @@ void industry::render(HDC hdc)
 	}
 	if (is_building_check) {
 		//건설 가능 타일 렌더
-		//POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage(building)->getHeight() / 2 };
-		//if (_map->tileMouseTarget().hasUnit ||
-		//	_map->tileMouseTarget().terrKey != "plaintile") {
-		//	redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-		//}
-		//else {
-		//	greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-		//}
 		renderBuildableTile(hdc);
-		string buildingdesign = building + "design";
-		IMAGEMANAGER->alphaRender(buildingdesign, hdc,
-			CAMERA->GetRelativeX(CAMERA->GetMouseRelativePos(_ptMouse).x - IMAGEMANAGER->findImage(buildingdesign)->getWidth() / 2),
-			CAMERA->GetRelativeY(CAMERA->GetMouseRelativePos(_ptMouse).y - IMAGEMANAGER->findImage(buildingdesign)->getHeight() / 2), 160);
 	}
 	_targetBox->render(hdc);
 }
@@ -147,16 +137,16 @@ void industry::renderBuildableTile(HDC hdc)
 		_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).terrKey != "plaintile" ||
 		_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).hasUnit ||
 		_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).terrKey != "plaintile" ) {
-		redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-		redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.top), 100);
-		redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.top), 100);
-		redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX +1).rc.top), 100);
+		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
+		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.top), 100);
+		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.top), 100);
+		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX +1).rc.top), 100);
 	}
 	else {
-		greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-		greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.top), 100);
-		greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.top), 100);
-		greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.top), 100);
+		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
+		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + 1).rc.top), 100);
+		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX).rc.top), 100);
+		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex() + MAPTILEX + 1).rc.top), 100);
 	}
 	string buildingdesign = building + "design";
 	IMAGEMANAGER->alphaRender(buildingdesign, hdc,
@@ -168,7 +158,7 @@ void industry::renderBuildableTile(HDC hdc)
 bool industry::industryItemCheck()
 {
 	for (int i = 0; i < indu_rc.size(); i++) {
-		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyDown(VK_LBUTTON)) {
+		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyUp(VK_LBUTTON)) {
 			cout << "map size: " << _map->GetTiles().size() << endl;
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
@@ -180,7 +170,7 @@ bool industry::industryItemCheck()
 			else if (indu_rc[i]->kind == INDUSTRY_ANVIL) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;
-					building = "anvilicon";
+					building = "anvil";
 				}
 				return ITEMMANAGER->Item_industry_check("anvil");
 			}
@@ -200,8 +190,14 @@ void industry::addBuilding()
 {
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (is_building_check &&
-			!_map->tileMouseTarget().hasUnit &&
-			_map->tileMouseTarget().terrKey == "plaintile") {
+			!_map->GetTileP(_map->tileMouseTargetIndex())->hasUnit &&
+			!_map->GetTileP(_map->tileMouseTargetIndex()+1)->hasUnit &&
+			!_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX)->hasUnit &&
+			!_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX+1)->hasUnit &&
+			_map->GetTileP(_map->tileMouseTargetIndex())->terrKey == "plaintile" &&
+			_map->GetTileP(_map->tileMouseTargetIndex()+1)->terrKey == "plaintile" &&
+			_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX)->terrKey == "plaintile" &&
+			_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX+1)->terrKey == "plaintile") {
 			_map->setTileHasUnit(_map->tileMouseTargetIndex());
 			_map->setTileHasUnit(_map->tileMouseTargetIndex()+1);
 			_map->setTileHasUnit(_map->tileMouseTargetIndex()+MAPTILEX);

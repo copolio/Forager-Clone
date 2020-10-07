@@ -9,6 +9,21 @@ void building::render(HDC hdc)
 		objFrameX, objFrameY);
 }
 
+void building::setBuilding(string buildingName, tile* _tile)
+{
+	_tiles.push_back(_tile);
+	RECT temp = _tile->rc;
+	this->rc = temp;
+	this->layer = LAYER::OBJECT;
+	this->tag = TAG::OBJECT;
+	this->objFrameX = 0;
+	this->objFrameY = 0;
+	this->objKey = buildingName;
+	this->dropItem.itemKey = "treeDrop";
+	this->maxHp = BUILDINGHP;
+	currentHp = maxHp;
+}
+
 void building::setBuilding(string buildingName, vector<tile*> tiles)
 {
 	_tiles = tiles;

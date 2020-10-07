@@ -17,7 +17,7 @@ HRESULT gameScene::init()
 
 	_Menu = new inGameMenu;
 	_Menu->init();
-	_Menu->setInMapLink(_map);
+	_Menu->setMapLink(_map);
 	_player->setInvenLink(_Menu->GetInven());
 
 	inven_open = false;

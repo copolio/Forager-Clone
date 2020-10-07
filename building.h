@@ -10,6 +10,7 @@ public:
 	RECT interactionRc;
 
 public:
+	void setBuilding(string buildingName, tile* _tile);
 	void setBuilding(string buildingName, vector<tile*> tiles);
 	void dead() override;
 	void render(HDC hdc) override;

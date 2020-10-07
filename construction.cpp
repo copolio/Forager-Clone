@@ -24,6 +24,9 @@ HRESULT construction::init()
 	_agriculture = new Agriculture;
 	_agriculture->init();
 
+	IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
+	IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
+
 	return S_OK;
 }
 

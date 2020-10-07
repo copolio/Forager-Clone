@@ -195,9 +195,6 @@
     <ClCompile Include="enemy.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="inGameMenu11.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
-    </ClCompile>
     <ClCompile Include="inGameMenu.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClCompile>
@@ -356,9 +353,6 @@
     </ClInclude>
     <ClInclude Include="startScene.h">
       <Filter>GameFramework\MainGame\Forager\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="inGameMenu11.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>
     </ClInclude>
     <ClInclude Include="inGameMenu.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu</Filter>

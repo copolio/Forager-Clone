@@ -36,8 +36,6 @@ public:
 private:
 	bool is_building_check;
 	string building;
-	image* greentile;
-	image* redtile;
 	earth* _map;
 public:
 	void setInMapLink(earth* map) { _map = map; };

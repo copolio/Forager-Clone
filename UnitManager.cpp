@@ -92,6 +92,13 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 	}
 }
 
+void UnitManager::AddBuilding(string buildkey, tile * _tile)
+{
+	building* _building = new building;
+	_building->setBuilding(buildkey, _tile);
+	_vUnits.push_back(_building);
+}
+
 void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
 {
 	building* _building = new building;
