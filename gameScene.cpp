@@ -22,8 +22,13 @@ HRESULT gameScene::init()
 
 	inven_open = false;
 	
+	_quick_slot = new quick_slot;
+	_quick_slot->init();
+	_quick_slot->quick_slot_update();
+	_quick_slot->target(0);
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000, -2000, 2000, 2000);
 	UNITMANAGER->AddUnits(_player);
+
 	return S_OK;
 }
 
@@ -34,6 +39,7 @@ void gameScene::release()
 	_Menu->release();
 	_map->release();
 	SAFE_DELETE(_cursor);
+	_quick_slot->release();
 }
 
 void gameScene::update()
@@ -41,6 +47,9 @@ void gameScene::update()
 	_player->update();
 	if (inven_open) {
 		_Menu->update();
+	}
+	else {
+		_quick_slot->update();
 	}
 	if (INPUT->GetKeyDown('I')) {
 		if (inven_open) {
@@ -67,8 +76,12 @@ void gameScene::render()
 {
 	_map->render(getMemDC());
 	EFFECTMANAGER->render(getMemDC());
-	_cursor->render(getMemDC());
+	
 	if (inven_open) {
 		_Menu->render(getMemDC());
 	}
+	else {
+		_quick_slot->render(getMemDC());
+	}
+	_cursor->render(getMemDC());
 }

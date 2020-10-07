@@ -183,6 +183,7 @@
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="purchase_land.h" />
+    <ClInclude Include="quick_slot.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
     <ClInclude Include="resource.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="purchase_land.cpp" />
+    <ClCompile Include="quick_slot.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="reactImage.cpp" />
     <ClCompile Include="resource.cpp" />

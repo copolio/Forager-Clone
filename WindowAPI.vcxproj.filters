@@ -100,6 +100,9 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render">
       <UniqueIdentifier>{4a6043e7-8f71-4950-8923-13cd1208e103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\quick_slot">
+      <UniqueIdentifier>{359be771-2580-4bb2-be33-6a2107573dbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="item_info.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
+    </ClCompile>
+    <ClCompile Include="quick_slot.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +416,9 @@
     </ClInclude>
     <ClInclude Include="item_info.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
+    </ClInclude>
+    <ClInclude Include="quick_slot.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

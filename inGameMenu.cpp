@@ -22,7 +22,7 @@ HRESULT inGameMenu::init()
 	_game_setting->init();
 
 	ITEMMANAGER->setvInventory_info(_inven->get_inven());
-
+	ITEMMANAGER->set_equip_info(_equip->getequip());
 	return S_OK;
 }
 

@@ -17,6 +17,7 @@ HRESULT targetingBox::init()
 	_currentCount = 0;
 	_count = 0;
 	_targetID = 10000;
+	_zommSpeed_count = 0;
 	return S_OK;
 }
 
@@ -24,25 +25,29 @@ void targetingBox::update()
 {
 	// Å¸°ÙÆÃ ¹Ú½º ÁÜÀÎ ÁÜ¾Æ¿ô
 	if (_isTargetting) {
+		_zommSpeed_count++;
+		if (_zommSpeed_count > 1) {
+			_zommSpeed_count = 0;
 
-		if (_currentCount++ > _count) {
-			_currentCount = 0;
+			if (_currentCount++ > _count) {
+				_currentCount = 0;
 
-			if (_isZoomIn) {
-				_currentSize += _zoomSpeed;
-				if (_currentSize >= _maxSize)
-					_isZoomIn = false;
+				if (_isZoomIn) {
+					_currentSize += _zoomSpeed;
+					if (_currentSize >= _maxSize)
+						_isZoomIn = false;
+				}
+				else {
+					_currentSize -= _zoomSpeed;
+					if (_currentSize <= _minSize)
+						_isZoomIn = true;
+				}
+
+				_rcTargetBox.bottom += _currentSize;
+				_rcTargetBox.top -= _currentSize;
+				_rcTargetBox.left -= _currentSize;
+				_rcTargetBox.right += _currentSize;
 			}
-			else {
-				_currentSize -= _zoomSpeed;
-				if (_currentSize <= _minSize)
-					_isZoomIn = true;
-			}
-
-			_rcTargetBox.bottom += _currentSize;
-			_rcTargetBox.top -= _currentSize;
-			_rcTargetBox.left -= _currentSize;
-			_rcTargetBox.right += _currentSize;
 		}
 	}
 }
