@@ -7,7 +7,7 @@ class item_Manager : public singletonBase<item_Manager>
 private:
 
 	vector<inventory_slot*> _item_push;
-
+	vector<inventory_slot*> _equip;
 
 private:
 	bool isItemCheck(string key);
@@ -20,9 +20,22 @@ public:
 	void setvInventory_info(vector<inventory_slot*> inven) {
 		_item_push = inven;
 	};
+	
+	void set_equip_info(vector<inventory_slot*> equip) {
+		_equip = equip;
+	};
 
+	vector<inventory_slot*> get_equip_info() {
+		return _equip ;
+	};
+
+	vector<inventory_slot*> getvInventory_info() {
+		return _item_push;
+	}
+
+public:
+	int equip_count();
 	void vItem_push(string key);
-
 	void vItem_count_zoro();
 public:
 	bool Item_industry_check(string key);

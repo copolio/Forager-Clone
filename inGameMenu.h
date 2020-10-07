@@ -35,6 +35,7 @@ public:
 
 	void settion();
 
+
 public:
 	inventory* GetInven() { return _inven; };
 public:

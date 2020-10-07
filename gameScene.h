@@ -4,6 +4,7 @@
 #include "inGameMenu.h"
 #include "earth.h"
 #include "cursor.h"
+#include "quick_slot.h"
 class gameScene :public gameNode
 {
 private:
@@ -11,6 +12,7 @@ private:
 	inGameMenu* _Menu;
 	earth* _map;
 	cursor* _cursor;
+	quick_slot* _quick_slot;
 private:
 	bool inven_open;
 public:

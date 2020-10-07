@@ -2,6 +2,17 @@
 #include "item_Manager.h"
 
 
+int item_Manager::equip_count()
+{
+	int count=0;
+	for (int i = 0; i < _equip.size(); i++) {
+		if (_equip[i]->Kinds == ITEM_EQUIP) {
+			count++;
+		}
+	}
+	return count;
+}
+
 void item_Manager::vItem_push(string key)
 {
 	if (isItemCheck(key)) {

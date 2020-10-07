@@ -18,6 +18,7 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_equip_slot", "Images/이미지/GUI/img_equip_slot.bmp", 582, 102, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_construction_icon", "Images/이미지/GUI/img_construction_icon.bmp", 78, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory_background", "Images/이미지/GUI/inventory_background.bmp", 1280, 720);
+	IMAGEMANAGER->addImage("quick_slot_background", "Images/이미지/GUI/inventory_background.bmp", 56, 56);
 	IMAGEMANAGER->addImage("img_industry_icon", "Images/이미지/GUI/img_industry_icon.bmp", 250, 80, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_steelwork_icon", "Images/이미지/GUI/img_steelwork_icon.bmp", 220, 53, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_missing_icon", "Images/이미지/GUI/img_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));

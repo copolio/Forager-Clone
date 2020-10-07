@@ -22,8 +22,11 @@ HRESULT gameScene::init()
 
 	inven_open = false;
 	
+	_quick_slot = new quick_slot;
+	_quick_slot->quick_slot_update();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000, -2000, 2000, 2000);
 	UNITMANAGER->AddUnits(_player);
+
 	return S_OK;
 }
 
@@ -67,8 +70,12 @@ void gameScene::render()
 {
 	_map->render(getMemDC());
 	EFFECTMANAGER->render(getMemDC());
-	_cursor->render(getMemDC());
+	
 	if (inven_open) {
 		_Menu->render(getMemDC());
 	}
+	else {
+		_quick_slot->render(getMemDC());
+	}
+	_cursor->render(getMemDC());
 }
