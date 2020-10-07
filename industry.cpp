@@ -103,12 +103,13 @@ void industry::render(HDC hdc)
 	if (is_building_check) {
 		//건설 가능 타일 렌더
 		//POINT _ptBuilding = { _ptMouse.x - 1, _ptMouse.y + IMAGEMANAGER->findImage(building)->getHeight() / 2 };
-		if (_map->tileMouseTarget().hasUnit ||
-			_map->tileMouseTarget().terrKey != "plaintile") {
-			redtile->alphaRender(hdc, CAMERA->GetRelativeX(_map->tileMouseTarget().rc.left), CAMERA->GetRelativeY(_map->tileMouseTarget().rc.top), 100);
+		
+		tile* tile = _map->tileMouseTarget();
+		if (tile->hasUnit || tile->terrKey != "plaintile") {
+			redtile->alphaRender(hdc, CAMERA->GetRelativeX(tile->rc.left), CAMERA->GetRelativeY(tile->rc.top), 100);
 		}
 		else {
-			greentile->alphaRender(hdc, CAMERA->GetRelativeX(_map->tileMouseTarget().rc.left), CAMERA->GetRelativeY(_map->tileMouseTarget().rc.top), 100);
+			greentile->alphaRender(hdc, CAMERA->GetRelativeX(tile->rc.left), CAMERA->GetRelativeY(tile->rc.top), 100);
 		}
 		string buildingdesign = building + "design";
 		IMAGEMANAGER->alphaRender(buildingdesign, hdc,
@@ -168,14 +169,22 @@ bool industry::industryItemCheck()
 void industry::addBuilding()
 {
 	if (INPUT->GetKey(VK_LBUTTON)) {
-		if (is_building_check &&
-			!_map->tileMouseTarget().hasUnit &&
-			_map->tileMouseTarget().terrKey == "plaintile") {
-			_map->setTileHasUnit(_map->tileMouseTargetIndex());
-			vector<tile*> tiles;
-			tiles.push_back(&_map->tileMouseTarget());
-			is_building_check = false;
-			UNITMANAGER->AddBuilding(building, tiles);
+
+		if (is_building_check) {
+			tile* ptile = _map->tileMouseTarget();
+
+			if (!ptile->hasUnit && ptile->terrKey == "plaintile") {
+
+				ptile->hasUnit = true;
+
+				//_map->setTileHasUnit(_map->tileMouseTargetIndex());
+				vector<tile*> tiles;
+				tiles.push_back(ptile);
+				is_building_check = false;
+				UNITMANAGER->AddBuilding(building, tiles);
+			}
 		}
+
+		
 	}
 }

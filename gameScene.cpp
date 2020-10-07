@@ -55,6 +55,7 @@ void gameScene::update()
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
 	EFFECTMANAGER->update();
+	TEXTMANAGER->update();
 	_map->update();
 
 	// 인벤토리 열면 커서 타겟팅 업데이트 중지
@@ -66,6 +67,7 @@ void gameScene::render()
 {
 	_map->render(getMemDC());
 	EFFECTMANAGER->render(getMemDC());
+	TEXTMANAGER->render(getMemDC());
 	_cursor->render(getMemDC());
 	if (inven_open) {
 		_Menu->render(getMemDC());

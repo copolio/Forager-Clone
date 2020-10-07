@@ -322,6 +322,10 @@ void ForagerPlayer::PlayerControll()
 					// À¯´ÖÀÌ ÆÄ±«µÇ¸é ±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
 					if (targetUnit->isDead()) 
 					{
+						string str = std::to_string(targetUnit->exp);
+						str.insert(0, "EXP ");
+						POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
+						TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
 						_foragerHp->IncreaseExp(targetUnit->exp);
 					}
 				}
