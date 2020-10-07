@@ -24,14 +24,6 @@ private:
 	string Selection_building;
 	
 	void mouse_targetBox();
-private:
-	bool is_building_check;
-	string building;
-	image* greentile;
-	image* redtile;
-	earth* _map;
-public:
-	void setInMapLink(earth* map) { _map = map; };
 public:
 	HRESULT init();
 	void release();
@@ -41,8 +33,17 @@ public:
 	bool getTarget() { return _target; };
 	void setTarget(bool target) { _target = target; };
 	void RemoveTarget();
+private:
+	bool is_building_check;
+	string building;
+	image* greentile;
+	image* redtile;
+	earth* _map;
 public:
+	void setInMapLink(earth* map) { _map = map; };
+	void renderBuildableTile(HDC hdc);
 	bool industryItemCheck();
 	void addBuilding();
+
 };
 

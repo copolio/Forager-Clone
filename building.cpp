@@ -12,7 +12,8 @@ void building::render(HDC hdc)
 void building::setBuilding(string buildingName, vector<tile*> tiles)
 {
 	_tiles = tiles;
-	this->rc = _tiles[0]->rc;
+	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[3]->rc.right, _tiles[3]->rc.bottom };
+	this->rc = temp;
 	this->layer = LAYER::OBJECT;
 	this->tag = TAG::OBJECT;
 	this->objFrameX = 0;
