@@ -30,7 +30,7 @@ HRESULT ForagerPlayer::init()
 	IMAGEMANAGER->addFrameImage("playerWork", "Images/이미지/플레이어/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
 
 	//플레이어가 곡괭이'질'할 때 곡괭이의 프레임 이미지 3*1 
-	IMAGEMANAGER->addFrameImage("playerHammering", "Images/이미지/아이템/곡괭이질하기2.bmp",168,140, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("playerHammering", "Images/이미지/아이템/곡괭이질하기3.bmp",255,140, 3, 2, true, RGB(255, 0, 255));
 
 	//곡괭이가 플레이어랑 같이 회전할 때 프레임 이미지 12*1 2개
 	IMAGEMANAGER->addFrameImage("HammerImg", "Images/이미지/아이템/곡괭이right.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
@@ -153,7 +153,7 @@ void ForagerPlayer::render(HDC hdc)
 		break;
 	case HAMMERING :
 		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
-		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left+10) ,CAMERA->GetRelativeY(rc.top-15));
+		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left-16) ,CAMERA->GetRelativeY(rc.top-20));
 		break;
 	}
 
