@@ -8,7 +8,7 @@ private:
 
 	vector<inventory_slot*> _item_push;
 	vector<inventory_slot*> _equip;
-
+	int *money;
 private:
 	bool isItemCheck(string key);
 	int itemempty();
@@ -33,10 +33,19 @@ public:
 		return _item_push;
 	}
 
+	void setMoney(int* m) {
+		money = m;
+	}
+
+	int getMoney() {
+		return *money;
+	}
 public:
+	
 	int equip_count();
 	void vItem_push(string key);
 	void vItem_count_zoro();
+	int item_count(string key);
 public:
 	bool Item_industry_check(string key);
 	void _Item_industry_decrease(string key);

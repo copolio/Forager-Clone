@@ -141,6 +141,7 @@ void ForagerPlayer::render(HDC hdc)
 	case ROTATE: 
 		if (_isLeft) 
 		{
+			
 			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
 		}

@@ -4,6 +4,7 @@
 
 HRESULT industry::init()
 {
+	tooltip = new construction_tool_tip;
 	_target = false;
 	_targetBox = new targetingBox;
 	_targetBox->init();
@@ -106,6 +107,7 @@ void industry::render(HDC hdc)
 		//건설 가능 타일 렌더
 		renderBuildableTile(hdc);
 	}
+	tooltiprender(hdc);
 	_targetBox->render(hdc);
 }
 
@@ -158,6 +160,7 @@ void industry::renderBuildableTile(HDC hdc)
 bool industry::industryItemCheck()
 {
 	for (int i = 0; i < indu_rc.size(); i++) {
+
 		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyUp(VK_LBUTTON)) {
 			cout << "map size: " << _map->GetTiles().size() << endl;
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
@@ -210,6 +213,15 @@ void industry::addBuilding()
 			is_building_check = false;
 			UNITMANAGER->AddBuilding(building, tiles);
 			ITEMMANAGER->_Item_industry_decrease(building);
+		}
+	}
+}
+
+void industry::tooltiprender(HDC hdc)
+{
+	for (int i = 0; i < indu_rc.size(); i++) {
+		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING) {
+			tooltip->render(hdc, indu_rc[i]->name, indu_rc[i]->rc);
 		}
 	}
 }

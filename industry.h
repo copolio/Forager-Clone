@@ -1,5 +1,6 @@
 #pragma once
 #include"targetingBox.h"
+#include "construction_tool_tip.h"
 class earth;
 enum INDUSTRYKIND
 {
@@ -18,6 +19,7 @@ struct IndustryRc
 class industry
 {
 private:
+	construction_tool_tip* tooltip;
 	targetingBox *_targetBox;
 	vector<IndustryRc*> indu_rc;
 	bool _target;
@@ -42,6 +44,6 @@ public:
 	void renderBuildableTile(HDC hdc);
 	bool industryItemCheck();
 	void addBuilding();
-
+	void tooltiprender(HDC hdc);
 };
 

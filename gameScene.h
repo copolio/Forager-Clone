@@ -13,6 +13,8 @@ private:
 	earth* _map;
 	cursor* _cursor;
 	quick_slot* _quick_slot;
+
+	POINT money_pos;
 private:
 	bool inven_open;
 public:

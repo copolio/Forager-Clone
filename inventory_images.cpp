@@ -30,7 +30,11 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_bridge_icon", "Images/이미지/GUI/img_bridge_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_fish_trap_icon", "Images/이미지/GUI/img_fish_trap_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_game_money_icon", "Images/이미지/GUI/img_game_money_icon.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("bag", "Images/이미지/GUI/bag_image.bmp", 112, 120, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
 
 
 	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));

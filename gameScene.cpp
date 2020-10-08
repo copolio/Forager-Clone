@@ -34,7 +34,8 @@ HRESULT gameScene::init()
 	//스폰 매니져 구현시, 삭제!
 	enemy* _enemy = new enemy;
 	UNITMANAGER->AddUnits(_enemy,"skull");
-
+	money_pos.x = 55;
+	money_pos.y = WINSIZEY - 50;
 	return S_OK;
 }
 
@@ -78,7 +79,6 @@ void gameScene::update()
 	if(!inven_open)
 		_cursor->update();
 
-	
 }
 
 void gameScene::render()
@@ -92,5 +92,8 @@ void gameScene::render()
 	else {
 		_quick_slot->render(getMemDC());
 	}
+	IMAGEMANAGER->render("img_game_money_icon", getMemDC(), 10, WINSIZEY - 50);
+	
+	TEXTMANAGER->ShowText(getMemDC(), to_string(ITEMMANAGER->getMoney()), money_pos, 38);
 	_cursor->render(getMemDC());
 }

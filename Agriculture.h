@@ -1,5 +1,6 @@
 #pragma once
 #include "targetingBox.h"
+#include "construction_tool_tip.h"
 class earth;
 enum AGRICULTUREKIND
 {
@@ -9,6 +10,7 @@ enum AGRICULTUREKIND
 };
 struct  AGRICULTURERc
 {
+
 	RECT rc;
 	AGRICULTUREKIND kind;
 	string name;
@@ -20,7 +22,7 @@ private:
 	vector<AGRICULTURERc*> agriRc;
 	bool _target;
 	void mouse_targetBox();
-
+	construction_tool_tip* tooltip;
 public:
 	HRESULT init();
 	void release();
@@ -41,5 +43,6 @@ public:
 	void renderBuildableTile(HDC hdc);
 	bool agricultureItemCheck();
 	void addBuilding();
+	void tooltiprender(HDC hdc);
 };
 

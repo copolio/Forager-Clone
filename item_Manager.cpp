@@ -40,11 +40,12 @@ void item_Manager::vItem_count_zoro()
 		}
 	}
 }
+//아이템 카운트가 0 이되면 삭제
 
 
 bool item_Manager::Item_industry_check(string key)
 {			//rockDrop treeDrop
-	int first_material_num = itemfind("rockDrop");
+	int first_material_num = itemfind("rockDrop"); 
 	int second_material_num = itemfind("treeDrop");
 	if (key == "steelwork") {
 		if (first_material_num != -1 && second_material_num != -1) {
@@ -134,7 +135,8 @@ void item_Manager::_Item_industry_decrease(string key)
 			}
 		}
 	}
-}//건설 완료시 재료 삭제
+}
+//건설 완료시 재료 삭제
 
 
 bool item_Manager::isItemCheck(string key)
@@ -145,7 +147,8 @@ bool item_Manager::isItemCheck(string key)
 		}
 	}
 	return false;
-}//인벤토리에 있는지 없는지 확인
+}
+//인벤토리에 있는지 없는지 확인
 
 
 int item_Manager::itemempty()
@@ -157,7 +160,8 @@ int item_Manager::itemempty()
 		}
 	}
 	return 888;
-}//비어있는 자릿수 반환 888은 가방이 더이상 들어갈때가 없을때 반환
+}
+//비어있는 자릿수 반환 888은 가방이 더이상 들어갈때가 없을때 반환
 
 ItemKinds item_Manager::itemKind(string key)
 {
@@ -172,6 +176,7 @@ ItemKinds item_Manager::itemKind(string key)
 	}
 	return ITEM_NULL;
 }
+//아이템 종류 확인
 
 //item 종류 확인(아이템 종류가 늘어나면 if문 추가해야됨)
 /*
@@ -190,10 +195,22 @@ int item_Manager::itemfind(string key)
 		}
 	}
 	return -1;
-}//인벤토리에 아이템이 어디있는지 찾는함수 -1는 없다는뜻
+}
+//인벤토리에 아이템이 어디있는지 찾는함수 -1는 없다는뜻
 
 void item_Manager::inventorysection()
 {
 
 
 }//중복된 key가 있나없나 검사//아직까지는 잘됨...중복 버그가 발생하면..그때생각
+
+int item_Manager::item_count(string key)
+{
+	if (isItemCheck(key)) {
+		return _item_push[itemfind(key)]->count;
+	}
+	else {
+		return 0;
+	}
+}
+//아이템 이름으로 count값 가져오기
