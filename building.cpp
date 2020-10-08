@@ -16,7 +16,7 @@ void building::setBuilding(string buildingName, tile* _tile)
 	this->rc = temp;
 	this->layer = LAYER::OBJECT;
 	if (buildingName == "bridge") this->layer = LAYER::TERRAIN;
-	this->tag = TAG::OBJECT;
+	this->tag = TAG::BUILDING;
 	this->objFrameX = 0;
 	this->objFrameY = 0;
 	this->objKey = buildingName;
@@ -31,7 +31,7 @@ void building::setBuilding(string buildingName, vector<tile*> tiles)
 	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[3]->rc.right, _tiles[3]->rc.bottom };
 	this->rc = temp;
 	this->layer = LAYER::OBJECT;
-	this->tag = TAG::OBJECT;
+	this->tag = TAG::BUILDING;
 	this->objFrameX = 0;
 	this->objFrameY = 0;
 	this->objKey = buildingName;

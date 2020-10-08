@@ -13,10 +13,10 @@ private:
 	earth* _map;
 	unit* _unit;
 	targetingBox _targetingBox;
+	bool isbuilding;
 
 private:
 	void CheckObject();
-
 
 public:
 	void init();

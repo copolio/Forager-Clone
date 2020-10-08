@@ -27,7 +27,7 @@ public:
 	void SetTarget(RECT rcTarget, int moveDistance, int id = 0, int narrow = 0, bool isRelative = false);
 	void CursorOut();
 	void RemoveTarget();
-
+	RECT getTargetRc() { return _rcTargetBox; };
 
 
 };
