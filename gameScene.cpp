@@ -97,4 +97,6 @@ void gameScene::render()
 	
 	TEXTMANAGER->ShowText(getMemDC(), to_string(ITEMMANAGER->getMoney()), money_pos, 38);
 	_cursor->render(getMemDC());
+
+	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }
