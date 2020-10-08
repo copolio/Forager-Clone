@@ -14,6 +14,7 @@ void UnitManager::init()
 	
 	//에너미 - 해골
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("skullMoving","Images/이미지/NPC/")
 }
 
 void UnitManager::release()
@@ -112,7 +113,6 @@ void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
 		skull* _skull = new skull;
 		_skull->setEnemy();
 		_vUnits.push_back(_skull);
-
 	}
 
 	

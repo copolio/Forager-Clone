@@ -267,6 +267,9 @@
     <ClCompile Include="tile.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameFramework\MainGame\A%2a</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -430,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="construction_tool_tip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>GameFramework\MainGame\A%2a</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

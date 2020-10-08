@@ -40,6 +40,8 @@ private:
 	int _count;
 	int _index;
 
+	
+
 	//플레이어 회전 관련 변수 카운트 
 	int _Acount;
 	int _spinCount;
@@ -60,7 +62,7 @@ private:
 	float _speed;		//플레이어 스피드 
 	float _currentSpeed;//플레이어 현재 스피드 
 	
-	int _playerTilePos;		// 플레이어 타일 좌표
+	int _skullTilePos;		// 플레이어 타일 좌표
 
 	//플레이어 발걸음 연출
 	int _footWalkCount;
@@ -79,6 +81,8 @@ private:
 	earth* _map;
 	cursor* _cursor;
 	inventory* _theInven;
+	//enemy* _enemy;
+	unit* _unit;
 
 	int Atk;
 
@@ -112,6 +116,6 @@ public:
 	void CheckCollision();
 
 public:
-	int GetPlayerTilePos() { return _playerTilePos; };
+	int GetPlayerTilePos() { return _skullTilePos; };
 };
 

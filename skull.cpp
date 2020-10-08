@@ -3,6 +3,9 @@
 
 void skull::render(HDC hdc)
 {
-	IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left), 
-		CAMERA->GetRelativeY(rc.top),objFrameX,objFrameY, CAMERA->GetZoom());
+	IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left-13), 
+		CAMERA->GetRelativeY(rc.top-10),objFrameX,objFrameY, CAMERA->GetZoom());
+
+	
+
 }

@@ -8,6 +8,11 @@ public:
 
 class unit : public gameObject
 {
+
+private:
+
+	
+
 public:
 	// 이미지 키값
 	string objKey;
