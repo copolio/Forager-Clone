@@ -79,20 +79,25 @@ public:
 	void release();
 
 	//렌더(내가 원하는 좌표에 출력해라, 일반적으로 우리는 RECT의 LT좌표에 이미지를 붙인다)
-	void render(HDC hdc, int destX = 0, int destY = 0);
+	void render(HDC hdc, int destX, int destY);
+	void render(HDC hdc, int destX, int destY, float zoomRate);
 	//렌더(원하는 좌표에 이미지를 잘라서 붙이기)
 	void render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
 	//알파렌더(이미지를 알파값만큼 투명화 시켜준다)
 	void alphaRender(HDC hdc, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
+	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha, float zoomRate);
 	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
 	//프레임렌더
 	void frameRender(HDC hdc, int destX, int destY);
+	void frameRender(HDC hdc, int destX, int destY, float zoomRate);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate);
 	//스트레치렌더
 	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight);
 	//알파스트레치렌더
 	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height, BYTE alpha);
+	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height, BYTE alpha, float zoomRate);
 	//루프렌더
 	void loopRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY);
 	void loopAlphaRender(HDC hdc, const LPRECT drawArea, int offsetX, int offsetY, BYTE alpha);

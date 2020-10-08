@@ -30,23 +30,34 @@ void UnitManager::update()
 {
 	Sorting();
 	CheckRemoveUnit();
-	for (int i = 0; i < _vUnits.size(); i++)
-	{
-		if (_vUnits[i]->tag == TAG::ENEMY)
-		{
+
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag != TAG::PLAYER) {
 			_vUnits[i]->update();
 		}
 	}
+	
 }
 
 
 void UnitManager::render(HDC hdc)
 {
-	//유닛(자원, 빌딩) 렌더 (virtual render - override 이용)
+	// 레이어 : Terrain
 	for (int i = 0; i < _vUnits.size(); i++) {
-		RECT temp;
-		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &(*_vUnits[i]).rc)) continue;
+		if ((*_vUnits[i]).layer == LAYER::TERRAIN) {
+			RECT temp;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &(*_vUnits[i]).rc)) continue;
 			(*_vUnits[i]).render(hdc);
+		}
+	}
+
+	// 레이어 : Object
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if ((*_vUnits[i]).layer == LAYER::OBJECT) {
+			RECT temp;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &(*_vUnits[i]).rc)) continue;
+			(*_vUnits[i]).render(hdc);
+		}
 	}
 }
 
@@ -55,6 +66,7 @@ void UnitManager::render(HDC hdc)
 bool compare(unit* i, unit* j) {
 	return (*i).GetCenterY() < (*j).GetCenterY();
 }
+
 
 // y축 정렬
 void UnitManager::Sorting()

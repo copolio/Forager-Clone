@@ -36,6 +36,7 @@ private:
 	image* _hammerLeft;
 
 	// 프레임 스피드
+	int _hitDelayCount;
 	int _count;
 	int _index;
 

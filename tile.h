@@ -20,7 +20,7 @@ public:
 	int terrainFrameX;
 	int terrainFrameY;
 	bool hasUnit;
-
+	bool canPass;
 
 public:
 	void render(HDC hdc) override;

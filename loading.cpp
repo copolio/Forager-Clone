@@ -124,7 +124,7 @@ void loading::update()
 void loading::render()
 {
 	//백그라운드 이미지 렌더
-	_background->render(getMemDC());
+	_background->render(getMemDC(), 0, 0);
 	//로딩바 클래스 렌더
 	_loadingBar->render();
 }

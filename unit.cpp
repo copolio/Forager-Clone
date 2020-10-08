@@ -4,13 +4,32 @@
 void unit::hurt(int damage)
 {
 	currentHp -= damage;
+
 	if (currentHp <= 0)
 		dead();
+	else
+		isHit = true;
 }
+
+
 
 void unit::update()
 {
+	animation();
+}
 
+void unit::animation()
+{
+	if (isHit) {
+		if (currentCount++ >= nextCount) {
+			currentCount = 0;
+			if (objFrameX++ >= objMaxFrameX)
+			{
+				objFrameX = 0;
+				isHit = false;
+			}
+		}
+	}
 }
 
 void unit::render(HDC hdc)
