@@ -28,7 +28,7 @@ void cursor::CheckObject()
 	
 	// 태그가 오브젝트 (자연) 인 것만 타겟팅
 	for (int i = 0; i < vUnit.size(); i++) {
-		if ((*vUnit[i]).tag == TAG::OBJECT) {
+		if ((*vUnit[i]).tag == TAG::OBJECT || (*vUnit[i]).tag == TAG::ENEMY) {
 
 			RECT t_rc = (*vUnit[i]).rc;
 			if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {

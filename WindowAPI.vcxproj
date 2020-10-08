@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Agriculture.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="building.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agriculture.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />

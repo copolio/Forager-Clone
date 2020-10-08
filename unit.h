@@ -8,6 +8,11 @@ public:
 
 class unit : public gameObject
 {
+
+private:
+
+	
+
 public:
 	int maxHp;
 	int currentHp;
@@ -16,6 +21,7 @@ public:
 	string objKey;
 	int objFrameX;
 	int objFrameY;
+	POINT dir;
 public:
 
 	void hurt(int damage);
@@ -24,6 +30,11 @@ public:
 	virtual void update();
 	virtual void render(HDC hdc) override;
 
+
+	//tile GetTile(int index) { return _vTile[index]; };
+	//RECT GetTileRc(int index) { return _vTile[index].rc; }
+
+	
 	bool isDead();
 };
 

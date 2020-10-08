@@ -97,6 +97,9 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_Manager">
       <UniqueIdentifier>{93313403-169f-4085-9daa-b51e472d1e09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\A%2a">
+      <UniqueIdentifier>{d87a5b99-a944-4a99-8b28-9cb63fa369a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -251,6 +254,9 @@
     </ClCompile>
     <ClCompile Include="skull.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameFramework\MainGame\A%2a</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="skull.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>GameFramework\MainGame\A%2a</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

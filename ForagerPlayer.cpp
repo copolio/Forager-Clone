@@ -11,7 +11,7 @@ HRESULT ForagerPlayer::init()
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
 	rc = RectMakeCenter(x, y, 30, 41);
-	_playerTilePos = FindPlayerTilePos();
+	_skullTilePos = FindPlayerTilePos();
 	inven_open = false;
 
 	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56);
@@ -101,6 +101,7 @@ HRESULT ForagerPlayer::init()
 	_foragerHp->init();
 
 	Atk = 15;
+	
 
 	return S_OK;
 }
@@ -363,7 +364,7 @@ void ForagerPlayer::PlayerControll()
 		{
 			unit* targetUnit = _cursor->GetTargetUnit();
 			if (targetUnit != nullptr) {
-				if (targetUnit->tag == TAG::OBJECT) 
+				if (targetUnit->tag == TAG::OBJECT || targetUnit->tag == TAG::ENEMY)
 				{
 					if (_count == 5)
 					{
@@ -375,7 +376,6 @@ void ForagerPlayer::PlayerControll()
 							IMAGEMANAGER->findImage("스테미나")->setWidth(5);
 						}
 					}
-					
 				}
 			}
 			_state = HAMMERING;
@@ -512,8 +512,8 @@ int ForagerPlayer::FindPlayerTilePos()
 // 플레이어 움직임 가능 체크
 bool ForagerPlayer::CanCheckMove(int index)
 {
-	tile tile = _map->GetTile(_playerTilePos + index);
-
+	tile tile = _map->GetTile(_skullTilePos + index);
+	
 	// 일반 타일이거나 장애물이 없으면 움직임 가능
 	if (tile.terrKey != "watertile" && !tile.hasUnit)
 		return false;
@@ -536,33 +536,33 @@ void ForagerPlayer::CheckPlayerTile()
 
 	// 플레이어 좌표 기준 상하좌우 타일중에 
 	// 지금 밟고 있는 타일로 좌표 변경
-	if (PtInRect(&_map->GetTileRc(_playerTilePos), ptPlayerPos))
-		_playerTilePos = _playerTilePos;
+	if (PtInRect(&_map->GetTileRc(_skullTilePos), ptPlayerPos))
+		_skullTilePos = _skullTilePos;
 
 
 	// 플레이어 좌표 기준 상하좌우 타일 충돌 체크
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + 1), ptPlayerPos))
-		_playerTilePos += 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - 1), ptPlayerPos))
-		_playerTilePos -= 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX), ptPlayerPos))
-		_playerTilePos += MAPTILEX;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX), ptPlayerPos))
-		_playerTilePos -= MAPTILEX;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos + 1), ptPlayerPos))
+		_skullTilePos += 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos - 1), ptPlayerPos))
+		_skullTilePos -= 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos + MAPTILEX), ptPlayerPos))
+		_skullTilePos += MAPTILEX;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos - MAPTILEX), ptPlayerPos))
+		_skullTilePos -= MAPTILEX;
 
 	// 플레이어 좌표 기준 대각선 타일 충돌 체크
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX + 1), ptPlayerPos))
-		_playerTilePos += MAPTILEX + 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX - 1), ptPlayerPos))
-		_playerTilePos -= MAPTILEX - 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX + 1), ptPlayerPos))
-		_playerTilePos += MAPTILEX + 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX - 1), ptPlayerPos))
-		_playerTilePos -= MAPTILEX - 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos - MAPTILEX + 1), ptPlayerPos))
+		_skullTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos - MAPTILEX - 1), ptPlayerPos))
+		_skullTilePos -= MAPTILEX - 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos + MAPTILEX + 1), ptPlayerPos))
+		_skullTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_skullTilePos + MAPTILEX - 1), ptPlayerPos))
+		_skullTilePos -= MAPTILEX - 1;
 
 	// 플레이어의 좌표가 어긋날 경우 다시 받아옴.
 	else
-		_playerTilePos = FindPlayerTilePos();
+		_skullTilePos = FindPlayerTilePos();
 }
 
 
