@@ -61,6 +61,10 @@ HRESULT Agriculture::init()
 	IMAGEMANAGER->addImage("bridgedesign", "Images/이미지/오브젝트/다리.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("bridge", "Images/이미지/오브젝트/building/img_object_bridge.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addImage("fishtrapdesign", "Images/이미지/오브젝트/통발.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("fishtrap", "Images/이미지/오브젝트/building/img_object_fishtrap.bmp", 168, 56, 3, 1, true, RGB(255, 0, 255));
+
+
 	return S_OK;
 }
 
@@ -133,7 +137,6 @@ void Agriculture::renderBuildableTile(HDC hdc)
 	IMAGEMANAGER->alphaRender(buildingdesign, hdc,
 		CAMERA->GetRelativeX(CAMERA->GetMouseRelativePos(_ptMouse).x - IMAGEMANAGER->findImage(buildingdesign)->getWidth() / 2),
 		CAMERA->GetRelativeY(CAMERA->GetMouseRelativePos(_ptMouse).y - IMAGEMANAGER->findImage(buildingdesign)->getHeight() / 2), 160);
-
 }
 
 bool Agriculture::agricultureItemCheck()
