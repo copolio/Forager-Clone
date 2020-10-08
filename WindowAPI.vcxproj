@@ -153,6 +153,7 @@
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="construction.h" />
+    <ClInclude Include="construction_tool_tip.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="EffectManager.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="building.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
+    <ClCompile Include="construction_tool_tip.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="EffectManager.cpp" />

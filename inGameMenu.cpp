@@ -23,6 +23,7 @@ HRESULT inGameMenu::init()
 
 	ITEMMANAGER->setvInventory_info(_inven->get_inven());
 	ITEMMANAGER->set_equip_info(_equip->getequip());
+	ITEMMANAGER->setMoney(_inven->getMoney());
 	return S_OK;
 }
 

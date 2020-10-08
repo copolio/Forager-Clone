@@ -7,7 +7,7 @@ HRESULT Agriculture::init()
 	_target = false;
 	_targetBox = new targetingBox;
 	_targetBox->init();
-
+	tooltip = new construction_tool_tip;
 	AGRICULTURERc *push = new AGRICULTURERc;
 	push->kind = AGRICULTUREKIND_BRIDGE;
 	push->name = "bridge";
@@ -103,6 +103,7 @@ void Agriculture::render(HDC hdc)
 		//건설 가능 타일 렌더
 		renderBuildableTile(hdc);
 	}
+	tooltiprender(hdc);
 	_targetBox->render(hdc);
 }
 
@@ -173,6 +174,14 @@ void Agriculture::addBuilding()
 			is_building_check = false;
 			UNITMANAGER->AddBuilding(building, _map->GetTileP(_map->tileMouseTargetIndex()));
 			ITEMMANAGER->_Item_industry_decrease(building);
+		}
+	}
+}
+void Agriculture::tooltiprender(HDC hdc)
+{
+	for (int i = 0; i < agriRc.size(); i++) {
+		if (PtInRect(&agriRc[i]->rc, _ptMouse) && agriRc[i]->kind != AGRICULTUREKIND_MISSING) {
+			tooltip->render(hdc, agriRc[i]->name, agriRc[i]->rc);
 		}
 	}
 }

@@ -5,7 +5,8 @@ HRESULT inventory::init()
 {
 	_targetBox = new targetingBox;
 	_targetBox->init();
-	
+	money = new int;
+	*money = 9999;
 	StaminaMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	for (int i = 1; i < 10; i++) {
 		item_count[i - 1] = i;
@@ -26,6 +27,35 @@ HRESULT inventory::init()
 			player_inventory.push_back(inven);
 		}
 	}
+
+	//====================================================
+	//테스트용
+	/*
+	ITEM_NULL,
+	ITEM_FOOD,
+	ITEM_EQUIP,
+	ITEM_MATERIAL,*/
+
+	/*
+	berryDrop
+	rockDrop
+	treeDrop
+	*/
+	player_inventory[0]->count = 999;
+	player_inventory[0]->Kinds = ITEM_MATERIAL;
+	player_inventory[0]->img_name = "treeDrop";
+	player_inventory[0]->item_name = "treeDrop";
+
+	player_inventory[1]->count = 999;
+	player_inventory[1]->Kinds = ITEM_MATERIAL;
+	player_inventory[1]->img_name = "rockDrop";
+	player_inventory[1]->item_name = "rockDrop";
+
+	player_inventory[2]->count = 999;
+	player_inventory[2]->Kinds = ITEM_FOOD;
+	player_inventory[2]->img_name = "berryDrop";
+	player_inventory[2]->item_name = "berryDrop";
+	//====================================================
 	isCheck = false;
 
 	return S_OK;

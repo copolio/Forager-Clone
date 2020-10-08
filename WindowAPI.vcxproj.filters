@@ -103,6 +103,9 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\quick_slot">
       <UniqueIdentifier>{359be771-2580-4bb2-be33-6a2107573dbd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip">
+      <UniqueIdentifier>{be6f7ee9-c883-4f20-a837-d02e8c06de0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -257,6 +260,9 @@
     </ClCompile>
     <ClCompile Include="skull.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="construction_tool_tip.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClCompile>
     <ClCompile Include="tile.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
@@ -421,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="skull.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="construction_tool_tip.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
