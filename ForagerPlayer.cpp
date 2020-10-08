@@ -80,7 +80,7 @@ HRESULT ForagerPlayer::init()
 	//프레임이미지 애니메이션 관련 변수 초기화 
 	_count = 0;
 	_index = 0;
-	_hitDelayCount = 0;
+	_hitDelayCount = 1;
 
 	//회전관련 변수 초기화 
 	_Acount = 0;
@@ -258,29 +258,13 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameY(1);
 			_foragerHammering->setFrameX(_index);
 			_playerHammering->setFrameX(_index);
-			if (_count++ % 20 == 0)
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				if (_index-- <= 0)
+				if (_index-- <= 0) {
 					_index = 3;
+					_hitDelayCount = 1;
+				}
 			}
-			
-			_hitDelayCount++;
-			if (5 <= _hitDelayCount && _hitDelayCount <= 15)
-				hammerLeft->setFrameX(6);
-
-			else if (15 < _hitDelayCount && _hitDelayCount <= 25)
-				hammerLeft->setFrameX(4);
-
-			else if (25 < _hitDelayCount && _hitDelayCount <= 30)
-				hammerLeft->setFrameX(1);
-
-			else if (_hitDelayCount > 30)
-			{
-				hammerLeft->setFrameX(0);
-				_hitDelayCount = 0;
-			}
-				
-	
 		}
 		else
 		{
@@ -288,23 +272,12 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameY(0);
 			_foragerHammering->setFrameX(_index);
 			_playerHammering->setFrameX(_index);
-			if (_count++ % 20 == 0)
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				if (_index++ > 3)
+				if (_index++ > 3) {
+					_hitDelayCount = 1;
 					_index = 0;
-			}
-
-			_hitDelayCount++;
-			if (5 <= _hitDelayCount && _hitDelayCount <= 15)
-				hammerRight->setFrameX(6);
-			else if (15 < _hitDelayCount && _hitDelayCount <= 25)
-				hammerRight->setFrameX(4);
-			else if (25 < _hitDelayCount && _hitDelayCount <= 30)
-				hammerRight->setFrameX(1);
-			else if (_hitDelayCount > 30)
-			{
-				hammerRight->setFrameX(0);
-				_hitDelayCount = 0;
+				}
 			}
 		}
 		break;
@@ -353,29 +326,42 @@ void ForagerPlayer::PlayerControll()
 		{
 			unit* targetUnit = _cursor->GetTargetUnit();
 			if (targetUnit != nullptr) {
-				if (targetUnit->tag == TAG::OBJECT || targetUnit->tag == TAG::ENEMY)
+				if (targetUnit->tag == TAG::OBJECT || targetUnit->tag == TAG::ENEMY || targetUnit->tag == TAG::BUILDING)
 				{
-					if (_hitDelayCount == 10)
+					// 타격 시점에
+					if (_hitDelayCount == 18)
 					{
-						targetUnit->hurt(Atk);
-						// 유닛이 파괴되면 그 유닛의 경험치 획득.
-						if (targetUnit->isDead())
+						// 타겟과의 거리와 가까우면
+						if (abs(targetUnit->rc.left - rc.left) <= 100 && abs(targetUnit->rc.top - rc.top) <= 100)
 						{
-							IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-							int t_exp = targetUnit->exp;
-							t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
-							if (t_exp > 0) {
-								POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
-								string str = std::to_string(t_exp);
-								str.insert(0, "EXP ");
-								TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
-								_foragerHp->IncreaseExp(t_exp);
+							// 타겟 공격
+							targetUnit->hurt(Atk);
+							
+							// 유닛이 파괴되면
+							if (targetUnit->isDead())
+							{
+								// 스태니마 감소
+								IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+
+								//그 유닛의 경험치 획득.
+								int t_exp = targetUnit->exp;
+								if (t_exp > 0) {
+									t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
+									POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
+									string str = std::to_string(t_exp);
+									str.insert(0, "EXP ");
+									TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
+									_foragerHp->IncreaseExp(t_exp);
+								}
+
+								// 타격 줌인 연출
+								CAMERA->forceZoomIn(0.02f, 0.005f);
 							}
-							CAMERA->forceZoomIn(0.02f, 0.005f);
+							else {
+								CAMERA->forceZoomIn(0.003f, 0.001f);
+							}
 						}
-						else {
-							CAMERA->forceZoomIn(0.003f, 0.001f);
-						}
+					
 					}
 				}
 			}
@@ -383,7 +369,10 @@ void ForagerPlayer::PlayerControll()
 		}
 
 		if (INPUT->GetKeyUp(VK_LBUTTON)) {
-			_hitDelayCount = 0;
+			_hitDelayCount = 1;
+			_index = (_isLeft) ? 3 : 0;
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameX(_index);
 		}
 	}
 }
