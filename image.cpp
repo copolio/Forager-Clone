@@ -325,6 +325,15 @@ void image::render(HDC hdc, int destX, int destY)
 	}
 }
 
+void image::render(HDC hdc, int destX, int destY, float zoomRate)
+{
+	int width = _imageInfo->width;
+	int height = _imageInfo->height;
+
+	TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+
+}
+
 //렌더(원하는 좌표에 이미지를 잘라서 붙이기)
 void image::render(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight)
 {
@@ -427,6 +436,15 @@ void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 	}
 }
 
+void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha, float zoomRate)
+{
+	int width = _imageInfo->width;
+	int height = _imageInfo->height;
+
+	TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+	
+}
+
 void image::alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
 {
 	if (!_blendImage) this->initForAlphaBlend();
@@ -479,6 +497,24 @@ void image::frameRender(HDC hdc, int destX, int destY)
 	else//원본 이미지 그대로 출력
 	{
 		BitBlt(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC,
+			_imageInfo->currentFrameX * _imageInfo->frameWidth,
+			_imageInfo->currentFrameY * _imageInfo->frameHeight, SRCCOPY);
+	}
+}
+
+void image::frameRender(HDC hdc, int destX, int destY, float zoomRate)
+{
+	int width = _imageInfo->frameWidth;
+	int height = _imageInfo->frameHeight;
+
+	if (_isTrans)//배경색 없애고 출력
+	{
+		TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
+	}
+	else//원본 이미지 그대로 출력
+	{
+		BitBlt(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
 			_imageInfo->hMemDC, 
 			_imageInfo->currentFrameX * _imageInfo->frameWidth, 
 			_imageInfo->currentFrameY * _imageInfo->frameHeight, SRCCOPY);
@@ -523,6 +559,34 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 	}
 }
 
+void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate)
+{
+	//이미지 예외처리
+	_imageInfo->currentFrameX = currentFrameX;
+	_imageInfo->currentFrameY = currentFrameY;
+	if (currentFrameX > _imageInfo->maxFrameX)
+		_imageInfo->currentFrameX = _imageInfo->maxFrameX;
+	if (currentFrameY > _imageInfo->maxFrameY)
+		_imageInfo->currentFrameY = _imageInfo->maxFrameX;
+	
+	int width = _imageInfo->frameWidth;
+	int height = _imageInfo->frameHeight;
+
+	if (_isTrans)//배경색 없애고 출력
+	{
+		TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
+	}
+	else//원본 이미지 그대로 출력
+	{
+		TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
+
+		/*BitBlt(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC,
+			_imageInfo->currentFrameX * _imageInfo->frameWidth,
+			_imageInfo->currentFrameY * _imageInfo->frameHeight, SRCCOPY);*/
+	}
+}
+
 void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height)
 {
 	if (!_stretchImage) initStretch();
@@ -556,8 +620,24 @@ void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int wid
 		SetStretchBltMode(hdc, COLORONCOLOR);
 		StretchBlt(hdc, dx, dy, width, height, _stretchImage->hMemDC, sourX, sourY, _imageInfo->width, _imageInfo->height, SRCCOPY);
 	}
+}
+
+void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height, BYTE alpha, float zoomRate)
+{
+	if (!_stretchImage) initStretch();
+	if (!_blendImage) this->initForAlphaBlend();
+	_blendFunc.SourceConstantAlpha = alpha;
 
 
+	if (_isTrans) {
+		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, hdc, dx, dy, SRCCOPY);
+		TransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+		GdiAlphaBlend(hdc, dx * zoomRate, dy * zoomRate, width * zoomRate, height * zoomRate, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
+	}
+	else {
+		SetStretchBltMode(hdc, COLORONCOLOR);
+		StretchBlt(hdc, dx, dy, width, height, _stretchImage->hMemDC, sourX, sourY, _imageInfo->width, _imageInfo->height, SRCCOPY);
+	}
 }
 
 //루프렌더

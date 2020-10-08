@@ -3,6 +3,7 @@
 
 void cameraManager::init(int posX, int posY, int targetX, int targetY, float anchorX, float anchorY, int width, int height, int minX, int minY, int maxX, int maxY)
 {
+	_zoomRate = 1.0f;
 	_posX = posX;
 	_posY = posY;
 	_targetX = targetX;
@@ -17,10 +18,24 @@ void cameraManager::init(int posX, int posY, int targetX, int targetY, float anc
 	_maxY = maxY;
 	_rcCamRealBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
 	_rcCamBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
+
+	zoomCount = 0;
+	_currentZoomForce = 0;
+	_isZoomForce = false;
+	_zoomRecoilBack = false;
 }
+
+
 
 void cameraManager::targetFollow(int targetX, int targetY)
 {
+	if (INPUT->GetKeyDown('5')) {
+		_zoomRate += 0.1f;
+	}
+	else if (INPUT->GetKeyDown('6')) {
+		_zoomRate -= 0.1f;
+	}
+
 	_targetX = targetX;
 	_targetY = targetY;
 
@@ -87,6 +102,16 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 	_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
 }
 
+void cameraManager::forceZoomIn(float force, float zoomSpeed)
+{
+	_isZoomForce = true;
+	_zoomRecoilBack = false;
+	zoomCount = 0;
+	_currentZoomForce = 0;
+	_zoomForce = force;
+	_zoomSpeed = zoomSpeed;
+}
+
 int cameraManager::GetRelativeX(int posX)
 {
 	return  posX - _posX;
@@ -95,6 +120,17 @@ int cameraManager::GetRelativeX(int posX)
 int cameraManager::GetRelativeY(int posY)
 {
 	return posY - _posY;
+}
+
+RECT cameraManager::GetZoooRC(RECT t_rc)
+{
+	t_rc.left *= _zoomRate;
+	t_rc.right *= _zoomRate;
+	t_rc.bottom *= _zoomRate;
+	t_rc.top *= _zoomRate;
+
+
+	return t_rc;
 }
 
 POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
@@ -110,5 +146,30 @@ POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 void cameraManager::render(HDC hdc)
 {
 	FrameRect(hdc, _rcCamBound, RGB(255, 0, 0));
+}
+
+void cameraManager::update()
+{
+	if (_isZoomForce) {
+		if (zoomCount++ % 1 == 0) {
+			if (!_zoomRecoilBack) {
+				_currentZoomForce += _zoomSpeed;
+				if (_currentZoomForce >= _zoomForce) {
+					_zoomRecoilBack = true;
+				}
+			}
+			else {
+				_currentZoomForce -= _zoomSpeed;
+				if (_currentZoomForce <= 0) {
+					_currentZoomForce = 0;
+					_isZoomForce = false;
+					_zoomRecoilBack = false;
+				}
+			}
+
+
+		}
+
+	}
 }
 

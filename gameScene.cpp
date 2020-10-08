@@ -70,6 +70,7 @@ void gameScene::update()
 	}
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
+	CAMERA->update();
 	EFFECTMANAGER->update();
 	TEXTMANAGER->update();
 	_map->update();
@@ -92,5 +93,6 @@ void gameScene::render()
 	else {
 		_quick_slot->render(getMemDC());
 	}
+	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 	_cursor->render(getMemDC());
 }

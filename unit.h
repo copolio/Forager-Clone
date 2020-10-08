@@ -9,21 +9,39 @@ public:
 class unit : public gameObject
 {
 public:
+	// 이미지 키값
+	string objKey;
+
+	// 상태값
 	int maxHp;
 	int currentHp;
+	bool isHit = false;	// 맞는 순간 타격 애니메이션 재생
+
+	// 드롭
 	int exp;
 	dropItem dropItem;
-	string objKey;
+
+	// 애니메이션 관련
 	int objFrameX;
 	int objFrameY;
-public:
+	int objMaxFrameX;
+	int objMaxFrameY;
 
-	void hurt(int damage);
-	virtual void collision() { ; };
-	virtual void dead() { ; };
+	// 애니메이션 재생 속도 관련
+	int currentCount;
+	int nextCount;
+
+public:
 	virtual void update();
 	virtual void render(HDC hdc) override;
+	
+public:
+	void hurt(int damage);			// 체력 닳음
+	virtual void animation();		// 애니메이션 연출
+	virtual void collision() { ; };	// 충돌시 연출 (필드 아이템)
+	virtual void dead() { ; };		// 사망시 연출
 
+public:
 	bool isDead();
 };
 

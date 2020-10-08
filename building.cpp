@@ -6,7 +6,7 @@ void building::render(HDC hdc)
 	IMAGEMANAGER->frameRender(objKey, hdc,
 		CAMERA->GetRelativeX(rc.left),
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
-		objFrameX, objFrameY);
+		objFrameX, objFrameY, CAMERA->GetZoom());
 }
 
 void building::setBuilding(string buildingName, tile* _tile)
@@ -15,13 +15,22 @@ void building::setBuilding(string buildingName, tile* _tile)
 	RECT temp = _tile->rc;
 	this->rc = temp;
 	this->layer = LAYER::OBJECT;
-	if (buildingName == "bridge") this->layer = LAYER::TERRAIN;
+	this->objMaxFrameX = 2;
+	this->objMaxFrameY = 0;
+	if (buildingName == "bridge") {
+		_tile->canPass = true;
+		this->layer = LAYER::TERRAIN; 
+		this->objMaxFrameX = 3;
+	}
 	this->tag = TAG::OBJECT;
 	this->objFrameX = 0;
 	this->objFrameY = 0;
+	this->currentCount = 0;
+	this->nextCount = 2;
 	this->objKey = buildingName;
 	this->dropItem.itemKey = "treeDrop";
 	this->maxHp = BUILDINGHP;
+	this->exp = 0;
 	currentHp = maxHp;
 }
 
@@ -34,9 +43,14 @@ void building::setBuilding(string buildingName, vector<tile*> tiles)
 	this->tag = TAG::OBJECT;
 	this->objFrameX = 0;
 	this->objFrameY = 0;
+	this->objMaxFrameX = 2;
+	this->objMaxFrameY = 0;
+	this->currentCount = 0;
+	this->nextCount = 2;
 	this->objKey = buildingName;
 	this->dropItem.itemKey = "treeDrop";
 	this->maxHp = BUILDINGHP;
+	this->exp = 0;
 	currentHp = maxHp;
 }
 
@@ -47,5 +61,6 @@ void building::dead()
 
 	for (int i = 0; i < _tiles.size(); i++) {
 		_tiles[i]->hasUnit = false;
+		_tiles[i]->canPass = (objKey == "bridge") ? false : true;
 	}
 }

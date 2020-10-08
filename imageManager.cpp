@@ -205,6 +205,13 @@ void imageManager::render(string strKey, HDC hdc, int destX, int destY)
 	if (img) img->render(hdc, destX, destY);
 }
 
+void imageManager::render(string strKey, HDC hdc, int destX, int destY, float zoomRate)
+{
+	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
+	image* img = findImage(strKey);
+	if (img) img->render(hdc, destX, destY, zoomRate);
+}
+
 void imageManager::render(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight)
 {
 	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
@@ -222,11 +229,19 @@ void imageManager::alphaRender(string strKey, HDC hdc, BYTE alpha)
 	if (img) img->alphaRender(hdc, alpha);
 }
 
+
 void imageManager::alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha)
 {
 	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
 	image* img = findImage(strKey);
 	if (img) img->alphaRender(hdc, destX, destY, alpha);
+}
+
+void imageManager::alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha, float zoomRate)
+{
+	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
+	image* img = findImage(strKey);
+	if (img) img->alphaRender(hdc, destX, destY, alpha, zoomRate);
 }
 
 void imageManager::alphaRender(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
@@ -257,6 +272,14 @@ void imageManager::stretchRender(string strKey, HDC hdc, int dx, int dy, int sou
 		img->stretchRender(hdc, dx, dy, sourX, sourY, sourWidth, sourHeight, alpha);
 }
 
+void imageManager::stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha, float zoomRate)
+{
+	image *img = findImage(strKey);
+
+	if (img)
+		img->stretchRender(hdc, dx, dy, sourX, sourY, sourWidth, sourHeight, alpha, zoomRate);
+}
+
 
 //=============================================================
 //	## 프레임렌더 ##
@@ -268,6 +291,13 @@ void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY)
 	if (img) img->frameRender(hdc, destX, destY);
 }
 
+void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, float zoomRate)
+{
+	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
+	image* img = findImage(strKey);
+	if (img) img->frameRender(hdc, destX, destY, zoomRate);
+}
+
 void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY)
 {
 	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
@@ -275,6 +305,12 @@ void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int
 	if (img) img->frameRender(hdc, destX, destY, currentFrameX, currentFrameY);
 }
 
+void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate)
+{
+	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
+	image* img = findImage(strKey);
+	if (img) img->frameRender(hdc, destX, destY, currentFrameX, currentFrameY, zoomRate);
+}
 //=============================================================
 //	## 루프렌더 ##
 //=============================================================

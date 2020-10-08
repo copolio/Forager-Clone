@@ -40,7 +40,8 @@ public:
 //=============================================================
 //	## ÀÏ¹Ý·»´õ ##
 //=============================================================
-	void render(string strKey, HDC hdc, int destX = 0, int destY = 0);
+	void render(string strKey, HDC hdc, int destX, int destY);
+	void render(string strKey, HDC hdc, int destX, int destY, float zoomRate);
 	void render(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight);
 
 //=============================================================
@@ -48,6 +49,7 @@ public:
 //=============================================================
 	void alphaRender(string strKey, HDC hdc, BYTE alpha);
 	void alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha);
+	void alphaRender(string strKey, HDC hdc, int destX, int destY, BYTE alpha, float zoomRate);
 	void alphaRender(string strKey, HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
 
 //=============================================================
@@ -56,12 +58,15 @@ public:
 	void stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight);
 	// + ¾ËÆÄ
 	void stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
+	void stretchRender(string strKey, HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha, float zoomRate);
 
 //=============================================================
 //	## ÇÁ·¹ÀÓ·»´õ ##
 //=============================================================
 	void frameRender(string strKey, HDC hdc, int destX, int destY);
+	void frameRender(string strKey, HDC hdc, int destX, int destY, float zoomRate);
 	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
+	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate);
 
 //=============================================================
 //	## ·çÇÁ·»´õ ##

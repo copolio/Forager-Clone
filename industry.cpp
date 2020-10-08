@@ -198,6 +198,8 @@ void industry::addBuilding()
 			_map->GetTileP(_map->tileMouseTargetIndex()+1)->terrKey == "plaintile" &&
 			_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX)->terrKey == "plaintile" &&
 			_map->GetTileP(_map->tileMouseTargetIndex()+MAPTILEX+1)->terrKey == "plaintile") {
+
+
 			_map->setTileHasUnit(_map->tileMouseTargetIndex());
 			_map->setTileHasUnit(_map->tileMouseTargetIndex()+1);
 			_map->setTileHasUnit(_map->tileMouseTargetIndex()+MAPTILEX);

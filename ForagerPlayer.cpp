@@ -4,8 +4,8 @@
 
 HRESULT ForagerPlayer::init()
 {
-	tag == TAG::PLAYER;
-	layer == LAYER::OBJECT;
+	tag = TAG::PLAYER;
+	layer = LAYER::OBJECT;
 	exp = 0;
 	
 	x = WINSIZEX / 2;
@@ -80,6 +80,7 @@ HRESULT ForagerPlayer::init()
 	//프레임이미지 애니메이션 관련 변수 초기화 
 	_count = 0;
 	_index = 0;
+	_hitDelayCount = 0;
 
 	//회전관련 변수 초기화 
 	_Acount = 0;
@@ -133,36 +134,36 @@ void ForagerPlayer::render(HDC hdc)
 	switch (_state)
 	{
 	case IDLE:
-		IMAGEMANAGER->frameRender("playerStop", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+		IMAGEMANAGER->frameRender("playerStop", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
 		break;
 	case RUN:
-		IMAGEMANAGER->frameRender("playerRUN", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+		IMAGEMANAGER->frameRender("playerRUN", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
 		break;
 	case ROTATE: 
 		if (_isLeft) 
 		{
-			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
-			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+			IMAGEMANAGER->frameRender("playerRotateLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("HammerImgLeft", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
 		}
 		else 
 		{
-			IMAGEMANAGER->frameRender("playerRotate", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
-			IMAGEMANAGER->frameRender("HammerImg", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
+			IMAGEMANAGER->frameRender("playerRotate", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("HammerImg", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
 		}
 
 		break;
 	case HAMMERING :
-		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top));
-		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left+10) ,CAMERA->GetRelativeY(rc.top-15));
+		IMAGEMANAGER->frameRender("playerWork", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetZoom());
+		IMAGEMANAGER->frameRender("playerHammering", hdc, CAMERA->GetRelativeX(rc.left+10) ,CAMERA->GetRelativeY(rc.top-15), CAMERA->GetZoom());
 		break;
 	}
 
 	if (_state != ROTATE && _state != HAMMERING)
 	{
 		if (_isLeft)
-			IMAGEMANAGER->render("Hammer", hdc, CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top));
+			IMAGEMANAGER->render("Hammer", hdc, CAMERA->GetRelativeX(_rcHammer.left), CAMERA->GetRelativeY(_rcHammer.top), CAMERA->GetZoom());
 		else
-			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top));
+			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top), CAMERA->GetZoom());
 	}
 	_foragerHp->render();
 }
@@ -262,25 +263,20 @@ void ForagerPlayer::animation()
 					_index = 3;
 			}
 			
-			if (5 <= _count && _count <= 15)
-			{
+			_hitDelayCount++;
+			if (5 <= _hitDelayCount && _hitDelayCount <= 15)
 				hammerLeft->setFrameX(6);
-				
-			}
-			else if (15 < _count && _count <= 25)
-			{
+
+			else if (15 < _hitDelayCount && _hitDelayCount <= 25)
 				hammerLeft->setFrameX(4);
-				
-			}
-			else if (25 < _count && _count <= 30)
-			{
+
+			else if (25 < _hitDelayCount && _hitDelayCount <= 30)
 				hammerLeft->setFrameX(1);
-				
-			}
-			else if (_count > 30)
+
+			else if (_hitDelayCount > 30)
 			{
 				hammerLeft->setFrameX(0);
-				_count = 0;
+				_hitDelayCount = 0;
 			}
 				
 	
@@ -296,25 +292,18 @@ void ForagerPlayer::animation()
 				if (_index++ > 3)
 					_index = 0;
 			}
-			if (5 <= _count && _count <= 15)
-			{
+
+			_hitDelayCount++;
+			if (5 <= _hitDelayCount && _hitDelayCount <= 15)
 				hammerRight->setFrameX(6);
-
-			}
-			else if (15 < _count && _count <= 25)
-			{
+			else if (15 < _hitDelayCount && _hitDelayCount <= 25)
 				hammerRight->setFrameX(4);
-
-			}
-			else if (25 < _count && _count <= 30)
-			{
+			else if (25 < _hitDelayCount && _hitDelayCount <= 30)
 				hammerRight->setFrameX(1);
-
-			}
-			else if (_count > 30)
+			else if (_hitDelayCount > 30)
 			{
 				hammerRight->setFrameX(0);
-				_count = 0;
+				_hitDelayCount = 0;
 			}
 		}
 		break;
@@ -365,24 +354,36 @@ void ForagerPlayer::PlayerControll()
 			if (targetUnit != nullptr) {
 				if (targetUnit->tag == TAG::OBJECT) 
 				{
-					if (_count == 5)
+					if (_hitDelayCount == 10)
 					{
 						targetUnit->hurt(Atk);
 						// 유닛이 파괴되면 그 유닛의 경험치 획득.
 						if (targetUnit->isDead())
 						{
 							IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-							string str = std::to_string(targetUnit->exp);
-							str.insert(0, "EXP ");
-							POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
-							TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
-							_foragerHp->IncreaseExp(targetUnit->exp);
+							int t_exp = targetUnit->exp;
+							t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
+							if (t_exp > 0) {
+								POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
+								string str = std::to_string(t_exp);
+								str.insert(0, "EXP ");
+								TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
+								_foragerHp->IncreaseExp(t_exp);
+							}
+							CAMERA->forceZoomIn(0.02f, 0.005f);
+						}
+						else {
+							CAMERA->forceZoomIn(0.003f, 0.001f);
 						}
 					}
 					
 				}
 			}
 			_state = HAMMERING;
+		}
+
+		if (INPUT->GetKeyUp(VK_LBUTTON)) {
+			_hitDelayCount = 0;
 		}
 	}
 }
@@ -518,11 +519,11 @@ bool ForagerPlayer::CanCheckMove(int index)
 {
 	tile tile = _map->GetTile(_playerTilePos + index);
 
-	// 일반 타일이거나 장애물이 없으면 움직임 가능
-	if (tile.terrKey != "watertile" && !tile.hasUnit)
+	// 지나갈 수 있는 타일이면 움직임 가능
+	if (tile.canPass)
 		return false;
 	
-	// 물 타일이면 일정 거리까진 움직임 가능
+	// 이동 불가 타일에 가까이 접근하는 움직임까진 허용
 	RECT t_bound = RectMakeCenter(GetCenterX(), PLAYER_OFFSET_Y, 20, 20);
 	RECT t_temp;
 	if (!IntersectRect(&t_temp, &t_bound, &tile.rc)) {
