@@ -62,7 +62,7 @@ private:
 	float _speed;		//플레이어 스피드 
 	float _currentSpeed;//플레이어 현재 스피드 
 	
-	int _skullTilePos;		// 플레이어 타일 좌표
+	int _playerTilePos;		// 플레이어 타일 좌표
 
 	//플레이어 발걸음 연출
 	int _footWalkCount;
@@ -116,6 +116,6 @@ public:
 	void CheckCollision();
 
 public:
-	int GetPlayerTilePos() { return _skullTilePos; };
+	int GetPlayerTilePos() { return _playerTilePos; };
 };
 

@@ -25,6 +25,7 @@ private :
 	bool _isUp;			//위쪽이냐?
 	bool _isMoveVertical;
 	bool isAngle;
+	POINT dir;
 
 public:
 	
