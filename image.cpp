@@ -330,7 +330,7 @@ void image::render(HDC hdc, int destX, int destY, float zoomRate)
 	int width = _imageInfo->width;
 	int height = _imageInfo->height;
 
-	TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+	TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
 
 }
 
@@ -441,7 +441,7 @@ void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha, float zoomRat
 	int width = _imageInfo->width;
 	int height = _imageInfo->height;
 
-	TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+	TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
 	
 }
 

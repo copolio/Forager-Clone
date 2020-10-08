@@ -64,6 +64,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\player">
       <UniqueIdentifier>{3e8cd6b6-6200-4b41-9762-e69e136adb88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\resource">
+      <UniqueIdentifier>{09c7a421-4091-44a5-800d-853b3adce9c4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\Unit\FieldItem">
       <UniqueIdentifier>{ca79da24-a19c-44e8-9263-935fe4207cfd}</UniqueIdentifier>
     </Filter>
@@ -99,9 +102,6 @@
     </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\quick_slot">
       <UniqueIdentifier>{359be771-2580-4bb2-be33-6a2107573dbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\Unit\resource">
-      <UniqueIdentifier>{09c7a421-4091-44a5-800d-853b3adce9c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
