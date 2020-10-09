@@ -85,9 +85,6 @@
     <Filter Include="GameFramework\MainGame\Cursor">
       <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\pruchase_land">
-      <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_slot">
       <UniqueIdentifier>{6a99b852-7052-40d8-9154-61ac413f101b}</UniqueIdentifier>
     </Filter>
@@ -117,6 +114,9 @@
     </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip">
       <UniqueIdentifier>{10254dc2-4ab4-4db0-90ec-4918eff0a0d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\purchase_land">
+      <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -250,7 +250,7 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
     </ClCompile>
     <ClCompile Include="purchase_land.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\purchase_land</Filter>
     </ClCompile>
     <ClCompile Include="inventory_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
@@ -430,7 +430,7 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
     </ClInclude>
     <ClInclude Include="purchase_land.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\purchase_land</Filter>
     </ClInclude>
     <ClInclude Include="inventory_slot.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
