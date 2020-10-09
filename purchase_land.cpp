@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "purchase_land.h"
+#include "earth.h"
 
 HRESULT purchase_land::init()
 {
@@ -15,7 +16,15 @@ void purchase_land::release()
 void purchase_land::update()
 {
 	_targetBox->update();
-	//_targetBox->SetTarget(_industry_Rc[i]->rc, 2, i, 4, false);
+	int _tileIndex = _map->tileMouseTargetIndex();
+	//_targetBox->SetTarget(CAMERA->GetRelativeRc(_map->tileMouseTarget()->rc), 1, _map->tileMouseTargetIndex(), 4, false);
+	_targetBox->SetTarget(CAMERA->GetRelativeRc(
+		_map->GetIslandRc(
+			_map->GetIslandX(_tileIndex),
+			_map->GetIslandY(_tileIndex))),
+		1, _map->tileMouseTargetIndex(), 4, false);
+	cout << _tileIndex << " " << _map->GetIslandX(_tileIndex) << ", " << _map->GetIslandY(_tileIndex) << endl;
+
 }
 
 void purchase_land::render(HDC hdc)

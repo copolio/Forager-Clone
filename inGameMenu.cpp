@@ -50,7 +50,9 @@ void inGameMenu::release()
 void inGameMenu::update()
 {
 	inven_Change_Key_Down();
-	CAMERA->SetZoomRate(1);
+	if (_inven_Kind != PURCHASE_LAND && CAMERA->GetZoom() < 1) {
+		CAMERA->forceZoomIn(0, 0.01f, false);
+	}
 	switch (_inven_Kind)
 	{
 	case INVENTORY:
@@ -63,7 +65,10 @@ void inGameMenu::update()
 		_construction->update();
 		break;
 	case PURCHASE_LAND:
-		CAMERA->SetZoomRate(0.6f);
+		//CAMERA->SetZoomRate(0.6f);
+		//if (CAMERA->GetZoom() > 0.5f) {
+		//	CAMERA->forceZoomIn(-0.5f, -0.01f, false);
+		//}
 		_purchaese->update();
 		break;
 	case GAME_SETTING:

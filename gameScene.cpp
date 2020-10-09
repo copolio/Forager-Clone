@@ -59,7 +59,9 @@ void gameScene::update()
 		_quick_slot->update();
 	}
 	if (INPUT->GetKeyDown('I')) {
-		CAMERA->SetZoomRate(1);
+		if (CAMERA->GetZoom() < 1) {
+			CAMERA->forceZoomIn(0, 0.01f, false);
+		}
 		if (inven_open) {
 			inven_open = false;
 			_player->setInvenOpen(false);

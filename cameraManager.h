@@ -43,6 +43,9 @@ public:
 	// 상대좌표
 	int GetRelativeX(int posX);
 	int GetRelativeY(int posY);
+	RECT GetRelativeRc(RECT rc) {
+		return { long(rc.left*GetZoom()), long(rc.top*GetZoom()), long(rc.right*GetZoom()), long(rc.bottom*GetZoom())};
+	};	
 	float GetZoom() { return _zoomRate + _currentZoomForce; };
 	
 	// 마우스 상대좌표 (마우스는 절대 좌표로 화면에 그려지고, 클릭할 때는 상대좌표를 얻어와서 타일과 충돌여부 판단)
@@ -53,5 +56,6 @@ public:
 
 	//줌 수치 설정
 	void SetZoomRate(float rate) { _zoomRate = rate; };
+	float GetZoomRate() { return _zoomRate; };
 };
 
