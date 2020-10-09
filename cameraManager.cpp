@@ -132,16 +132,6 @@ POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 	return ptMouse;
 }
 
-RECT cameraManager::GetRelativeRc(RECT p_rc)
-{
-	p_rc.left = GetRelativeX(p_rc.left);
-	p_rc.right = GetRelativeX(p_rc.right);
-	p_rc.top = GetRelativeX(p_rc.top);
-	p_rc.bottom = GetRelativeX(p_rc.bottom);
-
-	return p_rc;
-}
-
 
 // 테스트용
 void cameraManager::render(HDC hdc)
