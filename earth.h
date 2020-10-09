@@ -32,6 +32,8 @@ public:
 	void setRandomObject();
 	float getResRatio();
 	void setIsland(int x, int y);
+	int GetIslandX(int index);
+	int GetIslandY(int index);
 	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
 public:
 	vector<tile> GetTiles() { return _vTile; }

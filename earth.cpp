@@ -121,6 +121,7 @@ void earth::mapSetup()
 		}
 	}
 	this->setIsland(3, 3);
+	this->setIsland(4, 3);
 }
 
 void earth::setRandomObject()
@@ -183,6 +184,28 @@ void earth::setIsland(int x, int y)
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey = "plaintile";
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrainFrameX = RANDOM->range(4);
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = true;
+			}
+		}
+	}
+}
+
+int earth::GetIslandX(int index)
+{
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return j % TILEX;
+			}
+		}
+	}
+}
+
+int earth::GetIslandY(int index)
+{
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return i % TILEY;
 			}
 		}
 	}
