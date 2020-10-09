@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "cursor.h"
-
-
+#include "earth.h"
 
 void cursor::init()
 {

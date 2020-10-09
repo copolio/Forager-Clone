@@ -52,5 +52,8 @@ public:
 public:
 	inventory* GetInven() { return _inven; };
 public:
-	void setMapLink(earth* map) { _construction->setMapLink(map); };
+	void setMapLink(earth* map) { 
+		_construction->setMapLink(map); 
+		_purchaese->setMapLink(map);
+	};
 };

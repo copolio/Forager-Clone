@@ -572,13 +572,14 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 	int width = _imageInfo->frameWidth;
 	int height = _imageInfo->frameHeight;
 
+
 	if (_isTrans)//배경색 없애고 출력
 	{
 		TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
 	}
 	else//원본 이미지 그대로 출력
 	{
-		TransparentBlt(hdc, destX * zoomRate, destY * zoomRate, width * zoomRate, height * zoomRate, _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
+		TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
 
 		/*BitBlt(hdc, destX, destY, _imageInfo->frameWidth, _imageInfo->frameHeight,
 			_imageInfo->hMemDC,

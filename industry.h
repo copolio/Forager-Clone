@@ -39,6 +39,7 @@ private:
 	bool is_building_check;
 	string building;
 	earth* _map;
+	int _tileIndex;
 public:
 	void setInMapLink(earth* map) { _map = map; };
 	void renderBuildableTile(HDC hdc);

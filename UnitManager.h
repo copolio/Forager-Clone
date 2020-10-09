@@ -12,7 +12,6 @@ class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
-
 private:
 	void Sorting();
 	void CheckRemoveUnit();

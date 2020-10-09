@@ -121,6 +121,7 @@ void earth::mapSetup()
 		}
 	}
 	this->setIsland(3, 3);
+	//this->setIsland(4, 3);
 }
 
 void earth::setRandomObject()
@@ -188,10 +189,41 @@ void earth::setIsland(int x, int y)
 	}
 }
 
+int earth::GetIslandX(int index)
+{
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return j / TILEX;
+			}
+		}
+	}
+}
+
+int earth::GetIslandY(int index)
+{
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return i / TILEY;
+			}
+		}
+	}
+}
+
+RECT earth::GetIslandRc(int x, int y)
+{
+	return { _vTile[(y * MAPTILEY*TILEY) + x * TILEX].rc.left,
+	_vTile[(y * MAPTILEY*TILEY) + x * TILEX].rc.top,
+	_vTile[(y * MAPTILEY*TILEY + (TILEY - 1) * MAPTILEY) + x * TILEX + (TILEX - 1)].rc.right,
+	_vTile[(y * MAPTILEY*TILEY + (TILEY - 1) * MAPTILEY) + x * TILEX + (TILEX - 1)].rc.bottom };
+	
+}
+
 tile* earth::tileMouseTarget()
 {
 	for (int i = 0; i < _vTile.size(); i++) {
-		if (PtInRect(&_vTile[i].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
+		if (PtInRect(&CAMERA->GetRelativeRc(_vTile[i].rc), CAMERA->GetMouseRelativePos(_ptMouse))) {
 			return &_vTile[i];
 		}
 	}
@@ -200,7 +232,7 @@ tile* earth::tileMouseTarget()
 int earth::tileMouseTargetIndex()
 {
 	for (int i = 0; i < _vTile.size(); i++) {
-		if (PtInRect(&_vTile[i].rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
+		if (PtInRect(&CAMERA->GetRelativeRc(_vTile[i].rc), CAMERA->GetMouseRelativePos(_ptMouse))) {
 			return i;
 		}
 	}
