@@ -116,7 +116,7 @@ void Agriculture::mouse_targetBox()
 			_target = true;
 			break;
 		}
-		
+
 	}
 }
 
@@ -127,17 +127,21 @@ void Agriculture::RemoveTarget()
 
 void Agriculture::renderBuildableTile(HDC hdc)
 {
-	if (_map->GetTile(_map->tileMouseTargetIndex()).hasUnit ||
-		_map->GetTile(_map->tileMouseTargetIndex()).terrKey != "watertile") {
-		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-	}
-	else {
-		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(_map->GetTile(_map->tileMouseTargetIndex()).rc.left), CAMERA->GetRelativeY(_map->GetTile(_map->tileMouseTargetIndex()).rc.top), 100);
-	}
+	_tileIndex = _map->tileMouseTargetIndex();
+	tile t_tile = _map->GetTile(_tileIndex);
+	POINT t_ptMouse = CAMERA->GetMouseRelativePos(_ptMouse);
 	string buildingdesign = building + "design";
+	image* t_imgBuilding = IMAGEMANAGER->findImage(buildingdesign);
+
+	if (t_tile.hasUnit || t_tile.terrKey != "watertile") 
+		IMAGEMANAGER->alphaRender("redtile", hdc, CAMERA->GetRelativeX(t_tile.rc.left), CAMERA->GetRelativeY(t_tile.rc.top), 100);
+	else 
+		IMAGEMANAGER->alphaRender("greentile", hdc, CAMERA->GetRelativeX(t_tile.rc.left), CAMERA->GetRelativeY(t_tile.rc.top), 100);
+	
 	IMAGEMANAGER->alphaRender(buildingdesign, hdc,
-		CAMERA->GetRelativeX(CAMERA->GetMouseRelativePos(_ptMouse).x - IMAGEMANAGER->findImage(buildingdesign)->getWidth() / 2),
-		CAMERA->GetRelativeY(CAMERA->GetMouseRelativePos(_ptMouse).y - IMAGEMANAGER->findImage(buildingdesign)->getHeight() / 2), 160);
+		CAMERA->GetRelativeX(t_ptMouse.x - t_imgBuilding->getWidth() / 2),
+		CAMERA->GetRelativeY(t_ptMouse.y - t_imgBuilding->getHeight() / 2), 160);
+
 }
 
 bool Agriculture::agricultureItemCheck()
@@ -167,13 +171,17 @@ bool Agriculture::agricultureItemCheck()
 void Agriculture::addBuilding()
 {
 	if (INPUT->GetKey(VK_LBUTTON)) {
-		if (is_building_check &&
-			!_map->GetTileP(_map->tileMouseTargetIndex())->hasUnit &&
-			_map->GetTileP(_map->tileMouseTargetIndex())->terrKey == "watertile") {
-			_map->setTileHasUnit(_map->tileMouseTargetIndex());
-			is_building_check = false;
-			UNITMANAGER->AddBuilding(building, _map->GetTileP(_map->tileMouseTargetIndex()));
-			ITEMMANAGER->_Item_industry_decrease(building);
+		if (is_building_check) {
+
+			tile* t_pTile = _map->GetTileP(_tileIndex);
+
+			if (!t_pTile->hasUnit && t_pTile->terrKey == "watertile")
+			{
+				is_building_check = false;
+				_map->setTileHasUnit(_tileIndex);
+				UNITMANAGER->AddBuilding(building, t_pTile);
+				ITEMMANAGER->_Item_industry_decrease(building);
+			}
 		}
 	}
 }

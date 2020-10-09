@@ -106,6 +106,9 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\purchase_land">
       <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\UI">
+      <UniqueIdentifier>{963754bc-a4ed-4414-8d3e-83ab2c27061f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -160,12 +163,6 @@
       <Filter>GameFramework\로딩화면</Filter>
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="targetingBox.cpp">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="reactImage.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
     <ClCompile Include="ForagerStatManager.cpp">
@@ -268,6 +265,12 @@
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
     <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="reactImage.cpp">
+      <Filter>GameFramework\MainGame\Forager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="targetingBox.cpp">
+      <Filter>GameFramework\MainGame\Forager\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -325,12 +328,6 @@
       <Filter>GameFramework\로딩화면</Filter>
     </ClInclude>
     <ClInclude Include="EffectManager.h">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="targetingBox.h">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="reactImage.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="ForagerStatManager.h">
@@ -433,6 +430,12 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
     <ClInclude Include="Astar.h" />
+    <ClInclude Include="reactImage.h">
+      <Filter>GameFramework\MainGame\Forager\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="targetingBox.h">
+      <Filter>GameFramework\MainGame\Forager\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

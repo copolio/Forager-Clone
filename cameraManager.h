@@ -13,13 +13,18 @@ private:
 	RECT _rcCamBound;				// 플레이어 중심 렌더용 렉트
 	RECT _rcCamRealBound;			// 카메라 이동 렉트
 
-	float _zoomRate;				// 줌 상태
-	int zoomCount;
-	float _zoomForce;
-	float _currentZoomForce;
-	float _zoomSpeed;
-	bool _isZoomForce;
-	bool _zoomRecoilBack;
+	float _zoomRate;				// 기본 줌 값
+	float zoomOffset;				// 줌 오프셋
+
+	// 줌 애니메이션 관련
+	int zoomCount;					// 줌 애니메이션 처리용
+	float _zoomForce;				// 강제로 줌할 목표치.
+	float _currentZoomForce;		// 현재 줌된 값
+	float _zoomSpeed;				// 줌 스피드
+	bool _isZoomForce;				// 강제로 줌 시키는 중인지
+	bool _zoomRecoilBack;			// 줌 강제 원위치 시작
+	bool _isAutoBack;				// 줌 강제 원위치를 시킬지
+	
 public:
 	// 초기화
 	void init(int posX, int posY, int targetX, int targetY, float anchorX, float anchorY, int width, int height, int minX, int minY, int maxX, int maxY);
@@ -29,7 +34,7 @@ public:
 	// 마우스 커서에 초점
 	void camFocusCursor(POINT ptMouse);
 
-	void forceZoomIn(float force, float zoomSpeed);
+	void forceZoomIn(float force, float zoomSpeed, bool isAutoOriginBack = true);
 
 	// 테스트용 빨간색 프레임 렌더 (테스트 끝나면 지워도 됨)
 	void render(HDC hdc);
@@ -39,8 +44,7 @@ public:
 	int GetRelativeX(int posX);
 	int GetRelativeY(int posY);
 	float GetZoom() { return _zoomRate + _currentZoomForce; };
-	RECT GetZoooRC(RECT t_rc);
-
+	
 	// 마우스 상대좌표 (마우스는 절대 좌표로 화면에 그려지고, 클릭할 때는 상대좌표를 얻어와서 타일과 충돌여부 판단)
 	POINT GetMouseRelativePos(POINT ptMouse);
 
