@@ -82,9 +82,6 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\gamesetting">
       <UniqueIdentifier>{5d096536-056f-4ae1-b459-4a3187473503}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_images">
-      <UniqueIdentifier>{4cb3efe6-fb88-4f44-9063-2a149da22b0b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Cursor">
       <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,21 @@
     </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip">
       <UniqueIdentifier>{be6f7ee9-c883-4f20-a837-d02e8c06de0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction">
+      <UniqueIdentifier>{6e9e9bed-5e57-40fe-a163-8604b6ead229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_images">
+      <UniqueIdentifier>{4cb3efe6-fb88-4f44-9063-2a149da22b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\steelworktooltip">
+      <UniqueIdentifier>{3585e6d1-9f1c-43b2-8129-6ce09149abc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\sewingmachinetooltip">
+      <UniqueIdentifier>{8bc9e422-f1cc-493e-b427-b31bcdad4a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip">
+      <UniqueIdentifier>{10254dc2-4ab4-4db0-90ec-4918eff0a0d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -267,8 +279,18 @@
     <ClCompile Include="tile.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
-      <Filter>GameFramework\MainGame\A%2a</Filter>
+    <ClCompile Include="Astar.cpp" />
+    <ClCompile Include="buildinginteraction.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction</Filter>
+    </ClCompile>
+    <ClCompile Include="steelworktooltip.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\steelworktooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="sewingmachinetooltip.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\sewingmachinetooltip</Filter>
+    </ClCompile>
+    <ClCompile Include="anviltooltip.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -434,8 +456,18 @@
     <ClInclude Include="construction_tool_tip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
-      <Filter>GameFramework\MainGame\A%2a</Filter>
+    <ClInclude Include="Astar.h" />
+    <ClInclude Include="buildinginteraction.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction</Filter>
+    </ClInclude>
+    <ClInclude Include="steelworktooltip.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\steelworktooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="sewingmachinetooltip.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\sewingmachinetooltip</Filter>
+    </ClInclude>
+    <ClInclude Include="anviltooltip.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

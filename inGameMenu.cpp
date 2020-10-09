@@ -11,7 +11,8 @@ HRESULT inGameMenu::init()
 	_construction = new construction;
 	_purchaese = new purchase_land;
 	_game_setting = new gamesetting;
-
+	_buildinginteraction = new buildinginteraction;
+	_buildinginteraction->init();
 	inven_imgs->init();
 
 
@@ -72,6 +73,8 @@ void inGameMenu::update()
 		_game_setting->update();
 		break;
 	}
+	
+	
 }
 
 void inGameMenu::render(HDC hdc)
@@ -96,6 +99,7 @@ void inGameMenu::render(HDC hdc)
 	}
 
 	
+
 }
 
 void inGameMenu::inven_Change_Key_Down()

@@ -149,8 +149,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Agriculture.h" />
+    <ClInclude Include="anviltooltip.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="building.h" />
+    <ClInclude Include="buildinginteraction.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="construction.h" />
@@ -190,12 +192,14 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="saveManager.h" />
     <ClInclude Include="sceneManager.h" />
+    <ClInclude Include="sewingmachinetooltip.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="skull.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="soundTestScene.h" />
     <ClInclude Include="startScene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="steelworktooltip.h" />
     <ClInclude Include="targetingBox.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="tile.h" />
@@ -206,8 +210,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agriculture.cpp" />
+    <ClCompile Include="anviltooltip.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="building.cpp" />
+    <ClCompile Include="buildinginteraction.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
     <ClCompile Include="construction_tool_tip.cpp" />
@@ -246,6 +252,7 @@
     <ClCompile Include="resource.cpp" />
     <ClCompile Include="saveManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />
+    <ClCompile Include="sewingmachinetooltip.cpp" />
     <ClCompile Include="skull.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="soundTestScene.cpp" />
@@ -256,6 +263,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="steelworktooltip.cpp" />
     <ClCompile Include="targetingBox.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="tile.cpp" />

@@ -36,39 +36,48 @@ HRESULT gameScene::init()
 	UNITMANAGER->AddUnits(_enemy,"skull");
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
+	SCENEMANAGER->set_ischeck(true);
 	return S_OK;
 }
 
 void gameScene::release()
 {
+	if (SCENEMANAGER->get_ischeck()) {
 
+	
 	_player->release();
 	_Menu->release();
 	_map->release();
 	SAFE_DELETE(_cursor);
 	_quick_slot->release();
+	}
 }
 
 void gameScene::update()
 {
-	_player->update();
-	if (inven_open) {
+	if (!_cursor->InteractionOpen()) {
+		_player->update();
+
+		if (INPUT->GetKeyDown('I')) {
+			if (inven_open) {
+				inven_open = false;
+				_player->setInvenOpen(false);
+			}
+			else {
+				_player->setInvenOpen(true);
+				inven_open = true;
+				_Menu->settion();
+			}
+		}
+	}
+	if (inven_open && !_cursor->InteractionOpen()) {
 		_Menu->update();
 	}
 	else {
 		_quick_slot->update();
 	}
-	if (INPUT->GetKeyDown('I')) {
-		if (inven_open) {
-			inven_open = false;
-			_player->setInvenOpen(false);
-		}
-		else {
-			_player->setInvenOpen(true);
-			inven_open = true;
-			_Menu->settion();	
-		}
-	}
+	
+	
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
 	CAMERA->update();

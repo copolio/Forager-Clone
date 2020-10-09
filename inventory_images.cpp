@@ -31,6 +31,14 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_fish_trap_icon", "Images/이미지/GUI/img_fish_trap_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
+
+
+
+	IMAGEMANAGER->addImage("img_steelwork_menu", "Images/이미지/GUI/img_steelwork_menu.bmp",	350, 650, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_sewingmachine_menu", "Images/이미지/GUI/img_sewingmachine_menu.bmp",	350, 485, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_anvil_menu", "Images/이미지/GUI/img_anvil_menu.bmp",	350, 595, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addImage("img_game_money_icon", "Images/이미지/GUI/img_game_money_icon.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("bag", "Images/이미지/GUI/bag_image.bmp", 112, 120, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
