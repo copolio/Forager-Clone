@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "cameraManager.h"
 
+#define TILESIZE 56
+
 void cameraManager::init(int posX, int posY, int targetX, int targetY, float anchorX, float anchorY, int width, int height, int minX, int minY, int maxX, int maxY)
 {
 	_zoomRate = 1.0f;
@@ -19,6 +21,7 @@ void cameraManager::init(int posX, int posY, int targetX, int targetY, float anc
 	_rcCamRealBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
 	_rcCamBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
 
+	zoomOffset = 0;
 	zoomCount = 0;
 	_currentZoomForce = 0;
 	_isZoomForce = false;
@@ -31,9 +34,16 @@ void cameraManager::targetFollow(int targetX, int targetY)
 {
 	if (INPUT->GetKeyDown('5')) {
 		_zoomRate += 0.1f;
+
 	}
 	else if (INPUT->GetKeyDown('6')) {
 		_zoomRate -= 0.1f;
+	}
+	else if (INPUT->GetKeyDown('9')) {
+		forceZoomIn(-0.5f, -0.01f, false);
+	}
+	else if (INPUT->GetKeyDown('0')) {
+		forceZoomIn(0, 0.01f, false);
 	}
 
 	_targetX = targetX;
@@ -60,7 +70,13 @@ void cameraManager::targetFollow(int targetX, int targetY)
 	else
 		_posY = centerY;
 
-	_rcCamBound = RectMakeCenter(_targetX, _targetY, _cameraWidth, _cameraHeight);
+
+	int t_left = _targetX - (_targetX * _zoomRate);
+	int t_top = _targetY - (_targetY * _zoomRate);
+	int t_width = _cameraWidth + (_cameraWidth * _zoomRate);
+	int t_height = _cameraHeight + (_cameraHeight * _zoomRate);
+
+	_rcCamBound = RectMakeCenter(t_left, t_top, t_width, t_height);
 }
 
 void cameraManager::camFocusCursor(POINT ptMouse)
@@ -102,24 +118,26 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 	_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
 }
 
-void cameraManager::forceZoomIn(float force, float zoomSpeed)
+void cameraManager::forceZoomIn(float force, float zoomSpeed, bool isAutoOriginBack)
 {
+	_isAutoBack = isAutoOriginBack;
 	_isZoomForce = true;
 	_zoomRecoilBack = false;
 	zoomCount = 0;
-	_currentZoomForce = 0;
 	_zoomForce = force;
 	_zoomSpeed = zoomSpeed;
 }
 
 int cameraManager::GetRelativeX(int posX)
 {
-	return  posX - _posX;
+	zoomOffset = TILESIZE * (GetZoom() * 10) - TILESIZE * 10;
+	return posX - _posX - ceilf(zoomOffset);
 }
 
 int cameraManager::GetRelativeY(int posY)
 {
-	return posY - _posY;
+	zoomOffset = TILESIZE * (GetZoom() * 10) - TILESIZE * 10;
+	return posY - _posY - ceilf(zoomOffset);
 }
 
 
@@ -145,9 +163,26 @@ void cameraManager::update()
 		if (zoomCount++ % 1 == 0) {
 			if (!_zoomRecoilBack) {
 				_currentZoomForce += _zoomSpeed;
-				if (_currentZoomForce >= _zoomForce) {
-					_zoomRecoilBack = true;
+
+				if (_zoomForce >= 0) {
+					if (_currentZoomForce >= _zoomForce) {
+
+						if (_isAutoBack)
+							_zoomRecoilBack = true;
+						else
+							_isZoomForce = false;
+					}
 				}
+				else {
+					if (_currentZoomForce <= _zoomForce) {
+
+						if (_isAutoBack)
+							_zoomRecoilBack = true;
+						else
+							_isZoomForce = false;
+					}
+				}
+
 			}
 			else {
 				_currentZoomForce -= _zoomSpeed;
