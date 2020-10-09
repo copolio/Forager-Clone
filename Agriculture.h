@@ -21,6 +21,7 @@ private:
 	targetingBox *_targetBox;
 	vector<AGRICULTURERc*> agriRc;
 	bool _target;
+	int _tileIndex;
 	void mouse_targetBox();
 	construction_tool_tip* tooltip;
 public:

@@ -39,10 +39,10 @@ public:
 	int GetRelativeX(int posX);
 	int GetRelativeY(int posY);
 	float GetZoom() { return _zoomRate + _currentZoomForce; };
-	RECT GetZoooRC(RECT t_rc);
-
+	
 	// 마우스 상대좌표 (마우스는 절대 좌표로 화면에 그려지고, 클릭할 때는 상대좌표를 얻어와서 타일과 충돌여부 판단)
 	POINT GetMouseRelativePos(POINT ptMouse);
+	RECT GetRelativeRc(RECT p_rc);
 
 	// 카메라 렌더 범위 렉트 가져옴.
 	RECT GetCameraRect() { return _rcCamBound; }

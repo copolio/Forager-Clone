@@ -122,16 +122,7 @@ int cameraManager::GetRelativeY(int posY)
 	return posY - _posY;
 }
 
-RECT cameraManager::GetZoooRC(RECT t_rc)
-{
-	t_rc.left *= _zoomRate;
-	t_rc.right *= _zoomRate;
-	t_rc.bottom *= _zoomRate;
-	t_rc.top *= _zoomRate;
 
-
-	return t_rc;
-}
 
 POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 {
@@ -139,6 +130,16 @@ POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 	ptMouse.y += _posY;
 
 	return ptMouse;
+}
+
+RECT cameraManager::GetRelativeRc(RECT p_rc)
+{
+	p_rc.left = GetRelativeX(p_rc.left);
+	p_rc.right = GetRelativeX(p_rc.right);
+	p_rc.top = GetRelativeX(p_rc.top);
+	p_rc.bottom = GetRelativeX(p_rc.bottom);
+
+	return p_rc;
 }
 
 
