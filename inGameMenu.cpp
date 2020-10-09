@@ -50,22 +50,20 @@ void inGameMenu::release()
 void inGameMenu::update()
 {
 	inven_Change_Key_Down();
+	CAMERA->SetZoomRate(1);
 	switch (_inven_Kind)
 	{
 	case INVENTORY:
-		
 		_inven->update();
 		break;
 	case EQUIP:
-		
 		_equip->update();
 		break;
 	case CONSTRUCTION:
-		
 		_construction->update();
 		break;
 	case PURCHASE_LAND:
-		
+		CAMERA->SetZoomRate(0.6f);
 		_purchaese->update();
 		break;
 	case GAME_SETTING:

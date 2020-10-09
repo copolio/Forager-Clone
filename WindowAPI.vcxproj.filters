@@ -88,9 +88,6 @@
     <Filter Include="GameFramework\MainGame\Cursor">
       <UniqueIdentifier>{403dbbb4-898e-4e73-8ad6-4a0055fbdac3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\pruchase_land">
-      <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\inventory_slot">
       <UniqueIdentifier>{6a99b852-7052-40d8-9154-61ac413f101b}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,9 @@
     </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip">
       <UniqueIdentifier>{be6f7ee9-c883-4f20-a837-d02e8c06de0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\purchase_land">
+      <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +238,7 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
     </ClCompile>
     <ClCompile Include="purchase_land.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\purchase_land</Filter>
     </ClCompile>
     <ClCompile Include="inventory_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
@@ -267,9 +267,7 @@
     <ClCompile Include="tile.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
-      <Filter>GameFramework\MainGame\A%2a</Filter>
-    </ClCompile>
+    <ClCompile Include="Astar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -408,7 +406,7 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_images</Filter>
     </ClInclude>
     <ClInclude Include="purchase_land.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\pruchase_land</Filter>
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\purchase_land</Filter>
     </ClInclude>
     <ClInclude Include="inventory_slot.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory_slot</Filter>
@@ -434,9 +432,7 @@
     <ClInclude Include="construction_tool_tip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
-      <Filter>GameFramework\MainGame\A%2a</Filter>
-    </ClInclude>
+    <ClInclude Include="Astar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -46,5 +46,8 @@ public:
 
 	// 카메라 렌더 범위 렉트 가져옴.
 	RECT GetCameraRect() { return _rcCamBound; }
+
+	//줌 수치 설정
+	void SetZoomRate(float rate) { _zoomRate = rate; };
 };
 
