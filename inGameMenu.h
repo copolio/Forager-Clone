@@ -14,9 +14,16 @@ enum INVENKINDS
 	PURCHASE_LAND,			//토지구매
 	GAME_SETTING			//게임설정
 };
+struct MOUSEMENU
+{
+	RECT rc;
+	INVENKINDS kinds;
+};
 class inGameMenu 
 {
 private:
+	vector<MOUSEMENU*> ingameMenuRc;
+
 	INVENKINDS _inven_Kind;				//인벤 종류
 	inventory_images *inven_imgs;		//인벤 이미지
 
@@ -38,6 +45,7 @@ public:
 
 	void inven_Change_Key_Down();
 
+	void mouse_touch_icon(HDC hdc);
 	void settion();
 
 

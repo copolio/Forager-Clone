@@ -14,8 +14,17 @@ HRESULT inGameMenu::init()
 	_buildinginteraction = new buildinginteraction;
 	_buildinginteraction->init();
 	inven_imgs->init();
+	for (int i = 0; i < 5; i++) {
+		MOUSEMENU *menu = new MOUSEMENU;
+		menu->rc = RectMake(410 + i * 92, 30, 80, 80);
+		ingameMenuRc.push_back(menu);
+	}
 
-
+	ingameMenuRc[0]->kinds = EQUIP;
+	ingameMenuRc[1]->kinds = INVENTORY;
+	ingameMenuRc[2]->kinds = CONSTRUCTION;
+	ingameMenuRc[3]->kinds = PURCHASE_LAND;
+	ingameMenuRc[4]->kinds = GAME_SETTING;
 	_inven->init();
 	_equip->init();
 	_construction->init();
@@ -97,9 +106,7 @@ void inGameMenu::render(HDC hdc)
 		_game_setting->render(hdc);
 		break;
 	}
-
-	
-
+	mouse_touch_icon(hdc);
 }
 
 void inGameMenu::inven_Change_Key_Down()
@@ -161,6 +168,53 @@ void inGameMenu::inven_Change_Key_Down()
 
 	}
 
+}
+
+void inGameMenu::mouse_touch_icon(HDC hdc)
+{
+	for (int i = 0; i < ingameMenuRc.size(); i++) {
+		if (PtInRect(&ingameMenuRc[i]->rc, _ptMouse) && ingameMenuRc[i]->kinds != _inven_Kind) {
+			switch (ingameMenuRc[i]->kinds)
+			{
+			case EQUIP:
+				IMAGEMANAGER->render("mouse_equip_icon", hdc, ingameMenuRc[i]->rc.left+10, ingameMenuRc[i]->rc.top);
+				break;
+			case INVENTORY:
+				IMAGEMANAGER->render("mouse_item_icon", hdc, ingameMenuRc[i]->rc.left, ingameMenuRc[i]->rc.top);
+				break;
+			case CONSTRUCTION:
+				IMAGEMANAGER->render("mouse_construction_icon", hdc, ingameMenuRc[i]->rc.left+13, ingameMenuRc[i]->rc.top);
+				break;
+			case PURCHASE_LAND:
+				IMAGEMANAGER->render("mouse_purchase_land", hdc, ingameMenuRc[i]->rc.left-20, ingameMenuRc[i]->rc.top);
+				break;
+			case GAME_SETTING:
+				IMAGEMANAGER->render("mouse_game_setting", hdc, ingameMenuRc[i]->rc.left+9, ingameMenuRc[i]->rc.top);
+				break;
+			}
+			if (INPUT->GetKeyDown(VK_LBUTTON)) {
+				_inven_Kind = ingameMenuRc[i]->kinds;
+				switch (ingameMenuRc[i]->kinds)
+				{
+				case EQUIP:
+					_equip->setIsCheck(false);			
+					break;
+				case INVENTORY:
+					_inven->setIsCheck(false);			
+					break;
+				case CONSTRUCTION:
+					_construction->setIsCheck(false);
+					_construction->setisTargetBox(false);
+					break;
+				case PURCHASE_LAND:
+					_purchaese->setIsCheck(false);
+					break;
+				case GAME_SETTING:
+					break;
+				}
+			}
+		}
+	}
 }
 
 void inGameMenu::settion()

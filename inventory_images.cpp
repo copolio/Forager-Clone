@@ -31,7 +31,24 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_fish_trap_icon", "Images/이미지/GUI/img_fish_trap_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
+
+
+
 	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("Iron_ore", "Images/이미지/아이템/Iron_ore.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("coal", "Images/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("괴철", "Images/이미지/아이템/괴철.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("금괴", "Images/이미지/아이템/금괴.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("금광석", "Images/이미지/아이템/금광석.bmp", 40, 40 ,true, RGB(255, 0, 255));
+
+
+
+	IMAGEMANAGER->addImage("mouse_construction_icon", "Images/이미지/GUI/mouse_construction_icon.bmp", 62, 83, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_equip_icon", "Images/이미지/GUI/mouse_equip_icon.bmp", 58, 81, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_game_setting", "Images/이미지/GUI/mouse_game_setting.bmp", 74, 86, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_item_icon", "Images/이미지/GUI/mouse_item_icon.bmp", 81, 83, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_purchase_land", "Images/이미지/GUI/mouse_purchase_land.bmp", 116, 82, true, RGB(255, 0, 255));
 
 
 
