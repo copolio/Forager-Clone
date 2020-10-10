@@ -7,6 +7,7 @@
 #include "building.h"
 #include "unit.h"
 #include "skull.h"
+#include "cow.h"
 
 class UnitManager : public singletonBase<UnitManager>
 {
@@ -15,6 +16,9 @@ private:
 private:
 	void Sorting();
 	void CheckRemoveUnit();
+
+	unit* _player;
+	
 
 public:
 	void init();

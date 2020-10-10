@@ -7,39 +7,50 @@
 enum SKULLSTATE
 {
 	STAY,	//걸어다니는 이미지랑 
-	ATTACK
+	ATTACK,
+	APPEAR
+};
+
+enum COWSTATE
+{
+	WALK,
+	DASH,
 };
 
 class enemy :public unit
 {
-private:
+protected:
 	
+	unit* _target;
+protected : 
 
-private : 
-	
 	SKULLSTATE _state;
+	COWSTATE _state2;
 	int _index;
 	int _count;
 	int _enemyMoveCount;
+	int _appearCount;
+	float enemySpeedX;
+	float enemySpeedY;
+	float _angle;
 	bool isLeft;
-	bool _isUp;			//위쪽이냐?
-	bool _isMoveVertical;
 	bool isAngle;
-	POINT dir;
+	bool enemyMoving;
 
 public:
 	
+	
+	
 
-	int skullMoveRandomTileCount;
-
-	virtual void setEnemy();
+	virtual void setEnemy(string key, string itemkey, unit* target);
 	virtual void render(HDC hdc) override;
 	virtual void update() override;
 	virtual void dead() override;
-	void skullAnimation();
 	
-	void skullMove();
-	float skullToPlayerAngle();
+	
+	
+	
+	
 
 	
 

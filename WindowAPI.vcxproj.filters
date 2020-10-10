@@ -267,9 +267,6 @@
     <ClCompile Include="quick_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClCompile>
-    <ClCompile Include="skull.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
-    </ClCompile>
     <ClCompile Include="construction_tool_tip.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClCompile>
@@ -289,6 +286,12 @@
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
     </ClCompile>
     <ClCompile Include="Astar.cpp" />
+	<ClCompile Include="skull.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy\skull</Filter>
+    </ClCompile>
+    <ClCompile Include="cow.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy\cow</Filter>
+    </ClCompile>
     <ClCompile Include="reactImage.cpp">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
     </ClCompile>
@@ -447,13 +450,16 @@
     <ClInclude Include="quick_slot.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClInclude>
-    <ClInclude Include="skull.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
-    </ClInclude>
     <ClInclude Include="construction_tool_tip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
     <ClInclude Include="Astar.h" />
+	<ClInclude Include="skull.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy\skull</Filter>
+    </ClInclude>
+    <ClInclude Include="cow.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy\cow</Filter>
+    </ClInclude>
     <ClInclude Include="buildinginteraction.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction</Filter>
     </ClInclude>

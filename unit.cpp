@@ -7,6 +7,7 @@ void unit::hurt(int damage)
 
 	if (currentHp <= 0)
 		dead();
+
 	else
 		isHit = true;
 }
@@ -38,8 +39,6 @@ void unit::render(HDC hdc)
 		CAMERA->GetRelativeX(rc.left),
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
 		objFrameX, objFrameY);
-
-	
 }
 
 bool unit::isDead()
@@ -49,3 +48,5 @@ bool unit::isDead()
 	else 
 		return false;
 }
+
+

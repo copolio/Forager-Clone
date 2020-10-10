@@ -3,7 +3,7 @@
 
 void UnitManager::init()
 {
-	//자원
+	//자원 1 (나무, 돌, 열매)
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
@@ -12,9 +12,23 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 	
-	//에너미 - 해골
+	//자원 2 ('해골, 소'의 드랍아이템)
+	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("milkDrop", "Images/이미지/아이템/milk.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pooDrop", "Images/이미지/아이템/poo.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("letherDrop", "Images/이미지/아이템/lether.bmp", 56, 56, true, RGB(255, 0, 255));
+
+
+	
+	//에너미 - (해골, 소)
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
-	//IMAGEMANAGER->addFrameImage("skullMoving","Images/이미지/NPC/")
+	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
+
+
 }
 
 void UnitManager::release()
@@ -33,9 +47,10 @@ void UnitManager::update()
 	CheckRemoveUnit();
 
 	for (int i = 0; i < _vUnits.size(); i++) {
-		if (_vUnits[i]->tag != TAG::PLAYER) {
+		if (_vUnits[i]->tag != TAG::PLAYER ) {
 			_vUnits[i]->update();
 		}
+		
 	}
 	
 }
@@ -93,8 +108,11 @@ void UnitManager::CheckRemoveUnit()
 
 
 
+
+
 void UnitManager::AddUnits(unit* p_unit)
 {
+	_player = p_unit;
 	_vUnits.push_back(p_unit);
 }
 
@@ -111,12 +129,25 @@ void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
 	if (p_monsterName == "skull")
 	{
 		skull* _skull = new skull;
-		_skull->setEnemy();
+		_skull->setEnemy(p_monsterName, "skullHeadDrop", _player);
+		_skull->init();
 		_vUnits.push_back(_skull);
 	}
-
 	
+	//소
+	if (p_monsterName == "cow")
+	{
+		cow* _cow = new cow;
+		_cow->setEnemy(p_monsterName, "milkDrop", _player);
+		_cow->init();
+		_vUnits.push_back(_cow);
+		
+	}
+	
+
 }
+
+
 
 
 

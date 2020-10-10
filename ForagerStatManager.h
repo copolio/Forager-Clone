@@ -1,5 +1,5 @@
 #pragma once
-#include "gameNode.h"
+
 
 struct tagForagerHp
 {
@@ -22,7 +22,7 @@ struct tagExp
 };
 
 class ForagerPlayer;
-class ForagerStatManager :public gameNode
+class ForagerStatManager
 {
 private:
 
@@ -48,7 +48,7 @@ public :
 	HRESULT init();
 	void release();
 	void update();
-	void render();
+	void render(HDC hdc);
 
 	vector<tagForagerHp*> _foragerHp;
 

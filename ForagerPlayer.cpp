@@ -166,7 +166,7 @@ void ForagerPlayer::render(HDC hdc)
 		else
 			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top), CAMERA->GetZoom());
 	}
-	_foragerHp->render();
+	_foragerHp->render(hdc);
 }
 
 void ForagerPlayer::animation()
@@ -181,7 +181,7 @@ void ForagerPlayer::animation()
 			if (_count++ % 5 == 0)
 			{
 				if (_index-- <= 0)
-					_index = 2;
+					_index = 3;
 			}
 		}
 		else
@@ -204,7 +204,7 @@ void ForagerPlayer::animation()
 			if (_count++ % 5 == 0)
 			{
 				if (_index-- <= 0)
-					_index = 3;
+					_index = 4;
 			}
 		}
 		else
@@ -274,7 +274,7 @@ void ForagerPlayer::animation()
 			_playerHammering->setFrameX(_index);
 			if (_hitDelayCount++ % 10 == 0)
 			{
-				if (_index++ > 3) {
+				if (_index++ >= 3) {
 					_hitDelayCount = 1;
 					_index = 0;
 				}

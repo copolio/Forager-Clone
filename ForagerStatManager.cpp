@@ -83,30 +83,30 @@ void ForagerStatManager::update()
 	}
 }
 
-void ForagerStatManager::render()
+void ForagerStatManager::render(HDC hdc)
 {
 	for (int i = 0; i < _foragerHp.size(); i++)
 	{
 		if (_foragerHp[i]->_isHp)
 		{
-			IMAGEMANAGER->render("하트모양체력", getMemDC(), _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
+			IMAGEMANAGER->render("하트모양체력", hdc, _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
 		}
 		else
 		{
-			IMAGEMANAGER->render("하트모양체력(뒤)", getMemDC(), _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
+			IMAGEMANAGER->render("하트모양체력(뒤)", hdc, _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
 		}
 	}
 
-	IMAGEMANAGER->render("스테미나(뒤)", getMemDC(), _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
-	IMAGEMANAGER->render("스테미나", getMemDC(), _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
+	IMAGEMANAGER->render("스테미나(뒤)", hdc, _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
+	IMAGEMANAGER->render("스테미나", hdc, _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
 	if (!inven_open) {
-		IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
+		IMAGEMANAGER->render("expBarBack", hdc, _foragerExp->expRc.left, _foragerExp->expRc.top);
 
 		if (level > 0)
-			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+			IMAGEMANAGER->render("expBar", hdc, _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
 				_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
 		else
-			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+			IMAGEMANAGER->render("expBar", hdc, _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
 				_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
 	}
 
