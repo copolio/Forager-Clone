@@ -118,7 +118,7 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\purchase_land">
       <UniqueIdentifier>{13e5dc61-54d6-4324-b3ed-1b86db90c75a}</UniqueIdentifier>
     </Filter>
-	<Filter Include="GameFramework\MainGame\Forager\UI">
+    <Filter Include="GameFramework\MainGame\Forager\UI">
       <UniqueIdentifier>{963754bc-a4ed-4414-8d3e-83ab2c27061f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -285,18 +285,20 @@
     <ClCompile Include="anviltooltip.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp" />
-	<ClCompile Include="skull.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy\skull</Filter>
-    </ClCompile>
-    <ClCompile Include="cow.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy\cow</Filter>
-    </ClCompile>
     <ClCompile Include="reactImage.cpp">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
     </ClCompile>
     <ClCompile Include="targetingBox.cpp">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="cow.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="skull.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -453,13 +455,6 @@
     <ClInclude Include="construction_tool_tip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction\construction_tool_tip</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h" />
-	<ClInclude Include="skull.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy\skull</Filter>
-    </ClInclude>
-    <ClInclude Include="cow.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy\cow</Filter>
-    </ClInclude>
     <ClInclude Include="buildinginteraction.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction</Filter>
     </ClInclude>
@@ -472,14 +467,20 @@
     <ClInclude Include="anviltooltip.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
     </ClInclude>
-	<ClInclude Include="reactImage.h">
+    <ClInclude Include="reactImage.h">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
     </ClInclude>
     <ClInclude Include="targetingBox.h">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="cow.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="skull.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
