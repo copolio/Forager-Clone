@@ -20,9 +20,13 @@ public:
 	RECT rc;
 	LAYER layer;
 	TAG tag;	
+
+
 public:
-	int getX() { return x; };
-	int getY() { return y; };
-	RECT getRect() { return rc; };
+	int GetCenterX() { return rc.left + (rc.right - rc.left) / 2; };
+	int GetCenterY() { return rc.top + (rc.bottom - rc.top) / 2; };
+	POINT GetCenterPoint() { return { GetCenterX(), GetCenterY() }; };
+
+	virtual void render(HDC hdc) = 0;
 };
 

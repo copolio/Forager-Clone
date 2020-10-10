@@ -4,6 +4,7 @@
 
 HRESULT sceneManager::init()
 {
+	ischeck = false;
 	return S_OK;
 }
 
@@ -47,6 +48,7 @@ void sceneManager::update()
 {
 	//현재씬이 존재한다면 해당 씬을 업데이트해라
 	if (_currentScene) _currentScene->update();
+
 }
 
 void sceneManager::render()

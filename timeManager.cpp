@@ -98,11 +98,11 @@ void timeManager::render(HDC hdc)
 	char str[256];
 	//FPS
 	sprintf(str, "FPS: %d", _frameRate);
-	textOut(hdc, 0, 0, str, RGB(255, 0, 255));
+	textOut(hdc, WINSIZEX - 120, 20, str, RGB(255, 0, 255));
 	//전체시간
 	sprintf(str, "Time: %.2f", _time);
-	textOut(hdc, 0, 20, str, RGB(255, 0, 255));
+	textOut(hdc, WINSIZEX - 120, 40, str, RGB(255, 0, 255));
 	//한프레임당 경과시간
 	sprintf(str, "DeltaTime: %.2f", _deltaTime);
-	textOut(hdc, 0, 40, str, RGB(255, 0, 255));
+	textOut(hdc, WINSIZEX - 120, 60, str, RGB(255, 0, 255));
 }

@@ -63,24 +63,6 @@ void startScene::update()
 	}
 
 	EFFECTMANAGER->update();
-
-	////if (SAVEMANAGER->slotName == "gaem1")
-	//{
-	//	if (INPUT->GetKeyDown(VK_F1))
-	//	{
-	//		_saveManager->getSaveTile();
-	//	}
-	//}
-
-	////if (SAVEMANAGER->slotName == "gaem1")
-	//{
-	//	if (INPUT->GetKeyDown(VK_F2))
-	//	{
-	//		_saveManager->getLoadTile();
-	//	}
-	//}
-
-	
 }
 
 void startScene::render()
@@ -157,19 +139,19 @@ void startScene::CheckButtonClick()
 			if (PtInRect(&_button[i].GetRect(), _ptMouse))
 			{
 				switch (i) {
-				case BTN::SETTING:	SCENEMANAGER->loadScene("맵툴화면"); break;	// 환경설정 창
-				case BTN::CREDIT:	SCENEMANAGER->loadScene("맵툴화면"); break;	// 크레딧 창
-				case BTN::EXIT:		SCENEMANAGER->loadScene("맵툴화면"); break;	// 게임 종료
+				case BTN::SETTING:	SCENEMANAGER->loadScene("게임 화면"); break;	// 환경설정 창
+				case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
+				case BTN::EXIT:		SCENEMANAGER->loadScene("게임 화면"); break;	// 게임 종료
 
 				case BTN::SLOT1:	
-					SCENEMANAGER->loadScene("맵툴화면"); 
+					SCENEMANAGER->loadScene("게임 화면"); 
 
 					break;	// 게임 슬롯 1
 				
-				case BTN::SLOT2:	SCENEMANAGER->loadScene("맵툴화면"); 
+				case BTN::SLOT2:	SCENEMANAGER->loadScene("게임 화면"); 
 
 					break;	// 게임 슬롯 2
-				case BTN::SLOT3:	SCENEMANAGER->loadScene("맵툴화면");
+				case BTN::SLOT3:	SCENEMANAGER->loadScene("게임 화면");
 
 					break;	// 게임 슬롯 3
 				}

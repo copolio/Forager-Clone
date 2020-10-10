@@ -4,6 +4,7 @@
 
 HRESULT ForagerStatManager::init()
 {
+	inven_open = false;
 	for (int i = 0; i < 3; i++)		//하트모양 체력 3개 
 	{
 		tagForagerHp* _hp = new tagForagerHp;
@@ -27,6 +28,8 @@ HRESULT ForagerStatManager::init()
 		needExp[i] = (float)needExp[i - 1] * 2.5f;
 	}
 
+	
+
 	currentExp = 0;
 	level = 0;
 
@@ -40,10 +43,22 @@ HRESULT ForagerStatManager::init()
 	IMAGEMANAGER->addImage("expBar", "Images/이미지/GUI/img_UI_ExpGaugeBar.bmp", 792, 22, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("expBarBack", "Images/이미지/GUI/img_UI_ExpGaugeBoard.bmp", 800, 30, true, RGB(255, 0, 255));
 
+	_levelNum[0]=IMAGEMANAGER->addImage("0", "Images/이미지/GUI/0.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[1]=IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[2]=IMAGEMANAGER->addImage("2", "Images/이미지/GUI/2.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[3]=IMAGEMANAGER->addImage("3", "Images/이미지/GUI/3.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[4]=IMAGEMANAGER->addImage("4", "Images/이미지/GUI/4.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[5]=IMAGEMANAGER->addImage("5", "Images/이미지/GUI/5.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[6]=IMAGEMANAGER->addImage("6", "Images/이미지/GUI/6.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[7]=IMAGEMANAGER->addImage("7", "Images/이미지/GUI/7.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[8]=IMAGEMANAGER->addImage("8", "Images/이미지/GUI/8.bmp", 15, 19, true, RGB(255, 0, 255));
+	_levelNum[9]=IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
+
 	_staminaImgSizeMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	_expImgSizeMax = IMAGEMANAGER->findImage("expBar")->getWidth();
 	playerStaminaCount = 0;
 	staminaLoss = false;
+	
 	
 
 	return S_OK;
@@ -66,13 +81,6 @@ void ForagerStatManager::update()
 			break;
 		}
 	}
-
-	//플레이어가 1번을 누르면 경험치(노란색 앞면 바)가 찬다. 
-	if (INPUT->GetKeyDown('1'))
-	{
-		IncreaseExp(10);
-	}
-
 }
 
 void ForagerStatManager::render()
@@ -91,16 +99,17 @@ void ForagerStatManager::render()
 
 	IMAGEMANAGER->render("스테미나(뒤)", getMemDC(), _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
 	IMAGEMANAGER->render("스테미나", getMemDC(), _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
+	if (!inven_open) {
+		IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
 
-	IMAGEMANAGER->render("expBarBack", getMemDC(), _foragerExp->expRc.left, _foragerExp->expRc.top);
+		if (level > 0)
+			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+				_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
+		else
+			IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
+				_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
+	}
 
-	if(level > 0)
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left + 4, _foragerExp->expRc.top, 0, 0, 
-			_expImgSizeMax * (currentExp - (float)(needExp[level - 1])) / (needExp[level] - (float)(needExp[level - 1])), 22);
-	else
-		IMAGEMANAGER->render("expBar", getMemDC(), _foragerExp->expRc.left+4, _foragerExp->expRc.top, 0, 0, 
-			_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
-	
 }
 
 void ForagerStatManager::IncreaseExp(int exp)
@@ -109,3 +118,5 @@ void ForagerStatManager::IncreaseExp(int exp)
 	if (currentExp > needExp[level])
 		level++;
 }
+
+

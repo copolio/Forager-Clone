@@ -1,26 +1,52 @@
 #pragma once
 #include "gameObject.h"
 #define NUMUNIT 5 //빌딩 2개 + 자원 3개
-struct dropItem {
-	RECT rc;
+class dropItem{
+public:
 	string itemKey;
-	string imgName;
-	float dropItemX;
-	float dropItemY;
 };
+
 class unit : public gameObject
 {
+
+private:
+
+	
+
 public:
-	int hp;
-	int currentHp;
-	int exp;
+	// 이미지 키값
 	string objKey;
+
+	// 상태값
+	int maxHp;
+	int currentHp;
+	bool isHit = false;	// 맞는 순간 타격 애니메이션 재생
+
+	// 드롭
+	int exp;
+	dropItem dropItem;
+
+	// 애니메이션 관련
 	int objFrameX;
 	int objFrameY;
+	int objMaxFrameX;
+	int objMaxFrameY;
+
+	// 애니메이션 재생 속도 관련
+	int currentCount;
+	int nextCount;
+
 public:
-	void setDropItem();
-	void setMapTile();
-	void setHp(int _hp) { hp = _hp; };
-	void setCurrentHp(int _currentHp) { currentHp = _currentHp; };
+	virtual void update();
+	virtual void render(HDC hdc) override;
+	
+public:
+	void hurt(int damage);			// 체력 닳음
+	virtual void animation();		// 애니메이션 연출
+	virtual void collision() { ; };	// 충돌시 연출 (필드 아이템)
+	virtual void dead() { ; };		// 사망시 연출
+
+public:
+	bool isDead();
 };
 

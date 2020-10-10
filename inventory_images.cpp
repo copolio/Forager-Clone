@@ -18,15 +18,48 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_equip_slot", "Images/이미지/GUI/img_equip_slot.bmp", 582, 102, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_construction_icon", "Images/이미지/GUI/img_construction_icon.bmp", 78, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory_background", "Images/이미지/GUI/inventory_background.bmp", 1280, 720);
+	IMAGEMANAGER->addImage("quick_slot_background", "Images/이미지/GUI/inventory_background.bmp", 56, 56);
 	IMAGEMANAGER->addImage("img_industry_icon", "Images/이미지/GUI/img_industry_icon.bmp", 250, 80, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_steelwork_icon", "Images/이미지/GUI/img_steelwork_icon.bmp", 220, 53, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_missing_icon", "Images/이미지/GUI/img_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_anvil_icon", "Images/이미지/GUI/img_anvil_icon.bmp", 220, 50, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("img_sewingmachine_icon", "Images/이미지/GUI/img_sewingmachine_icon.bmp", 205, 59, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_sewingmachine_icon", "Images/이미지/GUI/img_sewingmachine_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("purchase_land", "Images/이미지/GUI/purchase_land.bmp", 105, 86, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_Agriculture_icon", "Images/이미지/GUI/img_Agriculture_icon.bmp", 250, 80, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("game_setting", "Images/이미지/GUI/game_setting.bmp", 64, 82, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_bridge_icon", "Images/이미지/GUI/img_bridge_icon.bmp", 220, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_fish_trap_icon", "Images/이미지/GUI/img_fish_trap_icon.bmp", 220, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
+
+
+
+	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("Iron_ore", "Images/이미지/아이템/Iron_ore.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("coal", "Images/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("괴철", "Images/이미지/아이템/괴철.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("금괴", "Images/이미지/아이템/금괴.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("금광석", "Images/이미지/아이템/금광석.bmp", 40, 40 ,true, RGB(255, 0, 255));
+
+
+
+	IMAGEMANAGER->addImage("mouse_construction_icon", "Images/이미지/GUI/mouse_construction_icon.bmp", 62, 83, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_equip_icon", "Images/이미지/GUI/mouse_equip_icon.bmp", 58, 81, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_game_setting", "Images/이미지/GUI/mouse_game_setting.bmp", 74, 86, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_item_icon", "Images/이미지/GUI/mouse_item_icon.bmp", 81, 83, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouse_purchase_land", "Images/이미지/GUI/mouse_purchase_land.bmp", 116, 82, true, RGB(255, 0, 255));
+
+
+
+	IMAGEMANAGER->addImage("img_steelwork_menu", "Images/이미지/GUI/img_steelwork_menu.bmp",	350, 650, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_sewingmachine_menu", "Images/이미지/GUI/img_sewingmachine_menu.bmp",	350, 485, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("img_anvil_menu", "Images/이미지/GUI/img_anvil_menu.bmp",	350, 595, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("img_game_money_icon", "Images/이미지/GUI/img_game_money_icon.bmp", 36, 36, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("bag", "Images/이미지/GUI/bag_image.bmp", 112, 120, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
 
 
 	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
@@ -48,5 +81,8 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
 	IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
+
+
+
 	return S_OK;
 }

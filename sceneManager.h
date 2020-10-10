@@ -22,6 +22,7 @@ private:
 	mSceneList _mSceneList;			//°¢°¢ÀÇ ¾À(È­¸é)µéÀ» ´ã¾ÆµÑ ¸Ê
 	gameNode* _currentScene;		//ÇöÀç¾À
 
+	bool ischeck;
 public:
 	HRESULT init();
 	void release();
@@ -32,7 +33,12 @@ public:
 	gameNode* addScene(string sceneName, gameNode* scene);
 	//¾Àº¯°æ
 	HRESULT loadScene(string sceneName);
-
+	bool get_ischeck() {
+		return ischeck;
+	}
+	void set_ischeck(bool s) {
+		ischeck = s;
+	}
 	sceneManager() : _currentScene(NULL) {}
 	~sceneManager() {}
 };

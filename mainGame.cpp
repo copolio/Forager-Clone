@@ -12,10 +12,11 @@ HRESULT mainGame::init()
 	/*이곳에서 각각의 씬들을 추가하고 현재씬을 설정한다*/
 
 	/*씬추가*/
-
+	SCENEMANAGER->addScene("시작 화면", new startScene);
 	SCENEMANAGER->addScene("게임 화면", new gameScene);
+
 	/*현재씬*/
-	SCENEMANAGER->loadScene("게임 화면");
+	SCENEMANAGER->loadScene("시작 화면");
 
 	return S_OK;
 }
@@ -62,6 +63,6 @@ void mainGame::render()
 	
 //=============================================================
 	//백버퍼의 내용을 화면DC에 그린다 (이것도 렌더에 그냥 두기)
-	this->getBackBuffer()->render(getHDC());
+	this->getBackBuffer()->render(getHDC(), 0, 0);
 }
 

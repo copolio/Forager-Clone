@@ -3,11 +3,16 @@
 #include "unit.h"
 #include "building.h"
 #include "resource.h"
+#include "fieldItem.h"
+#include "ForagerPlayer.h"
+class ForagerPlayer;
+
 class earth : public gamemap
 {
 private:
 	vector<tile> _vTile;
-	vector<unit> _vUnit; //아이템, 빌딩
+	ForagerPlayer* _player; // 플레이어
+
 private:
 	image* watertile;
 	image* plaintile;
@@ -26,6 +31,21 @@ public:
 	void mapSetup();
 	void setRandomObject();
 	float getResRatio();
-	int getPlayerPos();
+	void setIsland(int x, int y);
+	int GetIslandX(int index);
+	int GetIslandY(int index);
+	RECT GetIslandRc(int x, int y);
+	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
+public:
+	vector<tile> GetTiles() { return _vTile; }
+	tile GetTile(int index) { return _vTile[index]; };
+	tile* GetTileP(int index) { return &_vTile[index]; };
+	RECT GetTileRc(int index) { return _vTile[index].rc; }
+	tile* tileMouseTarget();
+	int tileMouseTargetIndex();
+	void setTileHasUnit(int index) { 
+		_vTile[index].hasUnit = true;
+		_vTile[index].canPass = false;
+	};
 };
 

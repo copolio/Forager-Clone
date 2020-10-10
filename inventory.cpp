@@ -5,6 +5,8 @@ HRESULT inventory::init()
 {
 	_targetBox = new targetingBox;
 	_targetBox->init();
+	money = new int;
+	*money = 9999;
 	StaminaMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	for (int i = 1; i < 10; i++) {
 		item_count[i - 1] = i;
@@ -25,6 +27,35 @@ HRESULT inventory::init()
 			player_inventory.push_back(inven);
 		}
 	}
+
+	//====================================================
+	//테스트용
+	/*
+	ITEM_NULL,
+	ITEM_FOOD,
+	ITEM_EQUIP,
+	ITEM_MATERIAL,*/
+
+	/*
+	berryDrop
+	rockDrop
+	treeDrop
+	*/
+	player_inventory[0]->count = 999;
+	player_inventory[0]->Kinds = ITEM_MATERIAL;
+	player_inventory[0]->img_name = "treeDrop";
+	player_inventory[0]->item_name = "treeDrop";
+
+	player_inventory[1]->count = 999;
+	player_inventory[1]->Kinds = ITEM_MATERIAL;
+	player_inventory[1]->img_name = "rockDrop";
+	player_inventory[1]->item_name = "rockDrop";
+
+	player_inventory[2]->count = 999;
+	player_inventory[2]->Kinds = ITEM_FOOD;
+	player_inventory[2]->img_name = "berryDrop";
+	player_inventory[2]->item_name = "berryDrop";
+	//====================================================
 	isCheck = false;
 
 	return S_OK;
@@ -39,6 +70,7 @@ void inventory::update()
 {
 	_targetBox->update();
 	mouse_targetBox();
+	food_eat();
 
 }
 
@@ -100,12 +132,12 @@ void inventory::render(HDC hdc)
 			IMAGEMANAGER->render(to_string(player_inventory[i]->count),hdc, player_inventory[i]->_rc.left + 55, player_inventory[i]->_rc.top + 55);
 		}
 	}
-
+	
 	if (isCheck) {
-		IMAGEMANAGER->render("img_UI_ItemTooltip", hdc, 900, 150);
-		IMAGEMANAGER->render("bag", hdc, 1000, 450);
+		item_info_print(hdc);
 		_targetBox->render(hdc);
 	}
+	
 }
 
 void inventory::mouse_targetBox()
@@ -113,10 +145,35 @@ void inventory::mouse_targetBox()
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
 			_targetBox->SetTarget(player_inventory[i]->_rc, 2, i, 4, false);
-			
 			isCheck = true;
 			
 			break;
+		}
+	}
+}
+
+void inventory::food_eat()
+{
+	for (int i = 0; i < player_inventory.size(); i++) {
+		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->Kinds == ITEM_FOOD && INPUT->GetKeyDown(VK_LBUTTON)) {
+			player_inventory[i]->count--;
+
+			IMAGEMANAGER->findImage("스테미나")->setWidth(-5);
+			if (IMAGEMANAGER->findImage("스테미나")->getWidth() >= StaminaMax) {
+				IMAGEMANAGER->findImage("스테미나")->settingWidth(StaminaMax);
+			}
+
+			ITEMMANAGER->vItem_count_zoro();
+		}
+	}
+}
+
+void inventory::item_info_print(HDC hdc)
+{
+	for (int i = 0; i < player_inventory.size(); i++) {
+		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
+			_item_info->render(hdc, player_inventory[i]->img_name);
+			cout << player_inventory[i]->img_name << endl;
 		}
 	}
 }

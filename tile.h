@@ -11,7 +11,7 @@
 #define MAPSIZE MAPX*MAPY
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
-#define RESRATIOLIMIT 0.5
+#define RESRATIOLIMIT 0.1
 #define RESGENTIME 100
 
 class tile : public gameObject {
@@ -20,6 +20,10 @@ public:
 	int terrainFrameX;
 	int terrainFrameY;
 	bool hasUnit;
+	bool canPass;
+
+public:
+	void render(HDC hdc) override;
 };
 
 
