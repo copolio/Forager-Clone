@@ -28,7 +28,7 @@ void enemy::setEnemy(string key, string itemkey, unit* target)
 	x = WINSIZEX / 2 + 200;
 	y = WINSIZEY / 2 ;
 	rc = RectMakeCenter(x, y, 25, 25);
-	exp = 0;
+	exp = 10;
 	dropItem.itemKey = itemkey;
 	objKey = key;
 	objFrameX = 0;
@@ -43,6 +43,8 @@ void enemy::setEnemy(string key, string itemkey, unit* target)
 	enemyMoving = false;
 	isLeft = false;
 	isAngle = false;
+
+	_hpBar.init("hpBar", "hpBarBG");
 }
 
 

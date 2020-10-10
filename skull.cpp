@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "skull.h"
 
+
 HRESULT skull::init()
 {
 	
 	skullMoveCount = 0;
 	skullIdleCount = 0;
 	skullAttackRange = 100;
-
 	return S_OK;
 }
 
@@ -34,6 +34,10 @@ void skull::update()
 
 void skull::render(HDC hdc)
 {
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom + 16));
+		_hpBar.render(hdc);
+	}
 	switch (_state)
 	{
 	case STAY:
@@ -48,7 +52,6 @@ void skull::render(HDC hdc)
 		IMAGEMANAGER->frameRender("skullAppear", hdc, CAMERA->GetRelativeX(rc.left - 13),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-
 	}
 }
 

@@ -175,7 +175,7 @@ int cameraManager::GetRelativeY(int posY)
 
 RECT cameraManager::GetRelativeRc(RECT rc)
 {
-	if (GetZoom() == 1) {
+	if (CAMERA->movelimit) {
 		return { long(rc.left*GetZoom()),
 			long(rc.top*GetZoom()),
 			long(rc.right*GetZoom()),
@@ -227,6 +227,7 @@ void cameraManager::update()
 
 				if (_zoomForce >= 0) {
 					if (_currentZoomForce >= _zoomForce) {
+						_currentZoomForce = _zoomForce;
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else
@@ -235,6 +236,7 @@ void cameraManager::update()
 				}
 				else {
 					if (_currentZoomForce <= _zoomForce) {
+						_currentZoomForce = _zoomForce;
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else

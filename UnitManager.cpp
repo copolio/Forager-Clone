@@ -1,4 +1,4 @@
-	#include "stdafx.h"
+#include "stdafx.h"
 #include "UnitManager.h"
 
 void UnitManager::init()
@@ -28,7 +28,9 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
 
-
+	// 체력바
+	IMAGEMANAGER->addImage("hpBarBG", "Images/이미지/NPC/NPC체력(뒤).bmp", 50, 20, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("hpBar", "Images/이미지/NPC/NPC체력(앞).bmp", 40, 10, true, RGB(255, 0, 255));
 }
 
 void UnitManager::release()
