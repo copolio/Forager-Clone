@@ -34,6 +34,10 @@ HRESULT inGameMenu::init()
 	ITEMMANAGER->setvInventory_info(_inven->get_inven());
 	ITEMMANAGER->set_equip_info(_equip->getequip());
 	ITEMMANAGER->setMoney(_inven->getMoney());
+
+	IMAGEMANAGER->addImage("greentile", "Images/이미지/타일/img_tile_green.bmp", 56, 56);
+	IMAGEMANAGER->addImage("redtile", "Images/이미지/타일/img_tile_red.bmp", 56, 56);
+
 	return S_OK;
 }
 

@@ -220,6 +220,18 @@ RECT earth::GetIslandRc(int x, int y)
 	
 }
 
+bool earth::HasIsland(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 tile* earth::tileMouseTarget()
 {
 	for (int i = 0; i < _vTile.size(); i++) {
