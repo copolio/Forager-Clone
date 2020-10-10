@@ -8,7 +8,6 @@ HRESULT cow::init()
 	cowIdleCount = 0;
 	cowAttackRange = 300;
 	_state = STAY;
-
 	return S_OK;
 }
 
@@ -21,7 +20,11 @@ void cow::update()
 
 void cow::render(HDC hdc)
 {
-	
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom + 16));
+		_hpBar.render(hdc);
+	}
+
 	switch (_state)
 	{
 	case STAY:

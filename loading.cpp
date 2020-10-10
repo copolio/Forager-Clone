@@ -101,7 +101,7 @@ HRESULT loading::init()
 	_loadingBar = new progressBar;
 	_loadingBar->init("loadingBarFront", "loadingBarBack");
 	//로딩바 위치 초기화
-	_loadingBar->setPos(100, 500);
+	//_loadingBar->setPos(100, 500);
 
 	//현재 게이지
 	_currentGauge = 0;
@@ -118,7 +118,7 @@ void loading::release()
 void loading::update()
 {
 	//로딩바 클래스 업데이트
-	_loadingBar->update();
+	//_loadingBar->update();
 }
 
 void loading::render()
@@ -126,7 +126,7 @@ void loading::render()
 	//백그라운드 이미지 렌더
 	_background->render(getMemDC(), 0, 0);
 	//로딩바 클래스 렌더
-	_loadingBar->render();
+	//_loadingBar->render();
 }
 
 void loading::loadImage(string strKey, int width, int height)
@@ -221,7 +221,7 @@ bool loading::loadingDone()
 	_currentGauge++;
 
 	//로딩바 이미지 변경
-	_loadingBar->setGauge(_vLoadItem.size(), _currentGauge);
+	//_loadingBar->setGauge(_vLoadItem.size(), _currentGauge);
 
 	return false;
 }

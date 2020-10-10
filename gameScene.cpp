@@ -62,7 +62,7 @@ void gameScene::update()
 		_player->update();
 
 		if (INPUT->GetKeyDown('I')) {
-			if (CAMERA->GetZoom() < 1) {
+			if (!CAMERA->movelimit) {
 				CAMERA->forceZoomIn(0, 0.01f, false);
 				CAMERA->movelimit = true;
 			}

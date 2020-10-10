@@ -1,5 +1,7 @@
 #pragma once
 #include "gameObject.h"
+#include "progressBar.h"
+
 #define NUMUNIT 5 //빌딩 2개 + 자원 3개
 class dropItem{
 public:
@@ -9,8 +11,8 @@ public:
 class unit : public gameObject
 {
 
-private:
-
+protected:
+	progressBar _hpBar;
 	
 
 public:

@@ -12,6 +12,7 @@ class resource : public unit
 {
 public:
 	tile* _tile;
+
 public:
 	void setRandomRes(tile* tile);
 	void dead() override;

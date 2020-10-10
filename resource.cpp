@@ -36,6 +36,9 @@ void resource::setRandomRes(tile* tile)
 		break;
 	}
 	currentHp = maxHp;
+
+	_hpBar.init("hpBar", "hpBarBG");
+
 }
 
 void resource::dead()
@@ -58,6 +61,11 @@ void resource::dead()
 
 void resource::render(HDC hdc)
 {
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom));
+		_hpBar.render(hdc);
+	}
+
 	IMAGEMANAGER->frameRender(objKey, hdc,
 		CAMERA->GetRelativeX(rc.left),
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),

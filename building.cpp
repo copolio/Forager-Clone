@@ -3,6 +3,11 @@
 
 void building::render(HDC hdc)
 {
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom));
+		_hpBar.render(hdc);
+	}
+
 	IMAGEMANAGER->frameRender(objKey, hdc,
 		CAMERA->GetRelativeX(rc.left),
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
@@ -32,6 +37,8 @@ void building::setBuilding(string buildingName, tile* _tile)
 	this->maxHp = BUILDINGHP;
 	this->exp = 0;
 	currentHp = maxHp;
+
+	_hpBar.init("hpBar", "hpBarBG");
 }
 
 void building::setBuilding(string buildingName, vector<tile*> tiles)
@@ -52,6 +59,8 @@ void building::setBuilding(string buildingName, vector<tile*> tiles)
 	this->maxHp = BUILDINGHP;
 	this->exp = 0;
 	currentHp = maxHp;
+
+	_hpBar.init("hpBar", "hpBarBG");
 }
 
 void building::dead()
