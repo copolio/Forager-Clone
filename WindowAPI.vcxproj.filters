@@ -287,6 +287,7 @@
     </ClCompile>
     <ClCompile Include="anviltooltip.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\anviltooltip</Filter>
+    </ClCompile>
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="reactImage.cpp">
       <Filter>GameFramework\MainGame\Forager\UI</Filter>
