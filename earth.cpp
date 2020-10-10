@@ -191,6 +191,8 @@ void earth::setIsland(int x, int y)
 
 int earth::GetIslandX(int index)
 {
+	index = index < 0 ? 0 : index;
+	index = index > 7055 ? 7055 : index;
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			if (i*MAPTILEY + j == index) {
@@ -202,6 +204,8 @@ int earth::GetIslandX(int index)
 
 int earth::GetIslandY(int index)
 {
+	index = index < 0 ? 0 : index;
+	index = index > 7055 ? 7055 : index;
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			if (i*MAPTILEY + j == index) {
