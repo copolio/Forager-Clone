@@ -98,6 +98,10 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_MOUSEMOVE:
 		_ptMouse.x = LOWORD(lParam);
 		_ptMouse.y = HIWORD(lParam);
+		_ptMouse.x = _ptMouse.x < 0 ? 0 : _ptMouse.x;
+		_ptMouse.x = _ptMouse.x > WINSIZEX ? WINSIZEX : _ptMouse.x;
+		_ptMouse.y = _ptMouse.y < 0 ? 0 : _ptMouse.y;
+		_ptMouse.y = _ptMouse.y > WINSIZEY ? WINSIZEY : _ptMouse.y;
 		break;
 	case WM_KEYDOWN:
 		switch (wParam)
