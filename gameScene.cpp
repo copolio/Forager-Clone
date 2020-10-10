@@ -61,6 +61,7 @@ void gameScene::update()
 		if (INPUT->GetKeyDown('I')) {
 			if (CAMERA->GetZoom() < 1) {
 				CAMERA->forceZoomIn(0, 0.01f, false);
+				CAMERA->movelimit = true;
 			}
 			if (inven_open) {
 				inven_open = false;

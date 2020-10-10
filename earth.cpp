@@ -237,3 +237,12 @@ int earth::tileMouseTargetIndex()
 		}
 	}
 }
+
+int earth::tileColMouseTargetIndex()
+{
+	for (int i = 0; i < _vTile.size(); i++) {
+		if (PtInRect(&CAMERA->GetRelativeRc(_vTile[i].rc), _ptMouse)) {
+			return i;
+		}
+	}
+}

@@ -16,15 +16,10 @@ void purchase_land::release()
 void purchase_land::update()
 {
 	_targetBox->update();
-	int _tileIndex = _map->tileMouseTargetIndex();
-	//_targetBox->SetTarget(CAMERA->GetRelativeRc(_map->tileMouseTarget()->rc), 1, _map->tileMouseTargetIndex(), 4, false);
-	_targetBox->SetTarget(CAMERA->GetRelativeRc(
-		_map->GetIslandRc(
-			_map->GetIslandX(_tileIndex),
-			_map->GetIslandY(_tileIndex))),
-		1, _tileIndex, 4, false);
-	cout << _tileIndex << " " << _map->GetIslandX(_tileIndex) << ", " << _map->GetIslandY(_tileIndex) << endl;
+	int _tileIndex = _map->tileColMouseTargetIndex();
 
+	_targetBox->SetTarget(CAMERA->GetRelativeRc(_map->GetIslandRc(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex))),
+		1, _tileIndex, 4, false);
 }
 
 void purchase_land::render(HDC hdc)

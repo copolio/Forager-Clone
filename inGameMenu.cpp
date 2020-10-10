@@ -62,6 +62,7 @@ void inGameMenu::update()
 	inven_Change_Key_Down();
 	if (_inven_Kind != PURCHASE_LAND && CAMERA->GetZoom() < 1) {
 		CAMERA->forceZoomIn(0, 0.01f, false);
+		CAMERA->movelimit = true;
 	}
 	switch (_inven_Kind)
 	{
@@ -75,10 +76,10 @@ void inGameMenu::update()
 		_construction->update();
 		break;
 	case PURCHASE_LAND:
-		//CAMERA->SetZoomRate(0.6f);
-		//if (CAMERA->GetZoom() > 0.5f) {
-		//	CAMERA->forceZoomIn(-0.5f, -0.01f, false);
-		//}
+		if (CAMERA->GetZoom() > 0.5f) {
+			CAMERA->forceZoomIn(-0.5f, -0.01f, false);
+		 	CAMERA->movelimit = false;
+		}
 		_purchaese->update();
 		break;
 	case GAME_SETTING:

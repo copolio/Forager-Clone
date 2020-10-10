@@ -41,83 +41,112 @@ void cameraManager::targetFollow(int targetX, int targetY)
 		_zoomRate -= 0.1f;
 	}
 	else if (INPUT->GetKeyDown('9')) {
+		movelimit = false;
 		forceZoomIn(-0.5f, -0.01f, false);
 	}
 	else if (INPUT->GetKeyDown('0')) {
+		movelimit = true;
 		forceZoomIn(0, 0.01f, false);
 	}
 
-	_targetX = targetX;
-	_targetY = targetY;
 
-	// 카메라 중심은 (타겟 위치 - 화면 사이즈 고정비)
-	int centerX = _targetX - (WINSIZEX * _anchorX);
-	int centerY = _targetY - (WINSIZEY * _anchorY);
+	if (movelimit) {
+		_targetX = targetX;
+		_targetY = targetY;
+
+		// 카메라 중심은 (타겟 위치 - 화면 사이즈 고정비)
+		int centerX = _targetX - (WINSIZEX * _anchorX);
+		int centerY = _targetY - (WINSIZEY * _anchorY);
+
+		// 카메라 중심이 왼쪽끝 오른쪽끝을 넘지 않게 예외처리
+		if (centerX - (_cameraWidth * 0.5f) <= _minX)
+			_posX = _minX;
+		else if (centerX + (_cameraWidth * 0.5f) >= _maxX)
+			_posX = _maxX - (_cameraWidth * 0.5f);
+		else
+			_posX = centerX;
+
+
+		// 카메라 중심이 위 아래 끝을 넘지 않게 예외처리.
+		if (_targetY <= _minY)
+			_posY = _minY;
+		else if (_targetY + (_cameraHeight * 0.5f) >= _maxY)
+			_posY = _maxY - (_cameraHeight * 0.5f);
+		else
+			_posY = centerY;
+
+
+		int t_left = _targetX - (_targetX * _zoomRate);
+		int t_top = _targetY - (_targetY * _zoomRate);
+		int t_width = _cameraWidth + (_cameraWidth * _zoomRate);
+		int t_height = _cameraHeight + (_cameraHeight * _zoomRate);
+
+		_rcCamBound = RectMakeCenter(t_left, t_top, t_width, t_height);
+	}
 	
-	// 카메라 중심이 왼쪽끝 오른쪽끝을 넘지 않게 예외처리
-	if (centerX - (_cameraWidth * 0.5f) <= _minX)
-		_posX = _minX;
-	else if (centerX + (_cameraWidth * 0.5f) >= _maxX)
-		_posX = _maxX - (_cameraWidth * 0.5f);
-	else
-		_posX = centerX;
-
-
-	// 카메라 중심이 위 아래 끝을 넘지 않게 예외처리.
-	if (_targetY <= _minY)
-		_posY = _minY;
-	else if (_targetY + (_cameraHeight * 0.5f) >= _maxY)
-		_posY = _maxY - (_cameraHeight * 0.5f);
-	else
-		_posY = centerY;
-
-
-	int t_left = _targetX - (_targetX * _zoomRate);
-	int t_top = _targetY - (_targetY * _zoomRate);
-	int t_width = _cameraWidth + (_cameraWidth * _zoomRate);
-	int t_height = _cameraHeight + (_cameraHeight * _zoomRate);
-
-	_rcCamBound = RectMakeCenter(t_left, t_top, t_width, t_height);
 }
 
 void cameraManager::camFocusCursor(POINT ptMouse)
 {
-	float lerpX = .0f;
-	float lerpY = .0f;
-	float lerpValueX = .0f;
-	float lerpValueY = .0f;
-
-	int relativeMouseX = (_posX + ptMouse.x);
-	int relativeMouseY = (_posY + ptMouse.y);
-
-
-	int distanceX = _targetX - relativeMouseX;
-	int distanceY = _targetY - relativeMouseY;
-
-	bool IsRight = (distanceX <= 0) ? true : false;
-	bool IsDown = (distanceY <= 0) ? true : false;
-
-	distanceX = abs(distanceX);
-	distanceY = abs(distanceY);
-
-	lerpValueX = (distanceX < 50) ?  .1f :
-				 (distanceX < 100) ? .15f :
-				 (distanceX < 250) ? .2f : .25f;
-	lerpValueY = (distanceY < 50) ?  .1f :
-	 			 (distanceY < 150) ? .15f :
-	 			 (distanceY < 250) ? .2f : .25f;
-
-	lerpX = (float)(distanceX) * lerpValueX;
-	lerpY = (float)(distanceY) * lerpValueY;
-
-
-	_posX += (IsRight)? lerpX : -lerpX;
-	_posY += (IsDown) ? lerpY : -lerpY;
+	
 
 	if (!movelimit) {
-		_rcCamRealBound = RectMakeCenter(ptMouse.x, ptMouse.y, _cameraWidth, _cameraHeight);
+
+		int speed = 5;
+
+		// 우측으로 이동
+		if (ptMouse.x >= (WINSIZEX / 2) + 150) {
+			_posX += speed;
+		}
+		// 좌측으로
+		else if (ptMouse.x <= (WINSIZEX / 2) - 150) {
+			_posX -= speed;
+		}		
+		// 아래로 이동
+		if (ptMouse.y >= (WINSIZEY / 2) + 150) {
+			_posY += speed;
+		}
+		// 위로
+		else if (ptMouse.y <= (WINSIZEY / 2) - 150) {
+			_posY -= speed;
+		}
+
+
+		
 	}
 	else {
+		float lerpX = .0f;
+		float lerpY = .0f;
+		float lerpValueX = .0f;
+		float lerpValueY = .0f;
+
+		int relativeMouseX = (_posX + ptMouse.x);
+		int relativeMouseY = (_posY + ptMouse.y);
+
+
+		int distanceX = _targetX - relativeMouseX;
+		int distanceY = _targetY - relativeMouseY;
+
+		bool IsRight = (distanceX <= 0) ? true : false;
+		bool IsDown = (distanceY <= 0) ? true : false;
+
+		distanceX = abs(distanceX);
+		distanceY = abs(distanceY);
+
+		lerpValueX = (distanceX < 50) ? .1f :
+			(distanceX < 100) ? .15f :
+			(distanceX < 250) ? .2f : .25f;
+		lerpValueY = (distanceY < 50) ? .1f :
+			(distanceY < 150) ? .15f :
+			(distanceY < 250) ? .2f : .25f;
+
+		lerpX = (float)(distanceX)* lerpValueX;
+		lerpY = (float)(distanceY)* lerpValueY;
+
+
+		_posX += (IsRight) ? lerpX : -lerpX;
+		_posY += (IsDown) ? lerpY : -lerpY;
+
 		_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
 	}
 }
@@ -153,11 +182,14 @@ RECT cameraManager::GetRelativeRc(RECT rc)
 			long(rc.bottom*GetZoom()) };
 	}
 	else {
-		return { long(rc.left*GetZoom() + (rc.right*GetZoom() - rc.left*GetZoom()) / 2),
-			long(rc.top*GetZoom() + (rc.bottom*GetZoom() - rc.top*GetZoom()) / 2),
-			long(rc.right*GetZoom() + (rc.right*GetZoom() - rc.left*GetZoom()) / 2),
-			long(rc.bottom*GetZoom() + (rc.bottom*GetZoom() - rc.top*GetZoom()) / 2) };
+		return { long(GetRelativeX(rc.left) * GetZoom()),
+				long(GetRelativeY(rc.top)* GetZoom()),
+				long(GetRelativeX(rc.right)* GetZoom()),
+				long(GetRelativeY(rc.bottom)* GetZoom()) };
 	}
+
+
+	
 	
 }
 
@@ -173,12 +205,12 @@ RECT cameraManager::GetRelativeRc(RECT rc)
 
 POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 {
+
 	ptMouse.x += _posX;
 	ptMouse.y += _posY;
 
 	return ptMouse;
 }
-
 
 // 테스트용
 void cameraManager::render(HDC hdc)
@@ -195,7 +227,6 @@ void cameraManager::update()
 
 				if (_zoomForce >= 0) {
 					if (_currentZoomForce >= _zoomForce) {
-
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else
@@ -204,7 +235,6 @@ void cameraManager::update()
 				}
 				else {
 					if (_currentZoomForce <= _zoomForce) {
-
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else

@@ -43,6 +43,7 @@ public:
 	RECT GetTileRc(int index) { return _vTile[index].rc; }
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();
+	int tileColMouseTargetIndex();
 	void setTileHasUnit(int index) { 
 		_vTile[index].hasUnit = true;
 		_vTile[index].canPass = false;

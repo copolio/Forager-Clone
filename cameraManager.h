@@ -25,7 +25,7 @@ private:
 	bool _zoomRecoilBack;			// 줌 강제 원위치 시작
 	bool _isAutoBack;				// 줌 강제 원위치를 시킬지
 public:
-	bool movelimit;
+	bool movelimit = true;
 public:
 	// 초기화
 	void init(int posX, int posY, int targetX, int targetY, float anchorX, float anchorY, int width, int height, int minX, int minY, int maxX, int maxY);
