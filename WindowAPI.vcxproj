@@ -157,6 +157,7 @@
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="construction.h" />
     <ClInclude Include="construction_tool_tip.h" />
+    <ClInclude Include="cow.h" />
     <ClInclude Include="cursor.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="EffectManager.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="construction.cpp" />
     <ClCompile Include="construction_tool_tip.cpp" />
+    <ClCompile Include="cow.cpp" />
     <ClCompile Include="cursor.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="EffectManager.cpp" />
@@ -272,9 +274,6 @@
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

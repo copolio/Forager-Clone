@@ -36,7 +36,6 @@ void quick_slot::quick_slot_update()
 	for (int i = 0; i < ITEMMANAGER->get_equip_info().size(); i++) {
 
 		if (ITEMMANAGER->get_equip_info()[i]->Kinds == ITEM_EQUIP ) {
-			cout << "a" << endl;
 			inventory_slot* inven = new inventory_slot;
 			inven->isCheck = false;
 			inven->Kinds = ITEMMANAGER->get_equip_info()[i]->Kinds;

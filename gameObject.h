@@ -16,10 +16,11 @@ enum class TAG
 class gameObject
 {
 public:
-	int x, y;
+	float x, y;
 	RECT rc;
 	LAYER layer;
 	TAG tag;	
+	
 
 
 public:
