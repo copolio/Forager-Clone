@@ -24,7 +24,8 @@ private:
 	bool _isZoomForce;				// 강제로 줌 시키는 중인지
 	bool _zoomRecoilBack;			// 줌 강제 원위치 시작
 	bool _isAutoBack;				// 줌 강제 원위치를 시킬지
-	
+public:
+	bool movelimit;
 public:
 	// 초기화
 	void init(int posX, int posY, int targetX, int targetY, float anchorX, float anchorY, int width, int height, int minX, int minY, int maxX, int maxY);
@@ -43,9 +44,7 @@ public:
 	// 상대좌표
 	int GetRelativeX(int posX);
 	int GetRelativeY(int posY);
-	RECT GetRelativeRc(RECT rc) {
-		return { long(rc.left*GetZoom()), long(rc.top*GetZoom()), long(rc.right*GetZoom()), long(rc.bottom*GetZoom())};
-	};	
+	RECT GetRelativeRc(RECT rc);	
 	float GetZoom() { return _zoomRate + _currentZoomForce; };
 	
 	// 마우스 상대좌표 (마우스는 절대 좌표로 화면에 그려지고, 클릭할 때는 상대좌표를 얻어와서 타일과 충돌여부 판단)

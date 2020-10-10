@@ -26,6 +26,7 @@ void cameraManager::init(int posX, int posY, int targetX, int targetY, float anc
 	_currentZoomForce = 0;
 	_isZoomForce = false;
 	_zoomRecoilBack = false;
+	movelimit = true;
 }
 
 
@@ -81,8 +82,6 @@ void cameraManager::targetFollow(int targetX, int targetY)
 
 void cameraManager::camFocusCursor(POINT ptMouse)
 {
-	int limitX = 250;
-	int limitY = 250;
 	float lerpX = .0f;
 	float lerpY = .0f;
 	float lerpValueX = .0f;
@@ -115,7 +114,12 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 	_posX += (IsRight)? lerpX : -lerpX;
 	_posY += (IsDown) ? lerpY : -lerpY;
 
-	_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
+	if (!movelimit) {
+		_rcCamRealBound = RectMakeCenter(ptMouse.x, ptMouse.y, _cameraWidth, _cameraHeight);
+	}
+	else {
+		_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
+	}
 }
 
 void cameraManager::forceZoomIn(float force, float zoomSpeed, bool isAutoOriginBack)
@@ -139,6 +143,31 @@ int cameraManager::GetRelativeY(int posY)
 	zoomOffset = TILESIZE * (GetZoom() * 10) - TILESIZE * 10;
 	return posY - _posY - ceilf(zoomOffset);
 }
+
+RECT cameraManager::GetRelativeRc(RECT rc)
+{
+	if (GetZoom() == 1) {
+		return { long(rc.left*GetZoom()),
+			long(rc.top*GetZoom()),
+			long(rc.right*GetZoom()),
+			long(rc.bottom*GetZoom()) };
+	}
+	else {
+		return { long(rc.left*GetZoom() + (rc.right*GetZoom() - rc.left*GetZoom()) / 2),
+			long(rc.top*GetZoom() + (rc.bottom*GetZoom() - rc.top*GetZoom()) / 2),
+			long(rc.right*GetZoom() + (rc.right*GetZoom() - rc.left*GetZoom()) / 2),
+			long(rc.bottom*GetZoom() + (rc.bottom*GetZoom() - rc.top*GetZoom()) / 2) };
+	}
+	
+}
+
+//RECT cameraManager::GetRelativeRc(RECT rc)
+//{
+//	return { GetRelativeX(rc.left),
+//		GetRelativeY(rc.top*GetZoom()),
+//		GetRelativeX(rc.right*GetZoom()),
+//		GetRelativeY(rc.bottom*GetZoom()) };
+//}
 
 
 

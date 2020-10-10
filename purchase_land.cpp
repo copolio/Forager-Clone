@@ -22,7 +22,7 @@ void purchase_land::update()
 		_map->GetIslandRc(
 			_map->GetIslandX(_tileIndex),
 			_map->GetIslandY(_tileIndex))),
-		1, _map->tileMouseTargetIndex(), 4, false);
+		1, _tileIndex, 4, false);
 	cout << _tileIndex << " " << _map->GetIslandX(_tileIndex) << ", " << _map->GetIslandY(_tileIndex) << endl;
 
 }
