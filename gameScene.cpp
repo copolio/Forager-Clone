@@ -29,13 +29,17 @@ HRESULT gameScene::init()
 	_quick_slot->target(0);
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
-	
+
 
 	//스폰 매니져 구현시, 삭제!
 	enemy* _enemy = new enemy;
+
 	UNITMANAGER->AddUnits(_enemy,"skull");
+	_enemy = new enemy;
+	UNITMANAGER->AddUnits(_enemy,"cow");
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
+
 	return S_OK;
 }
 
