@@ -8,6 +8,7 @@
 #include "unit.h"
 #include "skull.h"
 #include "cow.h"
+#include "earth.h"
 
 class UnitManager : public singletonBase<UnitManager>
 {
@@ -20,6 +21,7 @@ private:
 
 	unit* _player;
 	
+	
 
 public:
 	void init();
@@ -28,12 +30,15 @@ public:
 	void render(HDC hdc);
 
 	void AddUnits(unit* p_unit);
+	void AddUnits(skull* p_unit, bool test);
 	void AddUnits(tile* p_tile);
 	void AddUnits(unit* p_enemy, string p_monsterName);
 	void AddUnits(string p_itemKey, POINT p_pos);
 
 	void AddBuilding(string buildkey, tile* _tile);
 	void AddBuilding(string buildkey, vector<tile*> tiles);
+
+	
 
 
 public:

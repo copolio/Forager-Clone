@@ -7,6 +7,8 @@ private :
 	int skullMoveCount;
 	int skullIdleCount;
 	int skullAttackRange;
+	int searchCount;
+	POINT _destination;
 
 public :
 	HRESULT init();

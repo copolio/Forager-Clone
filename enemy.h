@@ -1,5 +1,7 @@
 #pragma once
 #include "unit.h"
+#include "earth.h"
+
 
 #define PI 3.1415926f
 
@@ -17,11 +19,18 @@ enum COWSTATE
 	DASH,
 };
 
+class earth;
 class enemy :public unit
 {
 protected:
 	
 	unit* _target;
+	earth* _map;
+
+
+	int FindEnemyTilePos();
+
+
 protected : 
 
 	SKULLSTATE _state;
@@ -36,16 +45,28 @@ protected :
 	bool isLeft;
 	bool isAngle;
 	bool enemyMoving;
+	bool checkDestination;
+
+	int _enemyTilePos;
+
+
+	
+	vector<int> _vDestTileIndex;
+	int _destCount;
 
 public:
-	
-	
-	
-
+	void setLinkMap(earth* map) { _map = map; };
+	earth* getMap() { return _map; };
 	virtual void setEnemy(string key, string itemkey, unit* target);
 	virtual void render(HDC hdc) override;
 	virtual void update() override;
 	virtual void dead() override;
+	
+
+	
+	
+
+	
 	
 	
 	

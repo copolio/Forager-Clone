@@ -106,18 +106,20 @@ void UnitManager::CheckRemoveUnit()
 }
 
 
-
-
-
-
 void UnitManager::AddUnits(unit* p_unit)
 {
 	_player = p_unit;
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(skull* p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 void UnitManager::AddUnits(tile* p_tile)
 {
+	
 	resource* _res = new resource;
 	_res->setRandomRes(p_tile);
 	_vUnits.push_back(_res);
@@ -128,10 +130,9 @@ void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
 	//ÇØ°ñ
 	if (p_monsterName == "skull")
 	{
-		skull* _skull = new skull;
-		_skull->setEnemy(p_monsterName, "skullHeadDrop", _player);
-		_skull->init();
-		_vUnits.push_back(_skull);
+		
+		
+		_vUnits.push_back(p_enemy);
 	}
 	
 	//¼Ò
