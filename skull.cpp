@@ -21,8 +21,22 @@ HRESULT skull::init()
 void skull::update()
 {
 	skullAnimation();
-	skullMove();
-	if (_state != APPEAR) {
+	switch (_state)
+	{
+	case STAY:
+		skullMove();
+		break;
+	case ATTACK:
+		break;
+	case APPEAR:
+		break;
+	case IDLE2:
+		break;
+	default:
+		break;
+	}
+	
+	if (_state != APPEAR ) {
 		canAttackCheck();
 	}
 	skullLookDirection();
@@ -54,76 +68,70 @@ void skull::render(HDC hdc)
 //1타일씩 상하좌우 랜덤움직이는데, 총 5번 
 void skull::skullMove()
 {
-	if (_state == IDLE2 || _state == STAY)
+	if (!checkDestination)
 	{
-		if (!checkDestination)
+		searchCount++;
+		if (searchCount > 200)
 		{
-			searchCount++;
-			if (searchCount > 200)
+			for (int i = 0; i < 5; i++)
 			{
-				for (int i = 0; i < 5; i++)
+				int random = RANDOM->range(0, 3);
+				switch (random)
 				{
-					int random = RANDOM->range(0, 3);
-					switch (random)
-					{
-					case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
-						break;
-					case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
-						break;
-					case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
-						break;
-					case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
-						break;
-					}
-					_enemyTilePos = _vDestTileIndex[i];
+				case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
+					break;
+				case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
+					break;
+				case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
+					break;
+				case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
+					break;
 				}
-
-				checkDestination = true;
-				_destCount = 0;
-
+				_enemyTilePos = _vDestTileIndex[i];
 			}
 
-			//ㅇㄹㅇㄹㅇ
-		}
-		else
-		{
-			if (_vDestTileIndex.size() > 0)
-			{
-				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
-				if (abs(rc.left - tDestination.x) > 2 || abs(rc.top - tDestination.y) > 2)
-				{
-					if (tDestination.x < rc.left)
-					{
-						OffsetRect(&rc, -2, 0);
-					}
-					else if (tDestination.x > rc.left)
-					{
-						OffsetRect(&rc, 2, 0);
-					}
-					if (tDestination.y > rc.top)
-					{
-						OffsetRect(&rc, 0, 2);
-					}
-					else if (tDestination.y < rc.top)
-					{
-						OffsetRect(&rc, 0, -2);
-					}
+			checkDestination = true;
+			_destCount = 0;
 
-				}
-				else
+		}
+	}
+	else
+	{
+		if (_vDestTileIndex.size() > 0)
+		{
+			POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
+			if (abs(rc.left - tDestination.x) > 2 || abs(rc.top - tDestination.y) > 2)
+			{
+				if (tDestination.x < rc.left)
 				{
-					_destCount++;
-					if (_vDestTileIndex.size() <= _destCount)
-					{
-						checkDestination = false;
-						searchCount = 0;
-						_vDestTileIndex.clear();
-					}
+					OffsetRect(&rc, -2, 0);
+				}
+				else if (tDestination.x > rc.left)
+				{
+					OffsetRect(&rc, 2, 0);
+				}
+				if (tDestination.y > rc.top)
+				{
+					OffsetRect(&rc, 0, 2);
+				}
+				else if (tDestination.y < rc.top)
+				{
+					OffsetRect(&rc, 0, -2);
+				}
+
+			}
+			else
+			{
+				_destCount++;
+				if (_vDestTileIndex.size() <= _destCount)
+				{
+					checkDestination = false;
+					searchCount = 0;
+					_vDestTileIndex.clear();
 				}
 			}
 		}
 	}
-	
 }
 
 void skull::canAttackCheck()
@@ -134,23 +142,22 @@ void skull::canAttackCheck()
 		{
 			tryAttack = true;
 		}
-
+		else
+			_state = STAY;
 	}
 	else
 	{
+		_state = IDLE2;
 		skullHitWaitCount++;
-
 		if (skullHitWaitCount > 120)
 		{
 			if (skullHitCount == 23) {
 				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
 					IMAGEMANAGER->findImage("스테미나")->setWidth(15);
-				//_target->hurt(Atk);
 			}
 			_state = ATTACK;
 		}
-		else
-			_state = IDLE2;
+		
 	}
 }
 
@@ -207,13 +214,13 @@ void skull::skullAnimation()
 		//해골 공격
 	case ATTACK:
 		objFrameY = (isLeft) ? 1 : 0;
-		objFrameX = _index;
+		objFrameX = _attackIndex;
 		if (skullHitCount++ % 10 == 0)
 		{
-			if (_index++ > 5)
+			if (_attackIndex++ > 5)
 			{
 				skullHitCount = 1;
-				_index = 0;
+				_attackIndex = 0;
 				skullHitWaitCount = 0;
 				tryAttack = false;
 			}

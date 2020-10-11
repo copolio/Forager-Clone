@@ -40,6 +40,7 @@ void enemy::setEnemy(string key, string itemkey, unit* target)
 	enemySpeedX = 3;
 	enemySpeedY = 3;
 	_index = 0;
+	_attackIndex = 0;
 	_count = 0;
 	_appearCount = 0;
 	

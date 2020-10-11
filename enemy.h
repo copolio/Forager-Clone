@@ -37,6 +37,7 @@ protected :
 	SKULLSTATE _state;
 	COWSTATE _state2;
 	int _index;
+	int _attackIndex;
 	int _count;
 	int _enemyMoveCount;
 	int _appearCount;
