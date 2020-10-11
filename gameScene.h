@@ -5,12 +5,12 @@
 #include "earth.h"
 #include "cursor.h"
 #include "quick_slot.h"
-#include "productionManager.h"
+
 
 class gameScene :public gameNode
 {
 private:
-	productionManager* _production;
+
 	ForagerPlayer* _player;
 	inGameMenu* _Menu;
 	earth* _map;

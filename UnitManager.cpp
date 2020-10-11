@@ -163,6 +163,13 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 	}
 }
 
+void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
+{
+	fieldItem* t_fieldItem = new fieldItem;
+	t_fieldItem->setFieldItem(p_pos, p_itemKey);
+	_vUnits.push_back(t_fieldItem);
+}
+
 void UnitManager::AddBuilding(string buildkey, tile * _tile)
 {
 	building* _building = new building;
@@ -175,8 +182,11 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
 	building* _building = new building;
 	_building->setBuilding(buildkey, tiles);
 	_vUnits.push_back(_building);
-	_production->settion(_building->rc);
+	PRODUCTIONMANAGER->settion(_building->rc);
+	//_production->settion(_building->rc);
 
 }
+
+
 
 

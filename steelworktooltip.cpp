@@ -17,6 +17,7 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		TEXTMANAGER->ShowText(hdc, "/  1", pos, 20, 0);
 		if (cilck()) {
 			click_item_event(num);
+			
 		}
 		break;
 	case 1:
@@ -66,13 +67,13 @@ void steelworktooltip::click_item_event(int num)
 	{
 	case 0:
 		if (ITEMMANAGER->Item_count_Minus("treeDrop", 1)) {
-			ITEMMANAGER->vItem_push("coal");
+			PRODUCTIONMANAGER->isCount("coal");
 		}
 
 		break;
 	case 1:
 		if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "coal",2)) {
-			ITEMMANAGER->vItem_push("brick");
+			
 		}
 		break;
 	case 2:

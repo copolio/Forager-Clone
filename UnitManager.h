@@ -9,14 +9,12 @@
 #include "skull.h"
 #include "cow.h"
 
-class productionManager;
 class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
 
 
-	productionManager* _production;				//건물 설치시 위치 받기
 private:
 	void Sorting();
 	void CheckRemoveUnit();
@@ -38,12 +36,9 @@ public:
 	void AddBuilding(string buildkey, tile* _tile);
 	void AddBuilding(string buildkey, vector<tile*> tiles);
 
+	void AddProduction(string p_itemKey, POINT p_pos);
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };
-
-	void setproductionInfo(productionManager* _p) {
-		_production = _p;
-	}
 };
 
