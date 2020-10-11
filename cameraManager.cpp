@@ -19,7 +19,6 @@ void cameraManager::init(int posX, int posY, int targetX, int targetY, float anc
 	_maxX = maxX;
 	_maxY = maxY;
 	_rcCamRealBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
-	_rcCamBound = RectMakeCenter(_posX, _posY, _cameraWidth, _cameraHeight);
 
 	zoomOffset = 0;
 	zoomCount = 0;
@@ -33,55 +32,18 @@ void cameraManager::init(int posX, int posY, int targetX, int targetY, float anc
 
 void cameraManager::targetFollow(int targetX, int targetY)
 {
-	if (INPUT->GetKeyDown('5')) {
-		_zoomRate += 0.1f;
-
-	}
-	else if (INPUT->GetKeyDown('6')) {
-		_zoomRate -= 0.1f;
-	}
-	else if (INPUT->GetKeyDown('9')) {
-		movelimit = false;
-		forceZoomIn(-0.5f, -0.01f, false);
-	}
-	else if (INPUT->GetKeyDown('0')) {
-		movelimit = true;
-		forceZoomIn(0, 0.01f, false);
-	}
-
-
 	if (movelimit) {
 		_targetX = targetX;
 		_targetY = targetY;
 
 		// 카메라 중심은 (타겟 위치 - 화면 사이즈 고정비)
-		int centerX = _targetX - (WINSIZEX * _anchorX);
-		int centerY = _targetY - (WINSIZEY * _anchorY);
+		_posX = _targetX - (WINSIZEX * _anchorX);
+		_posY = _targetY - (WINSIZEY * _anchorY);
 
-		// 카메라 중심이 왼쪽끝 오른쪽끝을 넘지 않게 예외처리
-		if (centerX - (_cameraWidth * 0.5f) <= _minX)
-			_posX = _minX;
-		else if (centerX + (_cameraWidth * 0.5f) >= _maxX)
-			_posX = _maxX - (_cameraWidth * 0.5f);
-		else
-			_posX = centerX;
+		int t_width = _cameraWidth / GetZoom();
+		int t_height = _cameraHeight / GetZoom();
 
-
-		// 카메라 중심이 위 아래 끝을 넘지 않게 예외처리.
-		if (_targetY <= _minY)
-			_posY = _minY;
-		else if (_targetY + (_cameraHeight * 0.5f) >= _maxY)
-			_posY = _maxY - (_cameraHeight * 0.5f);
-		else
-			_posY = centerY;
-
-
-		int t_left = _targetX - (_targetX * _zoomRate);
-		int t_top = _targetY - (_targetY * _zoomRate);
-		int t_width = _cameraWidth + (_cameraWidth * _zoomRate);
-		int t_height = _cameraHeight + (_cameraHeight * _zoomRate);
-
-		_rcCamBound = RectMakeCenter(t_left, t_top, t_width, t_height);
+		//_rcCamBound = RectMakeCenter(_posX, _posY, t_width, t_height);
 	}
 	
 }
@@ -92,7 +54,7 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 
 	if (!movelimit) {
 
-		int speed = 5;
+		int speed = 8;
 
 		// 우측으로 이동
 		if (ptMouse.x >= (WINSIZEX / 2) + 150) {
@@ -111,8 +73,12 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 			_posY -= speed;
 		}
 
+		int x = _posX + (WINSIZEX * _anchorX) + 360;
+		int y = _posY + (WINSIZEY * _anchorY) + 80;
+		int t_width = _cameraWidth / GetZoom();
+		int t_height = _cameraHeight / GetZoom();
 
-		
+		_rcCamRealBound = RectMakeCenter(x, y, t_width, t_height);
 	}
 	else {
 		float lerpX = .0f;
@@ -133,12 +99,12 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 		distanceX = abs(distanceX);
 		distanceY = abs(distanceY);
 
-		lerpValueX = (distanceX < 50) ? .1f :
+		lerpValueX = (distanceX < 50) ? .125f :
 			(distanceX < 100) ? .15f :
-			(distanceX < 250) ? .2f : .25f;
-		lerpValueY = (distanceY < 50) ? .1f :
+			(distanceX < 250) ? .175f : .2f;
+		lerpValueY = (distanceY < 50) ? .125f :
 			(distanceY < 150) ? .15f :
-			(distanceY < 250) ? .2f : .25f;
+			(distanceY < 250) ? .175f : .2f;
 
 		lerpX = (float)(distanceX)* lerpValueX;
 		lerpY = (float)(distanceY)* lerpValueY;
@@ -146,8 +112,12 @@ void cameraManager::camFocusCursor(POINT ptMouse)
 
 		_posX += (IsRight) ? lerpX : -lerpX;
 		_posY += (IsDown) ? lerpY : -lerpY;
+		int x = _posX + (WINSIZEX * _anchorX);
+		int y = _posY + (WINSIZEY * _anchorY);
+		int t_width = (_cameraWidth + 56) / GetZoom();
+		int t_height = (_cameraHeight + 56) / GetZoom();
 
-		_rcCamRealBound = RectMakeCenter(_posX + ptMouse.x, _posY + ptMouse.y, _cameraWidth, _cameraHeight);
+		_rcCamRealBound = RectMakeCenter(x, y, t_width, t_height);
 	}
 }
 
@@ -193,15 +163,6 @@ RECT cameraManager::GetRelativeRc(RECT rc)
 	
 }
 
-//RECT cameraManager::GetRelativeRc(RECT rc)
-//{
-//	return { GetRelativeX(rc.left),
-//		GetRelativeY(rc.top*GetZoom()),
-//		GetRelativeX(rc.right*GetZoom()),
-//		GetRelativeY(rc.bottom*GetZoom()) };
-//}
-
-
 
 POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 {
@@ -215,7 +176,13 @@ POINT cameraManager::GetMouseRelativePos(POINT ptMouse)
 // 테스트용
 void cameraManager::render(HDC hdc)
 {
-	FrameRect(hdc, _rcCamBound, RGB(255, 0, 0));
+	RECT t_rc = _rcCamRealBound;
+	t_rc.left = GetRelativeX(t_rc.left)  * GetZoom();
+	t_rc.right = GetRelativeX(t_rc.right) * GetZoom();
+	t_rc.top = GetRelativeY(t_rc.top) * GetZoom();
+	t_rc.bottom = GetRelativeY(t_rc.bottom) * GetZoom();
+
+	FrameRect(hdc, t_rc, RGB(255, 0, 0));
 }
 
 void cameraManager::update()

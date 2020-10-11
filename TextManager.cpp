@@ -79,7 +79,7 @@ void TextManager::render(HDC hdc)
 
 
 
-void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align, COLORREF color, bool isBoundary, COLORREF colorBoundary)
+void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align, COLORREF color, bool isBoundary, COLORREF colorBoundary, int interval)
 {
 
 	if (align == 1)
@@ -96,7 +96,7 @@ void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align
 		hFont = CreateFont(size, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("배달의민족 주아"));
 		oldFont = (HFONT)SelectObject(hdc, hFont);
 		isOldFont = true;
-		TextOut(hdc, ptPos.x - 3, ptPos.y + 3, str.c_str(), strlen(str.c_str()));
+		TextOut(hdc, ptPos.x - interval, ptPos.y + interval, str.c_str(), strlen(str.c_str()));
 	}
 
 	SetTextColor(hdc, color);

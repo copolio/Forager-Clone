@@ -108,6 +108,12 @@ void ForagerStatManager::render(HDC hdc)
 		else
 			IMAGEMANAGER->render("expBar", hdc, _foragerExp->expRc.left + 4, _foragerExp->expRc.top + 3, 0, 0,
 				_expImgSizeMax * (float)(currentExp / (float)needExp[level]), 22);
+
+		string str = "Lv " + to_string(level + 1);
+		str.append(" (  " + to_string(currentExp));
+		str.append("  /  " + to_string(needExp[level]));
+		str.append(" )  ");
+		TEXTMANAGER->ShowText(hdc, str, { WINSIZEX / 2 , _foragerExp->expRc.top + 3 }, 22, 1, RGB(0,255,0), true, RGB(0,50,0), 2);
 	}
 
 }
