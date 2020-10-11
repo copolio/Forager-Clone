@@ -7,6 +7,14 @@ private :
 	int skullMoveCount;
 	int skullIdleCount;
 	int skullAttackRange;
+	int searchCount;
+	int skullHitCount;
+	int skullHitWaitCount;
+	bool hitPlayer;
+	bool tryAttack;
+	POINT _destination;
+
+	int Atk;
 
 public :
 	HRESULT init();

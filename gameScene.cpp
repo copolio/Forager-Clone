@@ -32,11 +32,15 @@ HRESULT gameScene::init()
 	UNITMANAGER->AddUnits(_player);
 
 	//스폰 매니져 구현시, 삭제!
-	enemy* _enemy = new enemy;
+	//enemy* _enemy = new enemy;
+	skull* _skull = new skull;
+	_skull->setLinkMap(_map);
+	_skull->setEnemy("skull", "skullHeadDrop", _player);
+	_skull->init();
 
-	UNITMANAGER->AddUnits(_enemy,"skull");
-	_enemy = new enemy;
-	UNITMANAGER->AddUnits(_enemy,"cow");
+	UNITMANAGER->AddUnits(_skull ,true);
+	//_enemy = new enemy;
+	//UNITMANAGER->AddUnits(_enemy,"cow");
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
 	SCENEMANAGER->set_ischeck(true);

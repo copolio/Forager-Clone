@@ -24,6 +24,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
@@ -108,18 +109,20 @@ void UnitManager::CheckRemoveUnit()
 }
 
 
-
-
-
-
 void UnitManager::AddUnits(unit* p_unit)
 {
 	_player = p_unit;
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(skull* p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 void UnitManager::AddUnits(tile* p_tile)
 {
+	
 	resource* _res = new resource;
 	_res->setRandomRes(p_tile);
 	_vUnits.push_back(_res);
@@ -130,10 +133,9 @@ void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
 	//해골
 	if (p_monsterName == "skull")
 	{
-		skull* _skull = new skull;
-		_skull->setEnemy(p_monsterName, "skullHeadDrop", _player);
-		_skull->init();
-		_vUnits.push_back(_skull);
+		
+		
+		_vUnits.push_back(p_enemy);
 	}
 	
 	//소
