@@ -185,6 +185,7 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="productionManager.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="purchase_land.h" />
     <ClInclude Include="quick_slot.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="productionManager.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="purchase_land.cpp" />
     <ClCompile Include="quick_slot.cpp" />

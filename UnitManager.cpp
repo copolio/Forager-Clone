@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "UnitManager.h"
-
+#include "productionManager.h"
 void UnitManager::init()
 {
 	//자원 1 (나무, 돌, 열매)
@@ -175,6 +175,8 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
 	building* _building = new building;
 	_building->setBuilding(buildkey, tiles);
 	_vUnits.push_back(_building);
+	_production->settion(_building->rc);
+
 }
 
 

@@ -49,6 +49,7 @@ public:
 public:
 	bool Item_industry_check(string key);
 	void _Item_industry_decrease(string key);
-
+	bool Item_count_Minus(string key, int count);
+	bool Item_count_Minus(string key, int count, string key2, int count2);
 };
 

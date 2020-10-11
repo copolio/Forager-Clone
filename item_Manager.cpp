@@ -136,8 +136,27 @@ void item_Manager::_Item_industry_decrease(string key)
 		}
 	}
 }
-//건설 완료시 재료 삭제
 
+//건설 완료시 재료 삭제
+bool item_Manager::Item_count_Minus(string key, int count)
+{
+	if (isItemCheck(key)) {
+		_item_push[itemfind(key)]->count -= count;
+		return true;
+	}
+	return false;
+
+}
+bool item_Manager::Item_count_Minus(string key, int count, string key2, int count2)
+{
+	if (isItemCheck(key) && isItemCheck(key2)) {
+		_item_push[itemfind(key)]->count -= count;
+		_item_push[itemfind(key2)]->count -= count2;
+		return true;
+	}
+	return false;
+}
+//키값을 찾아서 재료 감소
 
 bool item_Manager::isItemCheck(string key)
 {
@@ -168,12 +187,10 @@ ItemKinds item_Manager::itemKind(string key)
 	if (key == "berryDrop") {
 		return ITEM_FOOD;
 	}
-	else if (key == "rockDrop") {
+	else if (key == "rockDrop"|| key == "treeDrop"|| key == "coal" || key == "brick") {
 		return ITEM_MATERIAL;
 	}
-	else if (key == "treeDrop") {
-		return ITEM_MATERIAL;
-	}
+
 	return ITEM_NULL;
 }
 //아이템 종류 확인

@@ -10,6 +10,8 @@ HRESULT gameScene::init()
 	_player->init();
 	_map->setLinkPlayer(_player);
 
+	_production = new productionManager;
+	_production->init();
 	_cursor = new cursor;
 	_cursor->init();
 	_cursor->LinkMap(_map);
@@ -30,7 +32,7 @@ HRESULT gameScene::init()
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
 
-
+	UNITMANAGER->setproductionInfo(_production);
 	//스폰 매니져 구현시, 삭제!
 	enemy* _enemy = new enemy;
 
@@ -77,6 +79,8 @@ void gameScene::update()
 			}
 		}
 	}
+
+	_production->update();
 	if (inven_open && !_cursor->InteractionOpen()) {
 		_Menu->update();
 	}

@@ -22,8 +22,8 @@ private:
 public:
 	HRESULT init();
 	void release();
-	void update();
 	void targertrender(HDC hdc,string key);
+
 
 };
 
