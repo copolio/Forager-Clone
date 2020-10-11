@@ -6,7 +6,14 @@ HRESULT skull::init()
 	skullMoveCount = 0;
 	skullIdleCount = 0;
 	searchCount = 0;
-	skullAttackRange = 100;
+	skullHitCount = 0;
+	skullHitWaitCount = 0;
+	skullAttackRange = 80;
+
+	hitPlayer = false;
+	tryAttack = false;
+
+	Atk = 15;
 	
 	return S_OK;
 }
@@ -14,17 +21,7 @@ HRESULT skull::init()
 void skull::update()
 {
 	skullAnimation();
-	
-	switch (_state)
-	{
-	case STAY:
-		skullMove();
-		break;
-	case ATTACK:
-		break;
-	case APPEAR:
-		break;
-	}
+	skullMove();
 	if (_state != APPEAR) {
 		canAttackCheck();
 	}
@@ -47,127 +44,113 @@ void skull::render(HDC hdc)
 		IMAGEMANAGER->frameRender("skullAppear", hdc, CAMERA->GetRelativeX(rc.left - 13),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
+	case IDLE2:
+		IMAGEMANAGER->frameRender("skullIdle", hdc, CAMERA->GetRelativeX(rc.left - 13),
+			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 
 	}
 }
 
-//와리가리 마구잡이로 움직임
+//1타일씩 상하좌우 랜덤움직이는데, 총 5번 
 void skull::skullMove()
 {
-	//if (!isAngle)
-	//{
-	//	_angle = RANDOM->range(0.0f, 360.0f);
-	//	enemyMoving = true;
-	//	isAngle = true;
-	//	skullMoveCount = 0;
-	//}
-	//
-	//if (skullIdleCount < 50 && enemyMoving == false && isAngle)
-	//	skullIdleCount++;
-	//	
-	//else if (skullIdleCount>= 50 && enemyMoving == false && isAngle){
-	//	isAngle = false;
-	//	skullIdleCount = 0;
-	//}
-	//
-	//if (enemyMoving)
-	//{
-	//	if (skullMoveCount < 50)
-	//	{
-	//		skullMoveCount++;
-	//		x += cosf(_angle*(PI / 180))*enemySpeedX;
-	//		y += -sinf(_angle*(PI / 180))*enemySpeedY;
-	//		rc = RectMakeCenter(x, y, 25, 25);
-	//	}
-	//	else
-	//	{
-	//		enemyMoving = false;
-	//		skullIdleCount = 0;
-	//	}
-	//}
-
-
-
-	if (!checkDestination)
+	if (_state == IDLE2 || _state == STAY)
 	{
-		searchCount++;
-		if (searchCount > 200)
+		if (!checkDestination)
 		{
-			for (int i = 0; i < 5; i++)
+			searchCount++;
+			if (searchCount > 200)
 			{
-				int random = RANDOM->range(0, 3);
-				switch (random)
+				for (int i = 0; i < 5; i++)
 				{
-				case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
-					break;
-				case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
-					break;
-				case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
-					break;
-				case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
-					break;
+					int random = RANDOM->range(0, 3);
+					switch (random)
+					{
+					case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
+						break;
+					case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
+						break;
+					case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
+						break;
+					case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
+						break;
+					}
+					_enemyTilePos = _vDestTileIndex[i];
 				}
-				_enemyTilePos = _vDestTileIndex[i];
+
+				checkDestination = true;
+				_destCount = 0;
+
 			}
 
-			checkDestination = true;
-			_destCount = 0;
-		
 		}
-		
-	}
-	else
-	{
-		if (_vDestTileIndex.size() > 0)
+		else
 		{
-			POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
-			if (abs(rc.left - tDestination.x) > 2 || abs(rc.top - tDestination.y) > 2)
+			if (_vDestTileIndex.size() > 0)
 			{
-				if (tDestination.x < rc.left)
+				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
+				if (abs(rc.left - tDestination.x) > 2 || abs(rc.top - tDestination.y) > 2)
 				{
-					OffsetRect(&rc, -2, 0);
-				}
-				else if (tDestination.x > rc.left)
-				{
-					OffsetRect(&rc, 2, 0);
-				}
-				if (tDestination.y > rc.top)
-				{
-					OffsetRect(&rc, 0, 2);
-				}
-				else if (tDestination.y < rc.top)
-				{
-					OffsetRect(&rc, 0, -2);
-				}
+					if (tDestination.x < rc.left)
+					{
+						OffsetRect(&rc, -2, 0);
+					}
+					else if (tDestination.x > rc.left)
+					{
+						OffsetRect(&rc, 2, 0);
+					}
+					if (tDestination.y > rc.top)
+					{
+						OffsetRect(&rc, 0, 2);
+					}
+					else if (tDestination.y < rc.top)
+					{
+						OffsetRect(&rc, 0, -2);
+					}
 
-			}
-			else
-			{
-				_destCount++;
-				if (_vDestTileIndex.size() <= _destCount)
+				}
+				else
 				{
-					checkDestination = false;
-					searchCount = 0;
-					_vDestTileIndex.clear();
+					_destCount++;
+					if (_vDestTileIndex.size() <= _destCount)
+					{
+						checkDestination = false;
+						searchCount = 0;
+						_vDestTileIndex.clear();
+					}
 				}
 			}
 		}
-		
-		
 	}
 	
-	
-
-	
-
 }
 
 void skull::canAttackCheck()
 {
-	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-		_state = ATTACK;
+	if (!tryAttack)
+	{
+		if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
+		{
+			tryAttack = true;
+		}
+
+	}
 	else
-		_state = STAY;
+	{
+		skullHitWaitCount++;
+
+		if (skullHitWaitCount > 120)
+		{
+			if (skullHitCount == 23) {
+				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
+					IMAGEMANAGER->findImage("스테미나")->setWidth(15);
+				//_target->hurt(Atk);
+			}
+			_state = ATTACK;
+		}
+		else
+			_state = IDLE2;
+	}
 }
 
 void skull::skullAnimation()
@@ -210,40 +193,39 @@ void skull::skullAnimation()
 			}
 		}
 		break;
+
+	case IDLE2:
+		objFrameY = (isLeft) ? 1 : 0;
+		objFrameX = _index;
+		if (_count++ % 10 == 0)
+		{
+			if (_index++ > 5)
+				_index = 0;
+		}
+		break;
 		//해골 공격
 	case ATTACK:
-		if (isLeft)
+		objFrameY = (isLeft) ? 1 : 0;
+		objFrameX = _index;
+		if (skullHitCount++ % 10 == 0)
 		{
-			objFrameY = 1;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
+			if (_index++ > 5)
 			{
-				if (_index-- <= 0)
-					_index = 4;		//원래 2해야되는데 2에서 숫자 늘릴수록 공속이 느려짐;;
+				skullHitCount = 1;
+				_index = 0;
+				skullHitWaitCount = 0;
+				tryAttack = false;
 			}
 		}
-		else
-		{
-			objFrameY = 0;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
-			{
-				if (_index++ > 4)
-				{
-					_index = 0;
-				}
-
-			}
-		}
-
 		
 		break;
+
 	}
 }
 
 void skull::skullLookDirection()
 {
-	if (_state == STAY || _state == ATTACK)
+	if (_state == STAY || _state == ATTACK || _state == IDLE2)
 	{
 		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
 			isLeft = true;

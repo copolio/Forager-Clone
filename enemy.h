@@ -10,7 +10,8 @@ enum SKULLSTATE
 {
 	STAY,	//걸어다니는 이미지랑 
 	ATTACK,
-	APPEAR
+	APPEAR,
+	IDLE2
 };
 
 enum COWSTATE
