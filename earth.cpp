@@ -169,6 +169,9 @@ void earth::setIsland(int x, int y)
 {
 	for (int i = 0; i < TILEY; i++) {
 		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit) {
+				continue;
+			}
 			if (j == 0 || j == TILEX - 1 || i == 0 || i == TILEY -1 ) {
 				switch (RANDOM->range(2)) {
 				case 0:
