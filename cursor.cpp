@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "cursor.h"
 #include "earth.h"
-
 void cursor::init()
 {
 	vUnit = UNITMANAGER->GetUnits();
@@ -26,6 +25,7 @@ void cursor::update()
 			}
 			else {
 				interaction = true;
+				
 			}
 		}
 	}
@@ -76,6 +76,7 @@ void cursor::CheckObject()
 					_unit = &(*vUnit[i]);
 					if (_unit->objKey != "bridge") {
 						isbuilding = true;
+						PRODUCTIONMANAGER->getRc(t_rc);
 						number = i;
 					}
 					return;

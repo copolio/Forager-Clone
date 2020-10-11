@@ -15,6 +15,10 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, "/  1", pos, 20, 0);
+		if (cilck()) {
+			click_item_event(num);
+			
+		}
 		break;
 	case 1:
 		IMAGEMANAGER->render("coal", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
@@ -24,13 +28,16 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("coal")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, "/  3", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, "/  2", pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 60;
 		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 60;
-		TEXTMANAGER->ShowText(hdc, "/  5", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, "/  2", pos, 20, 0);
+		if (cilck()) {
+			click_item_event(num);
+		}
 		break;
 	case 2:
 		break;
@@ -52,4 +59,49 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 	}
 
 
+}
+
+void steelworktooltip::click_item_event(int num)
+{
+	switch (num)
+	{
+	case 0:
+		if (ITEMMANAGER->Item_count_Minus("treeDrop", 1)) {
+			PRODUCTIONMANAGER->isCount("coal");
+		}
+
+		break;
+	case 1:
+		if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "coal",2)) {
+			
+		}
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	case 6:
+		break;
+	case 7:
+		break;
+	case 8:
+		break;
+	case 9:
+		break;
+
+	}
+	
+}
+
+
+bool steelworktooltip::cilck()
+{
+	if (INPUT->GetKeyDown(VK_LBUTTON)) {
+		return true;
+	}
+	return false;
 }

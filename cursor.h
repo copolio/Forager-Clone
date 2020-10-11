@@ -6,7 +6,6 @@
 #include "buildinginteraction.h"
 
 class earth;
-
 class cursor
 {
 

@@ -13,6 +13,8 @@ class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
+
+
 private:
 	void Sorting();
 	void CheckRemoveUnit();
@@ -34,10 +36,9 @@ public:
 	void AddBuilding(string buildkey, tile* _tile);
 	void AddBuilding(string buildkey, vector<tile*> tiles);
 
+	void AddProduction(string p_itemKey, POINT p_pos);
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };
-
-	
 };
 

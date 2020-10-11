@@ -300,6 +300,9 @@
     <ClCompile Include="Astar.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="productionManager.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="Astar.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="productionManager.h">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
