@@ -83,6 +83,7 @@ void skull::skullMove()
 
 			}
 
+			//¤·¤©¤·¤©¤·
 		}
 		else
 		{
