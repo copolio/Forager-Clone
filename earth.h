@@ -31,6 +31,8 @@ public:
 	void mapSetup();
 	void setRandomObject();
 	float getResRatio();
+	int GetTileX(int index);
+	int GetTileY(int index);
 	void setIsland(int x, int y);
 	int GetIslandX(int index);
 	int GetIslandY(int index);

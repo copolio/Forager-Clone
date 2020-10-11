@@ -171,6 +171,32 @@ float earth::getResRatio()
 	return nResTile / float(nPlainTile);
 }
 
+int earth::GetTileX(int index)
+{
+	index = index < 0 ? 0 : index;
+	index = index > 7055 ? 7055 : index;
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return i;
+			}
+		}
+	}
+}
+
+int earth::GetTileY(int index)
+{
+	index = index < 0 ? 0 : index;
+	index = index > 7055 ? 7055 : index;
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (i*MAPTILEY + j == index) {
+				return j;
+			}
+		}
+	}
+}
+
 void earth::setIsland(int x, int y)
 {
 	for (int i = 0; i < TILEY; i++) {
