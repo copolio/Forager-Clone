@@ -27,7 +27,7 @@ HRESULT gameScene::init()
 	_quick_slot->init();
 	_quick_slot->quick_slot_update();
 	_quick_slot->target(0);
-	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
+	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX, WINSIZEY, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
 
 
@@ -84,10 +84,11 @@ void gameScene::update()
 		_quick_slot->update();
 	}
 	
-	
+	CAMERA->update();
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // 마우스 커서에 따른 카메라 포거싱.
-	CAMERA->update();
+
+
 	EFFECTMANAGER->update();
 	TEXTMANAGER->update();
 	_map->update();
@@ -113,6 +114,6 @@ void gameScene::render()
 	
 	TEXTMANAGER->ShowText(getMemDC(), to_string(ITEMMANAGER->getMoney()), money_pos, 38);
 	_cursor->render(getMemDC());
-
+	CAMERA->render(getMemDC());
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }

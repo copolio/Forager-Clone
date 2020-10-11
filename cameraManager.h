@@ -10,7 +10,7 @@ private:
 	float _anchorX, _anchorY;		// 카메라 중심 앵커 (현재 화면 중심)
 	int _cameraWidth, _cameraHeight;// 카메라 가로 세로 사이즈 (렌더 범위)
 	int _minX, _minY, _maxX, _maxY;	// 카메라 이동 제한 범위
-	RECT _rcCamBound;				// 플레이어 중심 렌더용 렉트
+
 	RECT _rcCamRealBound;			// 카메라 이동 렉트
 
 	float _zoomRate;				// 기본 줌 값
@@ -51,7 +51,7 @@ public:
 	POINT GetMouseRelativePos(POINT ptMouse);
 
 	// 카메라 렌더 범위 렉트 가져옴.
-	RECT GetCameraRect() { return _rcCamBound; }
+	RECT GetCameraRect() { return _rcCamRealBound; }
 
 	//줌 수치 설정
 	void SetZoomRate(float rate) { _zoomRate = rate; };

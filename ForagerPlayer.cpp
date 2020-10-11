@@ -355,10 +355,10 @@ void ForagerPlayer::PlayerControll()
 								}
 
 								// 타격 줌인 연출
-								CAMERA->forceZoomIn(0.02f, 0.005f);
+								CAMERA->forceZoomIn(0.04f, 0.008f);
 							}
 							else {
-								CAMERA->forceZoomIn(0.003f, 0.001f);
+								CAMERA->forceZoomIn(0.008f, 0.002f);
 							}
 						}
 					
