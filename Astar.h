@@ -52,9 +52,6 @@ private:
 	//vector<node*> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
 	vector<int> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
 
-	int _count;							//시작노드, 종료노드를 한번씩만 선택하기 위한 변수
-	bool _isFind;						//길 찾았냐?
-
 public:
 	void init(vector<tile> vTile);
 

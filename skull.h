@@ -22,6 +22,7 @@ public :
 	 void update() override;
 	 void render(HDC hdc) override;
 	 void skullMove();
+	 void skullMove(vector<int> vDestTileIndex);
 	 void canAttackCheck();
 	 void skullAnimation();
 	 void skullLookDirection();

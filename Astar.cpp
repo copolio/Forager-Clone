@@ -21,12 +21,6 @@ void Astar::init(vector<tile> vTile)
 			}
 		}
 	}
-
-	//첫클릭이 짝수가 되게 하기 위해서 -1로 초기화
-	_count = -1;
-	//길 찾았냐?
-	_isFind = false;
-
 	
 	//리스타트용
 	_openList.clear();
@@ -99,7 +93,6 @@ vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, boo
 				_finalList.push_back(tileIndex);
 			}
 
-			_isFind = true;
 			//종료하고 빠져 나온다
 			return _finalList;
 		}
