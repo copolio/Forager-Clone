@@ -30,17 +30,8 @@ HRESULT gameScene::init()
 	PRODUCTIONMANAGER->init();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
+	UNITMANAGER->setLinkMap(_map);
 
-	//½ºÆù ¸Å´ÏÁ® ±¸Çö½Ã, »èÁ¦!
-	//enemy* _enemy = new enemy;
-	skull* _skull = new skull;
-	_skull->setLinkMap(_map);
-	_skull->setEnemy("skull", "skullHeadDrop", _player);
-	_skull->init();
-
-	UNITMANAGER->AddUnits(_skull ,true);
-	//_enemy = new enemy;
-	//UNITMANAGER->AddUnits(_enemy,"cow");
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
 	SCENEMANAGER->set_ischeck(true);
@@ -107,21 +98,20 @@ void gameScene::update()
 
 void gameScene::render()
 {
-	_map->render(getMemDC());
-	EFFECTMANAGER->render(getMemDC());
-	TEXTMANAGER->render(getMemDC());
-	
-	if (inven_open) {
+	_map->render(getMemDC());				// ¸Ê ·»´õ
+	EFFECTMANAGER->render(getMemDC());		// ÀÌÆåÆ® ·»´õ
+	TEXTMANAGER->render(getMemDC());		// ÅØ½ºÆ® ·»´õ
+	PRODUCTIONMANAGER->render(getMemDC());	// »ı»êÇ° ·»´õ
+	if (inven_open) 						// ¸Ş´º ·»´õ
 		_Menu->render(getMemDC());
-	}
-	else {
+	else 
 		_quick_slot->render(getMemDC());
-	}
-	IMAGEMANAGER->render("img_game_money_icon", getMemDC(), 10, WINSIZEY - 50);
 	
+											// °ñµå ·»´õ
+	IMAGEMANAGER->render("img_game_money_icon", getMemDC(), 10, WINSIZEY - 50);
 	TEXTMANAGER->ShowText(getMemDC(), to_string(ITEMMANAGER->getMoney()), money_pos, 38);
-	_cursor->render(getMemDC());
-	CAMERA->render(getMemDC());
+	_cursor->render(getMemDC());			// Å¸°ÙÆÃ ¹Ú½º ·»´õ
+	CAMERA->render(getMemDC());				// Ä«¸Ş¶ó Å×½ºÆ® FrameRect ·»´õ
+											// ¸¶¿ì½º Ä¿¼­ ·»´õ
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
-	PRODUCTIONMANAGER->render(getMemDC());
 }

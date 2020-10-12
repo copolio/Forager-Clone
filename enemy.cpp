@@ -14,7 +14,7 @@ void enemy::update()
 
 }
 
-void enemy::setEnemy(string key, string itemkey, unit* target)
+void enemy::setEnemy(string key, string itemkey, unit* target, POINT pos)
 {
 	maxHp = 30;
 	currentHp = 30;
@@ -27,8 +27,8 @@ void enemy::setEnemy(string key, string itemkey, unit* target)
 	_target = target;
 	//_mapTile = mapTile;
 
-	x = WINSIZEX / 2 + 200;
-	y = WINSIZEY / 2 ;
+	x = pos.x;
+	y = pos.y;
 	rc = RectMakeCenter(x, y, 25, 25);
 	exp = 10;
 	dropItem.itemKey = itemkey;

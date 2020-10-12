@@ -16,7 +16,7 @@ void item_info::render(HDC hdc,string item_name)
 		TEXTMANAGER->ShowText(hdc, "열매", pos, 30, 0);
 		pos.x = 1000;
 		pos.y = 250;
-		TEXTMANAGER->ShowText(hdc, "(소모품)", pos, 30, 0);
+		TEXTMANAGER->ShowText(hdc, "(소모품)", pos, 30, 1);
 		pos.x = 1000;
 		pos.y = 280;
 		TEXTMANAGER->ShowText(hdc, "가치 : 1", pos, 30, 0);
@@ -34,7 +34,7 @@ void item_info::render(HDC hdc,string item_name)
 		TEXTMANAGER->ShowText(hdc, "돌", pos, 30, 0);
 		pos.x = 1000;
 		pos.y = 250;
-		TEXTMANAGER->ShowText(hdc, "(재료)", pos, 30, 0);
+		TEXTMANAGER->ShowText(hdc, "(재료)", pos, 30, 1);
 		pos.x = 1000;
 		pos.y = 280;
 		TEXTMANAGER->ShowText(hdc, "가치 : 1", pos, 30, 0);
@@ -49,7 +49,7 @@ void item_info::render(HDC hdc,string item_name)
 		TEXTMANAGER->ShowText(hdc, "목재", pos, 30, 0);
 		pos.x = 1000;
 		pos.y = 250;
-		TEXTMANAGER->ShowText(hdc, "(재료)", pos, 30, 0);
+		TEXTMANAGER->ShowText(hdc, "(재료)", pos, 30, 1);
 		pos.x = 1000;
 		pos.y = 280;
 		TEXTMANAGER->ShowText(hdc, "가치 : 1", pos, 30, 0);

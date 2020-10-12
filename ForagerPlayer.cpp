@@ -576,9 +576,8 @@ void ForagerPlayer::CheckCollision()
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				t_vUnit[i]->collision();
-				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);		
-				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
+				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);
+				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 			}
 		}
 		// 빌딩 상호작용 렉트 충돌

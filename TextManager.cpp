@@ -19,6 +19,18 @@ void TextManager::release()
 
 void TextManager::update()
 {
+	updateFloatingText();
+	updateItemText();
+}
+
+void TextManager::render(HDC hdc)
+{
+	renderFloatingText(hdc);
+	renderItemText(hdc);
+}
+
+void TextManager::updateFloatingText()
+{
 	// 하나라도 있으면
 	if (_count > 0) {
 
@@ -28,7 +40,7 @@ void TextManager::update()
 			if (_floatingTexts[i].isAppear) {
 
 
-				if(_floatingTexts[i].count < 30)
+				if (_floatingTexts[i].count < 30)
 					_floatingTexts[i].y -= 1;
 
 				else if (_floatingTexts[i].count < 60 && _floatingTexts[i].count % 2 == 0)
@@ -49,7 +61,20 @@ void TextManager::update()
 	}
 }
 
-void TextManager::render(HDC hdc)
+void TextManager::updateItemText()
+{
+	if (_vFieldItemText.size() > 0) {
+		for (auto iter = _vFieldItemText.begin(); iter != _vFieldItemText.end();) {
+			if (iter->count++ > 350) {
+				iter = _vFieldItemText.erase(iter);
+			}
+			else
+				++iter;
+		}
+	}
+}
+
+void TextManager::renderFloatingText(HDC hdc)
 {
 	// 하나라도 있을 경우,
 	if (_count > 0) {
@@ -74,7 +99,25 @@ void TextManager::render(HDC hdc)
 		SetTextAlign(hdc, TA_LEFT);
 		DeleteObject((HFONT)SelectObject(hdc, oldFont));
 	}
-	
+
+}
+
+void TextManager::renderItemText(HDC hdc)
+{
+	if (_vFieldItemText.size() > 0) {
+		for (int i = 0; i < _vFieldItemText.size(); i++) {
+
+			int x = WINSIZEX - 175;
+			int y = WINSIZEY - 150 - (i * 70);
+
+			IMAGEMANAGER->render(_vFieldItemText[i].imgKey, hdc, x, y);
+			string str = _vFieldItemText[i].itemName + " x ";
+			str.append(to_string(_vFieldItemText[i].num));
+			TEXTMANAGER->ShowText(hdc, str, { x + 65, y + 14 }, 25, 0, RGB(255,255,255), true, RGB(0,0,0), 2);
+		}
+
+	}
+
 }
 
 
@@ -123,7 +166,6 @@ void TextManager::ShowFloatingText(string str, POINT ptPos, COLORREF color, COLO
 			_floatingTexts[i].x = ptPos.x;
 			_floatingTexts[i].y = ptPos.y;
 			_floatingTexts[i].str = str;
-			cout << _floatingTexts[i].str << endl;
 			_floatingTexts[i].color = color;
 			_floatingTexts[i].bgColor = bgColor;
 			_floatingTexts[i].count = 0;
@@ -136,6 +178,30 @@ void TextManager::ShowFloatingText(string str, POINT ptPos, COLORREF color, COLO
 	cout << "FloatingText 배열 개수 부족!!" << endl;
 		
 
+}
+
+void TextManager::AppearItemText(string pImgKey)
+{
+	for (int i = 0; i < _vFieldItemText.size(); i++) {
+		if (_vFieldItemText[i].imgKey == pImgKey) {
+			_vFieldItemText[i].num++;
+			_vFieldItemText[i].count = 0;
+			return;
+		}
+	}
+	tagFloatingFieldItem itemText;
+	itemText.count = 0;
+	itemText.num = 1;
+	itemText.imgKey = pImgKey;
+	if (pImgKey == "berryDrop") itemText.itemName = "열매";
+	else if (pImgKey == "treeDrop") itemText.itemName = "나무";
+	else if (pImgKey == "rockDrop") itemText.itemName = "돌맹이";
+	else if (pImgKey == "pooDrop") itemText.itemName = "똥";
+	else if (pImgKey == "letherDrop") itemText.itemName = "가죽";
+	else if (pImgKey == "milkDrop") itemText.itemName = "우유";
+	else if (pImgKey == "skullHeadDrop") itemText.itemName = "해골";
+	else itemText.itemName = "Unknown";
+	_vFieldItemText.push_back(itemText);
 }
 
 

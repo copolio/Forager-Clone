@@ -3,6 +3,9 @@
 #include "productionManager.h"
 void UnitManager::init()
 {
+	_spawnManager = new SpawnManager;
+	_spawnManager->init();
+
 	//자원 1 (나무, 돌, 열매)
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -53,8 +56,9 @@ void UnitManager::update()
 		if (_vUnits[i]->tag != TAG::PLAYER ) {
 			_vUnits[i]->update();
 		}
-		
 	}
+
+	_spawnManager->update();
 	
 }
 
@@ -115,34 +119,31 @@ void UnitManager::AddUnits(unit* p_unit)
 	_vUnits.push_back(p_unit);
 }
 
-void UnitManager::AddUnits(skull* p_unit, bool test)
-{
-	_vUnits.push_back(p_unit);
-}
-
 void UnitManager::AddUnits(tile* p_tile)
 {
-	
 	resource* _res = new resource;
 	_res->setRandomRes(p_tile);
 	_vUnits.push_back(_res);
 }
 
-void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
+void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
 {
 	//해골
 	if (p_monsterName == "skull")
 	{
+		skull* _skull = new skull;
+		_skull->setLinkMap(_map);
+		_skull->setEnemy(p_monsterName, "skullHeadDrop", _player, p_pos);
+		_skull->init();
 		
-		
-		_vUnits.push_back(p_enemy);
+		_vUnits.push_back(_skull);
 	}
 	
 	//소
 	if (p_monsterName == "cow")
 	{
 		cow* _cow = new cow;
-		_cow->setEnemy(p_monsterName, "milkDrop", _player);
+		_cow->setEnemy(p_monsterName, "milkDrop", _player, p_pos);
 		_cow->init();
 		_vUnits.push_back(_cow);
 		
@@ -171,6 +172,24 @@ void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
 	t_fieldItem->setFieldItem(p_pos, p_itemKey);
 	_vUnits.push_back(t_fieldItem);
 }
+
+int UnitManager::GetMonsterCount()
+{
+	int t_monsterCount = 0;
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag == TAG::ENEMY) {
+			t_monsterCount++;
+		}
+	}
+	return t_monsterCount;
+}
+
+void UnitManager::setLinkMap(earth * p_map)
+{
+	_map = p_map;
+	_spawnManager->setLinkMap(_map);
+}
+
 
 void UnitManager::AddBuilding(string buildkey, tile * _tile)
 {

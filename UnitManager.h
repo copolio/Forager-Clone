@@ -8,22 +8,24 @@
 #include "unit.h"
 #include "skull.h"
 #include "cow.h"
+#include "tile.h"
 #include "earth.h"
+#include "SpawnManager.h"
+
+class earth;
 
 class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
-
+	earth *_map;
+	SpawnManager *_spawnManager;
 
 private:
 	void Sorting();
 	void CheckRemoveUnit();
 
 	unit* _player;
-	
-	
-
 public:
 	void init();
 	void release();
@@ -31,9 +33,8 @@ public:
 	void render(HDC hdc);
 
 	void AddUnits(unit* p_unit);
-	void AddUnits(skull* p_unit, bool test);
 	void AddUnits(tile* p_tile);
-	void AddUnits(unit* p_enemy, string p_monsterName);
+	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);
 
 	void AddBuilding(string buildkey, tile* _tile);
@@ -43,5 +44,7 @@ public:
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };
+	int GetMonsterCount();
+	void setLinkMap(earth *p_map);
 };
 
