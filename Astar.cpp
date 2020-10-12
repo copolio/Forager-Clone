@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "Astar.h"
 
-HRESULT Astar::init()
+HRESULT Astar::init(vector<tile> vTile)
 {
 	//노드 초기화
 	_startNode = NULL;
 	_endNode = NULL;
 	_curNode = NULL;
-	vector<tile> _vTiles = _map->GetTiles();
+	_vTiles = vTile;
 	//전체노드 초기화
 	for (int y = 0; y < MAX_Y; y++)
 	{
@@ -15,7 +15,10 @@ HRESULT Astar::init()
 		{
 			//새로운 노드와 렉트위치 설정
 			_totalNode[x][y] = new node(x, y);
-			_totalNode[x][y]->rc = RectMake(25 + x * 150, 25 + y * 150, 150, 150);
+			_totalNode[x][y]->rc = _vTiles[y*MAPTILEY + x].rc;
+			if (_vTiles[y*MAPTILEY + x].hasUnit || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
+				_totalNode[x][y]->nodeState = NODE_WALL;
+			}
 		}
 	}
 
@@ -94,7 +97,7 @@ void Astar::update()
 	//재시작용
 	if (INPUT->GetKeyDown(VK_RETURN) && _isFind)
 	{
-		this->init();
+		this->init(_vTiles);
 	}
 
 }
@@ -235,6 +238,90 @@ void Astar::pathFinding()
 		//벽사이로 막가 안되도록 처리한다
 	}
 
+}
+
+void Astar::pathFinding(int startidx, int endidx, bool checkwall, bool checkdiagonal = true)
+{
+	_startNode = _totalNode[startidx/MAPTILEX][startidx % MAPTILEX];
+	_endNode = _totalNode[endidx /MAPTILEX][endidx % MAPTILEX];
+
+	//길찾기를 해보자
+//검색을 하려면 무조건 오픈리스트에 담는다
+//F와 H값 가장 작은 놈을 찾아서 그놈을 현재노드로 변경한다
+//오픈리스트에서 현재노드는 삭제하고
+//현재노드는 클로즈리스트에 담아둔다
+//길을 다 찾았다면 클로즈리스트 리버스값을 파이널 리스트로 옮긴다
+
+//1. 시작노드가 있어야 출발이 가능하니
+//시작노드를 오픈리스트에 추가를 해줘야 한다
+	_openList.push_back(_startNode);
+
+	//2. 오픈리스트안에 담겨 있는 벡터를 검사해서
+	//종료노드에 도착할때까지 무한 루프
+	while (_openList.size() > 0)
+	{
+		_curNode = _openList[0];
+
+		//오픈리스트중 F가 가장 작거나 F가 같다면
+		//H가 작은 걸 현재노드로 하고
+		//현재노드를 오픈리스트에서 클로즈 리스트로 옮기기
+		//비교를 하려고 하면 최소 시작노드에서 주변을 탐색한 이후
+		//길찾기가 시작된다
+
+		for (int i = 1; i < _openList.size(); i++)
+		{
+			if (_openList[i]->F <= _curNode->F && _openList[i]->H < _curNode->H)
+			{
+				_curNode = _openList[i];
+			}
+		}
+
+		//클로즈 리스트에 넣어둔다
+		for (int i = 0; i < _openList.size(); i++)
+		{
+			if (_curNode == _openList[i])
+			{
+				this->delOpenList(i);
+				_closeList.push_back(_curNode);
+			}
+		}
+
+		//현재노드가 마지막 노드와 같냐? (길찾았다)
+		if (_curNode == _endNode)
+		{
+			node* endNode = _endNode;
+			vector<node*> tempNode;
+			//마지막 노드로부터 시작노드까지 부모노드를 벡터에 담는다
+			while (endNode != _startNode)
+			{
+				tempNode.push_back(endNode);
+				endNode = endNode->parentNode;
+			}
+
+			for (int i = tempNode.size() - 1; i > 0; i--)
+			{
+				_finalList.push_back(tempNode[i]);
+			}
+
+			_isFind = true;
+			//종료하고 빠져 나온다
+			return;
+		}
+
+		//상하좌우 (순서는 상관없음 - 어짜피 주변 4개의 노드를 모두 오픈리스트에 담아서 검사할 예정임)
+		addOpenList(_curNode->idx, _curNode->idy - 1);	//상
+		addOpenList(_curNode->idx, _curNode->idy + 1);	//하
+		addOpenList(_curNode->idx - 1, _curNode->idy);	//좌
+		addOpenList(_curNode->idx + 1, _curNode->idy);	//우
+
+		if (checkdiagonal) {
+			//우상, 좌상, 우하, 좌하
+			addOpenList(_curNode->idx + 1, _curNode->idy - 1);	//우상
+			addOpenList(_curNode->idx - 1, _curNode->idy - 1);	//좌상
+			addOpenList(_curNode->idx + 1, _curNode->idy + 1);	//우하
+			addOpenList(_curNode->idx - 1, _curNode->idy + 1);	//좌하
+		}
+	}
 }
 
 void Astar::addOpenList(int idx, int idy)

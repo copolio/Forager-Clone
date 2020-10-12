@@ -2,8 +2,8 @@
 #include "gameNode.h"
 #include "earth.h"
 
-#define MAX_X 5
-#define MAX_Y 5
+#define MAX_X MAPTILEX
+#define MAX_Y MAPTILEY
 
 
 class earth;
@@ -42,9 +42,8 @@ public:
 
 class Astar : public gameNode
 {
-private : 
-	earth* _map;
-
+private:
+	vector<tile> _vTiles;
 private:
 	node* _totalNode[MAX_X][MAX_Y];		//전체노드 25개(보드판 역할)
 	node* _startNode;					//시작노드
@@ -59,7 +58,7 @@ private:
 	bool _isFind;						//길 찾았냐?
 
 public:
-	HRESULT init();
+	HRESULT init(vector<tile> vTile);
 	void release();
 	void update();
 	void render();
@@ -67,6 +66,7 @@ public:
 	/*중요함수*/
 	//길찾기 함수
 	void pathFinding();
+	void pathFinding(int startidx, int endidx, bool checkwall, bool checkdiagonal = true);
 	//오픈리스트 추가
 	void addOpenList(int idx, int idy);
 	//오픈리스트 삭제
