@@ -19,6 +19,7 @@ HRESULT startScene::init()
 	IMAGEMANAGER->addImage("GameSlotInner", "Images/이미지/GUI/img_UI_GameSlotInner.bmp", 227, 227, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 1960, 1280, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleCursor", "Images/이미지/GUI/커서.bmp", 15, 15, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("BowCursor", "Images/이미지/GUI/img_UI_bowCursor.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	
 	// 커서 반응형 이미지 설정

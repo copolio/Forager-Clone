@@ -5,6 +5,8 @@ void UnitManager::init()
 {
 	_spawnManager = new SpawnManager;
 	_spawnManager->init();
+	_projectileManager = new ProjectileManager;
+	_projectileManager->init();
 
 	//자원 1 (나무, 돌, 열매)
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -59,6 +61,7 @@ void UnitManager::update()
 	}
 
 	_spawnManager->update();
+	_projectileManager->update();
 	
 }
 
@@ -82,6 +85,8 @@ void UnitManager::render(HDC hdc)
 			(*_vUnits[i]).render(hdc);
 		}
 	}
+
+	_projectileManager->render(hdc);
 }
 
 
@@ -103,6 +108,7 @@ void UnitManager::CheckRemoveUnit()
 	if (_vUnits.size() > 0) {
 		for (auto iter = _vUnits.begin(); iter != _vUnits.end();) {
 			if ((*iter)->isDead()) {
+
 				SAFE_DELETE((*iter));
 				iter = _vUnits.erase(iter);
 			}

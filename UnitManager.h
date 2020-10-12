@@ -11,6 +11,7 @@
 #include "tile.h"
 #include "earth.h"
 #include "SpawnManager.h"
+#include "ProjectileManager.h"
 
 class earth;
 
@@ -20,6 +21,7 @@ private:
 	vector<unit*> _vUnits;
 	earth *_map;
 	SpawnManager *_spawnManager;
+	ProjectileManager *_projectileManager;
 
 private:
 	void Sorting();
@@ -46,5 +48,6 @@ public:
 	vector<unit*> GetUnits() { return _vUnits; };
 	int GetMonsterCount();
 	void setLinkMap(earth *p_map);
+	ProjectileManager* GetProjectileMG() { return _projectileManager; };
 };
 
