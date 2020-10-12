@@ -78,20 +78,21 @@ void skull::skullMove()
 		searchCount++;
 		if (searchCount > 200)
 		{
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 1; i++)
 			{
 				int random = RANDOM->range(0, 3);
-				switch (random)
-				{
-				case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
-					break;
-				case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
-					break;
-				case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
-					break;
-				case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
-					break;
-				}
+				_vDestTileIndex.push_back(_enemyTilePos + 1);
+				//switch (random)
+				//{
+				//case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
+				//	break;
+				//case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
+				//	break;
+				//case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
+				//	break;
+				//case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
+				//	break;
+				//}
 				_enemyTilePos = _vDestTileIndex[i];
 			}
 
