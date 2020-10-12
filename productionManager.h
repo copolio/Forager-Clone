@@ -43,5 +43,8 @@ public:
 		Myrc = _rc;
 	}
 	void isCount( string name);
+	bool is_Item_Cilck(string name);
+
+	void removeBuildingRc(RECT rc);
 };
 

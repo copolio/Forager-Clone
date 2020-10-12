@@ -15,7 +15,10 @@ int item_Manager::equip_count()
 
 void item_Manager::vItem_push(string key)
 {
-	if (isItemCheck(key)) {
+	if (key == "img_game_money_icon") {
+		*money += 1;
+	}
+	else if (isItemCheck(key)) {
 		int number = itemfind(key);
 		_item_push[number]->count += 1;
 	}
@@ -142,6 +145,7 @@ bool item_Manager::Item_count_Minus(string key, int count)
 {
 	if (isItemCheck(key)) {
 		_item_push[itemfind(key)]->count -= count;
+		vItem_count_zoro();
 		return true;
 	}
 	return false;
@@ -187,7 +191,7 @@ ItemKinds item_Manager::itemKind(string key)
 	if (key == "berryDrop") {
 		return ITEM_FOOD;
 	}
-	else if (key == "rockDrop"|| key == "treeDrop"|| key == "coal" || key == "brick") {
+	else /*if (key == "rockDrop"|| key == "treeDrop"|| key == "coal" || key == "brick" || key == "Iron_ore" || key == "±Ý±¤¼®")*/ {
 		return ITEM_MATERIAL;
 	}
 

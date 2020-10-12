@@ -107,3 +107,24 @@ void productionManager::isCount(string name)
 	}
 }
 
+bool productionManager::is_Item_Cilck(string name)
+{
+	int cilck = isCilck(this->Myrc);
+	if (cilck != -1) {
+		if (_production[cilck]->image_name == "" || _production[cilck]->image_name == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+void productionManager::removeBuildingRc(RECT rc)
+{
+	for (int i = 0; i < _production.size(); i++) {
+		if (_production[i]->rc.left == rc.left && _production[i]->rc.top == rc.top && _production[i]->rc.bottom == rc.bottom&&_production[i]->rc.right == rc.right) {
+			_production.erase(_production.begin() + i);
+			break;
+		}
+	}
+}
+

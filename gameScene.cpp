@@ -108,9 +108,10 @@ void gameScene::update()
 void gameScene::render()
 {
 	_map->render(getMemDC());
+	
 	EFFECTMANAGER->render(getMemDC());
 	TEXTMANAGER->render(getMemDC());
-	
+	PRODUCTIONMANAGER->render(getMemDC());
 	if (inven_open) {
 		_Menu->render(getMemDC());
 	}
@@ -123,5 +124,5 @@ void gameScene::render()
 	_cursor->render(getMemDC());
 	CAMERA->render(getMemDC());
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
-	PRODUCTIONMANAGER->render(getMemDC());
+	
 }
