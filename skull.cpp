@@ -158,7 +158,9 @@ void skull::canAttackCheck()
 		{
 			if (skullHitCount == 23) {
 				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-					IMAGEMANAGER->findImage("스테미나")->setWidth(15);
+					//IMAGEMANAGER->findImage("스테미나")->setWidth(15);
+					_target->hurt(Atk);
+
 			}
 			_state = ATTACK;
 		}

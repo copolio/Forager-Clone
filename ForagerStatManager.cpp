@@ -21,8 +21,9 @@ HRESULT ForagerStatManager::init()
 	_foragerExp = new tagExp;
 	_foragerExp->expRc = RectMakeCenter(WINSIZEX/ 2, 30, 800, 30);
 	_foragerExp->expRc.right = 0;
+	levelUp = false;
 	
-	needExp[0] = 80;
+	needExp[0] = 20;
 
 	for (int i = 1; i < 65; i++) {
 		needExp[i] = (float)needExp[i - 1] * 2.5f;
@@ -54,12 +55,11 @@ HRESULT ForagerStatManager::init()
 	_levelNum[8]=IMAGEMANAGER->addImage("8", "Images/이미지/GUI/8.bmp", 15, 19, true, RGB(255, 0, 255));
 	_levelNum[9]=IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 
-	_staminaImgSizeMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
+	_staminSizeCurrent = _staminaImgSizeMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	_expImgSizeMax = IMAGEMANAGER->findImage("expBar")->getWidth();
 	playerStaminaCount = 0;
 	staminaLoss = false;
-	
-	
+
 
 	return S_OK;
 }
@@ -71,15 +71,34 @@ void ForagerStatManager::release()
 void ForagerStatManager::update()
 {
 	//플레이어의 스테미나가 다 떨어지면, 다시 차오르게, 한다. 
-	if (IMAGEMANAGER->findImage("스테미나")->getWidth() < 0)
+	//if (IMAGEMANAGER->findImage("스테미나")->getWidth() < 0)
+	//{
+	//	IMAGEMANAGER->findImage("스테미나")->settingWidth(_staminaImgSizeMax);
+	//	for (int i = _foragerHp.size()-1; i >= 0; i--)
+	//	{
+	//		if (!_foragerHp[i]->_isHp)continue;
+	//		_foragerHp[i]->_isHp = false;
+	//		break;
+	//	}
+	//}
+
+	if (levelUp == true || _staminSizeCurrent<0)
 	{
-		IMAGEMANAGER->findImage("스테미나")->settingWidth(_staminaImgSizeMax);
-		for (int i = _foragerHp.size()-1; i >= 0; i--)
+		if (levelUp)
 		{
-			if (!_foragerHp[i]->_isHp)continue;
-			_foragerHp[i]->_isHp = false;
-			break;
+			_staminaImgSizeMax += 20;
+			levelUp = false;
 		}
+		else
+		{
+			for (int i = _foragerHp.size() - 1; i >= 0; i--)
+			{
+				if (!_foragerHp[i]->_isHp)continue;
+				_foragerHp[i]->_isHp = false;
+				break;
+			}
+		}
+		_staminSizeCurrent = _staminaImgSizeMax;
 	}
 }
 
@@ -88,17 +107,17 @@ void ForagerStatManager::render(HDC hdc)
 	for (int i = 0; i < _foragerHp.size(); i++)
 	{
 		if (_foragerHp[i]->_isHp)
-		{
 			IMAGEMANAGER->render("하트모양체력", hdc, _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
-		}
 		else
-		{
 			IMAGEMANAGER->render("하트모양체력(뒤)", hdc, _foragerHp[i]->ForagerHpRc.left, _foragerHp[i]->ForagerHpRc.top);
-		}
 	}
 
-	IMAGEMANAGER->render("스테미나(뒤)", hdc, _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top);
-	IMAGEMANAGER->render("스테미나", hdc, _foragerStamina->staminaRc.left+6, _foragerStamina->staminaRc.top+4);
+	IMAGEMANAGER->stretchRender("스테미나(뒤)", hdc, _foragerStamina->staminaRc.left, _foragerStamina->staminaRc.top,0,0, 
+		_staminaImgSizeMax, _foragerStamina->staminaRc.bottom - _foragerStamina->staminaRc.top);
+
+	IMAGEMANAGER->stretchRender("스테미나", hdc, _foragerStamina->staminaRc.left+2, _foragerStamina->staminaRc.top+2, 0, 0,
+		_staminSizeCurrent -4  , (_foragerStamina->staminaRc.bottom - _foragerStamina->staminaRc.top)-4 );
+
 	if (!inven_open) {
 		IMAGEMANAGER->render("expBarBack", hdc, _foragerExp->expRc.left, _foragerExp->expRc.top);
 
@@ -116,13 +135,26 @@ void ForagerStatManager::render(HDC hdc)
 		TEXTMANAGER->ShowText(hdc, str, { WINSIZEX / 2 , _foragerExp->expRc.top + 3 }, 22, 1, RGB(0,255,0), true, RGB(0,50,0), 2);
 	}
 
+	
 }
 
 void ForagerStatManager::IncreaseExp(int exp)
 {
-	currentExp += exp;
-	if (currentExp > needExp[level])
-		level++;
+	if (levelUp == false)
+	{
+		currentExp += exp;
+		if (currentExp > needExp[level])
+		{
+			level++;
+			levelUp = true;
+		}
+	}
+
+}
+
+void ForagerStatManager::setRight(int num)
+{
+	_staminSizeCurrent -= num;
 }
 
 

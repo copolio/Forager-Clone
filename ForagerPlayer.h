@@ -117,5 +117,6 @@ public:
 
 public:
 	int GetPlayerTilePos() { return _playerTilePos; };
+	void hurt(int damage) override;
 };
 
