@@ -91,11 +91,15 @@ void ForagerStatManager::update()
 		}
 		else
 		{
-			for (int i = _foragerHp.size() - 1; i >= 0; i--)
+			int i = _foragerHp.size() - 1;
+			for ( ; i >= 0; i--)
 			{
 				if (!_foragerHp[i]->_isHp)continue;
 				_foragerHp[i]->_isHp = false;
 				break;
+			}
+			if (i == 0) {
+				SCENEMANAGER->loadScene("시작 화면");
 			}
 		}
 		_staminSizeCurrent = _staminaImgSizeMax;
