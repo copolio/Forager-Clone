@@ -1,12 +1,9 @@
 #pragma once
-#include "gameNode.h"
-#include "earth.h"
+#include "tile.h"
 
-#define MAX_X 5
-#define MAX_Y 5
+#define MAX_X MAPTILEX
+#define MAX_Y MAPTILEY
 
-
-class earth;
 //노드상태
 enum NODESTATE
 {
@@ -40,40 +37,33 @@ public:
 };
 
 
-class Astar : public gameNode
+class Astar
 {
-private : 
-	earth* _map;
-
 private:
-	node* _totalNode[MAX_X][MAX_Y];		//전체노드 25개(보드판 역할)
+	vector<tile> _vTiles;
+private:
+	node* _totalNode[MAPTILEX][MAPTILEY];		//전체노드 25개(보드판 역할)
 	node* _startNode;					//시작노드
 	node* _endNode;						//종료노드
 	node* _curNode;						//현재노드
 
 	vector<node*> _openList;			//오픈리스트 (탑색할 노드들을 담아둘 벡터)
 	vector<node*> _closeList;			//길을 찾은 노드들을 담아둘 벡터
-	vector<node*> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
+	//vector<node*> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
+	vector<int> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
 
 	int _count;							//시작노드, 종료노드를 한번씩만 선택하기 위한 변수
 	bool _isFind;						//길 찾았냐?
 
 public:
-	HRESULT init();
-	void release();
-	void update();
-	void render();
+	void init(vector<tile> vTile);
 
 	/*중요함수*/
 	//길찾기 함수
-	void pathFinding();
+	vector<int> pathFinding(vector<tile> vTile, int startidx, int endidx, bool checkwall=true, bool checkdiagonal=true);
 	//오픈리스트 추가
 	void addOpenList(int idx, int idy);
 	//오픈리스트 삭제
 	void delOpenList(int index);
-
-	//편의를 위한 함수
-	void setNodeColor(node* node, COLORREF color);
-
 };
 

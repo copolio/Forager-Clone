@@ -1,5 +1,6 @@
 #pragma once
 #include "enemy.h"
+#include "Astar.h"
 class skull :public enemy
 {
 private : 

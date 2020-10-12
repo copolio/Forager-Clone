@@ -1,21 +1,24 @@
 #include "stdafx.h"
 #include "Astar.h"
 
-HRESULT Astar::init()
+void Astar::init(vector<tile> vTile)
 {
 	//노드 초기화
 	_startNode = NULL;
 	_endNode = NULL;
 	_curNode = NULL;
-	vector<tile> _vTiles = _map->GetTiles();
+	_vTiles = vTile;
 	//전체노드 초기화
-	for (int y = 0; y < MAX_Y; y++)
+	for (int y = 0; y < MAPTILEY; y++)
 	{
-		for (int x = 0; x < MAX_X; x++)
+		for (int x = 0; x < MAPTILEX; x++)
 		{
 			//새로운 노드와 렉트위치 설정
 			_totalNode[x][y] = new node(x, y);
-			_totalNode[x][y]->rc = RectMake(25 + x * 150, 25 + y * 150, 150, 150);
+			_totalNode[x][y]->rc = _vTiles[y*MAPTILEY + x].rc;
+			if (_vTiles[y*MAPTILEY + x].hasUnit || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
+				_totalNode[x][y]->nodeState = NODE_WALL;
+			}
 		}
 	}
 
@@ -29,130 +32,13 @@ HRESULT Astar::init()
 	_openList.clear();
 	_closeList.clear();
 	_finalList.clear();
-
-	return S_OK;
 }
 
-void Astar::release()
+vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, bool checkwall, bool checkdiagonal)
 {
-}
-
-void Astar::update()
-{
-	//시작, 종료노드 세팅하기
-	if (INPUT->GetKeyDown(VK_LBUTTON))
-	{
-		//시작, 종료노드가 이미 세팅되어 있다면 그냥 나가자
-		if (_startNode && _endNode) return;
-
-		for (int y = 0; y < MAX_Y; y++)
-		{
-			for (int x = 0; x < MAX_X; x++)
-			{
-				if (PtInRect(&_totalNode[x][y]->rc, _ptMouse))
-				{
-					_count++;
-					if (_count % 2 == 0)
-					{
-						_totalNode[x][y]->nodeState = NODE_START;
-						_startNode = _totalNode[x][y];
-					}
-					else
-					{
-						_totalNode[x][y]->nodeState = NODE_END;
-						_endNode = _totalNode[x][y];
-					}
-				}
-			}
-		}
-	}
-
-	//벽(장애물) 노드 세팅하기 (시작, 종료노드 설정전에 벽세우지 못하게 막기)
-	if (INPUT->GetKeyDown(VK_RBUTTON) && _startNode && _endNode)
-	{
-		for (int y = 0; y < MAX_Y; y++)
-		{
-			for (int x = 0; x < MAX_X; x++)
-			{
-				if (PtInRect(&_totalNode[x][y]->rc, _ptMouse))
-				{
-					//시작노드, 종료노드는 선택하지 못하게 막기
-					if (_totalNode[x][y]->nodeState == NODE_START) continue;
-					if (_totalNode[x][y]->nodeState == NODE_END) continue;
-					_totalNode[x][y]->nodeState = NODE_WALL;
-				}
-			}
-		}
-	}
-
-	//스페이스 누르면 길찾아라
-	if (INPUT->GetKeyDown(VK_SPACE))
-	{
-		this->pathFinding();
-	}
-
-	//재시작용
-	if (INPUT->GetKeyDown(VK_RETURN) && _isFind)
-	{
-		this->init();
-	}
-
-}
-
-void Astar::render()
-{
-	//char str[128];
-	//for (int y = 0; y < MAX_Y; y++)
-	//{
-	//	for (int x = 0; x < MAX_X; x++)
-	//	{
-	//		//전체노드 렉트 보여주기
-	//		Rectangle(getMemDC(), _totalNode[x][y]->rc);
-	//
-	//		//시작노드 보여주기
-	//		if (_totalNode[x][y]->nodeState == NODE_START)
-	//		{
-	//			setNodeColor(_startNode, RGB(255, 0, 0));
-	//			textOut(getMemDC(), _startNode->rc.left + 100, _startNode->rc.top + 10, "[Start]");
-	//		}
-	//		//종료노드 보여주기
-	//		if (_totalNode[x][y]->nodeState == NODE_END)
-	//		{
-	//			setNodeColor(_endNode, RGB(0, 0, 255));
-	//			textOut(getMemDC(), _endNode->rc.left + 100, _endNode->rc.top + 10, "[END]");
-	//		}
-	//		//벽노드 보여주기
-	//		if (_totalNode[x][y]->nodeState == NODE_WALL)
-	//		{
-	//			setNodeColor(_totalNode[x][y], RGB(200, 150, 100));
-	//			textOut(getMemDC(), _totalNode[x][y]->rc.left + 100, _totalNode[x][y]->rc.top + 10, "[WALL]");
-	//		}
-	//
-	//		//전체노드의 인덱스 보여주기(맨마지막에 출력)
-	//		sprintf(str, "[%d, %d]", _totalNode[x][y]->idx, _totalNode[x][y]->idy);
-	//		textOut(getMemDC(), _totalNode[x][y]->rc.left + 10, _totalNode[x][y]->rc.top + 10, str);
-	//	}
-	//}
-	//
-	////길찾았을때 보여주기
-	//if (_isFind)
-	//{
-	//	for (int i = 0; i < _finalList.size(); i++)
-	//	{
-	//		setNodeColor(_finalList[i], RGB(255, 255, 0));
-	//		sprintf(str, "[%d, %d]      %d번 노드", _finalList[i]->idx, _finalList[i]->idy, i + 1);
-	//		textOut(getMemDC(), _finalList[i]->rc.left + 10, _finalList[i]->rc.top + 10, str);
-	//		sprintf(str, "G: %d, H: %d, F: %d", _finalList[i]->G, _finalList[i]->H, _finalList[i]->F);
-	//		textOut(getMemDC(), _finalList[i]->rc.left + 10, _finalList[i]->rc.bottom - 30, str);
-	//	}
-	//}
-
-}
-
-void Astar::pathFinding()
-{
-	//종료노드가 없는 경우 길찾기 못함
-	if (!_endNode) return;
+	this->init(vTile);
+	_startNode = _totalNode[startidx/MAPTILEX][startidx % MAPTILEX];
+	_endNode = _totalNode[endidx /MAPTILEX][endidx % MAPTILEX];
 
 	//길찾기를 해보자
 	//검색을 하려면 무조건 오픈리스트에 담는다
@@ -209,12 +95,13 @@ void Astar::pathFinding()
 
 			for (int i = tempNode.size() - 1; i > 0; i--)
 			{
-				_finalList.push_back(tempNode[i]);
+				int tileIndex = tempNode[i]->idy*MAPTILEX + tempNode[i]->idx;
+				_finalList.push_back(tileIndex);
 			}
 
 			_isFind = true;
 			//종료하고 빠져 나온다
-			return;
+			return _finalList;
 		}
 
 		//상하좌우 (순서는 상관없음 - 어짜피 주변 4개의 노드를 모두 오픈리스트에 담아서 검사할 예정임)
@@ -223,18 +110,14 @@ void Astar::pathFinding()
 		addOpenList(_curNode->idx - 1, _curNode->idy);	//좌
 		addOpenList(_curNode->idx + 1, _curNode->idy);	//우
 
-
-		addOpenList(_curNode->idx + 1, _curNode->idy - 1);	//우상
-		addOpenList(_curNode->idx - 1, _curNode->idy - 1);	//좌상
-		addOpenList(_curNode->idx + 1, _curNode->idy + 1);	//우하
-		addOpenList(_curNode->idx - 1, _curNode->idy + 1);	//좌하
-
-		//추후에 대각 4방향도 추가하면 대각선 이동 처리도 가능함
-		//우상, 좌상, 우하, 좌하
-		//예외처리만 잘해주면 된다
-		//벽사이로 막가 안되도록 처리한다
+		if (checkdiagonal) {
+			//우상, 좌상, 우하, 좌하
+			addOpenList(_curNode->idx + 1, _curNode->idy - 1);	//우상
+			addOpenList(_curNode->idx - 1, _curNode->idy - 1);	//좌상
+			addOpenList(_curNode->idx + 1, _curNode->idy + 1);	//우하
+			addOpenList(_curNode->idx - 1, _curNode->idy + 1);	//좌하
+		}
 	}
-
 }
 
 void Astar::addOpenList(int idx, int idy)
@@ -277,13 +160,4 @@ void Astar::addOpenList(int idx, int idy)
 void Astar::delOpenList(int index)
 {
 	_openList.erase(_openList.begin() + index);
-}
-
-//편의를 위한 함수
-void Astar::setNodeColor(node * node, COLORREF color)
-{
-	HBRUSH brush = CreateSolidBrush(color);
-	FillRect(getMemDC(), &node->rc, brush);
-	DeleteObject(brush);
-	FrameRect(getMemDC(), node->rc, RGB(0, 0, 0));
 }
