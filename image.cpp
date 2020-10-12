@@ -438,11 +438,20 @@ void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 
 void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha, float zoomRate)
 {
+	if (!_blendImage) this->initForAlphaBlend();
+	_blendFunc.SourceConstantAlpha = alpha;
+
 	int width = _imageInfo->width;
 	int height = _imageInfo->height;
 
-	TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate), _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
-	
+
+	BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height,
+		hdc, destX, destY, SRCCOPY);
+
+	TransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _imageInfo->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, RGB(255, 0, 255));
+
+	GdiAlphaBlend(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf(width * zoomRate), ceilf(height * zoomRate),
+		_blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
 }
 
 void image::alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
