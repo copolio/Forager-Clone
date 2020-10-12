@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
-#include "ForagerStatManager.h"
 
 HRESULT ForagerPlayer::init()
 {
@@ -98,8 +97,7 @@ HRESULT ForagerPlayer::init()
 
 	maxHp = 1;
 	currentHp = 1;
-	_foragerHp = new ForagerStatManager;
-	_foragerHp->init();
+	STATMANAGER->init();
 
 	Atk = 15;
 	
@@ -126,8 +124,8 @@ void ForagerPlayer::update()
 	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(rc.left, rc.top);
 	
-	_foragerHp->update();
-	_foragerHp->setinvenopen(inven_open);
+	STATMANAGER->update();
+	STATMANAGER->setinvenopen(inven_open);
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -166,7 +164,7 @@ void ForagerPlayer::render(HDC hdc)
 		else
 			IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), CAMERA->GetRelativeY(_rcHammer.top), CAMERA->GetZoom());
 	}
-	_foragerHp->render(hdc);
+	STATMANAGER->render(hdc);
 }
 
 void ForagerPlayer::animation()
@@ -319,7 +317,7 @@ void ForagerPlayer::PlayerControll()
 				_state = ROTATE;
 				_isMoveRotate = true;
 				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-				_foragerHp->setRight(5);
+				STATMANAGER->setRight(5);
 			}
 		}
 		// 망치질 하는 상태 
@@ -345,7 +343,7 @@ void ForagerPlayer::PlayerControll()
 								// 스태니마 감소
 								//_foragerHp->
 								//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-								_foragerHp->setRight(5);
+								STATMANAGER->setRight(5);
 
 								//그 유닛의 경험치 획득.
 								int t_exp = targetUnit->exp;
@@ -355,7 +353,7 @@ void ForagerPlayer::PlayerControll()
 									string str = std::to_string(t_exp);
 									str.insert(0, "EXP ");
 									TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
-									_foragerHp->IncreaseExp(t_exp);
+									STATMANAGER->IncreaseExp(t_exp);
 
 								}
 
@@ -598,7 +596,7 @@ void ForagerPlayer::CheckCollision()
 
 void ForagerPlayer::hurt(int damage)
 {
-	_foragerHp->setRight(damage);
+	STATMANAGER->setRight(damage);
 }
 
 

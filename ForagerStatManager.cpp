@@ -154,6 +154,10 @@ void ForagerStatManager::IncreaseExp(int exp)
 
 void ForagerStatManager::setRight(int num)
 {
+
+	if (_staminSizeCurrent >= _staminaImgSizeMax-5) {
+		_staminSizeCurrent = _staminaImgSizeMax-5;
+	}
 	_staminSizeCurrent -= num;
 }
 

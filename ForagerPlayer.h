@@ -20,7 +20,6 @@ enum STATE
 	HAMMERING
 
 };
-class ForagerStatManager;
 
 class ForagerPlayer : public unit
 {
@@ -77,7 +76,6 @@ private:
 	image* _foragerHpBarBack[3];
 
 	// ÂüÁ¶
-	ForagerStatManager* _foragerHp;
 	earth* _map;
 	cursor* _cursor;
 	inventory* _theInven;
