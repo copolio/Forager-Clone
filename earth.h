@@ -22,6 +22,7 @@ private:
 	int _count;
 	int _frameCount;
 	int wavetick;
+	bool waveUp;
 public:
 	HRESULT init();
 	void release();

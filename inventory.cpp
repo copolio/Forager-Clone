@@ -173,7 +173,6 @@ void inventory::item_info_print(HDC hdc)
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
 			_item_info->render(hdc, player_inventory[i]->img_name);
-			cout << player_inventory[i]->img_name << endl;
 		}
 	}
 }

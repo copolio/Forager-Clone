@@ -12,7 +12,7 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 2000, 1300, true, RGB(255, 0, 255));
 	
 	_count = wavetick = _frameCount = 0;
-
+	waveUp = true;
 	//월드맵 초기화
 	this->mapSetup();
 
@@ -32,10 +32,11 @@ void earth::update()
 			this->setRandomObject();
 		}
 		if (_count % 10 == 0) {
-			wavetick++;
-		}
-		if (wavetick > 10) {
-			wavetick = 0;
+			wavetick += waveUp ? 1 : -1;
+
+			if (wavetick > 10 || wavetick < 0) {
+				waveUp = !waveUp;
+			}
 		}
 
 		//유닛매니저 업데이트
