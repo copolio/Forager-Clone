@@ -262,7 +262,7 @@ void skull::skullAnimation()
 
 void skull::skullLookDirection()
 {
-	if ( _state == ATTACK)
+	if ( _state == ATTACK || isattacking)
 	{
 		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
 			isLeft = true;
