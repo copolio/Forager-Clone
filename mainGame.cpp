@@ -12,11 +12,12 @@ HRESULT mainGame::init()
 	/*이곳에서 각각의 씬들을 추가하고 현재씬을 설정한다*/
 
 	/*씬추가*/
+	SCENEMANAGER->addScene("로딩 화면", new loadingScene);
 	SCENEMANAGER->addScene("시작 화면", new startScene);
 	SCENEMANAGER->addScene("게임 화면", new gameScene);
 
 	/*현재씬*/
-	SCENEMANAGER->loadScene("시작 화면");
+	SCENEMANAGER->loadScene("로딩 화면");
 
 	return S_OK;
 }

@@ -53,8 +53,7 @@ void loadingScene::loadingImage()
 	//IMAGEMANAGER->addImage("mountain", "Images/mountain.bmp", WINSIZEX, WINSIZEY);
 	//IMAGEMANAGER->addImage("ball", "Images/ball.bmp", 60, 60);
 
-	_loading->loadImage("mountain", "Images/mountain.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
-	_loading->loadImage("ball", "Images/ball.bmp", 60, 60, true, RGB(255, 0, 255));
+	
 
 }
 

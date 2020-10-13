@@ -41,7 +41,7 @@ class loadItem
 private:
 	LOAD_KIND _kind;					//로딩종류
 	tagImageResource _imageResource;	//이미지 정보
-
+	
 public:
 	HRESULT init(string strKey, int width, int height);
 	HRESULT init(string strKey, const char* fileName, int width, int height, bool isTrans = false, COLORREF transColor = RGB(0, 0, 0));
@@ -72,7 +72,10 @@ private:
 	image* _background;
 	progressBar* _loadingBar;
 	int _currentGauge;
-
+	int alpha;
+	int count;
+	bool start;
+	bool end;
 public:
 	HRESULT init();
 	void release();
