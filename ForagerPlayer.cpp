@@ -16,8 +16,6 @@ HRESULT ForagerPlayer::init()
 	_equipWeapon = EQUIPWEAPON::PICKAXE;
 
 	// ½ºÅÈ ÃÊ±âÈ­
-	_foragerHp = new ForagerStatManager;
-	_foragerHp->init();
 	maxHp = 1;
 	currentHp = 1;
 	exp = 0;

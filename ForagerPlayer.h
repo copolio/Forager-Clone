@@ -38,6 +38,7 @@ private:
 	float _angle;				// 마우스와 플레이어 사이의 각도
 	float _bowPowerGauge;		// 파워 게이지
 	EQUIPWEAPON _equipWeapon;	// 무기 타입 (곡괭이류, 원거리류)
+	quick_slot* _quick;			// 무기를 먹었을 때 퀵슬롯 추가
 
 	//망치 영역
 	RECT _rcHammer;
