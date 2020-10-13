@@ -53,7 +53,7 @@ private:
 	vector<int> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터
 
 public:
-	void init(vector<tile> vTile);
+	void init(vector<tile> vTile, bool checkwall);
 
 	/*중요함수*/
 	//길찾기 함수

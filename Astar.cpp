@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Astar.h"
 
-void Astar::init(vector<tile> vTile)
+void Astar::init(vector<tile> vTile, bool checkwall)
 {
 	//노드 초기화
 	_startNode = NULL;
@@ -16,8 +16,10 @@ void Astar::init(vector<tile> vTile)
 			//새로운 노드와 렉트위치 설정
 			_totalNode[x][y] = new node(x, y);
 			_totalNode[x][y]->rc = _vTiles[y*MAPTILEY + x].rc;
-			if (_vTiles[y*MAPTILEY + x].hasUnit || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
-				_totalNode[x][y]->nodeState = NODE_WALL;
+			if (checkwall) {
+				if (_vTiles[y*MAPTILEY + x].hasUnit || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
+					_totalNode[x][y]->nodeState = NODE_WALL;
+				}
 			}
 		}
 	}
@@ -30,10 +32,10 @@ void Astar::init(vector<tile> vTile)
 
 vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, bool checkwall, bool checkdiagonal)
 {
-	this->init(vTile);
+	this->init(vTile, checkwall);
 	earth _map;
-	_startNode = _totalNode[_map.GetTileX(startidx)][_map.GetTileY(startidx)];
-	_endNode = _totalNode[_map.GetTileX(endidx)][_map.GetTileY(endidx)];
+	_startNode = _totalNode[_map.GetTileY(startidx)][_map.GetTileX(startidx)];
+	_endNode = _totalNode[_map.GetTileY(endidx)][_map.GetTileX(endidx)];
 
 	//길찾기를 해보자
 	//검색을 하려면 무조건 오픈리스트에 담는다
