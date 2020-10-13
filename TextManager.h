@@ -46,7 +46,7 @@ public:
 	// color : 폰트 색상 (디폴트 흰색)
 	// isBoundary : 텍스트 그림자 활성화 (선명도 강조) (디폴트 꺼짐)
 	// colorBoundary : 그림자 색상 (디폴트 검은색)
-	void ShowText(HDC hdc, string str = "Test", POINT ptPos = { 10, 10 }, int size = 15, int align = 0, COLORREF color = RGB(255, 255, 255), bool isBoundary = false, COLORREF colorBoundary = RGB(0, 0, 0), int interval = 3);
+	void ShowText(HDC hdc, bool isRelative, string str = "Test", POINT ptPos = { 10, 10 }, int size = 15, int align = 0, COLORREF color = RGB(255, 255, 255), bool isBoundary = false, COLORREF colorBoundary = RGB(0, 0, 0), int interval = 3);
 	void ShowFloatingText(string str, POINT ptPos, COLORREF color = RGB(255, 255, 255), COLORREF bgColor = RGB(0,0,0));
 	void AppearItemText(string pImgKey);
 };

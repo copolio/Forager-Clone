@@ -22,6 +22,7 @@ HRESULT ForagerPlayer::init()
 	currentHp = 1;
 	exp = 0;
 	Atk = 15;
+	_bowPowerGauge = 0.1f;
 
 	//플레이어 상태 불값 초기화 
 	_isLeft = false;
@@ -312,7 +313,7 @@ void ForagerPlayer::bowAnimation()
 {
 	// 마우스와 플레이어 사이의 각도
 	POINT t_mousePos = _ptMouse;
-	POINT t_myPos = { CAMERA->GetRelativeX(GetCenterX()), CAMERA->GetRelativeY(GetCenterY()) };
+	POINT t_myPos = { CAMERA->GetRelativeX(GetCenterX() + 4), CAMERA->GetRelativeY(GetCenterY() + 4)};
 	int x = t_mousePos.x - t_myPos.x;
 	int y = t_mousePos.y - t_myPos.y;
 	_angle = atan2f(-y, x);
@@ -354,6 +355,17 @@ void ForagerPlayer::PlayerControll()
 	}
 	else if (INPUT->GetKeyDown('1')) {
 		_equipWeapon = BOW;
+	}
+	else if (INPUT->GetKeyDown('2')) {
+		vector<string> str;
+		str.push_back("지금은 아무것도 할 게 없어.");
+		DIALOGUE->ShowDialogue(str, &rc);
+	}
+	else if (INPUT->GetKeyDown('3')) {
+		vector<string> str;
+		str.push_back("배가 고파지기 시작했어.");
+		str.push_back("뭐라도 먹는 게 좋을 것 같아.");
+		DIALOGUE->ShowDialogue(str, &rc);
 	}
 
 	if (_state != STATE::ROTATE) {
@@ -468,6 +480,12 @@ void ForagerPlayer::BowClick()
 		_isBowPulling = true;
 		CAMERA->forceZoomIn(-0.15f, -0.002f, false);
 	}
+	else {
+		if (_bowPowerGauge >= 1.0f)
+			_bowPowerGauge = 1.0f;
+		else
+			_bowPowerGauge += 0.01f;
+	}
 }
 
 void ForagerPlayer::ArrowFire() 
@@ -475,8 +493,11 @@ void ForagerPlayer::ArrowFire()
 	if (_isBowPulling) {
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
+		int arrowDamage = (Atk * 4) * _bowPowerGauge;
+		cout << arrowDamage << endl;
 		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
-		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), Atk * 2, _angle, 7.0f, false, false);
+		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
+		_bowPowerGauge = .1f;
 	}
 }
 
@@ -554,9 +575,9 @@ void ForagerPlayer::playerLookingDirection()
 
 POINT ForagerPlayer::GetBowXY()
 {
-	int distance = 150;
-	float x = WINSIZEX / 2 + (cosf(_angle * PI / 180.0f) * distance);
-	float y = WINSIZEY / 2 - (sinf(_angle * PI / 180.0f) * distance);
+	int distance = 1150 - ((CAMERA->GetZoom() * 1000));
+	float x = CAMERA->GetRelativeX(GetCenterX() + (cosf(_angle * PI / 180.0f) * distance)) * CAMERA->GetZoom();
+	float y = CAMERA->GetRelativeY(GetCenterY() - (sinf(_angle * PI / 180.0f) * distance)) * CAMERA->GetZoom();
 
 	POINT t_ClampPos = { x, y };
 

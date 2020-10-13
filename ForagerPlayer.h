@@ -32,12 +32,13 @@ class ForagerPlayer : public unit
 private:
 
 	// 기본
-	STATE _state;		//캐릭터 상태
-	float _speed;		//플레이어 스피드 
-	float _currentSpeed;//플레이어 현재 스피드 
-	int Atk;
-	int _playerTilePos;		// 플레이어 타일 좌표
-	float _angle;		// 마우스와 플레이어 사이의 각도
+	STATE _state;				// 캐릭터 상태
+	float _speed;				// 플레이어 스피드 
+	float _currentSpeed;		// 플레이어 현재 스피드 
+	int Atk;					// 공격력
+	int _playerTilePos;			// 플레이어 타일 좌표
+	float _angle;				// 마우스와 플레이어 사이의 각도
+	float _bowPowerGauge;		// 파워 게이지
 	EQUIPWEAPON _equipWeapon;	// 무기 타입 (곡괭이류, 원거리류)
 
 	//망치 영역

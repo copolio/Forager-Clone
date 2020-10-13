@@ -13,26 +13,26 @@ void construction_tool_tip::render(HDC hdc, string item_name, RECT rc)
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, "/  3", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 60;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 60;
-		TEXTMANAGER->ShowText(hdc, "/  5", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 
 	}else if (item_name == "anvil") {
 		IMAGEMANAGER->render("stone", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 30);
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, "/  10", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  10", pos, 20, 0);
 
 		
 	}
@@ -42,36 +42,36 @@ void construction_tool_tip::render(HDC hdc, string item_name, RECT rc)
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, "/  3", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 60;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 60;
-		TEXTMANAGER->ShowText(hdc, "/  5", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 	}
 	else if (item_name == "bridge") {
 		IMAGEMANAGER->render("wood", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 30);
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, "/  5", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 	}
 	else if (item_name == "fishtrap") {
 		IMAGEMANAGER->render("wood", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 30);
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, "/  5", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 	}
 
 }
