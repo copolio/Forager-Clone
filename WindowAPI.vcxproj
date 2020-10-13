@@ -209,6 +209,7 @@
     <ClInclude Include="unit.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="util.h" />
+    <ClInclude Include="wraith.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agriculture.cpp" />
@@ -276,6 +277,7 @@
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
+    <ClCompile Include="wraith.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

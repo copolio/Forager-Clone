@@ -20,14 +20,23 @@ void UnitManager::init()
 
 
 	
-	//에너미 - (해골, 소)
+	//에너미 - (해골, 소, 레이스)
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
 
+
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
+
+
+	IMAGEMANAGER->addFrameImage("wraithAttack", "Images/이미지/NPC/레이스2.bmp", 1710, 400, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("wraithIdle", "Images/이미지/NPC/레이스IDLE2.bmp", 2280, 400, 4, 2, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("wraithBullet", "Images/이미지/NPC/레이스무기발사.bmp", 80, 600, 1, 2, true, RGB(255, 0, 255));
+	
+
 
 	// 체력바
 	IMAGEMANAGER->addImage("hpBarBG", "Images/이미지/NPC/NPC체력(뒤).bmp", 50, 20, true, RGB(255, 0, 255));
@@ -53,9 +62,7 @@ void UnitManager::update()
 		if (_vUnits[i]->tag != TAG::PLAYER ) {
 			_vUnits[i]->update();
 		}
-		
 	}
-	
 }
 
 
@@ -120,6 +127,11 @@ void UnitManager::AddUnits(skull* p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(wraith* p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 void UnitManager::AddUnits(tile* p_tile)
 {
 	
@@ -148,6 +160,14 @@ void UnitManager::AddUnits(unit * p_enemy, string p_monsterName)
 		
 	}
 	
+	//레이스
+	if (p_monsterName == "wraith")
+	{
+		//wraith* _wraith = new wraith;
+		//_wraith->setEnemy(p_monsterN)
+		_vUnits.push_back(p_enemy);
+
+	}
 
 }
 

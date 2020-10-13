@@ -20,6 +20,12 @@ enum COWSTATE
 	DASH,
 };
 
+enum WRAITHSTATE
+{
+	FLY,
+	SHOOT
+};
+
 class earth;
 class enemy :public unit
 {
@@ -36,6 +42,7 @@ protected :
 
 	SKULLSTATE _state;
 	COWSTATE _state2;
+	WRAITHSTATE _state3;
 	int _index;
 	int _attackIndex;
 	int _count;

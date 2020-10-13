@@ -11,7 +11,7 @@ HRESULT skull::init()
 	skullHitWaitCount = 0;
 	skullAttackRange = 80;
 
-	hitPlayer = false;
+	
 	tryAttack = false;
 
 	Atk = 15;

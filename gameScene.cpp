@@ -38,7 +38,15 @@ HRESULT gameScene::init()
 	_skull->setEnemy("skull", "skullHeadDrop", _player);
 	_skull->init();
 
+	wraith* _wraith = new wraith;
+	_wraith->setLinkMap(_map);
+	_wraith->setEnemy("wraithIdle", "skullHeadDrop", _player);
+	_wraith->init();
+
+
 	UNITMANAGER->AddUnits(_skull ,true);
+
+	UNITMANAGER->AddUnits(_wraith,true);
 	//_enemy = new enemy;
 	//UNITMANAGER->AddUnits(_enemy,"cow");
 	money_pos.x = 55;

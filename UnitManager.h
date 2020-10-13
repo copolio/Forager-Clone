@@ -9,6 +9,7 @@
 #include "skull.h"
 #include "cow.h"
 #include "earth.h"
+#include "wraith.h"
 
 class UnitManager : public singletonBase<UnitManager>
 {
@@ -32,6 +33,7 @@ public:
 
 	void AddUnits(unit* p_unit);
 	void AddUnits(skull* p_unit, bool test);
+	void AddUnits(wraith* p_unit, bool test);
 	void AddUnits(tile* p_tile);
 	void AddUnits(unit* p_enemy, string p_monsterName);
 	void AddUnits(string p_itemKey, POINT p_pos);
