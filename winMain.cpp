@@ -76,6 +76,32 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	{
 		return 0;
 	}
+	
+
+
+	// 마우스 가두기
+	POINT p1, p2;
+	RECT rc;
+	GetClientRect(_hWnd, &rc);    // 클라이언트 크기
+
+	// 클라이언트 크기를 좌표로 변환
+	p1.x = rc.left;
+	p1.y = rc.top;
+	p2.x = rc.right;
+	p2.y = rc.bottom;
+
+	// 클라이언트 크기를 스크린 크기로 변환
+	ClientToScreen(_hWnd, &p1);
+	ClientToScreen(_hWnd, &p2);
+
+	rc.left = p1.x;
+	rc.top = p1.y;
+	rc.right = p2.x;
+	rc.bottom = p2.y;
+
+	//해당 좌표를 기준으로 커서를 고정
+	ClipCursor(&rc);
+
 
 	//MSG : 운영체제에서 발행하는 메세지 정보를 저장하기 위한 구조체
 	MSG message;

@@ -13,20 +13,20 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, "/  1", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
 		break;
 	case 1:
 		IMAGEMANAGER->render("±Ý±«", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
 		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, "/  3", pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
 		break;
 	case 2:
 		break;

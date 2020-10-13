@@ -29,7 +29,7 @@ void productionManager::render(HDC hdc)
 			IMAGEMANAGER->alphaRender(_production[i]->image_name, hdc,pos.x-15, pos.y, _production[i]->alpha);
 			pos.x += 15;
 			pos.y += 15;
-			TEXTMANAGER->ShowText(hdc, to_string(_production[i]->count), pos, 20);
+			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
 		}
 	}
 }

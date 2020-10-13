@@ -88,6 +88,7 @@ void gameScene::update()
 
 	EFFECTMANAGER->update();
 	TEXTMANAGER->update();
+	DIALOGUE->update();
 	_map->update();
 
 	// ÀÎº¥Åä¸® ¿­¸é Ä¿¼­ Å¸°ÙÆÃ ¾÷µ¥ÀÌÆ® ÁßÁö
@@ -102,6 +103,7 @@ void gameScene::render()
 	EFFECTMANAGER->render(getMemDC());		// ÀÌÆåÆ® ·»´õ
 	TEXTMANAGER->render(getMemDC());		// ÅØ½ºÆ® ·»´õ
 	PRODUCTIONMANAGER->render(getMemDC());	// »ý»êÇ° ·»´õ
+	DIALOGUE->render(getMemDC());			// ¸»Ç³¼± ·»´õ
 	if (inven_open) 						// ¸Þ´º ·»´õ
 		_Menu->render(getMemDC());
 	else 
@@ -109,9 +111,17 @@ void gameScene::render()
 	
 											// °ñµå ·»´õ
 	IMAGEMANAGER->render("img_game_money_icon", getMemDC(), 10, WINSIZEY - 50);
-	TEXTMANAGER->ShowText(getMemDC(), to_string(ITEMMANAGER->getMoney()), money_pos, 38);
-	_cursor->render(getMemDC());			// Å¸°ÙÆÃ ¹Ú½º ·»´õ
+	TEXTMANAGER->ShowText(getMemDC(), false, to_string(ITEMMANAGER->getMoney()), money_pos, 38);
+
+	if (!_player->IsBow())
+		_cursor->render(getMemDC());		// Å¸°ÙÆÃ ¹Ú½º ·»´õ
 	CAMERA->render(getMemDC());				// Ä«¸Þ¶ó Å×½ºÆ® FrameRect ·»´õ
 											// ¸¶¿ì½º Ä¿¼­ ·»´õ
-	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
+	
+
+	if (_player->IsBow()){
+		POINT clampPos = _player->GetBowXY();
+		IMAGEMANAGER->findImage("BowCursor")->render(getMemDC(), clampPos.x, clampPos.y);
+	}else
+		IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }

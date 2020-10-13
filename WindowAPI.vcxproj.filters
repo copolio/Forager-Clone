@@ -309,6 +309,12 @@
     <ClCompile Include="SpawnManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectileManager.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueManager.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -495,6 +501,12 @@
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="SpawnManager.h">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManager.h">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
   </ItemGroup>

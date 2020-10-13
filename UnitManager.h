@@ -12,6 +12,7 @@
 #include "earth.h"
 #include "SpawnManager.h"
 #include "ForagerPlayer.h"
+#include "ProjectileManager.h"
 
 class earth;
 
@@ -19,8 +20,10 @@ class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
+	tagProjectile* _pProjectiles;
 	earth *_map;
 	SpawnManager *_spawnManager;
+	ProjectileManager *_projectileManager;
 
 private:
 	void Sorting();
@@ -33,6 +36,7 @@ public:
 	void update();
 	void render(HDC hdc);
 
+	void checkCollision(unit* p_unit);
 	void AddUnits(ForagerPlayer* p_unit);
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
@@ -47,5 +51,6 @@ public:
 	vector<unit*> GetUnits() { return _vUnits; };
 	int GetMonsterCount();
 	void setLinkMap(earth *p_map);
+	ProjectileManager* GetProjectileMG() { return _projectileManager; };
 };
 

@@ -14,9 +14,9 @@ void progressBar::render(HDC hdc)
 {
 	if (CAMERA->movelimit) {
 		//렌더링 되는 순서에 의해서 렌더가 되니까 피통부터 렌더 시킨다
-		_progressBarBack->render(hdc, _x, _y);
+		_progressBarBack->render(hdc, (_x) * CAMERA->GetZoom(), _y * CAMERA->GetZoom());
 		//앞에 보여지는 체력바 이미지
-		_progressBarFront->render(hdc, _x + 4, _y + 5, 0, 0, _width, 10);
+		_progressBarFront->render(hdc, (_x + 4) * CAMERA->GetZoom(), (_y + 5) * CAMERA->GetZoom(), 0, 0, _width, 10);
 	}
 }
 

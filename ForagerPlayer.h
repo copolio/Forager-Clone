@@ -18,34 +18,31 @@ enum STATE
 	RUN,
 	ROTATE,
 	HAMMERING
-
 };
+
+enum EQUIPWEAPON {
+	PICKAXE,
+	BOW,
+};
+
 class ForagerStatManager;
 
 class ForagerPlayer : public unit
 {
 private:
 
-	// 이미지
-	image* _foragerIdle;
-	image* _foragerRun;
-	image* _foragerRotate;
-	image* _foragerHammering;		
-	image* _playerHammering;
-	image* _hammer;
-	image* _hammerLeft;
+	// 기본
+	STATE _state;				// 캐릭터 상태
+	float _speed;				// 플레이어 스피드 
+	float _currentSpeed;		// 플레이어 현재 스피드 
+	int Atk;					// 공격력
+	int _playerTilePos;			// 플레이어 타일 좌표
+	float _angle;				// 마우스와 플레이어 사이의 각도
+	float _bowPowerGauge;		// 파워 게이지
+	EQUIPWEAPON _equipWeapon;	// 무기 타입 (곡괭이류, 원거리류)
 
-	// 프레임 스피드
-	int _hitDelayCount;
-	int _count;
-	int _index;
-
-	
-
-	//플레이어 회전 관련 변수 카운트 
-	int _Acount;
-	int _spinCount;
-	float _spinSpeed;
+	//망치 영역
+	RECT _rcHammer;
 
 	//플레이어 상태변수
 	bool _isLeft;		//왼쪽이냐?
@@ -55,36 +52,43 @@ private:
 	bool _isMoveRotate;	//회전하면서 움직이는가?
 	bool _isRun;		//뛰고 있는가?
 	bool _isHammering;	//곡괭이질인가?
+	bool _isBowPulling;	//활시위를 당기고 있는가?
 
-	bool inven_open;	// 인벤 열면 이동 불가능
-
-	STATE _state;		//캐릭터 상태
-	float _speed;		//플레이어 스피드 
-	float _currentSpeed;//플레이어 현재 스피드 
+	// 이미지
+	image* _foragerIdle;
+	image* _foragerRun;
+	image* _foragerRotate;
+	image* _foragerHammering;		
+	image* _playerHammering;
+	image* _hammer;
+	image* _hammerLeft;
+	image* _bow;
+	image* _foragerHpBarFront[3];
+	image* _foragerHpBarBack[3];
 	
-	int _playerTilePos;		// 플레이어 타일 좌표
+	// 애니메이션 스피드
+	int _hitDelayCount;
+	int _count;
+	int _index;
 
 	//플레이어 발걸음 연출
 	int _footWalkCount;
 	int _footWalkEffectInterval;
 
+	//플레이어 회전 관련 변수 카운트 
+	int _Acount;
+	int _spinCount;
+	float _spinSpeed;
 
-	//망치 영역
-	RECT _rcHammer;
-
-	//플레이어 체력 칸 이미지
-	image* _foragerHpBarFront[3];
-	image* _foragerHpBarBack[3];
+	// 기타
+	bool inven_open;	// 인벤 열면 이동 불가능
 
 	// 참조
 	ForagerStatManager* _foragerHp;
 	earth* _map;
 	cursor* _cursor;
 	inventory* _theInven;
-	//enemy* _enemy;
 	unit* _unit;
-
-	int Atk;
 
 public: 
 	HRESULT init();
@@ -92,18 +96,23 @@ public:
 	void update();
 	void render(HDC hdc) override;
 
-	//플레이어 애니메이션
-	void animation();
+
+private:
+
 	void PlayerControll();
+
+	void MeleeWeaponClick();
+	void BowClick();
+	void ArrowFire();
+	void bowAnimation();
+	void animation();
 	void playerMove();
 	void playerLookingDirection();
-	void RotateImage(image* img);
-	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
 
+public:
 	float getPlayerMaxHp() { return maxHp; }
 	float getPlayerCurrentHp(){ return currentHp; }
 	void setCurrentPlayerHp(float _hp) { currentHp -= _hp; }
-
 	void setInvenOpen(bool isOpen) { inven_open = isOpen; };
 	void setPMLink(earth* map) { _map = map; };
 	void setCursorLink(cursor* cursor) { _cursor = cursor; };
@@ -117,5 +126,12 @@ public:
 
 public:
 	int GetPlayerTilePos() { return _playerTilePos; };
+	bool IsBow() { return _equipWeapon == EQUIPWEAPON::BOW; };
+	POINT GetBowXY();
+
+private:
+	void RotateImage(image* img);
+	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
+
 };
 

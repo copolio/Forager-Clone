@@ -146,7 +146,6 @@ image * imageManager::findImage(string strKey)
 		//key->first => 키
 		return key->second; //해당 데이터 = 값(이미지 클래스)
 	}
-
 	return nullptr;
 }
 

@@ -19,8 +19,9 @@ HRESULT startScene::init()
 	IMAGEMANAGER->addImage("GameSlotInner", "Images/이미지/GUI/img_UI_GameSlotInner.bmp", 227, 227, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 1960, 1280, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleCursor", "Images/이미지/GUI/커서.bmp", 15, 15, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("BowCursor", "Images/이미지/GUI/img_UI_bowCursor.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Balloon", "Images/이미지/GUI/img_UI_DialogueBalloon.bmp", 214, 67, true, RGB(255, 0, 255));
 
-	
 	// 커서 반응형 이미지 설정
 	for (int i = 0; i < BUTTON_MAX / 2; i++) {
 		RECT slotRC = RectMakeCenter(WINSIZEX / 2 - 400 + i * 400, 360, 227, 227);
@@ -84,7 +85,7 @@ void startScene::render()
 		int centerX = _button[i].GetRect().left + (_button[i].GetRect().right - _button[i].GetRect().left) / 2;
 		int centerY = _button[i].GetRect().top + (_button[i].GetRect().bottom- _button[i].GetRect().top) / 2;
 		POINT ptPos = { centerX , centerY - 15 };
-		TEXTMANAGER->ShowText(getMemDC(), "새게임", ptPos, 35, 1, RGB(255,255,255), true, RGB(0,0,0));
+		TEXTMANAGER->ShowText(getMemDC(), false, "새게임", ptPos, 35, 1, RGB(255,255,255), true, RGB(0,0,0));
 	}
 
 

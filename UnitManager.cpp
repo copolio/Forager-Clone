@@ -5,6 +5,9 @@ void UnitManager::init()
 {
 	_spawnManager = new SpawnManager;
 	_spawnManager->init();
+	_projectileManager = new ProjectileManager;
+	_projectileManager->init();
+	_pProjectiles = _projectileManager->GetProjectile();
 
 	//자원 1 (나무, 돌, 열매)
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -52,14 +55,52 @@ void UnitManager::update()
 	Sorting();
 	CheckRemoveUnit();
 
+	// 유닛 업데이트
 	for (int i = 0; i < _vUnits.size(); i++) {
 		if (_vUnits[i]->tag != TAG::PLAYER ) {
 			_vUnits[i]->update();
 		}
+
+		// 카메라 외곽과 필드 아이템은 충돌처리 무시
+		RECT temp;
+		if (_vUnits[i]->tag == TAG::ITEM) continue;	
+		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vUnits[i]->rc)) continue;
+
+		// 투사체와 유닛간의 충돌처리
+		checkCollision(_vUnits[i]);
 	}
 
 	_spawnManager->update();
-	
+	_projectileManager->update();
+}
+
+void UnitManager::checkCollision(unit * p_unit)
+{
+	for (int k = 0; k < PROJECTILE_MAX; k++) {
+
+		RECT temp;
+		if (!_pProjectiles[k].isAppear) continue; 	// 발사 안 된 투사체는 무시
+
+		// 유닛과 충돌한 투사체가 있다면
+		if (IntersectRect(&temp, &p_unit->rc, &RectMakeCenter(_pProjectiles[k].x, _pProjectiles[k].y, 20, 20)))
+		{
+			// Enemy 투사체는 플레이어에게만 데미지 적용
+			if (_pProjectiles[k].isEnemyProjectTile)
+			{
+				if (p_unit->tag == TAG::PLAYER)
+					IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+				if (p_unit->tag != TAG::ENEMY)
+					_pProjectiles[k].isAppear = false;
+			}
+			// Player 투사체는 모든 유닛에게 데미지 적용
+			else {
+				if (p_unit->tag != TAG::PLAYER) {
+					p_unit->hurt(_pProjectiles[k].damage);
+					_pProjectiles[k].isAppear = false;
+				}
+			}
+		}
+	}
 }
 
 
@@ -82,6 +123,8 @@ void UnitManager::render(HDC hdc)
 			(*_vUnits[i]).render(hdc);
 		}
 	}
+
+	_projectileManager->render(hdc);
 }
 
 
@@ -103,6 +146,7 @@ void UnitManager::CheckRemoveUnit()
 	if (_vUnits.size() > 0) {
 		for (auto iter = _vUnits.begin(); iter != _vUnits.end();) {
 			if ((*iter)->isDead()) {
+
 				SAFE_DELETE((*iter));
 				iter = _vUnits.erase(iter);
 			}
@@ -148,13 +192,7 @@ void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
 		_vUnits.push_back(_cow);
 		
 	}
-	
-
 }
-
-
-
-
 
 // 유닛 추가
 void UnitManager::AddUnits(string p_itemKey, POINT p_pos)

@@ -18,6 +18,9 @@ HRESULT mainGame::init()
 	/*현재씬*/
 	SCENEMANAGER->loadScene("시작 화면");
 
+	RECT rc;
+	POINT p1, p2;
+
 	return S_OK;
 }
 

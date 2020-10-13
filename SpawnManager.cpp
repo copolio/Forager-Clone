@@ -60,11 +60,10 @@ void SpawnManager::TrySpawn()
 void SpawnManager::SpawnPatternOne(string p_enemyName, int count)
 {
 	for (int i = 0; i < count; i++) {
-		int randomTile = RANDOM->range(0, _plainTile.size());
+		int randomTile = RANDOM->range(0, _plainTile.size() - 1);
 		RECT t_rc = _plainTile[randomTile].rc;
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
-		enemy *t_enemy = new enemy;
 
 		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
 	}

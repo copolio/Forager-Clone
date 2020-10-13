@@ -45,6 +45,7 @@ using namespace MY_UTIL;
 #include "UnitManager.h"
 #include "item_Manager.h"
 #include "productionManager.h"
+#include "DialogueManager.h"
 
 //=============================================================
 //	## 싱글톤을 추가한다 ##
@@ -63,6 +64,8 @@ using namespace MY_UTIL;
 #define UNITMANAGER UnitManager::getSingleton()
 #define ITEMMANAGER item_Manager::getSingleton()
 #define PRODUCTIONMANAGER productionManager::getSingleton()
+#define DIALOGUE DialogueManager::getSingleton()
+
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)
 //=============================================================

@@ -159,6 +159,7 @@
     <ClInclude Include="construction_tool_tip.h" />
     <ClInclude Include="cow.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="enemy.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="mainGame.h" />
     <ClInclude Include="productionManager.h" />
     <ClInclude Include="progressBar.h" />
+    <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="purchase_land.h" />
     <ClInclude Include="quick_slot.h" />
     <ClInclude Include="random.h" />
@@ -222,6 +224,7 @@
     <ClCompile Include="construction_tool_tip.cpp" />
     <ClCompile Include="cow.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -250,6 +253,7 @@
     <ClCompile Include="mainGame.cpp" />
     <ClCompile Include="productionManager.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="purchase_land.cpp" />
     <ClCompile Include="quick_slot.cpp" />
     <ClCompile Include="random.cpp" />

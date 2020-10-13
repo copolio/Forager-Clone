@@ -113,7 +113,7 @@ void TextManager::renderItemText(HDC hdc)
 			IMAGEMANAGER->render(_vFieldItemText[i].imgKey, hdc, x, y);
 			string str = _vFieldItemText[i].itemName + " x ";
 			str.append(to_string(_vFieldItemText[i].num));
-			TEXTMANAGER->ShowText(hdc, str, { x + 65, y + 14 }, 25, 0, RGB(255,255,255), true, RGB(0,0,0), 2);
+			TEXTMANAGER->ShowText(hdc, false, str, { x + 65, y + 14 }, 25, 0, RGB(255,255,255), true, RGB(0,0,0), 2);
 		}
 
 	}
@@ -122,7 +122,7 @@ void TextManager::renderItemText(HDC hdc)
 
 
 
-void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align, COLORREF color, bool isBoundary, COLORREF colorBoundary, int interval)
+void TextManager::ShowText(HDC hdc, bool isRelative, string str, POINT ptPos, int size, int align, COLORREF color, bool isBoundary, COLORREF colorBoundary, int interval)
 {
 
 	if (align == 1)
@@ -139,7 +139,10 @@ void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align
 		hFont = CreateFont(size, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("배달의민족 주아"));
 		oldFont = (HFONT)SelectObject(hdc, hFont);
 		isOldFont = true;
-		TextOut(hdc, ptPos.x - interval, ptPos.y + interval, str.c_str(), strlen(str.c_str()));
+		if(!isRelative)
+			TextOut(hdc, ptPos.x - interval, ptPos.y + interval, str.c_str(), strlen(str.c_str()));
+		else
+			TextOut(hdc, CAMERA->GetRelativeX(ptPos.x - interval), CAMERA->GetRelativeY(ptPos.y + interval), str.c_str(), strlen(str.c_str()));
 	}
 
 	SetTextColor(hdc, color);
@@ -149,8 +152,10 @@ void TextManager::ShowText(HDC hdc, string str, POINT ptPos, int size, int align
 	else
 		oldFont = (HFONT)SelectObject(hdc, hFont);
 
-	TextOut(hdc, ptPos.x, ptPos.y, str.c_str(), strlen(str.c_str()));
-
+	if(!isRelative)
+		TextOut(hdc, ptPos.x, ptPos.y, str.c_str(), strlen(str.c_str()));
+	else
+		TextOut(hdc, CAMERA->GetRelativeX(ptPos.x), CAMERA->GetRelativeY(ptPos.y), str.c_str(), strlen(str.c_str()));
 
 
 	SetTextAlign(hdc, TA_LEFT);

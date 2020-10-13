@@ -113,7 +113,7 @@ void ForagerStatManager::render(HDC hdc)
 		str.append(" (  " + to_string(currentExp));
 		str.append("  /  " + to_string(needExp[level]));
 		str.append(" )  ");
-		TEXTMANAGER->ShowText(hdc, str, { WINSIZEX / 2 , _foragerExp->expRc.top + 3 }, 22, 1, RGB(0,255,0), true, RGB(0,50,0), 2);
+		TEXTMANAGER->ShowText(hdc, false, str, { WINSIZEX / 2 , _foragerExp->expRc.top + 3 }, 22, 1, RGB(0,255,0), true, RGB(0,50,0), 2);
 	}
 
 }
