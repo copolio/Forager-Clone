@@ -126,10 +126,10 @@ void wraith::wraithAttack()
 		wraithWaitCount++;
 		if (wraithWaitCount > 120)
 		{
-			if (wraithHitCount == 23) {
-				if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
-					_target->hurt(Atk);
-			}
+			//if (wraithHitCount == 23) {
+			//	if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
+			//		_target->hurt(Atk);
+			//}
 			_state3 = SHOOT;
 		}
 		else

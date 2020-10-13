@@ -217,7 +217,7 @@ void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
 	{
 		//wraith* _wraith = new wraith;
 		//_wraith->setEnemy(p_monsterN)
-		_vUnits.push_back(p_enemy);
+		//_vUnits.push_back(p_enemy);
 
 	}
 
