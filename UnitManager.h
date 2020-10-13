@@ -19,6 +19,7 @@ class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
+	tagProjectile* _pProjectiles;
 	earth *_map;
 	SpawnManager *_spawnManager;
 	ProjectileManager *_projectileManager;
@@ -28,11 +29,16 @@ private:
 	void CheckRemoveUnit();
 
 	unit* _player;
+
+
 public:
 	void init();
 	void release();
 	void update();
 	void render(HDC hdc);
+
+	void checkCollision(unit* p_unit);
+
 
 	void AddUnits(unit* p_unit);
 	void AddUnits(tile* p_tile);

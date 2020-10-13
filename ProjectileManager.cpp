@@ -25,6 +25,11 @@ void ProjectileManager::update()
 		if (_projectiles[i].isAppear) {
 			_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 			_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
+
+			// 카메라 바깥으로 나가면 삭제
+			RECT temp;
+			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20)))
+				_projectiles[i].isAppear = false;
 		}
 	}
 }
@@ -55,9 +60,9 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			_projectiles[i].isAppear = true;
 
 
-			float minAngle = -20.0f;
-			float maxAngle = 20.0f;
-			float addAngle = 40.0f;
+			float minAngle = -22.5f;
+			float maxAngle = 22.5f;
+			float addAngle = 45.0f;
 			int count = 0;
 			for (int x = 0; x < 8; x++) {
 				if (minAngle + (count * addAngle) <= angle && angle <= maxAngle + (count * addAngle)) {

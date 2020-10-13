@@ -475,7 +475,8 @@ void ForagerPlayer::ArrowFire()
 	if (_isBowPulling) {
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
-		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), Atk, _angle, 7.0f, false, false);
+		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
+		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), Atk * 2, _angle, 7.0f, false, false);
 	}
 }
 

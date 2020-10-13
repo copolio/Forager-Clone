@@ -2,10 +2,8 @@
 
 #define PROJECTILE_MAX 10
 
-class ProjectileManager{
 
-private:
-	struct tagProjectile {
+struct tagProjectile {
 		string imgKey;
 		float x, y;
 		float angle;
@@ -16,7 +14,10 @@ private:
 		bool isStretch;
 		bool isEnemyProjectTile;
 		bool isAppear;
-	};
+};
+
+class ProjectileManager{
+
 
 	tagProjectile _projectiles[PROJECTILE_MAX];
 
