@@ -23,7 +23,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	layer = LAYER::OBJECT;
 	_state = SKULLSTATE::APPEAR;
 
-	
+	_state3 = WRAITHSTATE::FLY;
 	//_state2 = COWSTATE::WALK;
 	_target = target;
 	//_mapTile = mapTile;

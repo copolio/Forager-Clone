@@ -19,6 +19,7 @@ struct tagExp
 {
 	RECT expRc;
 	string imgName;
+	
 };
 
 class ForagerPlayer;
@@ -31,6 +32,7 @@ private:
 	float _width;					//체력바 가로길이
 	float _height;					//체력바 세로길이
 	float _staminaImgSizeMax;		//최대 스테미나 
+	float _staminSizeCurrent;		//현재 스테미나 
 	tagStamina* _foragerStamina;
 	ForagerPlayer* _player;
 	tagExp* _foragerExp;
@@ -38,6 +40,10 @@ private:
 	int currentExp;
 	int level;
 	float _expImgSizeMax;
+	
+
+	bool levelUp;
+	
 
 	
 	image* _levelNum[10];
@@ -65,6 +71,6 @@ public :
 	//경험치바 최적화
 	void IncreaseExp(int exp);
 
-
+	void setRight(int num);
 };
 

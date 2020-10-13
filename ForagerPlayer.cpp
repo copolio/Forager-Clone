@@ -398,7 +398,8 @@ void ForagerPlayer::PlayerControll()
 			{
 				_state = ROTATE;
 				_isMoveRotate = true;
-				IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+				_foragerHp->setRight(5);
 			}
 		}
 		// 공격 좌클릭
@@ -446,8 +447,12 @@ void ForagerPlayer::MeleeWeaponClick()
 					// 유닛이 파괴되면
 					if (targetUnit->isDead())
 					{
+
 						// 스태니마 감소
-						IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+								//_foragerHp->
+								//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+						_foragerHp->setRight(5);
+
 
 						//그 유닛의 경험치 획득.
 						int t_exp = targetUnit->exp;
@@ -724,4 +729,10 @@ void ForagerPlayer::CheckCollision()
 		}
 	}
 }
+
+void ForagerPlayer::hurt(int damage)
+{
+	_foragerHp->setRight(damage);
+}
+
 

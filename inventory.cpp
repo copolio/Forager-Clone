@@ -159,6 +159,7 @@ void inventory::food_eat()
 			player_inventory[i]->count--;
 
 			IMAGEMANAGER->findImage("스테미나")->setWidth(-5);
+			
 			if (IMAGEMANAGER->findImage("스테미나")->getWidth() >= StaminaMax) {
 				IMAGEMANAGER->findImage("스테미나")->settingWidth(StaminaMax);
 			}
