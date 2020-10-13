@@ -23,7 +23,6 @@ HRESULT skull::init()
 
 void skull::update()
 {
-	cout << isattacking << endl;
 	skullAnimation();
 	skullMove();
 	if (_state != APPEAR ) {

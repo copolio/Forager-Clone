@@ -216,12 +216,13 @@ void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
 	}
 	
 	//·¹ÀÌ½º
-	if (p_monsterName == "wraith")
+	if (p_monsterName == "wraithIdle")
 	{
-		//wraith* _wraith = new wraith;
-		//_wraith->setEnemy(p_monsterN)
-		//_vUnits.push_back(p_enemy);
-
+		wraith* _wraith = new wraith;
+		_wraith->setLinkMap(_map);
+		_wraith->setEnemy(p_monsterName, "skullHeadDrop", _player, p_pos);
+		_wraith->init();
+		_vUnits.push_back(_wraith);
 	}
 
 }

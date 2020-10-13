@@ -66,7 +66,6 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int count)
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
 
 		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
+
 	}
-
-
 } 

@@ -44,8 +44,10 @@ HRESULT startScene::init()
 
 void startScene::release()
 {
-	// 타겟팅 박스 제거
-	SAFE_DELETE(_targetingBox);
+	if (SCENEMANAGER->get_ischeck()){
+		// 타겟팅 박스 제거
+		SAFE_DELETE(_targetingBox);
+	}
 }
 
 void startScene::update()

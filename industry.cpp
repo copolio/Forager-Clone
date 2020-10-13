@@ -167,7 +167,6 @@ bool industry::industryItemCheck()
 	for (int i = 0; i < indu_rc.size(); i++) {
 
 		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyUp(VK_LBUTTON)) {
-			cout << "map size: " << _map->GetTiles().size() << endl;
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;

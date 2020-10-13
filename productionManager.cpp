@@ -50,7 +50,6 @@ void productionManager::count_increase()
 						pos.x =	(_production[i]->rc.left + _production[i]->rc.right) / 2;
 						pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2+80;
 						UNITMANAGER->AddProduction(_production[i]->image_name, pos);
-						cout << _production[i]->image_name << endl;
 					}
 				}
 				else {

@@ -58,25 +58,26 @@ void quick_slot::target(int i)
 
 void quick_slot::quick_slot_target_Move()
 {
-	cout << ITEMMANAGER->equip_count() << endl;
 	if (INPUT->GetKeyDown('1')&& ITEMMANAGER->equip_count() >=1) {
-		target(0);
+		cout << "1 ½ÇÇàµÊ" << endl;
+		target(0); targetnum = 0;
 	}else if(INPUT->GetKeyDown('2') && ITEMMANAGER->equip_count() >= 2) {
-		target(1);
+		cout << "2 ½ÇÇàµÊ" << endl;
+		target(1); targetnum = 1;
 	}
 	else if (INPUT->GetKeyDown('3') && ITEMMANAGER->equip_count() >= 3) {
-		target(2);
+		target(2); targetnum = 2;
 	}
 	else if (INPUT->GetKeyDown('4') && ITEMMANAGER->equip_count() >= 4) {
-		target(3);
+		target(3); targetnum = 3;
 	}
 	else if (INPUT->GetKeyDown('5') && ITEMMANAGER->equip_count() >= 5) {
-		target(3);
+		target(3); targetnum = 4;
 	}
 	else if (INPUT->GetKeyDown('6') && ITEMMANAGER->equip_count() >= 6) {
-		target(3);
+		target(3); targetnum = 5;
 	}
 	else if (INPUT->GetKeyDown('7') && ITEMMANAGER->equip_count() >= 7) {
-		target(3);
+		target(3); targetnum = 6;
 	}
 }

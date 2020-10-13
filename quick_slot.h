@@ -17,5 +17,6 @@ public:
 	void target(int i);
 
 	void quick_slot_target_Move();
+	inventory_slot* GetQuickSlotNumber() { return _quick[targetnum]; };
 };
 
