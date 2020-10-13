@@ -92,14 +92,18 @@ HRESULT loadItem::init(string strKey, const char * fileName, float x, float y, i
 HRESULT loading::init()
 {
 	//로딩화면 백그라운드 이미지 초기화
-	_background = IMAGEMANAGER->addImage("bgLoadingScene", "bgLoadingScene.bmp", WINSIZEX, WINSIZEY);
+	_background = IMAGEMANAGER->addImage("loading_background", "Images/이미지/GUI/loading_background.bmp", WINSIZEX, WINSIZEY);
+	alpha = 0;
+	count = 0;
+	end = false;
+	start = false;
 	//로딩바 이미지 초기화
-	IMAGEMANAGER->addImage("loadingBarFront", "loadingBarFront.bmp", 600, 20);
-	IMAGEMANAGER->addImage("loadingBarBack", "loadingBarBack.bmp", 600, 20);
+	//IMAGEMANAGER->addImage("loadingBarFront", "loadingBarFront.bmp", 600, 20);
+	//IMAGEMANAGER->addImage("loadingBarBack", "loadingBarBack.bmp", 600, 20);
 
 	//로딩바 클래스 초기화
-	_loadingBar = new progressBar;
-	_loadingBar->init("loadingBarFront", "loadingBarBack");
+	//_loadingBar = new progressBar;
+	//_loadingBar->init("loadingBarFront", "loadingBarBack");
 	//로딩바 위치 초기화
 	//_loadingBar->setPos(100, 500);
 
@@ -112,11 +116,37 @@ HRESULT loading::init()
 void loading::release()
 {
 	//로딩바 해제
-	SAFE_DELETE(_loadingBar);
+	//SAFE_DELETE(_loadingBar);
 }
 
 void loading::update()
 {
+	if (!start) {
+		alpha++;
+		if (alpha > 255) {
+			alpha = 255;
+			count++;
+			if (count > 100) {
+				start = true;
+				//_background = IMAGEMANAGER->addImage("loading_background2", "Images/이미지/GUI/loading_background2.bmp", WINSIZEX, WINSIZEY);
+				//alpha = 0;
+			}
+		}
+	}
+	else {
+		alpha--;
+		if (alpha <=0) {
+			start = false;
+			if (end) {
+				SCENEMANAGER->loadScene("시작 화면");
+			}
+			end = true;
+			_background = IMAGEMANAGER->addImage("loading_background2", "Images/이미지/GUI/loading_background2.bmp", WINSIZEX, WINSIZEY);
+			
+		}
+	}
+	
+	
 	//로딩바 클래스 업데이트
 	//_loadingBar->update();
 }
@@ -124,7 +154,7 @@ void loading::update()
 void loading::render()
 {
 	//백그라운드 이미지 렌더
-	_background->render(getMemDC(), 0, 0);
+	_background->alphaRender(getMemDC(), 0, 0, alpha);
 	//로딩바 클래스 렌더
 	//_loadingBar->render();
 }

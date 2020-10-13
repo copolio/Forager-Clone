@@ -32,6 +32,7 @@ HRESULT gameScene::init()
 	UNITMANAGER->AddUnits(_player);
 	UNITMANAGER->setLinkMap(_map);
 
+	_player->getquick_slotInfo(_quick_slot);
 	//스폰 매니져 구현시, 삭제!
 	//enemy* _enemy = new enemy;
 	//skull* _skull = new skull;

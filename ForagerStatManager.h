@@ -1,5 +1,5 @@
 #pragma once
-
+#include "singletonBase.h"
 
 struct tagForagerHp
 {
@@ -23,7 +23,7 @@ struct tagExp
 };
 
 class ForagerPlayer;
-class ForagerStatManager
+class ForagerStatManager :public singletonBase< ForagerStatManager>
 {
 private:
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
-#include "ForagerStatManager.h"
+#include "quick_slot.h"
 
 HRESULT ForagerPlayer::init()
 {
@@ -98,6 +98,18 @@ HRESULT ForagerPlayer::init()
 	_spinCount = 0;
 	_spinSpeed = 0;
 
+	//플레이어 상태 불값 초기화 
+	_isLeft = false;
+	_isUp = false;
+	_isMoveHorizon = false;
+	_isMoveVertical = false;
+	_isMoveRotate = false;
+	_isRun = false;
+	_isHammering = false;
+
+	maxHp = 1;
+	currentHp = 1;
+	STATMANAGER->init();
 
 	// 걷기 애니메이션 초기화
 	_footWalkCount = 0;
@@ -131,8 +143,8 @@ void ForagerPlayer::update()
 	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(rc.left, rc.top);
 	
-	_foragerHp->update();
-	_foragerHp->setinvenopen(inven_open);
+	STATMANAGER->update();
+	STATMANAGER->setinvenopen(inven_open);
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -189,7 +201,7 @@ void ForagerPlayer::render(HDC hdc)
 				_bow->frameRender(hdc, relWeaponX - 15, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
 		}
 	}
-	_foragerHp->render(hdc);
+	STATMANAGER->render(hdc);
 }
 
 
@@ -399,7 +411,7 @@ void ForagerPlayer::PlayerControll()
 				_state = ROTATE;
 				_isMoveRotate = true;
 				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-				_foragerHp->setRight(5);
+				STATMANAGER->setRight(5);
 			}
 		}
 		// 공격 좌클릭
@@ -451,19 +463,19 @@ void ForagerPlayer::MeleeWeaponClick()
 						// 스태니마 감소
 								//_foragerHp->
 								//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-						_foragerHp->setRight(5);
+								STATMANAGER->setRight(5);
 
+								//그 유닛의 경험치 획득.
+								int t_exp = targetUnit->exp;
+								if (t_exp > 0) {
+									t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
+									POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
+									string str = std::to_string(t_exp);
+									str.insert(0, "EXP ");
+									TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
+									STATMANAGER->IncreaseExp(t_exp);
 
-						//그 유닛의 경험치 획득.
-						int t_exp = targetUnit->exp;
-						if (t_exp > 0) {
-							t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
-							POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
-							string str = std::to_string(t_exp);
-							str.insert(0, "EXP ");
-							TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
-							_foragerHp->IncreaseExp(t_exp);
-						}
+								}
 
 						// 타격 줌인 연출
 						CAMERA->forceZoomIn(0.04f, 0.008f);
@@ -710,13 +722,21 @@ void ForagerPlayer::CheckCollision()
 
 		// 아이템 충돌
 		if (t_vUnit[i]->tag == TAG::ITEM) {
-
+			
 			RECT temp;
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				t_vUnit[i]->collision();
-				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);
-				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
+				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
+				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "Bow") {
+					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
+					_quick->quick_slot_update();
+					_quick->target(0);
+				}
+				else {
+					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
+				}
+				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
 			}
 		}
 		// 빌딩 상호작용 렉트 충돌
@@ -732,7 +752,7 @@ void ForagerPlayer::CheckCollision()
 
 void ForagerPlayer::hurt(int damage)
 {
-	_foragerHp->setRight(damage);
+	STATMANAGER->setRight(damage);
 }
 
 

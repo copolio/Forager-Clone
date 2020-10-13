@@ -155,8 +155,11 @@ void UnitManager::CheckRemoveUnit()
 	if (_vUnits.size() > 0) {
 		for (auto iter = _vUnits.begin(); iter != _vUnits.end();) {
 			if ((*iter)->isDead()) {
-
+				if ((*iter)->tag == TAG::BUILDING) {
+					PRODUCTIONMANAGER->removeBuildingRc((*iter)->rc);
+				}
 				SAFE_DELETE((*iter));
+				
 				iter = _vUnits.erase(iter);
 			}
 			else

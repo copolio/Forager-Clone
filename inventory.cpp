@@ -55,6 +55,31 @@ HRESULT inventory::init()
 	player_inventory[2]->Kinds = ITEM_FOOD;
 	player_inventory[2]->img_name = "berryDrop";
 	player_inventory[2]->item_name = "berryDrop";
+
+	player_inventory[3]->count = 999;
+	player_inventory[3]->Kinds = ITEM_MATERIAL;
+	player_inventory[3]->img_name = "±Ý±¤¼®";
+	player_inventory[3]->item_name = "±Ý±¤¼®";
+
+	player_inventory[4]->count = 999;
+	player_inventory[4]->Kinds = ITEM_MATERIAL;
+	player_inventory[4]->img_name = "coal";
+	player_inventory[4]->item_name = "coal";
+
+	player_inventory[5]->count = 999;
+	player_inventory[5]->Kinds = ITEM_MATERIAL;
+	player_inventory[5]->img_name = "Iron_ore";
+	player_inventory[5]->item_name = "Iron_ore";
+
+	player_inventory[6]->count = 999;
+	player_inventory[6]->Kinds = ITEM_MATERIAL;
+	player_inventory[6]->img_name = "±«Ã¶";
+	player_inventory[6]->item_name = "±«Ã¶";
+
+	player_inventory[7]->count = 999;
+	player_inventory[7]->Kinds = ITEM_MATERIAL;
+	player_inventory[7]->img_name = "±Ý±«";
+	player_inventory[7]->item_name = "±Ý±«";
 	//====================================================
 	isCheck = false;
 
@@ -157,12 +182,12 @@ void inventory::food_eat()
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->Kinds == ITEM_FOOD && INPUT->GetKeyDown(VK_LBUTTON)) {
 			player_inventory[i]->count--;
-
-			IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->setWidth(-5);
-			
-			if (IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->getWidth() >= StaminaMax) {
-				IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->settingWidth(StaminaMax);
-			}
+			STATMANAGER->setRight(-5);
+			//IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->setWidth(-5);
+			//
+			//if (IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->getWidth() >= StaminaMax) {
+			//	IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->settingWidth(StaminaMax);
+			//}
 
 			ITEMMANAGER->vItem_count_zoro();
 		}

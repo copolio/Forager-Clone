@@ -44,6 +44,8 @@ public:
 	
 	int equip_count();
 	void vItem_push(string key);
+	void vequip_push(string key);
+	bool isequipCheck(string key);
 	void vItem_count_zoro();
 	int item_count(string key);
 public:

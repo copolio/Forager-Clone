@@ -24,9 +24,7 @@ enum EQUIPWEAPON {
 	PICKAXE,
 	BOW,
 };
-
-class ForagerStatManager;
-
+class quick_slot;
 class ForagerPlayer : public unit
 {
 private:
@@ -84,7 +82,6 @@ private:
 	bool inven_open;	// 인벤 열면 이동 불가능
 
 	// 참조
-	ForagerStatManager* _foragerHp;
 	earth* _map;
 	cursor* _cursor;
 	inventory* _theInven;
@@ -118,6 +115,9 @@ public:
 	void setCursorLink(cursor* cursor) { _cursor = cursor; };
 	void setInvenLink(inventory* inven) { _theInven = inven; };
 
+	void getquick_slotInfo(quick_slot* _q) {
+		_quick = _q;
+	}
 
 	int FindPlayerTilePos();
 	bool CanCheckMove(int index);
