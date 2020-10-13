@@ -113,7 +113,7 @@ void UnitManager::CheckRemoveUnit()
 }
 
 
-void UnitManager::AddUnits(unit* p_unit)
+void UnitManager::AddUnits(ForagerPlayer* p_unit)
 {
 	_player = p_unit;
 	_vUnits.push_back(p_unit);

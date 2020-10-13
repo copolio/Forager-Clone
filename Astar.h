@@ -1,5 +1,5 @@
 #pragma once
-#include "tile.h"
+#include "earth.h"
 
 #define MAX_X MAPTILEX
 #define MAX_Y MAPTILEY

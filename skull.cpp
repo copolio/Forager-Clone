@@ -59,27 +59,47 @@ void skull::render(HDC hdc)
 //1Å¸ÀÏ¾¿ »óÇÏÁÂ¿ì ·£´ý¿òÁ÷ÀÌ´Âµ¥, ÃÑ 5¹ø 
 void skull::skullMove()
 {
-	if (!tryAttack) {
+	if (_state == STAY) {
 		if (!checkDestination)
 		{
 			searchCount++;
-			if (searchCount > 200)
+			if (searchCount > 50)
 			{
-				for (int i = 0; i < 5; i++)
-				{
-					int random = RANDOM->range(0, 3);
-					switch (random)
-					{
-					case 0: _vDestTileIndex.push_back(_enemyTilePos + 1);
-						break;
-					case 1: _vDestTileIndex.push_back(_enemyTilePos - 1);
-						break;
-					case 2: _vDestTileIndex.push_back(_enemyTilePos + MAPTILEX);
-						break;
-					case 3: _vDestTileIndex.push_back(_enemyTilePos - MAPTILEX);
-						break;
+				vector<int> vPossibleDestination;
+				//µ¿
+				if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 &&
+					!_map->GetTile(_enemyTilePos + 1).hasUnit &&
+					_map->GetTile(_enemyTilePos + 1).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos + 1);
+				}
+				//¼­
+				if (_map->GetTileX(_enemyTilePos) > 0 &&
+					!_map->GetTile(_enemyTilePos - 1).hasUnit &&
+					_map->GetTile(_enemyTilePos - 1).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos - 1);
+				}
+				//³²
+				if (_map->GetTileY(_enemyTilePos) < MAPTILEY - 1 &&
+					!_map->GetTile(_enemyTilePos + MAPTILEX).hasUnit &&
+					_map->GetTile(_enemyTilePos + MAPTILEX).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos + MAPTILEX);
+				}
+				//ºÏ
+				if (_map->GetTileX(_enemyTilePos) > 0 &&
+					!_map->GetTile(_enemyTilePos - MAPTILEX).hasUnit &&
+					_map->GetTile(_enemyTilePos - MAPTILEX).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos - MAPTILEX);
+				}
+				if (vPossibleDestination.size() > 0) {
+					int randDestInd = RANDOM->range(int(vPossibleDestination.size()));
+					if (vPossibleDestination[randDestInd] > _enemyTilePos) {
+						isLeft = false;
 					}
-					_enemyTilePos = _vDestTileIndex[i];
+					else if (vPossibleDestination[randDestInd] <= _enemyTilePos) {
+						isLeft = true;
+					}
+					_vDestTileIndex.push_back(vPossibleDestination[randDestInd]);
+					_enemyTilePos = vPossibleDestination[randDestInd];
 				}
 
 				checkDestination = true;
@@ -92,23 +112,23 @@ void skull::skullMove()
 			if (_vDestTileIndex.size() > 0)
 			{
 				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
-				if (abs(rc.left - tDestination.x) > 2 || abs(rc.top - tDestination.y) > 2)
+				if (abs(rc.left - tDestination.x) > MOVESPEED || abs(rc.top - tDestination.y) > MOVESPEED)
 				{
 					if (tDestination.x < rc.left)
 					{
-						OffsetRect(&rc, -2, 0);
+						OffsetRect(&rc, -MOVESPEED, 0);
 					}
 					else if (tDestination.x > rc.left)
 					{
-						OffsetRect(&rc, 2, 0);
+						OffsetRect(&rc, MOVESPEED, 0);
 					}
 					if (tDestination.y > rc.top)
 					{
-						OffsetRect(&rc, 0, 2);
+						OffsetRect(&rc, 0, MOVESPEED);
 					}
 					else if (tDestination.y < rc.top)
 					{
-						OffsetRect(&rc, 0, -2);
+						OffsetRect(&rc, 0, -MOVESPEED);
 					}
 
 				}
@@ -228,7 +248,7 @@ void skull::skullAnimation()
 
 void skull::skullLookDirection()
 {
-	if (_state == STAY || _state == ATTACK || _state == IDLE2)
+	if ( _state == ATTACK)
 	{
 		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
 			isLeft = true;

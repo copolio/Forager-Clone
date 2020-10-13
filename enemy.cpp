@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "enemy.h"
+#include "earth.h"
 
 void enemy::render(HDC hdc)
 {
@@ -14,7 +15,7 @@ void enemy::update()
 
 }
 
-void enemy::setEnemy(string key, string itemkey, unit* target, POINT pos)
+void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)
 {
 	maxHp = 30;
 	currentHp = 30;

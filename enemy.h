@@ -1,7 +1,6 @@
 #pragma once
 #include "unit.h"
-#include "earth.h"
-
+#include "ForagerPlayer.h"
 
 #define PI 3.1415926f
 
@@ -25,7 +24,7 @@ class enemy :public unit
 {
 protected:
 	
-	unit* _target;
+	ForagerPlayer* _target;
 	earth* _map;
 
 
@@ -59,23 +58,11 @@ protected :
 public:
 	void setLinkMap(earth* map) { _map = map; };
 	earth* getMap() { return _map; };
-	virtual void setEnemy(string key, string itemkey, unit* target, POINT pos);
+	virtual void setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos);
 	virtual void render(HDC hdc) override;
 	virtual void update() override;
 	virtual void dead() override;
 	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-
-	
-
+	//virtual void move(vector<int> vDestTileIndex);
 };
 

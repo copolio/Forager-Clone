@@ -11,6 +11,7 @@
 #include "tile.h"
 #include "earth.h"
 #include "SpawnManager.h"
+#include "ForagerPlayer.h"
 
 class earth;
 
@@ -25,14 +26,14 @@ private:
 	void Sorting();
 	void CheckRemoveUnit();
 
-	unit* _player;
+	ForagerPlayer* _player;
 public:
 	void init();
 	void release();
 	void update();
 	void render(HDC hdc);
 
-	void AddUnits(unit* p_unit);
+	void AddUnits(ForagerPlayer* p_unit);
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);

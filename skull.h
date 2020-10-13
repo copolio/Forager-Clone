@@ -1,6 +1,9 @@
 #pragma once
 #include "enemy.h"
 #include "Astar.h"
+#define MOVERANGE 2
+#define MOVESPEED 1
+
 class skull :public enemy
 {
 private : 
@@ -15,6 +18,9 @@ private :
 	bool tryAttack;
 	POINT _destination;
 
+	int nonAttacktime;
+	bool isattacking;
+
 	int Atk;
 
 public :
@@ -22,7 +28,7 @@ public :
 	 void update() override;
 	 void render(HDC hdc) override;
 	 void skullMove();
-	 void skullMove(vector<int> vDestTileIndex);
+	 //void move(vector<int> vDestTileIndex) override;
 	 void canAttackCheck();
 	 void skullAnimation();
 	 void skullLookDirection();

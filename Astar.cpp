@@ -31,8 +31,9 @@ void Astar::init(vector<tile> vTile)
 vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, bool checkwall, bool checkdiagonal)
 {
 	this->init(vTile);
-	_startNode = _totalNode[startidx/MAPTILEX][startidx % MAPTILEX];
-	_endNode = _totalNode[endidx /MAPTILEX][endidx % MAPTILEX];
+	earth _map;
+	_startNode = _totalNode[_map.GetTileX(startidx)][_map.GetTileY(startidx)];
+	_endNode = _totalNode[_map.GetTileX(endidx)][_map.GetTileY(endidx)];
 
 	//길찾기를 해보자
 	//검색을 하려면 무조건 오픈리스트에 담는다
