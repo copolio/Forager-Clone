@@ -15,6 +15,7 @@ int item_Manager::equip_count()
 
 void item_Manager::vItem_push(string key)
 {
+
 	if (key == "img_game_money_icon") {
 		*money += 1;
 	}
@@ -29,8 +30,32 @@ void item_Manager::vItem_push(string key)
 		_item_push[number]->count += 1;
 	}
 
-}//아이템 인벤에 넣어주는곳
+}
 
+//아이템 인벤에 넣어주는곳
+void item_Manager::vequip_push(string key)
+{
+	if (!isequipCheck(key)) {
+		for (int i = 0; i < _equip.size(); i++) {
+			if (_equip[i]->img_name == "") {
+				_equip[i]->img_name = key;
+				_equip[i]->item_name = key;
+				_equip[i]->Kinds = ITEM_EQUIP;
+				break;
+			}
+		}
+	}
+
+}
+bool item_Manager::isequipCheck(string key)
+{
+	for (int i = 0; i < _equip.size(); i++) {
+		if (_equip[i]->img_name == key) {
+			return true;
+		}
+	}
+	return false;
+}
 void item_Manager::vItem_count_zoro()
 {
 	for (int i = 0; i < _item_push.size(); i++) {

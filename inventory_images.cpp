@@ -43,6 +43,8 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("금광석", "Images/이미지/아이템/금광석.bmp", 40, 40 ,true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("brick", "Images/이미지/아이템/brick.bmp", 40, 40 ,true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addImage("Bow", "Images/이미지/아이템/Bow.bmp", 56, 56 ,true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addImage("mouse_construction_icon", "Images/이미지/GUI/mouse_construction_icon.bmp", 62, 83, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("mouse_equip_icon", "Images/이미지/GUI/mouse_equip_icon.bmp", 58, 81, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("mouse_game_setting", "Images/이미지/GUI/mouse_game_setting.bmp", 74, 86, true, RGB(255, 0, 255));

@@ -20,11 +20,11 @@ enum STATE
 	HAMMERING
 
 };
-
+class quick_slot;
 class ForagerPlayer : public unit
 {
 private:
-
+	quick_slot * _quick;
 	// ¿ÃπÃ¡ˆ
 	image* _foragerIdle;
 	image* _foragerRun;
@@ -107,6 +107,9 @@ public:
 	void setCursorLink(cursor* cursor) { _cursor = cursor; };
 	void setInvenLink(inventory* inven) { _theInven = inven; };
 
+	void getquick_slotInfo(quick_slot* _q) {
+		_quick = _q;
+	}
 
 	int FindPlayerTilePos();
 	bool CanCheckMove(int index);

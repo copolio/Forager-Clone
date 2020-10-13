@@ -30,7 +30,7 @@ HRESULT gameScene::init()
 	PRODUCTIONMANAGER->init();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
-
+	_player->getquick_slotInfo(_quick_slot);
 	//스폰 매니져 구현시, 삭제!
 	//enemy* _enemy = new enemy;
 	skull* _skull = new skull;

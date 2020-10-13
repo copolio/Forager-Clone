@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ForagerPlayer.h"
+#include "quick_slot.h"
 
 HRESULT ForagerPlayer::init()
 {
@@ -573,13 +574,20 @@ void ForagerPlayer::CheckCollision()
 
 		// 아이템 충돌
 		if (t_vUnit[i]->tag == TAG::ITEM) {
-
+			
 			RECT temp;
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				t_vUnit[i]->collision();
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);		
+				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "Bow") {
+					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
+					_quick->quick_slot_update();
+					_quick->target(0);
+				}
+				else {
+					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
+				}
 				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
 			}
 		}
