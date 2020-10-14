@@ -74,7 +74,15 @@ void targetingBox::render(HDC hdc)
 void targetingBox::SetTarget(RECT rcTarget, int moveDistance, int id, int narrow, bool isRelative)
 {
 	_isRelative = isRelative;
-	
+	if (_targetID != id) {
+		if (SOUNDMANAGER->isPlaySound("커서음1"))
+		{
+			SOUNDMANAGER->play("커서음2");
+		}
+		else {
+			SOUNDMANAGER->play("커서음1");
+		}
+	}
 	if (id != _targetID) {
 		_minSize = -moveDistance;
 		_maxSize = moveDistance;

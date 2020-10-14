@@ -16,8 +16,13 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("시작 화면", new startScene);
 	SCENEMANAGER->addScene("게임 화면", new gameScene);
 
+	/*사운드 추가*/
+	SOUNDMANAGER->addSound("배경음악", "Sound/BGM/FORAGER - FULL OST - COMPLETE SOUNDTRACK.mp3", true, true);
+	SOUNDMANAGER->addSound("커서음1", "Sound/\SoundEffect/sound_sfx_slotMouseOn1.mp3");
+	SOUNDMANAGER->addSound("커서음2", "Sound/\SoundEffect/sound_sfx_slotMouseOn2.mp3");
+
 	/*현재씬*/
-	SCENEMANAGER->loadScene("시작 화면");
+	SCENEMANAGER->loadScene("로딩 화면");
 
 	RECT rc;
 	POINT p1, p2;

@@ -61,7 +61,7 @@ void cursor::CheckObject()
 
 				RECT t_rc = (*vUnit[i]).rc;
 				if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-
+					
 					_targetingBox.SetTarget(t_rc, 3, i, 2, true);
 					_unit = &(*vUnit[i]);
 					return;

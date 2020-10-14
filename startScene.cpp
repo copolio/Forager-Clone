@@ -39,6 +39,12 @@ HRESULT startScene::init()
 	
 	gameSlotCheck = 0;
 
+	if (SOUNDMANAGER->isPlaySound("πË∞Ê¿Ωæ«"))
+	{
+		SOUNDMANAGER->stop("πË∞Ê¿Ωæ«");
+	}
+	SOUNDMANAGER->play("πË∞Ê¿Ωæ«");
+
 	return S_OK;
 }
 
