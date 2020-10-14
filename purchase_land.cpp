@@ -29,6 +29,7 @@ void purchase_land::update()
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (!_map->HasIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex)) &&
 			ITEMMANAGER->getMoney() >= LANDPRICE) {
+			SOUNDMANAGER->play("건설성공");
 			_map->setIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex));
 			*balance = ITEMMANAGER->getMoney() - LANDPRICE;
 			ITEMMANAGER->setMoney(balance);

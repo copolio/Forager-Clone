@@ -176,12 +176,12 @@ void skull::canAttackCheck()
 
 		if (skullHitWaitCount > 120)
 		{
-			//if (skullHitCount == 17) {
-			//	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-			//		//IMAGEMANAGER->findImage("스테미나")->setWidth(15);
-			//		_target->hurt(Atk);
+			if (skullHitCount == 17) {
+				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
+					//IMAGEMANAGER->findImage("스테미나")->setWidth(15);
+					_target->hurt(Atk);
 
-			//}
+			}
 			_state = ATTACK;
 		}
 		else {

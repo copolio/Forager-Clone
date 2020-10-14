@@ -119,7 +119,7 @@ void construction::mouse_Click()
 	for (int i = 0; i < _industry_Rc.size(); i++) {
 		if (PtInRect(&_industry_Rc[i]->rc, _ptMouse) && INPUT->GetKeyDown(VK_LBUTTON))
 		{
-			SOUNDMANAGER->play("°Ç¼³ÅÇÅ¬¸¯");
+			SOUNDMANAGER->play("°Ç¼³ÅÇ¼±ÅÃ");
 			if (_industry_Rc[i]->kind == INDUSTRY) {
 				agrocultureCheck = false;
 				if (isCheck) {

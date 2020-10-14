@@ -129,11 +129,9 @@ public:
 	int GetPlayerTilePos() { return _playerTilePos; };
 	bool IsBow() { return _equipWeapon == EQUIPWEAPON::BOW; };
 	POINT GetBowXY();
-
+	void hurt(int damage) override;
 private:
 	void RotateImage(image* img);
 	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);
-
-	void hurt(int damage) override;
 };
 

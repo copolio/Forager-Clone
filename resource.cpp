@@ -12,6 +12,7 @@ void resource::setRandomRes(tile* tile)
 	this->objMaxFrameY = 0;
 	this->currentCount = 0;
 	this->nextCount = 2;
+	SOUNDMANAGER->play("¾ÆÀÌÅÛÅº»ý");
 	switch (RANDOM->range(NUMRES)) {
 	case 0:
 		this->objKey = "berry";

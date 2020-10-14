@@ -10,7 +10,7 @@ void unit::hurt(int damage)
 
 	else
 		isHit = true;
-	SOUNDMANAGER->play("바위타격");
+	SOUNDMANAGER->play("나무타격");
 }
 
 

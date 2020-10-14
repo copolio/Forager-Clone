@@ -181,6 +181,7 @@ void inventory::food_eat()
 {
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->Kinds == ITEM_FOOD && INPUT->GetKeyDown(VK_LBUTTON)) {
+			SOUNDMANAGER->play("건설탭클릭");
 			player_inventory[i]->count--;
 			STATMANAGER->setRight(-5);
 			//IMAGEMANAGER->findImage("스테미나")->setWidth(-5);

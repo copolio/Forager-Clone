@@ -404,6 +404,18 @@ void ForagerPlayer::PlayerControll()
 		//뛰어다니는 상태 (좌우 움직임)
 		if (INPUT->GetKey('A') || INPUT->GetKey('D'))
 		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
+
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
+
+					break;
+				}
+			}
 			_isMoveHorizon = true;
 			_state = RUN;
 			_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
@@ -411,6 +423,18 @@ void ForagerPlayer::PlayerControll()
 		//뛰어다니는 상태 (상하 움직임)
 		if (INPUT->GetKey('W') || INPUT->GetKey('S'))
 		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
+
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
+
+					break;
+				}
+			}
 			_isMoveVertical = true;
 			_state = RUN;
 			_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
@@ -549,7 +573,7 @@ void ForagerPlayer::playerMove()
 		_cantMove = (_isLeft) ? CanCheckMove(-1) : CanCheckMove(1);
 
 		if (!_cantMove) {
-
+			
 			OffsetRect(&rc, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE) {
@@ -773,6 +797,7 @@ void ForagerPlayer::CheckCollision()
 void ForagerPlayer::hurt(int damage)
 {
 	STATMANAGER->setRight(damage);
+	SOUNDMANAGER->play("나무타격");
 }
 
 

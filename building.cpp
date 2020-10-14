@@ -73,3 +73,15 @@ void building::dead()
 		_tiles[i]->canPass = (objKey == "bridge") ? false : true;
 	}
 }
+
+void building::hurt(int damage)
+{
+	currentHp -= damage;
+
+	if (currentHp <= 0)
+		dead();
+
+	else
+		isHit = true;
+	SOUNDMANAGER->play("바위타격");
+}

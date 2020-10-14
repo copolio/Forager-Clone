@@ -151,6 +151,7 @@ void ForagerStatManager::IncreaseExp(int exp)
 		{
 			level++;
 			levelUp = true;
+			SOUNDMANAGER->play("·¹º§¾÷");
 		}
 	}
 
