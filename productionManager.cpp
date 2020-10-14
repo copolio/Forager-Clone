@@ -50,11 +50,11 @@ void productionManager::count_increase()
 						pos.x =	(_production[i]->rc.left + _production[i]->rc.right) / 2;
 						pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2+80;
 						UNITMANAGER->AddProduction(_production[i]->image_name, pos);
+						SOUNDMANAGER->play("생산완료");
 					}
 				}
 				else {
 					_production[i]->countStart = false;
-					
 					_production[i]->image_name = "";
 					
 				}

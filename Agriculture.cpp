@@ -148,7 +148,7 @@ bool Agriculture::agricultureItemCheck()
 {
 	for (int i = 0; i < agriRc.size(); i++) {
 		if (PtInRect(&agriRc[i]->rc, _ptMouse) && agriRc[i]->kind != AGRICULTUREKIND_MISSING && INPUT->GetKeyUp(VK_LBUTTON)) {
-
+			SOUNDMANAGER->play("건설탭클릭");
 			if (agriRc[i]->kind == AGRICULTUREKIND_BRIDGE) {
 				if (ITEMMANAGER->Item_industry_check("bridge")) {
 					is_building_check = true;
@@ -181,7 +181,19 @@ void Agriculture::addBuilding()
 				_map->setTileHasUnit(_tileIndex);
 				UNITMANAGER->AddBuilding(building, t_pTile);
 				ITEMMANAGER->_Item_industry_decrease(building);
+				SOUNDMANAGER->play("건설성공");
 			}
+		}
+		else if (is_building_check) {
+			if (!SOUNDMANAGER->isPlaySound("건설실패")) {
+				SOUNDMANAGER->play("건설실패");
+			}
+		}
+	}
+	if (INPUT->GetKey(VK_RBUTTON)) {
+		is_building_check = false;
+		if (!SOUNDMANAGER->isPlaySound("건설취소")) {
+			SOUNDMANAGER->play("건설취소");
 		}
 	}
 }

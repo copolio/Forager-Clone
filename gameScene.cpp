@@ -73,9 +73,11 @@ void gameScene::update()
 			}
 			if (inven_open) {
 				inven_open = false;
+				SOUNDMANAGER->play("인벤토리닫기");
 				_player->setInvenOpen(false);
 			}
 			else {
+				SOUNDMANAGER->play("인벤토리오픈");
 				_player->setInvenOpen(true);
 				inven_open = true;
 				_Menu->settion();

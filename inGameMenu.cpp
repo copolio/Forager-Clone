@@ -121,7 +121,7 @@ void inGameMenu::inven_Change_Key_Down()
 {
 	if (INPUT->GetKeyDown('Q') || INPUT->GetKeyDown('E')) {
 		bool key = INPUT->GetKey('Q') ? true : false;
-
+		SOUNDMANAGER->play("클릭");
 		if (key) {
 			switch (_inven_Kind)
 			{
@@ -201,6 +201,7 @@ void inGameMenu::mouse_touch_icon(HDC hdc)
 				break;
 			}
 			if (INPUT->GetKeyDown(VK_LBUTTON)) {
+				SOUNDMANAGER->play("클릭");
 				_inven_Kind = ingameMenuRc[i]->kinds;
 				switch (ingameMenuRc[i]->kinds)
 				{

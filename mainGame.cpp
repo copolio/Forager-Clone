@@ -24,8 +24,16 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("커서음1", "Sound/\SoundEffect/sound_sfx_slotMouseOn1.mp3");
 	SOUNDMANAGER->addSound("커서음2", "Sound/\SoundEffect/sound_sfx_slotMouseOn2.mp3");
 	SOUNDMANAGER->addSound("건물커서", "Sound/\SoundEffect/sound_sfx_buildTabChoice.mp3");
-	SOUNDMANAGER->addSound("건물상호작용", "Sound/\SoundEffect/sound_sfx_inventoryShow2.mp3");
+	SOUNDMANAGER->addSound("건물상호작용", "Sound/\SoundEffect/sound_sfx_itemMadeWindowOpen.mp3");
 	SOUNDMANAGER->addSound("클릭", "Sound/\SoundEffect/sound_sfx_ok1.mp3");
+	SOUNDMANAGER->addSound("인벤토리오픈", "Sound/\SoundEffect/sound_sfx_inventoryShow1.mp3");
+	SOUNDMANAGER->addSound("인벤토리닫기", "Sound/\SoundEffect/sound_sfx_inventoryHide.mp3");
+	SOUNDMANAGER->addSound("건설탭클릭", "Sound/\SoundEffect/sound_sfx_buildTabChoice.mp3");
+	SOUNDMANAGER->addSound("건설성공", "Sound/\SoundEffect/sound_sfx_buildSuccess.mp3");
+	SOUNDMANAGER->addSound("건설실패", "Sound/\SoundEffect/sound_sfx_buildFail.mp3");
+	SOUNDMANAGER->addSound("건설취소", "Sound/\SoundEffect/sound_sfx_buildTabSlotClick.mp3");
+	SOUNDMANAGER->addSound("생산시작", "Sound/\SoundEffect/sound_sfx_itemMadeStart.mp3");
+	SOUNDMANAGER->addSound("생산완료", "Sound/\SoundEffect/sound_sfx_itemMadeSuccess.mp3");
 
 	/*현재씬*/
 	//SCENEMANAGER->loadScene("로딩 화면");

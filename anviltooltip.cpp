@@ -168,7 +168,7 @@ void anviltooltip::click_item_event(int num)
 bool anviltooltip::cilck()
 {
 	if (INPUT->GetKeyDown(VK_LBUTTON)) {
-		SOUNDMANAGER->play("클릭");
+		SOUNDMANAGER->play("생산시작");
 		return true;
 	}
 	return false;

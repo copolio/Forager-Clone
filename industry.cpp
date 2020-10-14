@@ -167,6 +167,7 @@ bool industry::industryItemCheck()
 	for (int i = 0; i < indu_rc.size(); i++) {
 
 		if (PtInRect(&indu_rc[i]->rc, _ptMouse) && indu_rc[i]->kind != INDUSTRY_MISSING&& INPUT->GetKeyUp(VK_LBUTTON)) {
+			SOUNDMANAGER->play("건설탭클릭");
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;
@@ -219,6 +220,18 @@ void industry::addBuilding()
 			is_building_check = false;
 			UNITMANAGER->AddBuilding(building, tiles);
 			ITEMMANAGER->_Item_industry_decrease(building);
+			SOUNDMANAGER->play("건설성공");
+		}
+		else if (is_building_check) {
+			if (!SOUNDMANAGER->isPlaySound("건설실패")) {
+				SOUNDMANAGER->play("건설실패");
+			}
+		}
+	}
+	if (INPUT->GetKey(VK_RBUTTON)) {
+		is_building_check = false;
+		if (!SOUNDMANAGER->isPlaySound("건설취소")) {
+			SOUNDMANAGER->play("건설취소");
 		}
 	}
 }
