@@ -10,6 +10,7 @@ HRESULT cow::init()
 	_attackIndex = 0;
 	tryAttack = false;
 	isattacking = false;
+	_state2 = WALK;
 
 	return S_OK;
 }
@@ -104,7 +105,9 @@ void cow::cowAnimation()
 void cow::cowMove()
 {
 	searchCount++;
-	if (searchCount % 120 == 0)
+	//cout << _state2 << endl;
+	cout << isattacking << endl;
+	if (searchCount % 1 == 0)
 	{
 		if (_state2 == WALK)
 		{
