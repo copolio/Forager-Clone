@@ -6,7 +6,7 @@ HRESULT cow::init()
 	cowHitCount = 0;
 	cowHitWaitCount = 0;
 	searchCount = 0;
-	cowDashRange = 200;
+	cowDashRange = 50;
 	_attackIndex = 0;
 	tryAttack = false;
 	isattacking = false;
