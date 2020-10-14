@@ -35,10 +35,12 @@ void unit::animation()
 
 void unit::render(HDC hdc)
 {
-	IMAGEMANAGER->frameRender(objKey, hdc,
-		CAMERA->GetRelativeX(rc.left),
-		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
-		objFrameX, objFrameY);
+
+		IMAGEMANAGER->frameRender(objKey, hdc,
+			CAMERA->GetRelativeX(rc.left),
+			CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
+			objFrameX, objFrameY);
+	
 }
 
 bool unit::isDead()

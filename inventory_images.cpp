@@ -35,6 +35,7 @@ HRESULT inventory_images::init()
 
 
 	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("sword_att", "Images/이미지/아이템/sword_att.bmp", 342, 176,3,2, true, RGB(255, 0, 255));	
 
 	IMAGEMANAGER->addImage("Iron_ore", "Images/이미지/아이템/Iron_ore.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("coal", "Images/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
@@ -62,6 +63,8 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addImage("slot_Bow", "Images/이미지/아이템/slot_Bow.bmp", 63, 63, true, RGB(255, 0, 255));
+
 
 	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112 / 2, 160 / 2, true, RGB(255, 0, 255));
@@ -69,6 +72,8 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("construction_background", "Images/이미지/GUI/construction_background.bmp", 324, 720);
 
 	IMAGEMANAGER->addImage("pick", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("sword", "Images/이미지/아이템/sword.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("sword_right", "Images/이미지/아이템/sword_right.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("0", "Images/이미지/GUI/0.bmp", 15, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("1", "Images/이미지/GUI/1.bmp", 15, 19, true, RGB(255, 0, 255));
