@@ -10,6 +10,7 @@ private:
 	earth* _map;
 	targetingBox *_targetBox;
 	int _tileIndex;
+	int _islandIndex;
 	RECT _targetIslandrc;
 	int* balance;
 public:

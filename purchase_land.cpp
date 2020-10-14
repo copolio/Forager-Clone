@@ -23,8 +23,8 @@ void purchase_land::update()
 	_targetBox->update();
 	_tileIndex = _map->tileColMouseTargetIndex();
 	_targetIslandrc = _map->GetIslandRc(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex));
-
-	_targetBox->SetTarget(CAMERA->GetRelativeRc(_targetIslandrc), 4, _tileIndex, 4, false);
+	_islandIndex = _map->GetIslandY(_tileIndex)*MAPTILEX + _map->GetIslandX(_tileIndex);
+	_targetBox->SetTarget(CAMERA->GetRelativeRc(_targetIslandrc), 4, _islandIndex, 4, false);
 
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (!_map->HasIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex)) &&
