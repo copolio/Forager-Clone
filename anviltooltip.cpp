@@ -168,6 +168,7 @@ void anviltooltip::click_item_event(int num)
 bool anviltooltip::cilck()
 {
 	if (INPUT->GetKeyDown(VK_LBUTTON)) {
+		SOUNDMANAGER->play("Å¬¸¯");
 		return true;
 	}
 	return false;

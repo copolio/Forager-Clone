@@ -39,6 +39,13 @@ public:
 	void set_ischeck(bool s) {
 		ischeck = s;
 	}
+	string GetCurrentSceneName() { 
+		for (auto it = _mSceneList.begin(); it != _mSceneList.end(); ++it) {
+			if (it->second == _currentScene) {
+				return it->first;
+			}
+		}
+	}
 	sceneManager() : _currentScene(NULL) {}
 	~sceneManager() {}
 };

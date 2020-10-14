@@ -25,7 +25,7 @@ void cursor::update()
 			}
 			else {
 				interaction = true;
-				
+				SOUNDMANAGER->play("건물상호작용");
 			}
 		}
 	}
@@ -61,7 +61,6 @@ void cursor::CheckObject()
 
 				RECT t_rc = (*vUnit[i]).rc;
 				if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-					
 					_targetingBox.SetTarget(t_rc, 3, i, 2, true);
 					_unit = &(*vUnit[i]);
 					return;
@@ -71,7 +70,9 @@ void cursor::CheckObject()
 
 				RECT t_rc = (*vUnit[i]).rc;
 				if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-
+					if (_targetingBox.GetTargetID() != i) {
+						SOUNDMANAGER->play("건물커서");
+					}
 					_targetingBox.SetTarget(t_rc, 3, i, 2, true);
 					_unit = &(*vUnit[i]);
 					if (_unit->objKey != "bridge") {

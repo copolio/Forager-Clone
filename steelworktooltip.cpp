@@ -151,6 +151,7 @@ void steelworktooltip::click_item_event(int num)
 bool steelworktooltip::cilck()
 {
 	if (INPUT->GetKeyDown(VK_LBUTTON)) {
+		SOUNDMANAGER->play("Å¬¸¯");
 		return true;
 	}
 	return false;

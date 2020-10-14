@@ -28,6 +28,7 @@ public:
 	void CursorOut();
 	void RemoveTarget();
 	RECT getTargetRc() { return _rcTargetBox; };
+	int GetTargetID() { return _targetID; };
 
 
 };

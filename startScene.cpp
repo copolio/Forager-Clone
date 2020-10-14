@@ -147,6 +147,7 @@ void startScene::CheckButtonClick()
 		{
 			if (PtInRect(&_button[i].GetRect(), _ptMouse))
 			{
+				SOUNDMANAGER->play("클릭");
 				switch (i) {
 				case BTN::SETTING:	SCENEMANAGER->loadScene("게임 화면"); break;	// 환경설정 창
 				case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
