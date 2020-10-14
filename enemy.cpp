@@ -21,10 +21,6 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	currentHp = 30;
 	tag = TAG::ENEMY;
 	layer = LAYER::OBJECT;
-	_state = SKULLSTATE::APPEAR;
-	_state2 = COWSTATE::WALK;
-	_state3 = WRAITHSTATE::FLY;
-	
 	_target = target;
 	//_mapTile = mapTile;
 

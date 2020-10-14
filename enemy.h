@@ -5,27 +5,9 @@
 #define PI 3.1415926f
 
 
-enum SKULLSTATE
-{
-	STAY,	//걸어다니는 이미지랑 
-	ATTACK,
-	APPEAR,
-	IDLE2
-};
 
-enum COWSTATE
-{
-	IDLE3,
-	WALK,
-	DASH,
 
-};
 
-enum WRAITHSTATE
-{
-	FLY,
-	SHOOT
-};
 
 class earth;
 class enemy :public unit
@@ -41,9 +23,9 @@ protected:
 
 protected : 
 
-	SKULLSTATE _state;
-	COWSTATE _state2;
-	WRAITHSTATE _state3;
+	
+	
+	
 	int _index;
 	int _attackIndex;
 	int _count;

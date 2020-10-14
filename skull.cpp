@@ -15,6 +15,7 @@ HRESULT skull::init()
 	tryAttack = false;
 	isattacking = false;
 
+	_state = APPEAR;
 	Atk = 15;
 	
 	return S_OK;

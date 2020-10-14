@@ -4,12 +4,22 @@
 #define MOVERANGE 2
 #define MOVESPEED 1
 
+enum SKULLSTATE
+{
+	STAY,	//걸어다니는 이미지랑 
+	ATTACK,
+	APPEAR,
+	IDLE2
+};
+
 class skull :public enemy
 {
 private : 
 private : 
 	//int skullMoveCount;
 	//int skullIdleCount;
+	SKULLSTATE _state;
+
 	int skullAttackRange;
 	int searchCount;
 	int skullHitCount;

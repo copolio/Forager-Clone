@@ -13,6 +13,7 @@ HRESULT wraith::init()
 	Atk = 30;
 	tryAttack = false;
 
+	_state3 = FLY;
 	return S_OK;
 }
 

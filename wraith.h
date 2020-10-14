@@ -1,9 +1,17 @@
 #pragma once
 #include "enemy.h"
+
+enum WRAITHSTATE
+{
+	FLY,
+	SHOOT
+};
 class wraith :public enemy
 {
 
 private:
+	WRAITHSTATE _state3;
+
 	int wraithWaitCount;
 	int wraithHitCount;
 	int wraithShootCount;

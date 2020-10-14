@@ -4,6 +4,14 @@
 #define MOVERANGE 2
 #define MOVESPEED 1
 
+
+enum COWSTATE
+{
+	IDLE3,
+	WALK,
+	DASH,
+
+};
 class cow : public enemy
 {
 private:
@@ -17,7 +25,7 @@ private:
 
 
 private:
-
+	COWSTATE _state2;
 public:
 	HRESULT init();
 	void update();
