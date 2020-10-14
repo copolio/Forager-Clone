@@ -504,7 +504,7 @@ void ForagerPlayer::MeleeWeaponClick()
 	unit* targetUnit = _cursor->GetTargetUnit();
 	if (targetUnit != nullptr)
 	{
-		if (targetUnit->tag == TAG::OBJECT || targetUnit->tag == TAG::ENEMY || targetUnit->tag == TAG::BUILDING)
+		if (targetUnit->tag == TAG::OBJECT || targetUnit->tag == TAG::ENEMY || targetUnit->tag == TAG::NPC || targetUnit->tag == TAG::BUILDING)
 		{
 			// 타격 시점에
 			if (_hitDelayCount == 18)

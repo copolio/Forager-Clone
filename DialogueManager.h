@@ -4,6 +4,7 @@ class DialogueManager : public singletonBase<DialogueManager>
 {
 private:
 	struct tagDialogue {
+		int id;
 		RECT* rc;
 		string str;
 		vector<string> vDialogueText;
@@ -11,6 +12,7 @@ private:
 		int count;
 		int currentLineTextIndex;
 		int waitTime;
+		
 	};
 
 	vector<tagDialogue> _vDialogues;
@@ -21,7 +23,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	
-	void ShowDialogue(vector<string> p_str, RECT* p_pRC);
+	void ShowDialogue(vector<string> p_str, RECT* p_pRC, int ID = 0);
 
 
 };

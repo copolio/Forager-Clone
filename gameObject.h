@@ -11,6 +11,7 @@ enum class TAG
 	ENEMY,
 	PLAYER,
 	OBJECT,
+	NPC,
 	BUILDING
 };
 class gameObject

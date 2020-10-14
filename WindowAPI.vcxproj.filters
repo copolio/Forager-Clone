@@ -121,6 +121,9 @@
     <Filter Include="GameFramework\MainGame\Forager\UI">
       <UniqueIdentifier>{963754bc-a4ed-4414-8d3e-83ab2c27061f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\NPC">
+      <UniqueIdentifier>{f46288d1-937a-48e7-9922-44d52b9dbf09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -318,6 +321,9 @@
     <ClCompile Include="wraith.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="npc.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -514,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="wraith.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="npc.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
 #include "ForagerPlayer.h"
 #include "ProjectileManager.h"
 #include "wraith.h"
+#include "npc.h"
 
 class earth;
 
