@@ -34,15 +34,16 @@ void UnitManager::init()
 
 
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("cowWalk", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/cowDash.bmp", 320, 100, 4, 2, true, RGB(255, 0, 255));
+
 
 
 	IMAGEMANAGER->addFrameImage("wraithAttack", "Images/이미지/NPC/레이스2.bmp", 1710, 400, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithIdle", "Images/이미지/NPC/레이스IDLE2.bmp", 2280, 400, 4, 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("wraithBullet", "Images/이미지/NPC/레이스무기발사.bmp", 80, 600, 1, 2, true, RGB(255, 0, 255));
 	
-
+	
 
 	// 체력바
 	IMAGEMANAGER->addImage("hpBarBG", "Images/이미지/NPC/NPC체력(뒤).bmp", 50, 20, true, RGB(255, 0, 255));
@@ -185,6 +186,13 @@ void UnitManager::AddUnits(wraith* p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(cow * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
+
+
 void UnitManager::AddUnits(tile* p_tile)
 {
 	resource* _res = new resource;
@@ -209,6 +217,7 @@ void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
 	if (p_monsterName == "cow")
 	{
 		cow* _cow = new cow;
+		_cow->setLinkMap(_map);
 		_cow->setEnemy(p_monsterName, "milkDrop", _player, p_pos);
 		_cow->init();
 		_vUnits.push_back(_cow);

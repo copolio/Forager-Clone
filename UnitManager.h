@@ -41,6 +41,7 @@ public:
 	void AddUnits(ForagerPlayer* p_unit);
 	void AddUnits(skull* p_unit, bool test);
 	void AddUnits(wraith* p_unit, bool test);
+	void AddUnits(cow* p_unit, bool test);
 	void AddUnits(tile* p_tile);
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);

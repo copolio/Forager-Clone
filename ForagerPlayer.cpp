@@ -448,7 +448,7 @@ void ForagerPlayer::PlayerControll()
 				_playerHammering->setFrameX(_index);
 			}
 			else if (_equipWeapon == EQUIPWEAPON::BOW) {
-				ArrowFire();
+				//ArrowFire();
 			}
 		}
 	}
@@ -519,7 +519,7 @@ void ForagerPlayer::BowClick()
 	}
 }
 
-void ForagerPlayer::ArrowFire() 
+/*void ForagerPlayer::ArrowFire() 
 {
 	if (_isBowPulling) {
 		_isBowPulling = false;
@@ -529,7 +529,7 @@ void ForagerPlayer::ArrowFire()
 		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
 		_bowPowerGauge = .1f;
 	}
-}
+}*/
 
 
 void ForagerPlayer::playerMove()

@@ -3,18 +3,30 @@
 class cow : public enemy
 {
 private:
-	int cowMoveCount;
-	int cowIdleCount;
-	int cowAttackRange;
+	int cowHitCount;
+	int cowHitWaitCount;
+	int searchCount;
+	int cowDashRange;
+	bool tryAttack;
+
+	bool isattacking;
+
+
 private:
 
 public:
 	HRESULT init();
-	void update() override;
+	void update();
 	void render(HDC hdc) override;
-	void cowMove();
-	void canAttackCheck();
+
 	void cowAnimation();
+	void cowMove();
+	void cowAttack();
 	void cowLookDirection();
+	
+
+
+
+	
 };
 

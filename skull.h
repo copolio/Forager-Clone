@@ -8,13 +8,13 @@ class skull :public enemy
 {
 private : 
 private : 
-	int skullMoveCount;
-	int skullIdleCount;
+	//int skullMoveCount;
+	//int skullIdleCount;
 	int skullAttackRange;
 	int searchCount;
 	int skullHitCount;
 	int skullHitWaitCount;
-	bool hitPlayer;
+	//bool hitPlayer;
 	bool tryAttack;
 	POINT _destination;
 

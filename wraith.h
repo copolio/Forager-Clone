@@ -6,8 +6,13 @@ class wraith :public enemy
 private:
 	int wraithWaitCount;
 	int wraithHitCount;
+	int wraithShootCount;
 	int searchCount;
 	int wraithAttackRange;
+	
+	int skillFireCount;
+
+
 	bool tryAttack;
 
 	int Atk;
@@ -20,5 +25,7 @@ public:
 	void wraithAttack();
 	void wraithAnimation();
 	void wraithLookDirection();
+	void wraithFire();
+	
 };
 

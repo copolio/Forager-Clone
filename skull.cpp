@@ -4,16 +4,15 @@
 
 HRESULT skull::init()
 {
-	skullMoveCount = 0;
-	skullIdleCount = 0;
+	//skullMoveCount = 0;
+	//skullIdleCount = 0;
 	searchCount = 0;
 	skullHitCount = 0;
 	skullHitWaitCount = 0;
 	skullAttackRange = 80;
 	_attackIndex = 0;
-	hitPlayer = false;
+	//hitPlayer = false;
 	tryAttack = false;
-
 	isattacking = false;
 
 	Atk = 15;
@@ -61,7 +60,8 @@ void skull::render(HDC hdc)
 //1타일씩 상하좌우 랜덤움직이는데, 총 5번 
 void skull::skullMove()
 {
-	if (_state == STAY) {
+	if (_state == STAY) 
+	{
 		if (!checkDestination)
 		{
 			searchCount++;
@@ -177,10 +177,8 @@ void skull::canAttackCheck()
 		if (skullHitWaitCount > 120)
 		{
 			//if (skullHitCount == 17) {
-			//	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-			//		//IMAGEMANAGER->findImage("스테미나")->setWidth(15);
+			//	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)	
 			//		_target->hurt(Atk);
-
 			//}
 			_state = ATTACK;
 		}
