@@ -1,6 +1,6 @@
 #pragma once
 
-#define PROJECTILE_MAX 10
+#define PROJECTILE_MAX 20
 
 
 struct tagProjectile {
@@ -11,9 +11,11 @@ struct tagProjectile {
 		int frameX;
 		int frameY;
 		int damage;
+		int count;
 		bool isStretch;
 		bool isEnemyProjectTile;
 		bool isAppear;
+
 };
 
 class ProjectileManager{
@@ -22,6 +24,7 @@ class ProjectileManager{
 	tagProjectile _projectiles[PROJECTILE_MAX];
 
 public:
+	
 	void init();
 	void update();
 	void render(HDC hdc);

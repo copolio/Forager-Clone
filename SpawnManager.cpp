@@ -44,7 +44,9 @@ void SpawnManager::TrySpawn()
 			switch (pattern)
 			{
 			case 0:
-				SpawnPatternOne("skull", 1);
+				//SpawnPatternOne("skull", 5);
+				//SpawnPatternOne("wraithIdle",1);
+				SpawnPatternOne("cow",1);
 				break;
 			}
 		}
@@ -66,6 +68,5 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int count)
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
 
 		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
-
 	}
 } 

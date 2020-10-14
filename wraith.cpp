@@ -6,7 +6,9 @@ HRESULT wraith::init()
 	wraithHitCount = 0;
 	wraithWaitCount = 0;
 	searchCount = 0;
-	wraithAttackRange = 200;
+	wraithShootCount = 0;
+	skillFireCount = 0;
+	wraithAttackRange = 350;
 
 	Atk = 30;
 	tryAttack = false;
@@ -23,10 +25,13 @@ void wraith::update()
 		wraithMove();
 		break;
 	case SHOOT:
+		
 		break;
 	}
 	wraithAttack();
 	wraithLookDirection();
+	
+	
 }
 
 void wraith::render(HDC hdc)
@@ -34,12 +39,12 @@ void wraith::render(HDC hdc)
 	switch (_state3)
 	{
 	case FLY:
-		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 13),
-			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
+		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 285),
+			CAMERA->GetRelativeY(rc.top - 100), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case SHOOT:
-		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 13),
-			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
+		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 285),
+			CAMERA->GetRelativeY(rc.top - 100), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 
 	}
@@ -124,16 +129,22 @@ void wraith::wraithAttack()
 	else
 	{
 		wraithWaitCount++;
-		if (wraithWaitCount > 120)
+		if (wraithWaitCount > 10)
 		{
 			//if (wraithHitCount == 23) {
 			//	if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
 			//		_target->hurt(Atk);
 			//}
 			_state3 = SHOOT;
+			wraithFire();
 		}
-		else
-			_state3 =SHOOT;
+		//else
+		//{
+		//	_state3 = SHOOT;
+		//	
+		//}
+			
+		
 	}
 }
 
@@ -174,10 +185,43 @@ void wraith::wraithLookDirection()
 {
 	if ( _state3 == SHOOT || _state3 == FLY)
 	{
-		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
+		if (rc.left > _target->rc.left)
 			isLeft = true;
 		else
 			isLeft = false;
 	}
-
 }
+
+void wraith::wraithFire()
+{
+	skillFireCount++;
+	if (skillFireCount % 120 == 0) {
+		int randomSkillNum = RANDOM->range(0, 2);
+		if (randomSkillNum == 0)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				float t_angle = (45.0f * i);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, t_angle, 5, true, true);
+			}
+			skillFireCount = 0;
+		}
+		else if(randomSkillNum == 1)
+		{
+			int x = _target->rc.left - rc.left;
+			int y = _target->rc.top - rc.top;
+			_angle = atan2f(-y, x);
+			_angle = _angle * 180 / PI;
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, true, true);
+			cout << _angle << endl;
+			skillFireCount = 0;
+		}
+	}
+	
+	
+	
+}
+
+

@@ -40,7 +40,7 @@ public:
 
 public:
 	virtual void update();
-	virtual void render(HDC hdc) override;
+	void render(HDC hdc) override;
 	
 public:
 	virtual void hurt(int damage);			// Ã¼·Â ´âÀ½
