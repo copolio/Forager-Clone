@@ -26,7 +26,12 @@ void quick_slot::render(HDC hdc)
 	for (int i = 0; i < _quick.size(); i++) {
 
 		IMAGEMANAGER->alphaRender("quick_slot_background", hdc, _quick[i]->_rc.left, _quick[i]->_rc.top,180);
-		IMAGEMANAGER->render(_quick[i]->img_name, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top);
+		if (_quick[i]->img_name == "Bow") {
+			IMAGEMANAGER->frameRender(_quick[i]->img_name, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top, 0, 2);
+		}
+		else {
+			IMAGEMANAGER->render(_quick[i]->img_name, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top);
+		}
 	}
 	_targetBox->render(hdc);
 }

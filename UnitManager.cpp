@@ -240,6 +240,7 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
 {
 	fieldItem* t_fieldItem = new fieldItem;
+
 	t_fieldItem->setFieldItem(p_pos, p_itemKey);
 	_vUnits.push_back(t_fieldItem);
 }
