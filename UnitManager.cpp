@@ -3,12 +3,6 @@
 #include "productionManager.h"
 void UnitManager::init()
 {
-	_spawnManager = new SpawnManager;
-	_spawnManager->init();
-	_projectileManager = new ProjectileManager;
-	_projectileManager->init();
-	_pProjectiles = _projectileManager->GetProjectile();
-
 	//자원 1 (나무, 돌, 열매)
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
@@ -32,21 +26,29 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
 
-
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
 
-
 	IMAGEMANAGER->addFrameImage("wraithAttack", "Images/이미지/NPC/레이스2.bmp", 1710, 400, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithIdle", "Images/이미지/NPC/레이스IDLE2.bmp", 2280, 400, 4, 2, true, RGB(255, 0, 255));
-
 	IMAGEMANAGER->addFrameImage("wraithBullet", "Images/이미지/NPC/레이스무기발사.bmp", 80, 600, 1, 2, true, RGB(255, 0, 255));
 	
+	// NPC
+	IMAGEMANAGER->addFrameImage("David", "Images/이미지/NPC/img_npc_David.bmp", 444, 88, 4, 1, true, RGB(255, 0, 255));
 
 
 	// 체력바
 	IMAGEMANAGER->addImage("hpBarBG", "Images/이미지/NPC/NPC체력(뒤).bmp", 50, 20, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("hpBar", "Images/이미지/NPC/NPC체력(앞).bmp", 40, 10, true, RGB(255, 0, 255));
+
+	// 투사체 매니저 생성
+	_projectileManager = new ProjectileManager;
+	_projectileManager->init();
+	_pProjectiles = _projectileManager->GetProjectile();
+
+	// 스폰 매니저 생성
+	_spawnManager = new SpawnManager;
+	_spawnManager->init();
 }
 
 void UnitManager::release()
@@ -70,10 +72,12 @@ void UnitManager::update()
 			_vUnits[i]->update();
 		}
 
-		// 카메라 외곽과 필드 아이템은 충돌처리 무시
+		// 카메라 외곽과 NPC, 필드 아이템은 충돌처리 무시
 		RECT temp;
-		if (_vUnits[i]->tag == TAG::ITEM) continue;	
+		if (_vUnits[i]->tag == TAG::ITEM) continue;
+		if (_vUnits[i]->tag == TAG::NPC) continue;
 		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vUnits[i]->rc)) continue;
+
 
 		// 투사체와 유닛간의 충돌처리
 		checkCollision(_vUnits[i]);
@@ -173,6 +177,9 @@ void UnitManager::AddUnits(ForagerPlayer* p_unit)
 {
 	_player = p_unit;
 	_vUnits.push_back(p_unit);
+
+	// NPC 세팅
+	AddUnits("David", { WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }, false);
 }
 
 void UnitManager::AddUnits(skull* p_unit, bool test)
@@ -192,39 +199,51 @@ void UnitManager::AddUnits(tile* p_tile)
 	_vUnits.push_back(_res);
 }
 
-void UnitManager::AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck)
+void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
-	//해골
-	if (p_monsterName == "skull")
-	{
-		skull* _skull = new skull;
-		_skull->setLinkMap(_map);
-		_skull->setEnemy(p_monsterName, "skullHeadDrop", _player, p_pos);
-		_skull->init();
-		
-		_vUnits.push_back(_skull);
-	}
-	
-	//소
-	if (p_monsterName == "cow")
-	{
-		cow* _cow = new cow;
-		_cow->setEnemy(p_monsterName, "milkDrop", _player, p_pos);
-		_cow->init();
-		_vUnits.push_back(_cow);
-		
-	}
-	
-	//레이스
-	if (p_monsterName == "wraithIdle")
-	{
-		wraith* _wraith = new wraith;
-		_wraith->setLinkMap(_map);
-		_wraith->setEnemy(p_monsterName, "skullHeadDrop", _player, p_pos);
-		_wraith->init();
-		_vUnits.push_back(_wraith);
-	}
+	// 에너미 생성
+	if (enemyCheck) {
+		//해골
+		if (p_unitName == "skull")
+		{
+			skull* _skull = new skull;
+			_skull->setLinkMap(_map);
+			_skull->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos);
+			_skull->init();
 
+			_vUnits.push_back(_skull);
+		}
+
+		//소
+		if (p_unitName == "cow")
+		{
+			cow* _cow = new cow;
+			_cow->setEnemy(p_unitName, "milkDrop", _player, p_pos);
+			_cow->init();
+			_vUnits.push_back(_cow);
+
+		}
+
+		//레이스
+		if (p_unitName == "wraithIdle")
+		{
+			wraith* _wraith = new wraith;
+			_wraith->setLinkMap(_map);
+			_wraith->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos);
+			_wraith->init();
+			_vUnits.push_back(_wraith);
+		}
+	}
+	
+	// NPC 생성
+	else {
+		if (p_unitName == "David")
+		{
+			npc* t_npc = new npc;
+			t_npc->setNpc(p_unitName, p_pos, &_player->rc);
+			_vUnits.push_back(t_npc);
+		}
+	}
 }
 
 // 유닛 추가
@@ -275,7 +294,7 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
 	_building->setBuilding(buildkey, tiles);
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
-	//_production->settion(_building->rc);
+	//_production->settion(_building->rc);ㅈ
 
 }
 

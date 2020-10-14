@@ -168,7 +168,7 @@ void item_Manager::_Item_industry_decrease(string key)
 //건설 완료시 재료 삭제
 bool item_Manager::Item_count_Minus(string key, int count)
 {
-	if (isItemCheck(key)) {
+	if (isItemCheck(key) && _item_push[itemfind(key)]->count >= count) {
 		_item_push[itemfind(key)]->count -= count;
 		vItem_count_zoro();
 		return true;

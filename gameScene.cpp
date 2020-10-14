@@ -37,6 +37,9 @@ HRESULT gameScene::init()
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
 	SCENEMANAGER->set_ischeck(true);
+
+
+
 	return S_OK;
 }
 

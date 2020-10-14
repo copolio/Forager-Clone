@@ -54,9 +54,18 @@ void DialogueManager::render(HDC hdc)
 	}
 }
 
-void DialogueManager::ShowDialogue(vector<string> p_str, RECT * p_pRC)
+void DialogueManager::ShowDialogue(vector<string> p_str, RECT * p_pRC, int id)
 {
+	// 같은 ID의 대화가 추가되면 이전 대화 제거
+	for (auto iter = _vDialogues.begin(); iter != _vDialogues.end(); ++iter) {
+		if (iter->id == id) {
+			_vDialogues.erase(iter);
+			break;
+		}
+	}
+
 	tagDialogue t_dialogue;
+	t_dialogue.id = id;
 	t_dialogue.count = 0;
 	t_dialogue.rc = p_pRC;
 	t_dialogue.currentLine = 0;
