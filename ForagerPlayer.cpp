@@ -456,6 +456,10 @@ void ForagerPlayer::PlayerControll()
 
 void ForagerPlayer::MeleeWeaponClick()
 {
+	if (_hitDelayCount == 18)
+	{
+		SOUNDMANAGER->play("근접무기");
+	}
 	unit* targetUnit = _cursor->GetTargetUnit();
 	if (targetUnit != nullptr)
 	{
@@ -464,6 +468,7 @@ void ForagerPlayer::MeleeWeaponClick()
 			// 타격 시점에
 			if (_hitDelayCount == 18)
 			{
+				//SOUNDMANAGER->play("근접무기");
 				// 타겟과의 거리와 가까우면
 				if (abs(targetUnit->rc.left - rc.left) <= 100 && abs(targetUnit->rc.top - rc.top) <= 100)
 				{
@@ -521,6 +526,7 @@ void ForagerPlayer::BowClick()
 
 void ForagerPlayer::ArrowFire() 
 {
+	SOUNDMANAGER->play("원거리무기");
 	if (_isBowPulling) {
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
@@ -735,10 +741,10 @@ void ForagerPlayer::CheckCollision()
 
 		// 아이템 충돌
 		if (t_vUnit[i]->tag == TAG::ITEM) {
-			
 			RECT temp;
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
+				SOUNDMANAGER->play("아이템충돌");
 				t_vUnit[i]->collision();
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
 				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "Bow") {
@@ -750,6 +756,7 @@ void ForagerPlayer::CheckCollision()
 					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
 				}
 				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
+				break;
 			}
 		}
 		// 빌딩 상호작용 렉트 충돌

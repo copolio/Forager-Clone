@@ -56,7 +56,16 @@ void resource::dead()
 		_tile->hasUnit = false;
 		_tile->canPass = true;
 	}
-		
+
+	if (this->objKey == "berry") {
+		SOUNDMANAGER->play("과일파괴");
+	}
+	if (this->objKey == "tree") {
+		SOUNDMANAGER->play("나무파괴");
+	}
+	if (this->objKey == "rock") {
+		SOUNDMANAGER->play("바위파괴");
+	}
 }
 
 void resource::render(HDC hdc)
@@ -70,6 +79,27 @@ void resource::render(HDC hdc)
 		CAMERA->GetRelativeX(rc.left),
 		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
 		objFrameX, objFrameY, CAMERA->GetZoom());
+}
+
+void resource::hurt(int damage)
+{
+	currentHp -= damage;
+
+	if (currentHp <= 0)
+		dead();
+
+	else
+		isHit = true;
+
+	if (this->objKey == "berry") {
+		SOUNDMANAGER->play("과일타격");
+	}
+	if (this->objKey == "tree") {
+		SOUNDMANAGER->play("나무타격");
+	}
+	if (this->objKey == "rock") {
+		SOUNDMANAGER->play("바위타격");
+	}
 }
 
 

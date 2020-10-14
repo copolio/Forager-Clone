@@ -10,6 +10,7 @@ void unit::hurt(int damage)
 
 	else
 		isHit = true;
+	SOUNDMANAGER->play("바위타격");
 }
 
 
@@ -31,6 +32,11 @@ void unit::animation()
 			}
 		}
 	}
+}
+
+void unit::dead()
+{
+	SOUNDMANAGER->play("바위파괴");
 }
 
 void unit::render(HDC hdc)

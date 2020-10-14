@@ -17,6 +17,6 @@ public:
 	void setRandomRes(tile* tile);
 	void dead() override;
 	void render(HDC hdc) override;
-	
+	void hurt(int damage) override;
 };
 

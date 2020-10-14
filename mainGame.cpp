@@ -34,6 +34,15 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("건설취소", "Sound/\SoundEffect/sound_sfx_buildTabSlotClick.mp3");
 	SOUNDMANAGER->addSound("생산시작", "Sound/\SoundEffect/sound_sfx_itemMadeStart.mp3");
 	SOUNDMANAGER->addSound("생산완료", "Sound/\SoundEffect/sound_sfx_itemMadeSuccess.mp3");
+	SOUNDMANAGER->addSound("아이템충돌", "Sound/\SoundEffect/sound_sfx_itemGet1.mp3");
+	SOUNDMANAGER->addSound("근접무기", "Sound/\SoundEffect/sound_sfx_weaponSwing1.mp3");
+	SOUNDMANAGER->addSound("원거리무기", "Sound/\SoundEffect/sound_sfx_weaponSwing2.mp3");
+	SOUNDMANAGER->addSound("과일타격", "Sound/\SoundEffect/sound_sfx_berryHit1.mp3");
+	SOUNDMANAGER->addSound("과일파괴", "Sound/\SoundEffect/sound_sfx_berryDestory.mp3");
+	SOUNDMANAGER->addSound("나무타격", "Sound/\SoundEffect/sound_sfx_treeHit1.mp3");
+	SOUNDMANAGER->addSound("나무파괴", "Sound/\SoundEffect/sound_sfx_treeDestroy.mp3");
+	SOUNDMANAGER->addSound("바위타격", "Sound/\SoundEffect/sound_sfx_rockHit1.mp3");
+	SOUNDMANAGER->addSound("바위파괴", "Sound/\SoundEffect/sound_sfx_rockDestory.mp3");
 
 	/*현재씬*/
 	//SCENEMANAGER->loadScene("로딩 화면");

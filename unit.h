@@ -46,7 +46,7 @@ public:
 	virtual void hurt(int damage);			// 체력 닳음
 	virtual void animation();		// 애니메이션 연출
 	virtual void collision() { ; };	// 충돌시 연출 (필드 아이템)
-	virtual void dead() { ; };		// 사망시 연출
+	virtual void dead();		// 사망시 연출
 	
 	
 
