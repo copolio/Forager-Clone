@@ -5,7 +5,7 @@
 #define ITEMSIZE 20
 #define	EQUIPSIZE 7
 #define TILEMAXSIZE 7056
-#define UNITMAXSIZE 500
+#define UNITMAXSIZE 1000
 class qucik_slot;
 class earth;
 class saveManager : public singletonBase<saveManager>

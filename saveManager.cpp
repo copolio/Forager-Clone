@@ -89,7 +89,6 @@ bool saveManager::load()
 			(*_game_tile)[i].y = My_Tile[i].y;
 		}
 	}
-	My_unit = new unit[num];
 	file = CreateFile(My_Game_save_file_unit, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	ReadFile(file, My_unit, sizeof(unit) * UNITMAXSIZE, &read, NULL);
 	CloseHandle(file);
