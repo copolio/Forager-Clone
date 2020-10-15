@@ -24,6 +24,9 @@ private:
 
 	arrSound _mTotalSound;	//맵에 담아둘 사운드들
 
+	float _sfxVolumn;
+	float _bgmVolumn;
+
 public:
 	HRESULT init();
 	void release();
@@ -33,7 +36,7 @@ public:
 	void addSound(string keyName, string soundName, bool bgm = false, bool loop = false);
 
 	//사운드 재생
-	void play(string keyName, float volume = 1.0f); //0.0f(min) ~ 1.0f(max)
+	void play(string keyName, bool isBgm = false);
 	//사운드 정지
 	void stop(string keyName);
 	//사운드 일시정지
@@ -45,5 +48,8 @@ public:
 	bool isPlaySound(string keyName);
 	//일시정지 중이냐?
 	bool isPauseSound(string keyName);
+
+	void SetSFXVolumn(float p_num) { _sfxVolumn = p_num; };
+	void SetBGMVolumn(float p_num);
 
 };

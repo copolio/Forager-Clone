@@ -42,7 +42,7 @@ HRESULT gameScene::init()
 	{
 		SOUNDMANAGER->stop("πË∞Ê¿Ωæ«");
 	}
-	SOUNDMANAGER->play("πË∞Ê¿Ωæ«");
+	SOUNDMANAGER->play("πË∞Ê¿Ωæ«", true);
 
 	return S_OK;
 }
