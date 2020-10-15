@@ -19,7 +19,6 @@ public:
 	}
 	void save();
 	bool load();
-	bool DoesFileExist(LPCSTR pszFilename);
 	LPCSTR My_Game_save_file_tiem;
 	LPCSTR My_Game_save_file_equip;
 
