@@ -119,7 +119,7 @@ void earth::mapSetup()
 			_tile.tag = TAG::TERRAIN;
 			_tile.layer = LAYER::TERRAIN;
 			_tile.terrKey = "watertile";
-			_tile.img = plaintile;
+			//_tile.img = plaintile;
 			_tile.terrainFrameX = 0;
 			_tile.terrainFrameY = 0;
 			_tile.hasUnit = false;

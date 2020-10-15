@@ -2,5 +2,5 @@
 
 void tile::render(HDC hdc)
 {
-	img->frameRender(hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), terrainFrameX, terrainFrameY, CAMERA->GetZoom());
+	IMAGEMANAGER->frameRender(terrKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), terrainFrameX, terrainFrameY, CAMERA->GetZoom());
 }
