@@ -525,23 +525,25 @@ void ForagerPlayer::MeleeWeaponClick()
 					// À¯´ÖÀÌ ÆÄ±«µÇ¸é
 					if (targetUnit->isDead())
 					{
+						if (targetUnit->objKey == "skull")
+							SOUNDMANAGER->play("ÇØ°ñ»ç¸Á¼Ò¸®");
+						else if (targetUnit->objKey =="cow")
+							SOUNDMANAGER->play("È²¼Ò»ç¸Á¼Ò¸®");
+					   
+						//½ºÅÂ´Ï¸¶ °¨¼Ò
+							STATMANAGER->setRight(5);
 
-						// ½ºÅÂ´Ï¸¶ °¨¼Ò
-								//_foragerHp->
-								//IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->setWidth(5);
-								STATMANAGER->setRight(5);
+							//±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
+							int t_exp = targetUnit->exp;
+							if (t_exp > 0) {
+								t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
+								POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
+								string str = std::to_string(t_exp);
+								str.insert(0, "EXP ");
+								TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
+								STATMANAGER->IncreaseExp(t_exp);
 
-								//±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
-								int t_exp = targetUnit->exp;
-								if (t_exp > 0) {
-									t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
-									POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
-									string str = std::to_string(t_exp);
-									str.insert(0, "EXP ");
-									TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
-									STATMANAGER->IncreaseExp(t_exp);
-
-								}
+							}
 
 						// Å¸°Ý ÁÜÀÎ ¿¬Ãâ
 						CAMERA->forceZoomIn(0.04f, 0.008f);

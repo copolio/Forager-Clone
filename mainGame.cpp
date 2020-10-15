@@ -17,9 +17,9 @@ HRESULT mainGame::init()
 	SCENEMANAGER->addScene("게임 화면", new gameScene);
 
 	/*사운드 추가*/
-	/*배경음악*/
+/*배경음악*/
 	SOUNDMANAGER->addSound("배경음악", "Sound/BGM/FORAGER - FULL OST - COMPLETE SOUNDTRACK.mp3", true, true);
-	
+
 	/*효과음*/
 	SOUNDMANAGER->addSound("커서음1", "Sound/\SoundEffect/sound_sfx_slotMouseOn1.mp3");
 	SOUNDMANAGER->addSound("커서음2", "Sound/\SoundEffect/sound_sfx_slotMouseOn2.mp3");
@@ -48,6 +48,10 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("플레이어걸음1", "Sound/\SoundEffect/sound_sfx_footStep1.mp3");
 	SOUNDMANAGER->addSound("플레이어걸음2", "Sound/\SoundEffect/sound_sfx_footStep2.mp3");
 	SOUNDMANAGER->addSound("레벨업", "Sound/\SoundEffect/sound_sfx_levelUp.mp3");
+	SOUNDMANAGER->addSound("해골사망소리", "Sound/\SoundEffect/skulldeadSound.mp3");
+	SOUNDMANAGER->addSound("황소사망소리", "Sound/\SoundEffect/cowDeadSound.mp3");
+	SOUNDMANAGER->addSound("유령무기발사소리", "Sound/\SoundEffect/wraithShootSound.mp3");
+
 
 
 	/*현재씬*/

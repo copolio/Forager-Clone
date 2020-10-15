@@ -6,12 +6,13 @@ HRESULT cow::init()
 	cowHitCount = 0;
 	cowHitWaitCount = 0;
 	searchCount = 0;
-	cowDashRange = 50;
+	cowDashRange = 100;
 	_attackIndex = 0;
+	_state2 = WALK;
 	tryAttack = false;
 	isattacking = false;
-	_state2 = WALK;
 
+	Atk = 20;
 	return S_OK;
 }
 
@@ -19,9 +20,10 @@ void cow::update()
 {
 	cowAnimation();
 	cowMove();
-	
-	cowAttack();
+	cowAttackAttempt();
 	cowLookDirection();
+	cowDash();
+	//checkCowTile();
 }
 
 void cow::render(HDC hdc)
@@ -247,7 +249,7 @@ void cow::cowMove()
 	}
 }
 
-void cow::cowAttack()
+void cow::cowAttackAttempt()
 {
 	if (!tryAttack)
 	{
@@ -261,17 +263,40 @@ void cow::cowAttack()
 	}
 	else
 	{
-		if (cowHitWaitCount > 120)
+		if (cowHitWaitCount > 120)	//돌진까지 준비시간 약 1~2초 사이.
 		{
-			//if (skullHitCount == 17) {
-			//	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)	
-			//		_target->hurt(Atk);
-			//}
+			if (cowHitCount == 17) {
+				if (abs(_target->rc.left - rc.left) <= cowDashRange && abs(_target->rc.top - rc.top) <= cowDashRange)
+					_target->hurt(Atk);
+			}
 			_state2 = DASH;
 		}
 		else {
 			cowHitWaitCount++;
 			_state2 = IDLE3;
+		}
+	}
+}
+
+void cow::cowDash()
+{
+	if (_state2 == DASH)
+	{
+		if (_target->rc.left < rc.left)
+		{
+			OffsetRect(&rc, -MOVESPEED*4, 0);
+		}
+		else if (_target->rc.left > rc.left)
+		{
+			OffsetRect(&rc, MOVESPEED * 4, 0);
+		}
+		if (_target->rc.top > rc.top)
+		{
+			OffsetRect(&rc, 0, MOVESPEED * 4);
+		}
+		else if (_target->rc.top < rc.top)
+		{
+			OffsetRect(&rc, 0, -MOVESPEED * 4);
 		}
 	}
 }
@@ -285,4 +310,57 @@ void cow::cowLookDirection()
 		else
 			isLeft = false;
 	}
+}
+
+void cow::checkCowTile()
+{
+	POINT ptCowPos = { GetCenterX(), GetCenterY() };
+
+	// 플레이어 좌표 기준 상하좌우 타일중에 
+	// 지금 밟고 있는 타일로 좌표 변경
+	if (PtInRect(&_map->GetTileRc(_cowTilePos), ptCowPos))
+		_cowTilePos = _cowTilePos;
+
+
+	//소 좌표 기준 상하좌우 타일 충돌 체크
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos + 1), ptCowPos))
+		_cowTilePos += 1;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos - 1), ptCowPos))
+		_cowTilePos -= 1;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos + MAPTILEX), ptCowPos))
+		_cowTilePos += MAPTILEX;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos - MAPTILEX), ptCowPos))
+		_cowTilePos -= MAPTILEX;
+
+	// 소 좌표 기준 대각선 타일 충돌 체크
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos - MAPTILEX + 1), ptCowPos))
+		_cowTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos - MAPTILEX - 1), ptCowPos))
+		_cowTilePos -= MAPTILEX - 1;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos + MAPTILEX + 1), ptCowPos))
+		_cowTilePos += MAPTILEX + 1;
+	else if (PtInRect(&_map->GetTileRc(_cowTilePos + MAPTILEX - 1), ptCowPos))
+		_cowTilePos -= MAPTILEX - 1;
+
+	// 소의 좌표가 어긋날 경우 다시 받아옴.
+	else
+		_cowTilePos = FindCowTilePos();
+
+
+}
+
+int cow::FindCowTilePos()
+{
+	vector<tile> _vTiles = _map->GetTiles();
+	POINT _ptCowPos = { GetCenterX(),  GetCenterY() };
+
+	for (int i = 0; i < MAPTILEY; i++) {
+		for (int j = 0; j < MAPTILEX; j++) {
+			if (PtInRect(&_vTiles[i*MAPTILEY + j].rc, _ptCowPos)) {
+				return (i*MAPTILEY + j);
+			}
+		}
+	}
+
+	
 }

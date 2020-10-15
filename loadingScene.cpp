@@ -45,14 +45,9 @@ void loadingScene::render()
 void loadingScene::loadingImage()
 {
 	//로딩이 너무 빠르게 진행되서 천천히 돌아가도록 테스트용으로 만들기
-	for (int i = 0; i < 500; i++)
-	{
-		_loading->loadImage("테스트", WINSIZEX, WINSIZEY);
-	}
 
 	//IMAGEMANAGER->addImage("mountain", "Images/mountain.bmp", WINSIZEX, WINSIZEY);
 	//IMAGEMANAGER->addImage("ball", "Images/ball.bmp", 60, 60);
-
 	
 
 }

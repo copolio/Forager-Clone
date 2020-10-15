@@ -180,7 +180,7 @@ void TextManager::ShowFloatingText(string str, POINT ptPos, COLORREF color, COLO
 
 	}
 
-	cout << "FloatingText 배열 개수 부족!!" << endl;
+	//cout << "FloatingText 배열 개수 부족!!" << endl;
 		
 
 }
