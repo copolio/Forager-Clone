@@ -219,10 +219,10 @@ void skull::canAttackCheck()
 
 		if (skullHitWaitCount > 120)
 		{
-			//if (skullHitCount == 17) {
-			//	if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)	
-			//		_target->hurt(Atk);
-			//}
+			if (skullHitCount == 17) {
+				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)	
+					_target->hurt(Atk);
+			}
 			_state = ATTACK;
 		}
 		else {

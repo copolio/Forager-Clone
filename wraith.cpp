@@ -138,6 +138,8 @@ void wraith::wraithAttack()
 			//}
 			_state3 = SHOOT;
 			wraithFire();
+			//if(wraithWaitCount == 30)
+			//SOUNDMANAGER->play("유령무기발사소리", 0.4f);
 		}
 		//else
 		//{
