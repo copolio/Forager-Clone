@@ -40,11 +40,11 @@ void resource::setRandomRes(tile* tile, int ptileIndex)
 	currentHp = maxHp;
 
 	_hpBar.init("hpBar", "hpBarBG");
-
 }
 
 void resource::setResource(string key, tile* p_tile, int p_tileIndex)
 {
+	_hpBar.init("hpBar", "hpBarBG");
 	tileIndex = p_tileIndex;
 	_tile = p_tile;
 	this->rc = _tile->rc;
