@@ -3,6 +3,7 @@
 #include "targetingBox.h"
 #include "reactImage.h"
 #include "gamesetting.h"
+#include "earth.h"
 
 #define BUTTON_MAX 6
 
