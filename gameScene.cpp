@@ -143,9 +143,10 @@ void gameScene::render()
 											// 마우스 커서 렌더
 	
 
-	if (_player->IsBow()){
+	if (_player->IsBow() && !inven_open) {
 		POINT clampPos = _player->GetBowXY();
 		IMAGEMANAGER->findImage("BowCursor")->render(getMemDC(), clampPos.x, clampPos.y);
-	}else
+	}
+	else
 		IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }

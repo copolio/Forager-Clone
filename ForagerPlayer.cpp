@@ -148,8 +148,7 @@ void ForagerPlayer::update()
 
 
 	animation();
-	if (_equipWeapon == BOW)
-		bowAnimation();
+	if (_equipWeapon == BOW && !inven_open) bowAnimation();
 
 	if (!inven_open) {
 		PlayerControll();
@@ -158,6 +157,9 @@ void ForagerPlayer::update()
 		CheckPlayerTile();
 		CheckCollision();
 	}
+
+	if (_equipWeapon == BOW && !inven_open)
+		bowAnimation();
 	
 	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(rc.left, rc.top);
@@ -544,7 +546,7 @@ void ForagerPlayer::PlayerControll()
 				_playerHammering->setFrameX(_index);
 			}
 			else if (_equipWeapon == EQUIPWEAPON::BOW) {
-				//ArrowFire();
+				ArrowFire();
 			}
 		}
 	}
