@@ -267,7 +267,9 @@ void cow::cowAttackAttempt()
 		{
 			if (cowHitCount == 17) {
 				if (abs(_target->rc.left - rc.left) <= cowDashRange && abs(_target->rc.top - rc.top) <= cowDashRange)
+				{
 					_target->hurt(Atk);
+				}
 			}
 			_state2 = DASH;
 		}
@@ -276,6 +278,8 @@ void cow::cowAttackAttempt()
 			_state2 = IDLE3;
 		}
 	}
+	
+	
 }
 
 void cow::cowDash()

@@ -18,7 +18,6 @@ void SpawnManager::update()
 		timer = errorValue;
 		TrySpawn();
 	}
-
 }
 
 
@@ -50,7 +49,6 @@ void SpawnManager::TrySpawn()
 				break;
 			}
 		}
-
 		_plainTile.clear();
 	}
 }

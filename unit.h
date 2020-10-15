@@ -23,6 +23,7 @@ public:
 	int maxHp;
 	int currentHp;
 	bool isHit = false;	// 맞는 순간 타격 애니메이션 재생
+	
 
 	// 드롭
 	int exp;
