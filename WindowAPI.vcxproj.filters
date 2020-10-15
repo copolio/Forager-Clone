@@ -322,7 +322,7 @@
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
     </ClCompile>
     <ClCompile Include="Astar.cpp">
-      <Filter>GameFramework\매니져</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -522,7 +522,7 @@
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Astar.h">
-      <Filter>GameFramework\매니져</Filter>
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
