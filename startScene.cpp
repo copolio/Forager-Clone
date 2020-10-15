@@ -155,22 +155,25 @@ void startScene::CheckButtonClick()
 
 				case BTN::SLOT1:	
 					SCENEMANAGER->loadScene("게임 화면"); 
-					SAVEMANAGER->My_Game_save_file_tiem = "item_save1.map";
+					SAVEMANAGER->My_Game_save_file_item = "item_save1.map";
 					SAVEMANAGER->My_Game_save_file_equip = "equip_save1.map";
+					SAVEMANAGER->My_Game_save_file_tile = "tile_save1.map";
 					SAVEMANAGER->load();
 					break;	// 게임 슬롯 1
 				
 				case BTN::SLOT2:	
 					SCENEMANAGER->loadScene("게임 화면"); 
-					SAVEMANAGER->My_Game_save_file_tiem = "item_save2.map";
+					SAVEMANAGER->My_Game_save_file_item = "item_save2.map";
 					SAVEMANAGER->My_Game_save_file_equip = "equip_save2.map";
+					SAVEMANAGER->My_Game_save_file_tile = "tile_save2.map";
 					SAVEMANAGER->load();
 
 					break;	// 게임 슬롯 2
 				case BTN::SLOT3:	
 					SCENEMANAGER->loadScene("게임 화면");
-					SAVEMANAGER->My_Game_save_file_tiem = "item_save3.map";
+					SAVEMANAGER->My_Game_save_file_item = "item_save3.map";
 					SAVEMANAGER->My_Game_save_file_equip = "equip_save3.map";
+					SAVEMANAGER->My_Game_save_file_tile = "tile_save3.map";
 					SAVEMANAGER->load();
 
 					break;	// 게임 슬롯 3

@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "targetingBox.h"
 #include "reactImage.h"
+#include "earth.h"
 
 
 #define BUTTON_MAX 6
