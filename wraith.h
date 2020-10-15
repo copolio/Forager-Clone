@@ -17,9 +17,7 @@ private:
 	int wraithShootCount;
 	int searchCount;
 	int wraithAttackRange;
-	
 	int skillFireCount;
-	int skullCount;
 
 	bool tryAttack;
 

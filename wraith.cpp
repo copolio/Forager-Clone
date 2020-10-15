@@ -33,7 +33,6 @@ void wraith::update()
 	wraithLookDirection();
 	if (searchCount % 500 == 0) {
 		SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos);
-		skullCount++;
 	}	
 }
 
@@ -42,12 +41,12 @@ void wraith::render(HDC hdc)
 	switch (_state3)
 	{
 	case FLY:
-		Rectangle(hdc, rc);
+		//Rectangle(hdc, rc);
 		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 235),
 			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case SHOOT:
-		Rectangle(hdc, rc);
+		//Rectangle(hdc, rc);
 		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 235),
 			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
