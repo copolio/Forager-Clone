@@ -628,7 +628,7 @@ void ForagerPlayer::BowClick()
 	}
 }
 
-/*void ForagerPlayer::ArrowFire() 
+void ForagerPlayer::ArrowFire() 
 {
 	SOUNDMANAGER->play("원거리무기");
 	if (_isBowPulling) {
@@ -639,7 +639,7 @@ void ForagerPlayer::BowClick()
 		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
 		_bowPowerGauge = .1f;
 	}
-}*/
+}
 
 
 void ForagerPlayer::playerMove()

@@ -36,7 +36,7 @@ void npc::setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer)
 	_vDialogueQuestComplete.push_back("휴우 덕분에 살았어.");
 
 	// 퀘스트 관련 아이템 (NPC 추가시 자식 클래스에서)
-	_QuestRewardItem = "berryDrop";
+	_QuestRewardItem = "slot_Bow";
 	_QuestItem = "berryDrop";
 	_questNeedItemNum = 10;
 
@@ -116,7 +116,7 @@ void npc::showDialogue()
 					_isQuestComplete = true;
 					DIALOGUE->ShowDialogue(_vDialogueQuestComplete, &rc);
 
-					UNITMANAGER->AddProduction("berryDrop", { rc.left - 50, rc.bottom + 50 });
+					UNITMANAGER->AddProduction(_QuestRewardItem, { rc.left - 50, rc.bottom + 50 });
 				}
 
 				// 퀘스트 진행중
