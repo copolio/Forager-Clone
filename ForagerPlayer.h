@@ -17,7 +17,8 @@ enum STATE
 	IDLE,
 	RUN,
 	ROTATE,
-	HAMMERING
+	HAMMERING,
+	DAMAGE
 };
 
 enum EQUIPWEAPON {
@@ -54,12 +55,15 @@ private:
 	bool _isHammering;	//곡괭이질인가?
 	bool _isBowPulling;	//활시위를 당기고 있는가?
 
+	bool _isGotDamage;
+
 	// 이미지
 	image* _foragerIdle;
 	image* _foragerRun;
 	image* _foragerRotate;
 	image* _foragerHammering;		
 	image* _playerHammering;
+	image* _playerGotHurt;
 	image* _hammer;
 	image* _hammerLeft;
 	image* _bow;

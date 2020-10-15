@@ -18,7 +18,6 @@ void SpawnManager::update()
 		timer = errorValue;
 		TrySpawn();
 	}
-
 }
 
 
@@ -34,7 +33,6 @@ void SpawnManager::GetCanSpawnTile()
 
 void SpawnManager::TrySpawn()
 {
-
 	if (UNITMANAGER->GetMonsterCount() < 2) {
 
 		GetCanSpawnTile();
@@ -50,7 +48,6 @@ void SpawnManager::TrySpawn()
 				break;
 			}
 		}
-
 		_plainTile.clear();
 	}
 }

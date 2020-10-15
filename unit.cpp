@@ -14,7 +14,6 @@ void unit::hurt(int damage)
 }
 
 
-
 void unit::update()
 {
 	animation();
