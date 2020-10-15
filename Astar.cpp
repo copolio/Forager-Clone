@@ -53,6 +53,7 @@ vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, boo
 	while (_openList.size() > 0)
 	{
 		_curNode = _openList[0];
+		node* _prevNode = _curNode;
 
 		//오픈리스트중 F가 가장 작거나 F가 같다면
 		//H가 작은 걸 현재노드로 하고
@@ -77,7 +78,11 @@ vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, boo
 				_closeList.push_back(_curNode);
 			}
 		}
-
+		
+		//현재노드가 이전노드와 같냐? (목적지까지 경로가 없다)
+		if (_curNode == _prevNode) {
+			return _finalList;
+		}
 		//현재노드가 마지막 노드와 같냐? (길찾았다)
 		if (_curNode == _endNode)
 		{
