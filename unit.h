@@ -28,6 +28,7 @@ public:
 	// 드롭
 	int exp;
 	dropItem dropItem;
+	int tileIndex; // 저장 로드용
 
 	// 애니메이션 관련
 	int objFrameX;

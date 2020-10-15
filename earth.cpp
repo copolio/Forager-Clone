@@ -146,7 +146,7 @@ void earth::setRandomObject()
 			_vTile[i*MAPTILEY + j].canPass = false;
 
 			// 유닛 매니저에 추가
-			UNITMANAGER->AddUnits(&_vTile[i*MAPTILEY + j]);
+			UNITMANAGER->AddResource(&_vTile[i*MAPTILEY + j], i*MAPTILEY + j);
 			break;
 		}	
 	}

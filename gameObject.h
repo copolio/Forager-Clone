@@ -12,7 +12,8 @@ enum class TAG
 	PLAYER,
 	OBJECT,
 	NPC,
-	BUILDING
+	BUILDING,
+	NONE,
 };
 class gameObject
 {

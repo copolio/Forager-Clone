@@ -14,7 +14,8 @@ public:
 	tile* _tile;
 
 public:
-	void setRandomRes(tile* tile);
+	void setRandomRes(tile* tile, int ptileIndex);
+	void setResource(string key, tile* p_tile, int p_tileIndex);
 	void dead() override;
 	void render(HDC hdc) override;
 	void hurt(int damage) override;

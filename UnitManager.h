@@ -54,6 +54,8 @@ public:
 	void AddBuilding(string buildkey, vector<tile*> tiles);
 
 	void AddProduction(string p_itemKey, POINT p_pos);
+	void AddResource(tile* _tile, int p_tileIndex);
+	void AddResource(string key, tile* _tile, int p_tileIndex);
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };

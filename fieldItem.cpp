@@ -18,6 +18,8 @@ void fieldItem::animation()
 
 void fieldItem::setFieldItem(POINT ptPos, string itemKey)
 {
+	tileIndex = 0;
+
 	objKey = itemKey;
 	dropItem.itemKey = itemKey;
 
