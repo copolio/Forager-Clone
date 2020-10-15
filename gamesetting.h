@@ -33,5 +33,6 @@ public:
 	void CheckCursorOn();
 	void CheckClick();
 	void VolumnSetting();
+	RECT GetRcWindow() { return _rcWindow; };
 };
 

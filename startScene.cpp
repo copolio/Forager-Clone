@@ -45,6 +45,11 @@ HRESULT startScene::init()
 	}
 	SOUNDMANAGER->play("배경음악");
 
+	gameOptionCheck = false;
+
+	_game_setting = new gamesetting;
+	_game_setting->init();
+
 	return S_OK;
 }
 
@@ -71,6 +76,9 @@ void startScene::update()
 		EFFECTMANAGER->ShowEffectAlphaSize("Walk1", _ptMouse, 0, 0.25f, 0, 150);
 	}
 
+	if (gameOptionCheck) {
+		_game_setting->update();
+	}
 	EFFECTMANAGER->update();
 }
 
@@ -101,6 +109,10 @@ void startScene::render()
 
 	// 타겟팅 박스 렌더
 	_targetingBox->render(getMemDC());
+
+	if (gameOptionCheck) {
+		_game_setting->render(getMemDC());
+	}
 
 	// 커서 렌더
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
@@ -143,29 +155,38 @@ void startScene::CheckButtonClick()
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{
-		for (int i = 0; i < BUTTON_MAX; i++)
-		{
-			if (PtInRect(&_button[i].GetRect(), _ptMouse))
+		if (!PtInRect(&_game_setting->GetRcWindow(), _ptMouse) && gameOptionCheck) {
+			gameOptionCheck = false;
+		}
+		if (!gameOptionCheck) {
+			for (int i = 0; i < BUTTON_MAX; i++)
 			{
-				SOUNDMANAGER->play("클릭");
-				switch (i) {
-				case BTN::SETTING:	SCENEMANAGER->loadScene("게임 화면"); break;	// 환경설정 창
-				case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
-				case BTN::EXIT:		SCENEMANAGER->loadScene("게임 화면"); break;	// 게임 종료
+				if (PtInRect(&_button[i].GetRect(), _ptMouse))
+				{
+					SOUNDMANAGER->play("클릭");
+					switch (i) {
+					case BTN::SETTING:
+						//SCENEMANAGER->loadScene("게임 화면"); 
+						gameOptionCheck = true;
+						break;	// 환경설정 창
+					case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
+					case BTN::EXIT:		SCENEMANAGER->loadScene("게임 화면"); break;	// 게임 종료
 
-				case BTN::SLOT1:	
-					SCENEMANAGER->loadScene("게임 화면"); 
+					case BTN::SLOT1:
+						SCENEMANAGER->loadScene("게임 화면");
 
-					break;	// 게임 슬롯 1
-				
-				case BTN::SLOT2:	SCENEMANAGER->loadScene("게임 화면"); 
+						break;	// 게임 슬롯 1
 
-					break;	// 게임 슬롯 2
-				case BTN::SLOT3:	SCENEMANAGER->loadScene("게임 화면");
+					case BTN::SLOT2:	SCENEMANAGER->loadScene("게임 화면");
 
-					break;	// 게임 슬롯 3
+						break;	// 게임 슬롯 2
+					case BTN::SLOT3:	SCENEMANAGER->loadScene("게임 화면");
+
+						break;	// 게임 슬롯 3
+					}
 				}
 			}
 		}
+		
 	}
 }

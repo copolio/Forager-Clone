@@ -2,7 +2,7 @@
 #include "gameNode.h"
 #include "targetingBox.h"
 #include "reactImage.h"
-
+#include "gamesetting.h"
 
 #define BUTTON_MAX 6
 
@@ -29,6 +29,8 @@ private:
 	int testWalkEffectInterval = 10;
 
 	bool gameSlotCheck;
+	bool gameOptionCheck;
+	gamesetting *_game_setting;
 
 	RECT saveRc; 
 
