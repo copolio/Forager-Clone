@@ -95,12 +95,14 @@ bool saveManager::load()
 			(*_game_tile)[i].y = My_Tile[i].y;
 		}
 	}
-
+	My_unit = new unit[num];
 	file = CreateFile(My_Game_save_file_unit, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	ReadFile(file, My_unit, sizeof(unit) * num, &read, NULL);
 	CloseHandle(file);
+
 	if (file != INVALID_HANDLE_VALUE) {
 		for (int i = 0; i < num ; i++) {
+			cout << i << endl;
 			switch (My_unit[i].tag) {
 			case TAG::TERRAIN:
 
@@ -112,16 +114,28 @@ bool saveManager::load()
 
 				break;
 			case TAG::PLAYER:
-				
+				for (int i = 0; i < UNITMANAGER->GetUnits().size(); i++) {
+					if (UNITMANAGER->GetUnits()[i]->tag == TAG::PLAYER) {
+						UNITMANAGER->GetUnits()[i]->currentCount = My_unit[i].currentCount;
+						UNITMANAGER->GetUnits()[i]->currentHp = My_unit[i].currentHp;
+						UNITMANAGER->GetUnits()[i]->isHit = My_unit[i].isHit;
+						UNITMANAGER->GetUnits()[i]->maxHp = My_unit[i].maxHp;
+						UNITMANAGER->GetUnits()[i]->nextCount = My_unit[i].nextCount;
+						UNITMANAGER->GetUnits()[i]->rc = My_unit[i].rc;
+						UNITMANAGER->GetUnits()[i]->x = My_unit[i].x;
+						UNITMANAGER->GetUnits()[i]->y = My_unit[i].y;
+						break;
+					}
+				}
 				break;
 			case TAG::OBJECT:
-
+				
 				break;
 			case TAG::NPC:
-
+				
 				break;
 			case TAG::BUILDING:
-				
+
 				break;
 			}
 		}
@@ -164,10 +178,7 @@ void saveManager::Unit_transform()
 {
 	_Unit = UNITMANAGER->GetUnits();
 	My_unit = &(*_Unit[0]);
-	for (int i = 0; i < _Unit.size(); i++) {
-		
-		cout << _Unit[i]->exp << endl;
-	}
+
 }
 
 void saveManager::Tile_transform()
@@ -184,6 +195,7 @@ void saveManager::Tile_transform()
 		My_Tile[i].tag =(*_game_tile)[i].tag;
 		My_Tile[i].x =(*_game_tile)[i].x;
 		My_Tile[i].y =(*_game_tile)[i].y;
+		
 	}
 }
 
