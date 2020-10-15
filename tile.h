@@ -17,7 +17,7 @@
 class tile : public gameObject {
 public:
 	string terrKey;
-	image* img;
+	//image* img;
 	int terrainFrameX;
 	int terrainFrameY;
 	bool hasUnit;
