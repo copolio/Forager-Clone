@@ -31,6 +31,10 @@ private:
 
 	bool gameSlotCheck;
 	bool gameOptionCheck;
+	bool _gameslotOne;
+	bool _gameslotTwo;
+	bool _gameslotThree;
+
 	gamesetting *_game_setting;
 
 	RECT saveRc; 
@@ -41,6 +45,7 @@ public:
 	void update();
 	void render();
 
+	void CheckGameFile();
 	void CheckCursorOnButton();
 	void CheckButtonClick();
 };

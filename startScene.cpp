@@ -50,6 +50,11 @@ HRESULT startScene::init()
 	_game_setting = new gamesetting;
 	_game_setting->init();
 
+	_gameslotOne = false;
+	_gameslotTwo = false;
+	_gameslotThree = false;
+	CheckGameFile();
+
 	return S_OK;
 }
 
@@ -101,7 +106,24 @@ void startScene::render()
 		int centerX = _button[i].GetRect().left + (_button[i].GetRect().right - _button[i].GetRect().left) / 2;
 		int centerY = _button[i].GetRect().top + (_button[i].GetRect().bottom- _button[i].GetRect().top) / 2;
 		POINT ptPos = { centerX , centerY - 15 };
-		TEXTMANAGER->ShowText(getMemDC(), false, "새게임", ptPos, 35, 1, RGB(255,255,255), true, RGB(0,0,0));
+		if (i == 3) {
+			if (!_gameslotOne)
+				TEXTMANAGER->ShowText(getMemDC(), false, "새게임", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+			else
+				TEXTMANAGER->ShowText(getMemDC(), false, "이어하기", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+		}
+		if (i == 4) {
+			if (!_gameslotTwo)
+				TEXTMANAGER->ShowText(getMemDC(), false, "새게임", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+			else
+				TEXTMANAGER->ShowText(getMemDC(), false, "이어하기", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+		}
+		if (i == 5) {
+			if (!_gameslotThree)
+				TEXTMANAGER->ShowText(getMemDC(), false, "새게임", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+			else
+				TEXTMANAGER->ShowText(getMemDC(), false, "이어하기", ptPos, 35, 1, RGB(255, 255, 255), true, RGB(0, 0, 0));
+		}
 	}
 
 
@@ -120,6 +142,23 @@ void startScene::render()
 
 }
 
+void startScene::CheckGameFile()
+{
+	LPCSTR slotOne = "tile_save1.map";
+	LPCSTR slotTwo = "tile_save2.map";
+	LPCSTR slotThree = "tile_save3.map";
+
+	DWORD dwAttrib = GetFileAttributes(slotOne);
+	_gameslotOne = (!(dwAttrib & FILE_ATTRIBUTE_DEVICE) &&
+		!(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	dwAttrib = GetFileAttributes(slotTwo);
+	_gameslotTwo = (!(dwAttrib & FILE_ATTRIBUTE_DEVICE) &&
+		!(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+	dwAttrib = GetFileAttributes(slotThree);
+	_gameslotThree = (!(dwAttrib & FILE_ATTRIBUTE_DEVICE) &&
+		!(dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
+
+}
 void startScene::CheckCursorOnButton()
 {
 	bool _cursor = false;

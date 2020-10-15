@@ -102,7 +102,7 @@ private:
 
 	void MeleeWeaponClick();
 	void BowClick();
-	//void ArrowFire();
+	void ArrowFire();
 	void bowAnimation();
 	void animation();
 	void playerMove();

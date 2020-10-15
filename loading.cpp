@@ -122,7 +122,7 @@ void loading::release()
 void loading::update()
 {
 	if (!start) {
-		alpha++;
+		alpha+= 3;
 		if (alpha > 255) {
 			alpha = 255;
 			count++;
@@ -134,7 +134,7 @@ void loading::update()
 		}
 	}
 	else {
-		alpha--;
+		alpha -= 3;
 		if (alpha <=0) {
 			start = false;
 			if (end) {
