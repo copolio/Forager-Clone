@@ -4,6 +4,8 @@
 
 void npc::setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer)
 {
+	tileIndex = 0;
+
 	// Å° ¼ÂÆÃ
 	objKey = p_imgKey;
 	_img = IMAGEMANAGER->findImage("David");

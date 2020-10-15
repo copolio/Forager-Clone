@@ -28,6 +28,7 @@ public:
 	// 드롭
 	int exp;
 	dropItem dropItem;
+	int tileIndex; // 저장 로드용
 
 	// 애니메이션 관련
 	int objFrameX;
@@ -48,8 +49,6 @@ public:
 	virtual void animation();		// 애니메이션 연출
 	virtual void collision() { ; };	// 충돌시 연출 (필드 아이템)
 	virtual void dead();		// 사망시 연출
-
-public:
 	bool isDead();
 };
 

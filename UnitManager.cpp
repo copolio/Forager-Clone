@@ -201,14 +201,6 @@ void UnitManager::AddUnits(cow * p_unit, bool test)
 }
 
 
-
-void UnitManager::AddUnits(tile* p_tile)
-{
-	resource* _res = new resource;
-	_res->setRandomRes(p_tile);
-	_vUnits.push_back(_res);
-}
-
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
 	if (_vEnemy.size() >= MAXENEMYUNIT) return;
@@ -278,6 +270,8 @@ void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
 	_vUnits.push_back(t_fieldItem);
 }
 
+
+
 int UnitManager::GetMonsterCount()
 {
 	int t_monsterCount = 0;
@@ -311,8 +305,22 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
 	//_production->settion(_building->rc);¤¸
-
 }
+
+void UnitManager::AddResource(tile* p_tile, int p_tileIndex)
+{
+	resource* _res = new resource;
+	_res->setRandomRes(p_tile, p_tileIndex);
+	_vUnits.push_back(_res);
+}
+
+void UnitManager::AddResource(string key, tile * _tile, int p_tileIndex)
+{
+	resource* _res = new resource;
+	_res->setResource(key, _tile, p_tileIndex);
+	_vUnits.push_back(_res);
+}
+
 
 
 

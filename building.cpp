@@ -16,6 +16,8 @@ void building::render(HDC hdc)
 
 void building::setBuilding(string buildingName, tile* _tile)
 {
+	tileIndex = 0;
+
 	_tiles.push_back(_tile);
 	RECT temp = _tile->rc;
 	this->rc = temp;
@@ -43,6 +45,8 @@ void building::setBuilding(string buildingName, tile* _tile)
 
 void building::setBuilding(string buildingName, vector<tile*> tiles)
 {
+	tileIndex = 0;
+
 	_tiles = tiles;
 	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[3]->rc.right, _tiles[3]->rc.bottom };
 	this->rc = temp;

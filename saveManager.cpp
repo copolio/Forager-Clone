@@ -27,16 +27,10 @@ void saveManager::save()
 	WriteFile(file, My_unit, sizeof(unit) * _Unit.size(), &write, NULL);
 	CloseHandle(file);
 
-	int num = _Unit.size();
-	string str = to_string(num);
-
-	INIDATA->addData("UnitCount", "0", str.c_str());
-	INIDATA->saveINI("Unit");
 }
 
 bool saveManager::load()
 {
-	int num = INIDATA->loadDataInteger("Unit", "UnitCount", "0");
 	HANDLE file;
 	DWORD read;
 	file = CreateFile(My_Game_save_file_item, GENERIC_READ, 0, NULL,OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -97,45 +91,34 @@ bool saveManager::load()
 	}
 	My_unit = new unit[num];
 	file = CreateFile(My_Game_save_file_unit, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	ReadFile(file, My_unit, sizeof(unit) * num, &read, NULL);
+	ReadFile(file, My_unit, sizeof(unit) * UNITMAXSIZE, &read, NULL);
 	CloseHandle(file);
 
 	if (file != INVALID_HANDLE_VALUE) {
-		for (int i = 0; i < num ; i++) {
-			cout << i << endl;
+
+		for (int i = 0; i < UNITMAXSIZE ; i++) {
+			cout << My_unit[i].tileIndex << endl;
+			tile* ptile;
+			if(My_unit[i].tileIndex >= 0)
+				ptile = _map->GetTileP(My_unit[i].tileIndex);
+
 			switch (My_unit[i].tag) {
-			case TAG::TERRAIN:
-
-				break;
 			case TAG::ITEM:
-
+				UNITMANAGER->AddProduction(My_unit[i].objKey, { My_unit[i].rc.left, My_unit[i].rc.top });
 				break;
 			case TAG::ENEMY:
-
+				UNITMANAGER->AddUnits(My_unit[i].objKey, { My_unit[i].rc.left, My_unit[i].rc.top }, true);
 				break;
 			case TAG::PLAYER:
-				for (int i = 0; i < UNITMANAGER->GetUnits().size(); i++) {
-					if (UNITMANAGER->GetUnits()[i]->tag == TAG::PLAYER) {
-						UNITMANAGER->GetUnits()[i]->currentCount = My_unit[i].currentCount;
-						UNITMANAGER->GetUnits()[i]->currentHp = My_unit[i].currentHp;
-						UNITMANAGER->GetUnits()[i]->isHit = My_unit[i].isHit;
-						UNITMANAGER->GetUnits()[i]->maxHp = My_unit[i].maxHp;
-						UNITMANAGER->GetUnits()[i]->nextCount = My_unit[i].nextCount;
-						UNITMANAGER->GetUnits()[i]->rc = My_unit[i].rc;
-						UNITMANAGER->GetUnits()[i]->x = My_unit[i].x;
-						UNITMANAGER->GetUnits()[i]->y = My_unit[i].y;
-						break;
-					}
-				}
 				break;
 			case TAG::OBJECT:
-				
+				UNITMANAGER->AddResource(My_unit[i].objKey, ptile, My_unit[i].tileIndex);
 				break;
 			case TAG::NPC:
 				
 				break;
 			case TAG::BUILDING:
-
+				UNITMANAGER->AddBuilding(My_unit[i].objKey, _map->GetTileP(0));
 				break;
 			}
 		}
@@ -177,8 +160,20 @@ void saveManager::equip_transform()
 void saveManager::Unit_transform()
 {
 	_Unit = UNITMANAGER->GetUnits();
-	My_unit = &(*_Unit[0]);
 
+	for (int i = 0; i < UNITMAXSIZE; i++) {
+		My_unit[i].tileIndex = 1;
+		if (i < _Unit.size()) {
+			My_unit[i].objKey = _Unit[i]->objKey;
+			My_unit[i].tag = _Unit[i]->tag;
+			My_unit[i].rc = _Unit[i]->rc;
+			My_unit[i].tileIndex = _Unit[i]->tileIndex;
+		}
+		else {
+			My_unit[i].tag = TAG::NONE;
+
+		}
+	}
 }
 
 void saveManager::Tile_transform()
@@ -195,7 +190,6 @@ void saveManager::Tile_transform()
 		My_Tile[i].tag =(*_game_tile)[i].tag;
 		My_Tile[i].x =(*_game_tile)[i].x;
 		My_Tile[i].y =(*_game_tile)[i].y;
-		
 	}
 }
 

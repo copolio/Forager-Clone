@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "resource.h"
 
-void resource::setRandomRes(tile* tile)
+void resource::setRandomRes(tile* tile, int ptileIndex)
 {
+	tileIndex = ptileIndex;
 	_tile = tile;
 	this->rc = _tile->rc;
 	this->layer = LAYER::OBJECT;
@@ -39,7 +40,44 @@ void resource::setRandomRes(tile* tile)
 	currentHp = maxHp;
 
 	_hpBar.init("hpBar", "hpBarBG");
+}
 
+void resource::setResource(string key, tile* p_tile, int p_tileIndex)
+{
+	_hpBar.init("hpBar", "hpBarBG");
+	tileIndex = p_tileIndex;
+	_tile = p_tile;
+	this->rc = _tile->rc;
+	this->layer = LAYER::OBJECT;
+	this->tag = TAG::OBJECT;
+	this->objFrameX = 0;
+	this->objFrameY = 0;
+	this->objMaxFrameY = 0;
+	this->currentCount = 0;
+	this->nextCount = 2;
+	
+	if (key == "berry") {
+		this->objKey = key;
+		this->dropItem.itemKey = "berryDrop";
+		this->maxHp = BERRYHP;
+		this->exp = 7;
+		this->objMaxFrameX = 1;
+	}
+	else if (key == "rock") {
+		this->objKey = key;
+		this->dropItem.itemKey = "rockDrop";
+		this->exp = 7;
+		this->maxHp = ROCKHP;
+		this->objMaxFrameX = 1;
+	}
+	else if (key == "tree") {
+		this->objKey = key;
+		this->dropItem.itemKey = "treeDrop";
+		this->exp = 7;
+		this->maxHp = TREEHP;
+		this->objMaxFrameX = 4;
+	}
+	currentHp = maxHp;
 }
 
 void resource::dead()

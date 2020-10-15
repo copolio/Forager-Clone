@@ -4,7 +4,10 @@
 
 HRESULT ForagerPlayer::init()
 {
+	tileIndex = 0;
+
 	// 위치 초기화
+	objKey = "Player";
 	x = WINSIZEX / 2;
 	y = WINSIZEY / 2;
 	rc = RectMakeCenter(x, y, 30, 41);

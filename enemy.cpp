@@ -17,6 +17,8 @@ void enemy::update()
 
 void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)
 {
+	tileIndex = 0;
+
 	maxHp = 30;
 	currentHp = 30;
 	tag = TAG::ENEMY;

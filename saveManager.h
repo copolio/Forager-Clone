@@ -5,6 +5,7 @@
 #define ITEMSIZE 20
 #define	EQUIPSIZE 7
 #define TILEMAXSIZE 7056
+#define UNITMAXSIZE 500
 class qucik_slot;
 class earth;
 class saveManager : public singletonBase<saveManager>
@@ -14,7 +15,7 @@ private:/*
 double* a = &v[0];
 		*/
 	vector<unit*> _Unit;
-	unit* My_unit ;
+	unit My_unit[UNITMAXSIZE];
 
 	int unit_vecter_size;
 
