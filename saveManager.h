@@ -22,6 +22,7 @@ public:
 	}
 	void set_Tile_info(earth* _m) {
 		_map = _m;
+		_game_tile = &_map->GetTiles();
 
 	}
 	vector<tile> get_Tile_info() {

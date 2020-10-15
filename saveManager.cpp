@@ -118,7 +118,7 @@ void saveManager::equip_transform()
 
 void saveManager::Tile_transform()
 {
-	*_game_tile = _map->GetTiles();
+
 	for (int i = 0; i <(*_game_tile).size(); i++) {
 		My_Tile[i].terrainFrameX =(*_game_tile)[i].terrainFrameX;
 		My_Tile[i].terrainFrameY =(*_game_tile)[i].terrainFrameY;

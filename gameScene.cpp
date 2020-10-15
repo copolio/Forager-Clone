@@ -35,6 +35,7 @@ HRESULT gameScene::init()
 
 	_player->getquick_slotInfo(_quick_slot);
 	SAVEMANAGER->set_Tile_info(_map);
+	SAVEMANAGER->load();
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
 	SCENEMANAGER->set_ischeck(true);
