@@ -21,36 +21,36 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("배경음악", "Sound/BGM/FORAGER - FULL OST - COMPLETE SOUNDTRACK.mp3", true, true);
 
 	/*효과음*/
-	SOUNDMANAGER->addSound("커서음1", "Sound/\SoundEffect/sound_sfx_slotMouseOn1.mp3");
-	SOUNDMANAGER->addSound("커서음2", "Sound/\SoundEffect/sound_sfx_slotMouseOn2.mp3");
-	SOUNDMANAGER->addSound("건물커서", "Sound/\SoundEffect/sound_sfx_buildTabChoice.mp3");
-	SOUNDMANAGER->addSound("건물상호작용", "Sound/\SoundEffect/sound_sfx_itemMadeWindowOpen.mp3");
-	SOUNDMANAGER->addSound("클릭", "Sound/\SoundEffect/sound_sfx_ok1.mp3");
-	SOUNDMANAGER->addSound("인벤토리오픈", "Sound/\SoundEffect/sound_sfx_inventoryShow1.mp3");
-	SOUNDMANAGER->addSound("인벤토리닫기", "Sound/\SoundEffect/sound_sfx_inventoryHide.mp3");
-	SOUNDMANAGER->addSound("건설탭클릭", "Sound/\SoundEffect/sound_sfx_buildTabSlotClick.mp3");
-	SOUNDMANAGER->addSound("건설탭선택", "Sound/\SoundEffect/sound_sfx_buildTabChoice.mp3");
-	SOUNDMANAGER->addSound("건설성공", "Sound/\SoundEffect/sound_sfx_buildSuccess.mp3");
-	SOUNDMANAGER->addSound("건설실패", "Sound/\SoundEffect/sound_sfx_buildFail.mp3");
-	SOUNDMANAGER->addSound("건설취소", "Sound/\SoundEffect/sound_sfx_buildTabSlotClick.mp3");
-	SOUNDMANAGER->addSound("생산시작", "Sound/\SoundEffect/sound_sfx_itemMadeStart.mp3");
-	SOUNDMANAGER->addSound("생산완료", "Sound/\SoundEffect/sound_sfx_itemMadeSuccess.mp3");
-	SOUNDMANAGER->addSound("아이템탄생", "Sound/\SoundEffect/sound_sfx_createObject.mp3");
-	SOUNDMANAGER->addSound("아이템충돌", "Sound/\SoundEffect/sound_sfx_itemGet1.mp3");
-	SOUNDMANAGER->addSound("근접무기", "Sound/\SoundEffect/sound_sfx_weaponSwing1.mp3");
-	SOUNDMANAGER->addSound("원거리무기", "Sound/\SoundEffect/sound_sfx_weaponSwing2.mp3");
-	SOUNDMANAGER->addSound("과일타격", "Sound/\SoundEffect/sound_sfx_berryHit1.mp3");
-	SOUNDMANAGER->addSound("과일파괴", "Sound/\SoundEffect/sound_sfx_berryDestory.mp3");
-	SOUNDMANAGER->addSound("나무타격", "Sound/\SoundEffect/sound_sfx_treeHit1.mp3");
-	SOUNDMANAGER->addSound("나무파괴", "Sound/\SoundEffect/sound_sfx_treeDestroy.mp3");
-	SOUNDMANAGER->addSound("바위타격", "Sound/\SoundEffect/sound_sfx_rockHit1.mp3");
-	SOUNDMANAGER->addSound("바위파괴", "Sound/\SoundEffect/sound_sfx_rockDestory.mp3");
-	SOUNDMANAGER->addSound("플레이어걸음1", "Sound/\SoundEffect/sound_sfx_footStep1.mp3");
-	SOUNDMANAGER->addSound("플레이어걸음2", "Sound/\SoundEffect/sound_sfx_footStep2.mp3");
-	SOUNDMANAGER->addSound("레벨업", "Sound/\SoundEffect/sound_sfx_levelUp.mp3");
-	//SOUNDMANAGER->addSound("해골사망소리", "Sound/\SoundEffect/skulldeadSound.mp3");
-	//SOUNDMANAGER->addSound("황소사망소리", "Sound/\SoundEffect/cowDeadSound.mp3");
-	//SOUNDMANAGER->addSound("유령무기발사소리", "Sound/\SoundEffect/wraithShootSound.mp3");
+	SOUNDMANAGER->addSound("커서음1", "Sound/SoundEffect/sound_sfx_slotMouseOn1.mp3");
+	SOUNDMANAGER->addSound("커서음2", "Sound/SoundEffect/sound_sfx_slotMouseOn2.mp3");
+	SOUNDMANAGER->addSound("건물커서", "Sound/SoundEffect/sound_sfx_buildTabChoice.mp3");
+	SOUNDMANAGER->addSound("건물상호작용", "Sound/SoundEffect/sound_sfx_itemMadeWindowOpen.mp3");
+	SOUNDMANAGER->addSound("클릭", "Sound/SoundEffect/sound_sfx_ok1.mp3");
+	SOUNDMANAGER->addSound("인벤토리오픈", "Sound/SoundEffect/sound_sfx_inventoryShow1.mp3");
+	SOUNDMANAGER->addSound("인벤토리닫기", "Sound/SoundEffect/sound_sfx_inventoryHide.mp3");
+	SOUNDMANAGER->addSound("건설탭클릭", "Sound/SoundEffect/sound_sfx_buildTabSlotClick.mp3");
+	SOUNDMANAGER->addSound("건설탭선택", "Sound/SoundEffect/sound_sfx_buildTabChoice.mp3");
+	SOUNDMANAGER->addSound("건설성공", "Sound/SoundEffect/sound_sfx_buildSuccess.mp3");
+	SOUNDMANAGER->addSound("건설실패", "Sound/SoundEffect/sound_sfx_buildFail.mp3");
+	SOUNDMANAGER->addSound("건설취소", "Sound/SoundEffect/sound_sfx_buildTabSlotClick.mp3");
+	SOUNDMANAGER->addSound("생산시작", "Sound/SoundEffect/sound_sfx_itemMadeStart.mp3");
+	SOUNDMANAGER->addSound("생산완료", "Sound/SoundEffect/sound_sfx_itemMadeSuccess.mp3");
+	SOUNDMANAGER->addSound("아이템탄생", "Sound/SoundEffect/sound_sfx_createObject.mp3");
+	SOUNDMANAGER->addSound("아이템충돌", "Sound/SoundEffect/sound_sfx_itemGet1.mp3");
+	SOUNDMANAGER->addSound("근접무기", "Sound/SoundEffect/sound_sfx_weaponSwing1.mp3");
+	SOUNDMANAGER->addSound("원거리무기", "Sound/SoundEffect/sound_sfx_weaponSwing2.mp3");
+	SOUNDMANAGER->addSound("과일타격", "Sound/SoundEffect/sound_sfx_berryHit1.mp3");
+	SOUNDMANAGER->addSound("과일파괴", "Sound/SoundEffect/sound_sfx_berryDestory.mp3");
+	SOUNDMANAGER->addSound("나무타격", "Sound/SoundEffect/sound_sfx_treeHit1.mp3");
+	SOUNDMANAGER->addSound("나무파괴", "Sound/SoundEffect/sound_sfx_treeDestroy.mp3");
+	SOUNDMANAGER->addSound("바위타격", "Sound/SoundEffect/sound_sfx_rockHit1.mp3");
+	SOUNDMANAGER->addSound("바위파괴", "Sound/SoundEffect/sound_sfx_rockDestory.mp3");
+	SOUNDMANAGER->addSound("플레이어걸음1", "Sound/SoundEffect/sound_sfx_footStep1.mp3");
+	SOUNDMANAGER->addSound("플레이어걸음2", "Sound/SoundEffect/sound_sfx_footStep2.mp3");
+	SOUNDMANAGER->addSound("레벨업", "Sound/SoundEffect/sound_sfx_levelUp.mp3");
+	SOUNDMANAGER->addSound("해골사망소리", "Sound/SoundEffect/skulldeadSound.mp3");
+	SOUNDMANAGER->addSound("황소사망소리", "Sound/SoundEffect/cowDeadSound.mp3");
+	SOUNDMANAGER->addSound("유령무기발사소리", "Sound/SoundEffect/wraithShootSound.mp3");
 
 
 

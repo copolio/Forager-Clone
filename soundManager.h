@@ -8,8 +8,9 @@ using namespace FMOD;
 //	## soundManager ## (사운드 매니져)
 //=============================================================
 
-//사용할 사운드버퍼 (사운드갯수가 30개 넘어가면 크기를 더 늘려줘야 한다)
-#define SOUNDBUFFER 30
+//사용할 사운드버퍼 (사운드갯수가 30개 넘어가면 크기를 더 늘려줘야 한다) 
+//30-> 100개로 확장
+#define SOUNDBUFFER 100
 
 class soundManager : public singletonBase <soundManager>
 {
