@@ -19,7 +19,7 @@ private:
 	int wraithAttackRange;
 	
 	int skillFireCount;
-
+	int skullCount;
 
 	bool tryAttack;
 

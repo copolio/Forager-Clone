@@ -81,7 +81,6 @@ void UnitManager::update()
 		if (_vUnits[i]->tag == TAG::NPC) continue;
 		if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &_vUnits[i]->rc)) continue;
 
-
 		// 투사체와 유닛간의 충돌처리
 		checkCollision(_vUnits[i]);
 	}
@@ -223,6 +222,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_skull->init();
 
 			_vUnits.push_back(_skull);
+			_vEnemy.push_back(_skull);
 		}
 
 		//소
@@ -233,7 +233,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_cow->setEnemy(p_unitName, "milkDrop", _player, p_pos);
 			_cow->init();
 			_vUnits.push_back(_cow);
-
+			_vEnemy.push_back(_cow);
 		}
 
 		//레이스
@@ -244,6 +244,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_wraith->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos);
 			_wraith->init();
 			_vUnits.push_back(_wraith);
+			_vEnemy.push_back(_wraith);
 		}
 	}
 	

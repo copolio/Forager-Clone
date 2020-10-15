@@ -21,6 +21,7 @@ private:
 	image* underwater;
 	int _count;
 	int _frameCount;
+	int islandCount;
 	int wavetick;
 	bool waveUp;
 public:
@@ -40,6 +41,7 @@ public:
 	RECT GetIslandRc(int x, int y);
 	bool HasIsland(int x, int y);
 	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
+	int GetIslandCount() { return islandCount; }
 public:
 	vector<tile> GetTiles() { return _vTile; }
 

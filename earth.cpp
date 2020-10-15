@@ -16,6 +16,8 @@ HRESULT earth::init()
 	//월드맵 초기화
 	this->mapSetup();
 
+	islandCount = 1;
+
 	return S_OK;
 }
 
@@ -201,10 +203,17 @@ int earth::GetTileY(int index)
 
 void earth::setIsland(int x, int y)
 {
+	islandCount++;
 	for (int i = 0; i < TILEY; i++) {
 		for (int j = 0; j < TILEX; j++) {
 			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit) {
 				continue;
+			}
+			if (islandCount > 1 && i == 5 && j == 5) {
+				int bossSpawnProabability = RANDOM->range(2);
+				if (bossSpawnProabability == 0) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
 			}
 			if (j == 0 || j == TILEX - 1 || i == 0 || i == TILEY -1 ) {
 				switch (RANDOM->range(2)) {

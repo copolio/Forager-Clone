@@ -13,7 +13,7 @@ HRESULT skull::init()
 	_attackIndex = 0;
 	//hitPlayer = false;
 	tryAttack = false;
-	isattacking = false;
+	isattacking = true;
 
 	_state = APPEAR;
 	Atk = 15;

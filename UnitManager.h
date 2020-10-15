@@ -22,6 +22,7 @@ class UnitManager : public singletonBase<UnitManager>
 {
 private:
 	vector<unit*> _vUnits;
+	vector<enemy*> _vEnemy;
 	tagProjectile* _pProjectiles;
 	earth *_map;
 	//SpawnManager *_spawnManager;

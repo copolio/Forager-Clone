@@ -105,8 +105,6 @@ void cow::cowAnimation()
 void cow::cowMove()
 {
 	searchCount++;
-	//cout << _state2 << endl;
-	cout << isattacking << endl;
 	if (searchCount % 1 == 0)
 	{
 		if (_state2 == WALK)
@@ -115,7 +113,6 @@ void cow::cowMove()
 			{
 				if (isattacking) 
 				{
-					cout << " È£ÃâµÊ" << endl;
 					auto path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, false);
 					//_vDestTileIndex = path;
 					if (path.size() > 0) {
