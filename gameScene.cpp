@@ -113,11 +113,9 @@ void gameScene::update()
 		_cursor->update();
 	
 	if (INPUT->GetKeyDown(VK_F1)) {
-		cout << "save" << endl;
 		SAVEMANAGER->save();
 	}
 	if (INPUT->GetKeyDown(VK_F2)) {
-		cout << "load" << endl;
 		SAVEMANAGER->load();
 	}
 }

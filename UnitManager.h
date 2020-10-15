@@ -50,8 +50,8 @@ public:
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);
 
-	void AddBuilding(string buildkey, tile* _tile);
-	void AddBuilding(string buildkey, vector<tile*> tiles);
+	void AddBuilding(string buildkey, tile* _tile, int tileindex);
+	void AddBuilding(string buildkey, vector<tile*> tiles, int tileindex);
 
 	void AddProduction(string p_itemKey, POINT p_pos);
 	void AddResource(tile* _tile, int p_tileIndex);

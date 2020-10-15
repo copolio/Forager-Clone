@@ -218,7 +218,7 @@ void industry::addBuilding()
 			tiles.push_back(_map->GetTileP(_tileIndex+MAPTILEX));
 			tiles.push_back(_map->GetTileP(_tileIndex+MAPTILEX+1));
 			is_building_check = false;
-			UNITMANAGER->AddBuilding(building, tiles);
+			UNITMANAGER->AddBuilding(building, tiles, _tileIndex);
 			ITEMMANAGER->_Item_industry_decrease(building);
 			SOUNDMANAGER->play("건설성공");
 		}

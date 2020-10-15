@@ -97,7 +97,9 @@ void gamesetting::render(HDC hdc)
 	else
 		TEXTMANAGER->ShowText(hdc, false, "아니오", { offsetX, _rcOptions[2].top + offsetY }, 30, 1);
 
-	TEXTMANAGER->ShowText(hdc, false, "저장 후 메뉴로 나가기", { _rcOptions[5].left + (_rcOptions[5].right - _rcOptions[5].left) / 2, _rcOptions[5].top + offsetY }, 30, 1, RGB(250, 150,0));
+	if (SCENEMANAGER->GetCurrentSceneName() == "게임 화면") {
+		TEXTMANAGER->ShowText(hdc, false, "저장 후 메뉴로 나가기", { _rcOptions[5].left + (_rcOptions[5].right - _rcOptions[5].left) / 2, _rcOptions[5].top + offsetY }, 30, 1, RGB(250, 150, 0));
+	}
 
 
 	if(_choiceOptionNum != -1)
@@ -108,7 +110,9 @@ void gamesetting::render(HDC hdc)
 void gamesetting::CheckCursorOn()
 {
 	for (int i = 0; i < 6; i++) {
-
+		if (SCENEMANAGER->GetCurrentSceneName() != "게임 화면") {
+			if (i == 5) continue;
+		}
 		if (PtInRect(&_rcOptions[i], _ptMouse)) {
 			_choiceOptionNum = i;
 
@@ -135,7 +139,8 @@ void gamesetting::CheckClick()
 	if (INPUT->GetKeyDown(VK_LBUTTON)) {
 		if (PtInRect(&_rcOptions[5], _ptMouse)) {
 			SOUNDMANAGER->play("클릭");
-			// 세이브 처리 후 종료
+			SAVEMANAGER->save();
+			SCENEMANAGER->loadScene("시작 화면");
 		}
 
 		for (int i = 0; i < 10; i++) {

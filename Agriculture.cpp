@@ -179,7 +179,7 @@ void Agriculture::addBuilding()
 			{
 				is_building_check = false;
 				_map->setTileHasUnit(_tileIndex);
-				UNITMANAGER->AddBuilding(building, t_pTile);
+				UNITMANAGER->AddBuilding(building, t_pTile, _tileIndex);
 				ITEMMANAGER->_Item_industry_decrease(building);
 				SOUNDMANAGER->play("건설성공");
 			}

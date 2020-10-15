@@ -6,7 +6,6 @@
 #include "soundTestScene.h"
 #include "loadingScene.h"
 #include "startScene.h"
-#include "gameScene.h"
 #include "loadingScene.h"
 class mainGame : public gameNode
 {

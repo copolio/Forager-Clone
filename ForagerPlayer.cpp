@@ -130,7 +130,6 @@ HRESULT ForagerPlayer::init()
 
 void ForagerPlayer::release()
 {
-
 }
 
 void ForagerPlayer::update()

@@ -14,10 +14,8 @@ void building::render(HDC hdc)
 		objFrameX, objFrameY, CAMERA->GetZoom());
 }
 
-void building::setBuilding(string buildingName, tile* _tile)
+void building::setBuilding(string buildingName, tile* _tile, int tileindex)
 {
-	tileIndex = 0;
-
 	_tiles.push_back(_tile);
 	RECT temp = _tile->rc;
 	this->rc = temp;
@@ -38,15 +36,14 @@ void building::setBuilding(string buildingName, tile* _tile)
 	this->dropItem.itemKey = "treeDrop";
 	this->maxHp = BUILDINGHP;
 	this->exp = 0;
+	this->tileIndex = tileindex;
 	currentHp = maxHp;
 
 	_hpBar.init("hpBar", "hpBarBG");
 }
 
-void building::setBuilding(string buildingName, vector<tile*> tiles)
+void building::setBuilding(string buildingName, vector<tile*> tiles, int tileindex)
 {
-	tileIndex = 0;
-
 	_tiles = tiles;
 	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[3]->rc.right, _tiles[3]->rc.bottom };
 	this->rc = temp;
@@ -62,6 +59,7 @@ void building::setBuilding(string buildingName, vector<tile*> tiles)
 	this->dropItem.itemKey = "treeDrop";
 	this->maxHp = BUILDINGHP;
 	this->exp = 0;
+	this->tileIndex = tileindex;
 	currentHp = maxHp;
 
 	_hpBar.init("hpBar", "hpBarBG");

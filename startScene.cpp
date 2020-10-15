@@ -4,6 +4,9 @@
 
 HRESULT startScene::init()
 {
+	SCENEMANAGER->deleteScene("게임 화면");
+	SCENEMANAGER->addScene("게임 화면", new gameScene);
+
 	//세이브 버튼 칸 렉트
 	saveRc = RectMake(100, 100, 100, 100);
 
@@ -144,9 +147,9 @@ void startScene::render()
 
 void startScene::CheckGameFile()
 {
-	LPCSTR slotOne = "tile_save1.map";
-	LPCSTR slotTwo = "tile_save2.map";
-	LPCSTR slotThree = "tile_save3.map";
+	LPCSTR slotOne = "save/tile_save1.map";
+	LPCSTR slotTwo = "save/tile_save2.map";
+	LPCSTR slotThree = "save/tile_save3.map";
 
 	DWORD dwAttrib = GetFileAttributes(slotOne);
 	_gameslotOne = (!(dwAttrib & FILE_ATTRIBUTE_DEVICE) &&
@@ -213,28 +216,31 @@ void startScene::CheckButtonClick()
 
 					case BTN::SLOT1:
 
-						SAVEMANAGER->My_Game_save_file_item = "item_save1.map";
-						SAVEMANAGER->My_Game_save_file_equip = "equip_save1.map";
-						SAVEMANAGER->My_Game_save_file_tile = "tile_save1.map";
-						SAVEMANAGER->My_Game_save_file_unit = "unit_save1.map";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save1.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save1.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save1.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save1.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save1";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 1
 
 					case BTN::SLOT2:
 
-						SAVEMANAGER->My_Game_save_file_item = "item_save2.map";
-						SAVEMANAGER->My_Game_save_file_equip = "equip_save2.map";
-						SAVEMANAGER->My_Game_save_file_tile = "tile_save2.map";
-						SAVEMANAGER->My_Game_save_file_unit = "unit_save2.map";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save2.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save2.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save2.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save2.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save2";
 						SCENEMANAGER->loadScene("게임 화면");
 
 						break;	// 게임 슬롯 2
 					case BTN::SLOT3:
 
-						SAVEMANAGER->My_Game_save_file_item = "item_save3.map";
-						SAVEMANAGER->My_Game_save_file_equip = "equip_save3.map";
-						SAVEMANAGER->My_Game_save_file_tile = "tile_save3.map";
-						SAVEMANAGER->My_Game_save_file_unit = "unit_save3.map";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save3.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save3.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save3.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save3.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save3";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 3
 					}
@@ -242,4 +248,8 @@ void startScene::CheckButtonClick()
 			}
 		}
 	}
+	//우측 클릭시 삭제
+	//if (INPUT->GetKeyDown(VK_RBUTTON))
+	//{
+	//}
 }

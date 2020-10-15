@@ -88,3 +88,13 @@ HRESULT sceneManager::loadScene(string sceneName)
 
 	return E_NOTIMPL;
 }
+
+void sceneManager::deleteScene(string sceneName)
+{
+	miSceneList find = _mSceneList.find(sceneName);
+	if (find != _mSceneList.end()) {
+		_mSceneList.erase(find);
+		UNITMANAGER->release();
+	}
+	
+}

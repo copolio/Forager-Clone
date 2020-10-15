@@ -4,6 +4,7 @@
 #include "reactImage.h"
 #include "gamesetting.h"
 #include "earth.h"
+#include "gameScene.h"
 
 #define BUTTON_MAX 6
 

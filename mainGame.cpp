@@ -14,7 +14,6 @@ HRESULT mainGame::init()
 	/*씬추가*/
 	SCENEMANAGER->addScene("로딩 화면", new loadingScene);
 	SCENEMANAGER->addScene("시작 화면", new startScene);
-	SCENEMANAGER->addScene("게임 화면", new gameScene);
 
 	/*사운드 추가*/
 /*배경음악*/

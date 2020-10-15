@@ -291,17 +291,17 @@ void UnitManager::setLinkMap(earth * p_map)
 }
 
 
-void UnitManager::AddBuilding(string buildkey, tile * _tile)
+void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {
 	building* _building = new building;
-	_building->setBuilding(buildkey, _tile);
+	_building->setBuilding(buildkey, _tile, tileindex);
 	_vUnits.push_back(_building);
 }
 
-void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles)
+void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles, int tileindex)
 {
 	building* _building = new building;
-	_building->setBuilding(buildkey, tiles);
+	_building->setBuilding(buildkey, tiles, tileindex);
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
 	//_production->settion(_building->rc);¤¸

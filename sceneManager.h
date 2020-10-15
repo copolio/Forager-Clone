@@ -33,6 +33,7 @@ public:
 	gameNode* addScene(string sceneName, gameNode* scene);
 	//¾Àº¯°æ
 	HRESULT loadScene(string sceneName);
+	void deleteScene(string sceneName);
 	bool get_ischeck() {
 		return ischeck;
 	}

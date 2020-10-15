@@ -81,7 +81,7 @@ void ForagerStatManager::update()
 	//		break;
 	//	}
 	//}
-
+	
 	if (levelUp == true || _staminSizeCurrent<0)
 	{
 		if (levelUp)
@@ -94,6 +94,7 @@ void ForagerStatManager::update()
 			int i = _foragerHp.size() - 1;
 			for ( ; i >= 0; i--)
 			{
+				cout << _foragerHp[i]->_isHp <<endl;
 				if (!_foragerHp[i]->_isHp)continue;
 				_foragerHp[i]->_isHp = false;
 				break;

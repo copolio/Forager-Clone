@@ -8,6 +8,7 @@ void saveManager::save()
 	this->equip_transform();
 	this->Tile_transform();
 	this->Unit_transform();
+	this->Player_transform();
 	HANDLE file;
 	DWORD write;
 
@@ -96,19 +97,25 @@ bool saveManager::load()
 	if (file != INVALID_HANDLE_VALUE) {
 
 		for (int i = 0; i < UNITMAXSIZE ; i++) {
-			cout << My_unit[i].tileIndex << endl;
 			tile* ptile;
+			vector<tile*> vTemp;
+			int exp;
+			int level;
 			if(My_unit[i].tileIndex >= 0)
 				ptile = _map->GetTileP(My_unit[i].tileIndex);
 
 			switch (My_unit[i].tag) {
-			case TAG::ITEM:
-				UNITMANAGER->AddProduction(My_unit[i].objKey, { My_unit[i].rc.left, My_unit[i].rc.top });
-				break;
+			//case TAG::ITEM:
+			//	UNITMANAGER->AddProduction(My_unit[i].objKey, { My_unit[i].rc.left, My_unit[i].rc.top });
+			//	break;
 			case TAG::ENEMY:
 				UNITMANAGER->AddUnits(My_unit[i].objKey, { My_unit[i].rc.left, My_unit[i].rc.top }, true);
 				break;
 			case TAG::PLAYER:
+				exp = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Exp");
+				level = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Level");
+				STATMANAGER->SetCurrentExp(exp);
+				STATMANAGER->SetLevel(level);
 				break;
 			case TAG::OBJECT:
 				UNITMANAGER->AddResource(My_unit[i].objKey, ptile, My_unit[i].tileIndex);
@@ -117,7 +124,17 @@ bool saveManager::load()
 				
 				break;
 			case TAG::BUILDING:
-				UNITMANAGER->AddBuilding(My_unit[i].objKey, _map->GetTileP(0));
+				if (My_unit[i].objKey == "bridge" || My_unit[i].objKey == "fishtrap") {
+					UNITMANAGER->AddBuilding(My_unit[i].objKey, ptile, My_unit[i].tileIndex);
+				}
+				else {
+					vTemp.push_back(ptile);
+					vTemp.push_back(_map->GetTileP(My_unit[i].tileIndex+1));
+					vTemp.push_back(_map->GetTileP(My_unit[i].tileIndex+MAPTILEX));
+					vTemp.push_back(_map->GetTileP(My_unit[i].tileIndex+MAPTILEX+1));
+					UNITMANAGER->AddBuilding(My_unit[i].objKey, vTemp, My_unit[i].tileIndex);
+				}
+				
 				break;
 			}
 		}
@@ -173,6 +190,17 @@ void saveManager::Unit_transform()
 
 		}
 	}
+}
+
+void saveManager::Player_transform()
+{
+	int exp = STATMANAGER->GetCurrentExp();
+	int level = STATMANAGER->GetLevel();
+	string sExp = to_string(exp);
+	string sLevel = to_string(level);
+	INIDATA->addData("Player", "Exp", sExp.c_str());
+	INIDATA->addData("Player", "Level", sLevel.c_str());
+	INIDATA->saveINI(My_Game_save_file_player);
 }
 
 void saveManager::Tile_transform()

@@ -10,8 +10,8 @@ public:
 	RECT interactionRc;
 
 public:
-	void setBuilding(string buildingName, tile* _tile);
-	void setBuilding(string buildingName, vector<tile*> tiles);
+	void setBuilding(string buildingName, tile* _tile, int tileindex);
+	void setBuilding(string buildingName, vector<tile*> tiles, int tileindex);
 	void dead() override;
 	void hurt(int damage) override;
 	void render(HDC hdc) override;

@@ -72,5 +72,11 @@ public :
 	void IncreaseExp(int exp);
 
 	void setRight(int num);
+
+	int GetCurrentExp() { return currentExp; };
+	int GetLevel() { return level; };
+
+	void SetCurrentExp(int exp) { currentExp = exp; };
+	void SetLevel(int lev) { level = lev; };
 };
 

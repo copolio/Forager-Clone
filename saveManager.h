@@ -43,11 +43,13 @@ public:
 	LPCSTR My_Game_save_file_equip;
 	LPCSTR My_Game_save_file_tile;
 	LPCSTR My_Game_save_file_unit;
+	LPCSTR My_Game_save_file_player;
 
 	void Tile_transform();
 	void Item_transform();
 	void equip_transform();
 	void Unit_transform();
+	void Player_transform();
 
 };
 
