@@ -525,12 +525,12 @@ void ForagerPlayer::MeleeWeaponClick()
 					// 유닛이 파괴되면
 					if (targetUnit->isDead())
 					{
-						//if (targetUnit->objKey == "skull")
-						//	SOUNDMANAGER->play("해골사망소리");
-						//else if (targetUnit->objKey =="cow")
-						//	SOUNDMANAGER->play("황소사망소리");
+						if (targetUnit->objKey == "skull")
+							SOUNDMANAGER->play("해골사망소리");
+						else if (targetUnit->objKey =="cow")
+							SOUNDMANAGER->play("황소사망소리");
 					   
-						// 스태니마 감소
+						//스태니마 감소
 							STATMANAGER->setRight(5);
 
 							//그 유닛의 경험치 획득.

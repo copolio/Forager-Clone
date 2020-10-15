@@ -26,10 +26,21 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 
 	x = pos.x;
 	y = pos.y;
-	rc = RectMakeCenter(x, y, 25, 25);
+
+	//rc = RectMakeCenter(x, y, 25, 25);
+	objKey = key;
+	if (objKey == "wraithIdle")
+	{
+		rc = RectMakeCenter(x, y, 100, 100);
+	}
+	else if (objKey == "skull" || objKey == "cow")
+	{
+		rc = RectMakeCenter(x, y, 25, 25);
+	}
+	
 	exp = 10;
 	dropItem.itemKey = itemkey;
-	objKey = key;
+	
 	objFrameX = 0;
 	objFrameY = 0;
 	_destCount = 0;

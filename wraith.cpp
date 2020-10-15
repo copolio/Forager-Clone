@@ -8,9 +8,9 @@ HRESULT wraith::init()
 	searchCount = 0;
 	wraithShootCount = 0;
 	skillFireCount = 0;
-	wraithAttackRange = 350;
+	wraithAttackRange = 200;
 
-	Atk = 30;
+	Atk = 5;
 	tryAttack = false;
 
 	_state3 = FLY;
@@ -40,12 +40,14 @@ void wraith::render(HDC hdc)
 	switch (_state3)
 	{
 	case FLY:
-		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 285),
-			CAMERA->GetRelativeY(rc.top - 100), objFrameX, objFrameY, CAMERA->GetZoom());
+		Rectangle(hdc, rc);
+		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 235),
+			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case SHOOT:
-		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 285),
-			CAMERA->GetRelativeY(rc.top - 100), objFrameX, objFrameY, CAMERA->GetZoom());
+		Rectangle(hdc, rc);
+		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 235),
+			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 
 	}
@@ -130,24 +132,24 @@ void wraith::wraithAttack()
 	else
 	{
 		wraithWaitCount++;
-		if (wraithWaitCount > 10)
+		if (wraithWaitCount > 20)
 		{
-			//if (wraithHitCount == 23) {
-			//	if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
-			//		_target->hurt(Atk);
-			//}
+			
+			if (wraithHitCount == 23) {
+				if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
+					_target->hurt(Atk);
+			}
 			_state3 = SHOOT;
 			wraithFire();
-			//if(wraithWaitCount == 30)
-			//SOUNDMANAGER->play("유령무기발사소리", 0.4f);
-		}
-		//else
-		//{
-		//	_state3 = SHOOT;
-		//	
-		//}
+			if(wraithWaitCount == 50)
+				SOUNDMANAGER->play("유령무기발사소리", 0.6f);
+				
 			
-		
+		}
+		else
+		{
+			_state3 = SHOOT;
+		}
 	}
 }
 
@@ -168,9 +170,10 @@ void wraith::wraithAnimation()
 
 
 	case SHOOT:
+		
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _attackIndex;
-		if (wraithHitCount++ % 10 == 0)
+		if (wraithHitCount++ % 20 == 0)
 		{
 			if (_attackIndex++ > 5)
 			{

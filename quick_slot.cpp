@@ -64,10 +64,10 @@ void quick_slot::target(int i)
 void quick_slot::quick_slot_target_Move()
 {
 	if (INPUT->GetKeyDown('1')&& ITEMMANAGER->equip_count() >=1) {
-		cout << "1 ½ÇÇàµÊ" << endl;
+		//cout << "1 ½ÇÇàµÊ" << endl;
 		target(0); targetnum = 0;
 	}else if(INPUT->GetKeyDown('2') && ITEMMANAGER->equip_count() >= 2) {
-		cout << "2 ½ÇÇàµÊ" << endl;
+		//cout << "2 ½ÇÇàµÊ" << endl;
 		target(1); targetnum = 1;
 	}
 	else if (INPUT->GetKeyDown('3') && ITEMMANAGER->equip_count() >= 3) {

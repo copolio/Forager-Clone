@@ -48,9 +48,9 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("플레이어걸음1", "Sound/\SoundEffect/sound_sfx_footStep1.mp3");
 	SOUNDMANAGER->addSound("플레이어걸음2", "Sound/\SoundEffect/sound_sfx_footStep2.mp3");
 	SOUNDMANAGER->addSound("레벨업", "Sound/\SoundEffect/sound_sfx_levelUp.mp3");
-	//SOUNDMANAGER->addSound("해골사망소리", "Sound/\SoundEffect/skulldeadSound.mp3");
-	//SOUNDMANAGER->addSound("황소사망소리", "Sound/\SoundEffect/cowDeadSound.mp3");
-	//SOUNDMANAGER->addSound("유령무기발사소리", "Sound/\SoundEffect/wraithShootSound.mp3");
+	SOUNDMANAGER->addSound("해골사망소리", "Sound/\SoundEffect/skulldeadSound.mp3");
+	SOUNDMANAGER->addSound("황소사망소리", "Sound/\SoundEffect/cowDeadSound.mp3");
+	SOUNDMANAGER->addSound("유령무기발사소리", "Sound/\SoundEffect/wraithShootSound.mp3");
 
 
 

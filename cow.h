@@ -19,8 +19,10 @@ private:
 	int cowHitWaitCount;
 	int searchCount;
 	int cowDashRange;
-	bool tryAttack;
+	int _cowTilePos;
+	int Atk;
 
+	bool tryAttack;
 	bool isattacking;
 
 
@@ -33,9 +35,13 @@ public:
 
 	void cowAnimation();
 	void cowMove();
-	void cowAttack();
+	void cowAttackAttempt();
+	void cowDash();
 	void cowLookDirection();
 	
+	void checkCowTile();
+
+	int FindCowTilePos();
 
 
 
