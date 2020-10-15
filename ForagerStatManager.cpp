@@ -94,12 +94,12 @@ void ForagerStatManager::update()
 			int i = _foragerHp.size() - 1;
 			for ( ; i >= 0; i--)
 			{
-				cout << _foragerHp[i]->_isHp <<endl;
 				if (!_foragerHp[i]->_isHp)continue;
 				_foragerHp[i]->_isHp = false;
 				break;
 			}
 			if (i == 0) {
+				_foragerHp.clear();
 				SCENEMANAGER->loadScene("시작 화면");
 			}
 		}

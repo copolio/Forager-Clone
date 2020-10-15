@@ -18,7 +18,7 @@ private:
 	unsigned long _FPSFrameCount;	//FPS 카운트
 	float _FPSTimeElapsed;			//FPS 경과량
 	float _time;						//전체 경과시간
-
+	bool isRender;
 public:
 	HRESULT init(void);
 	void release(void);

@@ -25,13 +25,6 @@ void loadingScene::update()
 {
 	//로딩클래스 업데이트
 	_loading->update();
-
-	//로딩완료후 화면 변경
-	if (_loading->loadingDone())
-	{
-		SCENEMANAGER->loadScene("픽셀충돌");
-	}
-
 }
 
 void loadingScene::render()
@@ -39,7 +32,7 @@ void loadingScene::render()
 	//로딩클래스 렌더
 	_loading->render();
 
-	textOut(getMemDC(), 10, 10, "로딩화면");
+	//textOut(getMemDC(), 10, 10, "로딩화면");
 }
 
 void loadingScene::loadingImage()

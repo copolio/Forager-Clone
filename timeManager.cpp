@@ -31,6 +31,7 @@ HRESULT timeManager::init(void)
 	_FPSFrameCount = 0;
 	_FPSTimeElapsed = 0.0f;
 	_time = 0;
+	isRender = false;
 
 	return S_OK;
 }
@@ -75,6 +76,10 @@ void timeManager::update(float lockFPS)
 		}
 	}
 
+	if (INPUT->GetKeyUp(VK_F3)) {
+		isRender = !isRender;
+	}
+
 	//지난 시간 갱신
 	_lastTime = _curTime;
 	//프레임 초 누적
@@ -96,13 +101,16 @@ void timeManager::update(float lockFPS)
 void timeManager::render(HDC hdc)
 {
 	char str[256];
-	//FPS
-	sprintf(str, "FPS: %d", _frameRate);
-	textOut(hdc, WINSIZEX - 120, 20, str, RGB(255, 0, 255));
-	//전체시간
-	sprintf(str, "Time: %.2f", _time);
-	textOut(hdc, WINSIZEX - 120, 40, str, RGB(255, 0, 255));
-	//한프레임당 경과시간
-	sprintf(str, "DeltaTime: %.2f", _deltaTime);
-	textOut(hdc, WINSIZEX - 120, 60, str, RGB(255, 0, 255));
+	if (isRender) {
+		//FPS
+		sprintf(str, "FPS: %d", _frameRate);
+		textOut(hdc, WINSIZEX - 120, 20, str, RGB(255, 0, 255));
+		//전체시간
+		sprintf(str, "Time: %.2f", _time);
+		textOut(hdc, WINSIZEX - 120, 40, str, RGB(255, 0, 255));
+		//한프레임당 경과시간
+		sprintf(str, "DeltaTime: %.2f", _deltaTime);
+		textOut(hdc, WINSIZEX - 120, 60, str, RGB(255, 0, 255));
+
+	}
 }

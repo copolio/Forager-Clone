@@ -22,9 +22,6 @@
     <Filter Include="GameFramework\로딩">
       <UniqueIdentifier>{380f7478-b624-45de-aeae-2ccb9055ab48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\로딩화면">
-      <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\사운드테스트">
       <UniqueIdentifier>{fddc1305-6e22-4095-a825-8f29605b50ab}</UniqueIdentifier>
     </Filter>
@@ -124,6 +121,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\NPC">
       <UniqueIdentifier>{f46288d1-937a-48e7-9922-44d52b9dbf09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Scenes\로딩화면">
+      <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -175,7 +175,7 @@
       <Filter>GameFramework\로딩</Filter>
     </ClCompile>
     <ClCompile Include="loadingScene.cpp">
-      <Filter>GameFramework\로딩화면</Filter>
+      <Filter>GameFramework\MainGame\Forager\Scenes\로딩화면</Filter>
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
@@ -378,7 +378,7 @@
       <Filter>GameFramework\로딩</Filter>
     </ClInclude>
     <ClInclude Include="loadingScene.h">
-      <Filter>GameFramework\로딩화면</Filter>
+      <Filter>GameFramework\MainGame\Forager\Scenes\로딩화면</Filter>
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
