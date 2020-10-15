@@ -16,6 +16,8 @@
 #include "wraith.h"
 #include "npc.h"
 
+#define MAXENEMYUNIT 10
+
 class earth;
 
 class UnitManager : public singletonBase<UnitManager>

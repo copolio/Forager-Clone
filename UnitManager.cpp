@@ -211,6 +211,7 @@ void UnitManager::AddUnits(tile* p_tile)
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
+	if (_vEnemy.size() >= MAXENEMYUNIT) return;
 	// 에너미 생성
 	if (enemyCheck) {
 		//해골
