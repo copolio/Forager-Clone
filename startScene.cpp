@@ -177,6 +177,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_item = "item_save1.map";
 						SAVEMANAGER->My_Game_save_file_equip = "equip_save1.map";
 						SAVEMANAGER->My_Game_save_file_tile = "tile_save1.map";
+						SAVEMANAGER->My_Game_save_file_unit = "unit_save1.map";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 1
 
@@ -185,6 +186,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_item = "item_save2.map";
 						SAVEMANAGER->My_Game_save_file_equip = "equip_save2.map";
 						SAVEMANAGER->My_Game_save_file_tile = "tile_save2.map";
+						SAVEMANAGER->My_Game_save_file_unit = "unit_save2.map";
 						SCENEMANAGER->loadScene("게임 화면");
 
 						break;	// 게임 슬롯 2
@@ -193,6 +195,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_item = "item_save3.map";
 						SAVEMANAGER->My_Game_save_file_equip = "equip_save3.map";
 						SAVEMANAGER->My_Game_save_file_tile = "tile_save3.map";
+						SAVEMANAGER->My_Game_save_file_unit = "unit_save3.map";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 3
 					}

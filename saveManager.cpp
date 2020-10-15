@@ -7,6 +7,7 @@ void saveManager::save()
 	this->Item_transform();
 	this->equip_transform();
 	this->Tile_transform();
+	this->Unit_transform();
 	HANDLE file;
 	DWORD write;
 
@@ -21,11 +22,21 @@ void saveManager::save()
 	file = CreateFile(My_Game_save_file_tile, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	WriteFile(file, My_Tile, sizeof(tile) * TILEMAXSIZE, &write, NULL);
 	CloseHandle(file);
+
+	file = CreateFile(My_Game_save_file_unit, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WriteFile(file, My_unit, sizeof(unit) * _Unit.size(), &write, NULL);
+	CloseHandle(file);
+
+	int num = _Unit.size();
+	string str = to_string(num);
+
+	INIDATA->addData("UnitCount", "0", str.c_str());
+	INIDATA->saveINI("Unit");
 }
 
 bool saveManager::load()
 {
-	
+	int num = INIDATA->loadDataInteger("Unit", "UnitCount", "0");
 	HANDLE file;
 	DWORD read;
 	file = CreateFile(My_Game_save_file_item, GENERIC_READ, 0, NULL,OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -85,6 +96,36 @@ bool saveManager::load()
 		}
 	}
 
+	file = CreateFile(My_Game_save_file_unit, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	ReadFile(file, My_unit, sizeof(unit) * num, &read, NULL);
+	CloseHandle(file);
+	if (file != INVALID_HANDLE_VALUE) {
+		for (int i = 0; i < num ; i++) {
+			switch (My_unit[i].tag) {
+			case TAG::TERRAIN:
+
+				break;
+			case TAG::ITEM:
+
+				break;
+			case TAG::ENEMY:
+
+				break;
+			case TAG::PLAYER:
+				
+				break;
+			case TAG::OBJECT:
+
+				break;
+			case TAG::NPC:
+
+				break;
+			case TAG::BUILDING:
+				
+				break;
+			}
+		}
+	}
 	return true;
 }
 
@@ -119,11 +160,20 @@ void saveManager::equip_transform()
 	}
 }
 
+void saveManager::Unit_transform()
+{
+	_Unit = UNITMANAGER->GetUnits();
+	My_unit = &(*_Unit[0]);
+	for (int i = 0; i < _Unit.size(); i++) {
+		
+		cout << _Unit[i]->exp << endl;
+	}
+}
+
 void saveManager::Tile_transform()
 {
 
 	for (int i = 0; i <(*_game_tile).size(); i++) {
-		cout << (*_game_tile)[i].terrKey << endl;
 		My_Tile[i].terrKey = (*_game_tile)[i].terrKey;
 		My_Tile[i].terrainFrameX =(*_game_tile)[i].terrainFrameX;
 		My_Tile[i].terrainFrameY =(*_game_tile)[i].terrainFrameY;

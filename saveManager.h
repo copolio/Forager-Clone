@@ -9,7 +9,15 @@ class qucik_slot;
 class earth;
 class saveManager : public singletonBase<saveManager>
 {
-private:
+private:/*
+		std::vector<double> v;
+double* a = &v[0];
+		*/
+	vector<unit*> _Unit;
+	unit* My_unit ;
+
+	int unit_vecter_size;
+
 	earth* _map;
 	tile My_Tile[TILEMAXSIZE];
 	quick_slot* _quick_slot;
@@ -33,10 +41,12 @@ public:
 	LPCSTR My_Game_save_file_item;
 	LPCSTR My_Game_save_file_equip;
 	LPCSTR My_Game_save_file_tile;
+	LPCSTR My_Game_save_file_unit;
 
 	void Tile_transform();
 	void Item_transform();
 	void equip_transform();
+	void Unit_transform();
 
 };
 
