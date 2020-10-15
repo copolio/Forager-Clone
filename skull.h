@@ -1,6 +1,5 @@
 #pragma once
 #include "enemy.h"
-#include "Astar.h"
 #define MOVERANGE 2
 #define MOVESPEED 1
 

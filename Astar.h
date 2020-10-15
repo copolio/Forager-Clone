@@ -1,4 +1,6 @@
 #pragma once
+
+#include"singletonBase.h"
 #include "earth.h"
 
 #define MAX_X MAPTILEX
@@ -37,7 +39,7 @@ public:
 };
 
 
-class Astar
+class Astar : public singletonBase<Astar>
 {
 private:
 	vector<tile> _vTiles;

@@ -49,8 +49,9 @@ void UnitManager::init()
 	_pProjectiles = _projectileManager->GetProjectile();
 
 	// 스폰 매니저 생성
-	_spawnManager = new SpawnManager;
-	_spawnManager->init();
+	//_spawnManager = new SpawnManager;
+	//_spawnManager->init();
+	SPAWNMANAGER->init();
 }
 
 void UnitManager::release()
@@ -85,7 +86,8 @@ void UnitManager::update()
 		checkCollision(_vUnits[i]);
 	}
 
-	_spawnManager->update();
+	//_spawnManager->update();
+	SPAWNMANAGER->update();
 	_projectileManager->update();
 }
 
@@ -288,7 +290,8 @@ int UnitManager::GetMonsterCount()
 void UnitManager::setLinkMap(earth * p_map)
 {
 	_map = p_map;
-	_spawnManager->setLinkMap(_map);
+	//_spawnManager->setLinkMap(_map);
+	SPAWNMANAGER->setLinkMap(_map);
 }
 
 

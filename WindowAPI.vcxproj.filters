@@ -300,9 +300,6 @@
     <ClCompile Include="skull.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
-    </ClCompile>
     <ClCompile Include="productionManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
@@ -323,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="npc.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameFramework\매니져</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,9 +503,6 @@
     <ClInclude Include="skull.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
-    </ClInclude>
     <ClInclude Include="productionManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
@@ -523,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="npc.h">
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>GameFramework\매니져</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

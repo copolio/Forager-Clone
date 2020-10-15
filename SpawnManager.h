@@ -1,8 +1,10 @@
+#pragma once
+
+#include"singletonBase.h"
 #include "unit.h"
 #include "earth.h"
 
-#pragma once
-class SpawnManager
+class SpawnManager : public singletonBase<SpawnManager>
 {
 private:
 	earth *_map;

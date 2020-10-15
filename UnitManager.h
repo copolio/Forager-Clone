@@ -10,7 +10,7 @@
 #include "cow.h"
 #include "tile.h"
 #include "earth.h"
-#include "SpawnManager.h"
+//#include "SpawnManager.h"
 #include "ForagerPlayer.h"
 #include "ProjectileManager.h"
 #include "wraith.h"
@@ -24,7 +24,7 @@ private:
 	vector<unit*> _vUnits;
 	tagProjectile* _pProjectiles;
 	earth *_map;
-	SpawnManager *_spawnManager;
+	//SpawnManager *_spawnManager;
 	ProjectileManager *_projectileManager;
 
 private:

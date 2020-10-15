@@ -47,6 +47,8 @@ using namespace MY_UTIL;
 #include "productionManager.h"
 #include "DialogueManager.h"
 #include "ForagerStatManager.h"
+#include "SpawnManager.h"
+#include "Astar.h"
 
 //=============================================================
 //	## 싱글톤을 추가한다 ##
@@ -68,6 +70,8 @@ using namespace MY_UTIL;
 #define DIALOGUE DialogueManager::getSingleton()
 
 #define STATMANAGER ForagerStatManager::getSingleton()
+#define SPAWNMANAGER SpawnManager::getSingleton()
+#define ASTAR Astar::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)
