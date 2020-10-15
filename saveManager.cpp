@@ -64,9 +64,12 @@ bool saveManager::load()
 		}
 		_quick_slot->quick_slot_update();
 	}
-	/*file = CreateFile(My_Game_save_file_equip, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+	file = CreateFile(My_Game_save_file_tile, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	ReadFile(file, My_Tile, sizeof(tile) *TILEMAXSIZE, &read, NULL);
 	CloseHandle(file);
+
+
 	if (file != INVALID_HANDLE_VALUE) {
 		for (int i = 0; i < TILEMAXSIZE; i++) {
 			(*_game_tile)[i].terrKey = My_Tile[i].terrKey ;
@@ -80,8 +83,8 @@ bool saveManager::load()
 			(*_game_tile)[i].x = My_Tile[i].x;
 			(*_game_tile)[i].y = My_Tile[i].y;
 		}
+	}
 
-	}*/
 	return true;
 }
 
@@ -120,6 +123,8 @@ void saveManager::Tile_transform()
 {
 
 	for (int i = 0; i <(*_game_tile).size(); i++) {
+		cout << (*_game_tile)[i].terrKey << endl;
+		My_Tile[i].terrKey = (*_game_tile)[i].terrKey;
 		My_Tile[i].terrainFrameX =(*_game_tile)[i].terrainFrameX;
 		My_Tile[i].terrainFrameY =(*_game_tile)[i].terrainFrameY;
 		My_Tile[i].hasUnit =(*_game_tile)[i].hasUnit;
