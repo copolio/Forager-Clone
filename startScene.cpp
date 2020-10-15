@@ -170,7 +170,7 @@ void startScene::CheckButtonClick()
 						gameOptionCheck = true;
 						break;	// 환경설정 창
 					case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
-					case BTN::EXIT:		SCENEMANAGER->loadScene("게임 화면"); break;	// 게임 종료
+					case BTN::EXIT:		exit(0); break;	// 게임 종료
 
 					case BTN::SLOT1:
 
