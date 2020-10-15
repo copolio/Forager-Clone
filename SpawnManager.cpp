@@ -35,7 +35,7 @@ void SpawnManager::GetCanSpawnTile()
 void SpawnManager::TrySpawn()
 {
 
-	if (UNITMANAGER->GetMonsterCount() < 2) {
+	if (UNITMANAGER->GetMonsterCount() < 4) {
 
 		GetCanSpawnTile();
 
@@ -59,9 +59,9 @@ void SpawnManager::TrySpawn()
 
 
 
-void SpawnManager::SpawnPatternOne(string p_enemyName, int count)
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
 {
-	for (int i = 0; i < count; i++) {
+	for (int i = 0; i < p_count; i++) {
 		int randomTile = RANDOM->range(0, _plainTile.size() - 1);
 		RECT t_rc = _plainTile[randomTile].rc;
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
@@ -69,4 +69,14 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int count)
 
 		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
 	}
-} 
+}
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx)
+{
+	for (int i = 0; i < p_count; i++) {
+		int randomTile = tileidx;
+		RECT t_rc = _plainTile[randomTile].rc;
+		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
+							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
+		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
+	}
+}

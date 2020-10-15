@@ -19,5 +19,6 @@ public :
 	void GetCanSpawnTile();
 	void TrySpawn();
 	void SpawnPatternOne(string p_enemyName, int p_count);
+	void SpawnPatternOne(string p_enemyName, int p_count, int tileidx);
 };
 
