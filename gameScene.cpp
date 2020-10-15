@@ -27,6 +27,7 @@ HRESULT gameScene::init()
 	_quick_slot->init();
 	_quick_slot->quick_slot_update();
 	_quick_slot->target(0);
+	SAVEMANAGER->set_quick_slot_info(_quick_slot);
 	PRODUCTIONMANAGER->init();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
@@ -105,8 +106,17 @@ void gameScene::update()
 	// 인벤토리 열면 커서 타겟팅 업데이트 중지
 	if(!inven_open)
 		_cursor->update();
-
+	
+	if (INPUT->GetKeyDown(VK_F1)) {
+		cout << "save" << endl;
+		SAVEMANAGER->save();
+	}
+	if (INPUT->GetKeyDown(VK_F2)) {
+		cout << "load" << endl;
+		SAVEMANAGER->load();
+	}
 }
+
 
 void gameScene::render()
 {

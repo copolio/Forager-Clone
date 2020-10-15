@@ -186,9 +186,6 @@
     <ClCompile Include="TextManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="saveManager.cpp">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
@@ -324,6 +321,9 @@
     <ClCompile Include="npc.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="saveManager.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -391,9 +391,6 @@
     </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="saveManager.h">
-      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
     <ClInclude Include="cameraManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
@@ -523,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="npc.h">
       <Filter>GameFramework\MainGame\Forager\Unit\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="saveManager.h">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,6 +47,7 @@ using namespace MY_UTIL;
 #include "productionManager.h"
 #include "DialogueManager.h"
 #include "ForagerStatManager.h"
+#include "saveManager.h"
 
 //=============================================================
 //	## 싱글톤을 추가한다 ##
@@ -66,7 +67,7 @@ using namespace MY_UTIL;
 #define ITEMMANAGER item_Manager::getSingleton()
 #define PRODUCTIONMANAGER productionManager::getSingleton()
 #define DIALOGUE DialogueManager::getSingleton()
-
+#define SAVEMANAGER	saveManager::getSingleton()
 #define STATMANAGER ForagerStatManager::getSingleton()
 
 //=============================================================

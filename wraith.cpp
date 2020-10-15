@@ -216,7 +216,6 @@ void wraith::wraithFire()
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, true, true);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, true, true);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, true, true);
-			cout << _angle << endl;
 			skillFireCount = 0;
 		}
 	}
