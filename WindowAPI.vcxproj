@@ -194,7 +194,7 @@
     <ClInclude Include="quick_slot.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="inGameResource.h" />
     <ClInclude Include="saveManager.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="sewingmachinetooltip.h" />
@@ -261,7 +261,7 @@
     <ClCompile Include="quick_slot.cpp" />
     <ClCompile Include="random.cpp" />
     <ClCompile Include="reactImage.cpp" />
-    <ClCompile Include="resource.cpp" />
+    <ClCompile Include="inGameResource.cpp" />
     <ClCompile Include="saveManager.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="sewingmachinetooltip.cpp" />

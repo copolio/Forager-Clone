@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "resource.h"
+#include "inGameResource.h"
 
-void resource::setRandomRes(tile* tile, int ptileIndex)
+void inGameResource::setRandomRes(tile* tile, int ptileIndex)
 {
 	tileIndex = ptileIndex;
 	_tile = tile;
@@ -42,7 +42,7 @@ void resource::setRandomRes(tile* tile, int ptileIndex)
 	_hpBar.init("hpBar", "hpBarBG");
 }
 
-void resource::setResource(string key, tile* p_tile, int p_tileIndex)
+void inGameResource::setResource(string key, tile* p_tile, int p_tileIndex)
 {
 	_hpBar.init("hpBar", "hpBarBG");
 	tileIndex = p_tileIndex;
@@ -80,7 +80,7 @@ void resource::setResource(string key, tile* p_tile, int p_tileIndex)
 	currentHp = maxHp;
 }
 
-void resource::dead()
+void inGameResource::dead()
 {
 	POINT ptCenterPos = { GetCenterX(), GetCenterY() - 10 };
 
@@ -107,7 +107,7 @@ void resource::dead()
 	}
 }
 
-void resource::render(HDC hdc)
+void inGameResource::render(HDC hdc)
 {
 	if (0 < currentHp && currentHp < maxHp) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom));
@@ -120,7 +120,7 @@ void resource::render(HDC hdc)
 		objFrameX, objFrameY, CAMERA->GetZoom());
 }
 
-void resource::hurt(int damage)
+void inGameResource::hurt(int damage)
 {
 	currentHp -= damage;
 

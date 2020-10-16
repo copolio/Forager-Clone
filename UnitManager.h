@@ -3,7 +3,7 @@
 #include "building.h"
 #include "enemy.h"
 #include "fieldItem.h"
-#include "resource.h"
+#include "inGameResource.h"
 #include "building.h"
 #include "unit.h"
 #include "skull.h"

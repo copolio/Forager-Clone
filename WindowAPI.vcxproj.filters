@@ -219,9 +219,6 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClCompile>
-    <ClCompile Include="resource.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
-    </ClCompile>
     <ClCompile Include="cursor.cpp">
       <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClCompile>
@@ -324,6 +321,9 @@
     <ClCompile Include="saveManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="inGameResource.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -425,9 +425,6 @@
     <ClInclude Include="gameObject.h">
       <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
-    </ClInclude>
     <ClInclude Include="cursor.h">
       <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClInclude>
@@ -523,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="saveManager.h">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="inGameResource.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

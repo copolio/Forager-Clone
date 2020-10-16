@@ -8,7 +8,7 @@
 #define TREEHP RESHP
 #define ROCKHP RESHP
 
-class resource : public unit
+class inGameResource : public unit
 {
 public:
 	tile* _tile;

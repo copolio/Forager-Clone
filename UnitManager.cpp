@@ -312,14 +312,14 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles, int tileinde
 
 void UnitManager::AddResource(tile* p_tile, int p_tileIndex)
 {
-	resource* _res = new resource;
+	inGameResource* _res = new inGameResource;
 	_res->setRandomRes(p_tile, p_tileIndex);
 	_vUnits.push_back(_res);
 }
 
 void UnitManager::AddResource(string key, tile * _tile, int p_tileIndex)
 {
-	resource* _res = new resource;
+	inGameResource* _res = new inGameResource;
 	_res->setResource(key, _tile, p_tileIndex);
 	_vUnits.push_back(_res);
 }

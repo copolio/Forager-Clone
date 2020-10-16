@@ -2,7 +2,7 @@
 #include "gamemap.h"
 #include "unit.h"
 #include "building.h"
-#include "resource.h"
+#include "inGameResource.h"
 #include "fieldItem.h"
 #include "ForagerPlayer.h"
 class ForagerPlayer;
