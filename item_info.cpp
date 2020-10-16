@@ -180,7 +180,7 @@ void item_info::render(HDC hdc,string item_name)
 	pos.y = 320;
 	TEXTMANAGER->ShowText(hdc, false, "+5 ¿¡³ÊÁö", pos, 30, 0, RGB(0, 255, 0));
 	}
-	else if (item_name == "leather") {
+	else if (item_name == "leatherDrop") {
 	IMAGEMANAGER->render("img_UI_ItemTooltip", hdc, 900, 150);
 	IMAGEMANAGER->render("bag", hdc, 1000, 450);
 	IMAGEMANAGER->render(item_name, hdc, 950, 180);
