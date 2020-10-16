@@ -851,6 +851,7 @@ void ForagerPlayer::CheckCollision()
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				SOUNDMANAGER->play("아이템충돌");
 				t_vUnit[i]->collision();
+				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
 				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
@@ -860,7 +861,6 @@ void ForagerPlayer::CheckCollision()
 				else {
 					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
 				}
-				//_theInven->AcquireItem(t_vUnit[i]->dropItem.itemKey);
 				break;
 			}
 		}

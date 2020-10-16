@@ -107,7 +107,7 @@ void TextManager::renderItemText(HDC hdc)
 	if (_vFieldItemText.size() > 0) {
 		for (int i = 0; i < _vFieldItemText.size(); i++) {
 
-			int x = WINSIZEX - 175;
+			int x = WINSIZEX - 190;
 			int y = WINSIZEY - 150 - (i * 70);
 
 			IMAGEMANAGER->render(_vFieldItemText[i].imgKey, hdc, x, y);
@@ -205,7 +205,16 @@ void TextManager::AppearItemText(string pImgKey)
 	else if (pImgKey == "letherDrop") itemText.itemName = "°¡Á×";
 	else if (pImgKey == "milkDrop") itemText.itemName = "¿ìÀ¯";
 	else if (pImgKey == "skullHeadDrop") itemText.itemName = "ÇØ°ñ";
-	else itemText.itemName = "Unknown";
+	else if (pImgKey == "slot_Bow") itemText.itemName = "È°";
+	else if (pImgKey == "sword") itemText.itemName = "Ä®";
+	else if (pImgKey == "Iron_ore") itemText.itemName = "Ã¶±¤¼®";
+	else if (pImgKey == "coal") itemText.itemName = "¼®Åº";
+	else if (pImgKey == "±«Ã¶") itemText.itemName = "±«Ã¶";
+	else if (pImgKey == "±Ý±«") itemText.itemName = "±Ý±«";
+	else if (pImgKey == "±Ý±¤¼®") itemText.itemName = "±Ý±¤¼®";
+	else if (pImgKey == "brick") itemText.itemName = "º®µ¹";
+	else if (pImgKey == "img_game_money_icon") itemText.itemName = "ÄÚÀÎ";
+	else itemText.itemName = pImgKey;
 	_vFieldItemText.push_back(itemText);
 }
 

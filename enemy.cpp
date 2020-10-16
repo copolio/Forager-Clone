@@ -68,6 +68,8 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 
 void enemy::dead()
 {
+	EFFECTMANAGER->ShowEffectFrame(EFFECTMANAGER->smokeEff, GetCenterPoint(), 4, true);
+
 	UNITMANAGER->AddUnits(dropItem.itemKey, { GetCenterX(),GetCenterY() });
 }
 

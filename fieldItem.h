@@ -7,6 +7,7 @@ private:
 	bool isUp;
 	int maxY;
 	int minY;
+	int _disappearCount;
 
 public:
 

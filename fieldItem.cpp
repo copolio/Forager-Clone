@@ -3,6 +3,8 @@
 
 void fieldItem::animation()
 {
+
+
 	if (rc.top <= minY)
 		isUp = false;
 	else if (rc.top >= maxY)
@@ -13,12 +15,15 @@ void fieldItem::animation()
 	if (currentCount++ % 35 == 0)
 		OffsetRect(&rc, 0, applySpeed);
 
-
+	if (_disappearCount-- <= 0) {
+		currentHp = 0;
+	}
 }
 
 void fieldItem::setFieldItem(POINT ptPos, string itemKey)
 {
 	tileIndex = 0;
+	_disappearCount = 600;
 
 	objKey = itemKey;
 	dropItem.itemKey = itemKey;
