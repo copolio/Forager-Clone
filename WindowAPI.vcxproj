@@ -195,6 +195,7 @@
     <ClInclude Include="random.h" />
     <ClInclude Include="reactImage.h" />
     <ClInclude Include="inGameResource.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="saveManager.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="sewingmachinetooltip.h" />
@@ -286,6 +287,12 @@
     <ClCompile Include="util.cpp" />
     <ClCompile Include="winMain.cpp" />
     <ClCompile Include="wraith.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameFramework2D.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\이미지\Forager_Icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

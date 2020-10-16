@@ -124,6 +124,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Scenes\로딩화면">
       <UniqueIdentifier>{7e12b8a1-bff7-4c0e-8411-c665eda32360}</UniqueIdentifier>
     </Filter>
+    <Filter Include="아이콘">
+      <UniqueIdentifier>{2b2fee73-3d01-4117-8f16-ca18caa3b476}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -524,5 +527,18 @@
     <ClInclude Include="inGameResource.h">
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>아이콘</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\이미지\Forager_Icon.ico">
+      <Filter>아이콘</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameFramework2D.rc">
+      <Filter>아이콘</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
