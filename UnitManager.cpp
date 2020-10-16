@@ -16,7 +16,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("milkDrop", "Images/이미지/아이템/milk.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pooDrop", "Images/이미지/아이템/poo.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("letherDrop", "Images/이미지/아이템/lether.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("leatherDrop", "Images/이미지/아이템/leather.bmp", 56, 56, true, RGB(255, 0, 255));
 
 
 	
@@ -237,7 +237,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			wraith* _wraith = new wraith;
 			_wraith->setLinkMap(_map);
-			_wraith->setEnemy(p_unitName, "letherDrop", _player, p_pos);
+			_wraith->setEnemy(p_unitName, "leatherDrop", _player, p_pos);
 			_wraith->init();
 			_vUnits.push_back(_wraith);
 			_vEnemy.push_back(_wraith);
