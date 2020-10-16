@@ -213,7 +213,7 @@ int item_Manager::itemempty()
 
 ItemKinds item_Manager::itemKind(string key)
 {
-	if (key == "berryDrop") {
+	if (key == "berryDrop" || key == "milkDrop") {
 		return ITEM_FOOD;
 	}
 	else /*if (key == "rockDrop"|| key == "treeDrop"|| key == "coal" || key == "brick" || key == "Iron_ore" || key == "±Ý±¤¼®")*/ {
