@@ -58,9 +58,7 @@ void UnitManager::release()
 {
 	for(int i = 0 ; i < _vUnits.size(); i++)
 		SAFE_DELETE(_vUnits[i]);
-
 	_vUnits.clear();
-
 }
 
 
@@ -104,9 +102,14 @@ void UnitManager::checkCollision(unit * p_unit)
 			if (_pProjectiles[k].isEnemyProjectTile)
 			{
 				if (p_unit->tag == TAG::PLAYER)
+				{
+					//SOUNDMANAGER->play("유령무기맞는소리", 0.4f);
 					IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+				}
+					
 				if (p_unit->tag != TAG::ENEMY)
 					_pProjectiles[k].isAppear = false;
+				
 			}
 			// Player 투사체는 모든 유닛에게 데미지 적용
 			else {
@@ -234,7 +237,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			wraith* _wraith = new wraith;
 			_wraith->setLinkMap(_map);
-			_wraith->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos);
+			_wraith->setEnemy(p_unitName, "letherDrop", _player, p_pos);
 			_wraith->init();
 			_vUnits.push_back(_wraith);
 			_vEnemy.push_back(_wraith);

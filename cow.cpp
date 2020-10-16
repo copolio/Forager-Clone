@@ -263,7 +263,7 @@ void cow::cowAttackAttempt()
 	}
 	else
 	{
-		if (cowHitWaitCount > 120)	//돌진까지 준비시간 약 1~2초 사이.
+		if (cowHitWaitCount > 200)	//돌진까지 준비시간 약 1~2초 사이.
 		{
 			if (cowHitCount == 17) {
 				if (abs(_target->rc.left - rc.left) <= cowDashRange && abs(_target->rc.top - rc.top) <= cowDashRange)
