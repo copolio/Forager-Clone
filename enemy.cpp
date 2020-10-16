@@ -19,8 +19,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 {
 	tileIndex = 0;
 
-	maxHp = 30;
-	currentHp = 30;
+	
 	tag = TAG::ENEMY;
 	layer = LAYER::OBJECT;
 	_target = target;
@@ -34,13 +33,27 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	if (objKey == "wraithIdle")
 	{
 		rc = RectMakeCenter(x, y, 100, 100);
+		maxHp = 100;
+		currentHp = 100;
+		exp = 50;
+
 	}
-	else if (objKey == "skull" || objKey == "cow")
+	else if (objKey == "skull")
 	{
-		rc = RectMakeCenter(x, y, 25, 25);
+		rc = RectMakeCenter(x, y, 35, 35);
+		maxHp = 30;
+		currentHp = 30;
+		exp = 10;
+	}
+	else if (objKey == "cow")
+	{
+		rc = RectMakeCenter(x, y, 55, 55);
+		maxHp = 50;
+		currentHp = 50;
+		exp = 30;
 	}
 	
-	exp = 10;
+
 	dropItem.itemKey = itemkey;
 	
 	objFrameX = 0;

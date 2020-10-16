@@ -185,9 +185,6 @@ void startScene::CheckCursorOnButton()
 
 }
 
-
-
-
 void startScene::CheckButtonClick()
 {
 	if (INPUT->GetKeyDown(VK_RBUTTON)) {

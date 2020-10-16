@@ -139,13 +139,13 @@ void wraith::wraithAttack()
 			
 			if (wraithHitCount == 23) {
 				if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
+				{
 					_target->hurt(Atk);
+				}
 			}
 			_state3 = SHOOT;
 			wraithFire();
-			if(wraithWaitCount == 50)
-				SOUNDMANAGER->play("유령무기발사소리", 0.6f);
-				
+			//if(wraithWaitCount == 50)
 			
 		}
 		else
@@ -205,6 +205,7 @@ void wraith::wraithFire()
 	skillFireCount++;
 	if (skillFireCount % 120 == 0) {
 		int randomSkillNum = RANDOM->range(0, 2);
+			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 		if (randomSkillNum == 0)
 		{
 			for (int i = 0; i < 8; i++)

@@ -170,7 +170,6 @@ void ForagerPlayer::update()
 
 void ForagerPlayer::render(HDC hdc)
 {
-
 	int relX = CAMERA->GetRelativeX(rc.left);
 	int relY = CAMERA->GetRelativeY(rc.top);
 	int relWeaponX = CAMERA->GetRelativeX(_rcHammer.left);
@@ -179,13 +178,13 @@ void ForagerPlayer::render(HDC hdc)
 	switch (_state)
 	{
 	case IDLE:
-		if(!_isGotDamage)
-		IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
-		else 
+		if (!_isGotDamage)
+			IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
+		else
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
 	case RUN:
-		if (!_isGotDamage)
+		if(!_isGotDamage)
 		IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
 		else
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
@@ -213,14 +212,7 @@ void ForagerPlayer::render(HDC hdc)
 			_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), CAMERA->GetZoom());
 		}
 		break;
-
-	
-	
-	
-		//IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
-	
 	}
-
 	if (_state != ROTATE && _state != HAMMERING)
 	{
 		// 곡괭이 일반 상태
@@ -246,7 +238,6 @@ void ForagerPlayer::render(HDC hdc)
 		}
 	}
 	STATMANAGER->render(hdc);
-	
 }
 
 
@@ -333,10 +324,8 @@ void ForagerPlayer::animation()
 			}
 			break;
 		case HAMMERING:
-
 			if (_equipWeapon == EQUIPWEAPON::PICKAXE) {
 				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
-
 			}
 			else {
 				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
@@ -369,39 +358,72 @@ void ForagerPlayer::animation()
 					}
 				}
 			}
-
 			break;
 		}
 	}
 	else
 	{
-		if (_count++ > 5)
+		if (_state != HAMMERING)
 		{
-			_count = 0;
-			if (_index > 12)
+			if (_count++ > 5)
 			{
-				_index = 0;
-				_isGotDamage = false;
+				_count = 0;
+
+				if (_index > 12)
+				{
+					_index = 0;
+					_isGotDamage = false;
+				}
+				_index++;
+				_playerGotHurt->setFrameX(_index);
+				if (_isLeft)
+					_playerGotHurt->setFrameY(1);
+				else
+					_playerGotHurt->setFrameY(0);
 			}
-			_index++;
-			_playerGotHurt->setFrameX(_index);
-			if(_isLeft)
-				_playerGotHurt->setFrameY(1);
-			else
-				_playerGotHurt->setFrameY(0);
-			
-
 		}
-		
+		switch (_state)
+		{
+		case HAMMERING:
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE) {
+				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
+			}
+			else {
+				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
+			}
+			if (_isLeft)
+			{
+				_foragerHammering->setFrameY(1);
+				_playerHammering->setFrameY(1);
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
+				if (_hitDelayCount++ % 10 == 0)
+				{
+					if (_index-- <= 0) {
+						_index = 3;
+						_hitDelayCount = 1;
+					}
+				}
+			}
+			else
+			{
+				_foragerHammering->setFrameY(0);
+				_playerHammering->setFrameY(0);
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
+				if (_hitDelayCount++ % 10 == 0)
+				{
+					if (_index++ >= 3) {
+						_hitDelayCount = 1;
+						_index = 0;
+					}
+				}
+
+			}
+			break;
+		}
 	}
-
 }
-
-
-
-	
-
-
 
 void ForagerPlayer::bowAnimation()
 {
@@ -526,14 +548,17 @@ void ForagerPlayer::PlayerControll()
 		// 공격 좌클릭
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
-			if (!_isGotDamage)
+			if (_isGotDamage)
 			{
-				if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
-					MeleeWeaponClick();
-				}
-				else if (_equipWeapon == EQUIPWEAPON::BOW) {
-					BowClick();
-				}
+				_isGotDamage = false;
+				_index = 0;
+				_count = 0;
+			}
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
+				MeleeWeaponClick();
+			}
+			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+				BowClick();
 			}
 		}
 
@@ -608,7 +633,6 @@ void ForagerPlayer::MeleeWeaponClick()
 						CAMERA->forceZoomIn(0.008f, 0.002f);
 					}
 				}
-
 			}
 		}
 	}
@@ -654,7 +678,7 @@ void ForagerPlayer::playerMove()
 		_cantMove = (_isLeft) ? CanCheckMove(-1) : CanCheckMove(1);
 
 		if (!_cantMove) {
-			
+
 			OffsetRect(&rc, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE) {
@@ -662,8 +686,6 @@ void ForagerPlayer::playerMove()
 				OffsetRect(&rc, _spinSpeed, 0);
 			}
 		}
-		
-
 	}
 
 	//플레이어 상하 움직임 처리 
