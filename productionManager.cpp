@@ -24,8 +24,8 @@ void productionManager::render(HDC hdc)
 	for (int i = 0; i < _production.size(); i++) {
 		if (_production[i]->countStart) {
 			POINT pos;
-			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2);
-			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2);
+			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2) * CAMERA->GetZoom();
+			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) * CAMERA->GetZoom();
 
 			if (_production[i]->image_name == "Bow") {
 				IMAGEMANAGER->alphaRender("slot_Bow", hdc, pos.x-25, pos.y-5, _production[i]->alpha);
@@ -34,8 +34,8 @@ void productionManager::render(HDC hdc)
 				IMAGEMANAGER->alphaRender(_production[i]->image_name, hdc, pos.x - 15, pos.y, _production[i]->alpha);
 			}
 			
-			pos.x += 15;
-			pos.y += 15;
+			pos.x += 15 * CAMERA->GetZoom();
+			pos.y += 15 * CAMERA->GetZoom();
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
 		}
 	}
