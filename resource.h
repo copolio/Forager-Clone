@@ -18,6 +18,7 @@ public:
 	void setResource(string key, tile* p_tile, int p_tileIndex);
 	void dead() override;
 	void render(HDC hdc) override;
+
 	void hurt(int damage) override;
 };
 
