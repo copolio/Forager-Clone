@@ -207,11 +207,13 @@ void startScene::CheckButtonClick()
 				{
 					SOUNDMANAGER->play("클릭");
 					switch (i) {
-					case BTN::SETTING:
+					case BTN::SETTING:					// 환경설정 창
 						//SCENEMANAGER->loadScene("게임 화면"); 
 						gameOptionCheck = true;
-						break;	// 환경설정 창
-					case BTN::CREDIT:	SCENEMANAGER->loadScene("게임 화면"); break;	// 크레딧 창
+						break;	
+					case BTN::CREDIT:					// 크레딧 창
+						//추후 추가
+						break;	
 					case BTN::EXIT:		exit(0); break;	// 게임 종료
 
 					case BTN::SLOT1:

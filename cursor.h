@@ -5,6 +5,8 @@
 #include "targetingBox.h"
 #include "buildinginteraction.h"
 
+#define MAXTOUCHDISTANCE TILESIZE*2
+
 class earth;
 class cursor
 {

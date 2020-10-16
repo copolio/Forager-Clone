@@ -56,32 +56,46 @@ void cursor::CheckObject()
 
 
 		// 특정 태그만 타겟팅
+		int player_rc_centerX;
+		int player_rc_centerY;
 		for (int i = 0; i < vUnit.size(); i++) {
-			if ((*vUnit[i]).tag == TAG::OBJECT || (*vUnit[i]).tag == TAG::ENEMY || (*vUnit[i]).tag == TAG::NPC){
-				RECT t_rc = (*vUnit[i]).rc;
-				if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-					_targetingBox.SetTarget(t_rc, 3, i, 2, true);
-					_unit = &(*vUnit[i]);
-					return;
-				}
+			if ((*vUnit[i]).tag == TAG::PLAYER) {
+				player_rc_centerX = vUnit[i]->rc.left + (vUnit[i]->rc.right - vUnit[i]->rc.left) / 2;
+				player_rc_centerY = vUnit[i]->rc.top + (vUnit[i]->rc.bottom - vUnit[i]->rc.top) / 2;
+				break;
 			}
-			if ((*vUnit[i]).tag == TAG::BUILDING) {
+		}
 
-				RECT t_rc = (*vUnit[i]).rc;
-				if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
-					if (_targetingBox.GetTargetID() != i) {
-						SOUNDMANAGER->play("건물커서");
+		for (int i = 0; i < vUnit.size(); i++) {
+			RECT t_rc = (*vUnit[i]).rc;
+			int t_rc_centerX = t_rc.left + (t_rc.right - t_rc.left) / 2;
+			int t_rc_centerY = t_rc.top + (t_rc.bottom - t_rc.top) / 2;
+			int distancePO = ABS(getDistance(t_rc_centerX, t_rc_centerY, player_rc_centerX, player_rc_centerY));
+			if (distancePO <= MAXTOUCHDISTANCE) {
+				if ((*vUnit[i]).tag == TAG::OBJECT || (*vUnit[i]).tag == TAG::ENEMY || (*vUnit[i]).tag == TAG::NPC) {
+					if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
+						_targetingBox.SetTarget(t_rc, 3, i, 2, true);
+						_unit = &(*vUnit[i]);
+						return;
 					}
-					_targetingBox.SetTarget(t_rc, 3, i, 2, true);
-					_unit = &(*vUnit[i]);
-					if (_unit->objKey != "bridge") {
-						isbuilding = true;
-						PRODUCTIONMANAGER->getRc(t_rc);
-						number = i;
+				}
+				if ((*vUnit[i]).tag == TAG::BUILDING) {
+					if (PtInRect(&t_rc, CAMERA->GetMouseRelativePos(_ptMouse))) {
+						if (_targetingBox.GetTargetID() != i) {
+							SOUNDMANAGER->play("건물커서");
+						}
+						_targetingBox.SetTarget(t_rc, 3, i, 2, true);
+						_unit = &(*vUnit[i]);
+						if (_unit->objKey != "bridge") {
+							isbuilding = true;
+							PRODUCTIONMANAGER->getRc(t_rc);
+							number = i;
+						}
+						return;
 					}
-					return;
 				}
 			}
+
 		}
 
 
