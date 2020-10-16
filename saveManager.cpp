@@ -97,7 +97,7 @@ bool saveManager::load()
 	if (file != INVALID_HANDLE_VALUE) {
 
 		for (int i = 0; i < UNITMAXSIZE ; i++) {
-			tile* ptile;
+			tile* ptile = nullptr;
 			vector<tile*> vTemp;
 			int exp;
 			int level;

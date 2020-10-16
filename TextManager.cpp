@@ -131,7 +131,7 @@ void TextManager::ShowText(HDC hdc, bool isRelative, string str, POINT ptPos, in
 		SetTextAlign(hdc, TA_RIGHT);
 	
 	HFONT hFont;
-	HFONT oldFont;
+	HFONT oldFont = nullptr;
 	bool isOldFont = false;
 	if (isBoundary) {
 
