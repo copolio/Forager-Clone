@@ -55,7 +55,7 @@ void ProjectileManager::render(HDC hdc)
 	{
 		
 		if (_projectiles[i].isAppear) {
-			RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20);
+			//RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20);
 			if(!_projectiles[i].isStretch)
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, 
 									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY);

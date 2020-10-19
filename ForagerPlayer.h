@@ -129,6 +129,7 @@ public:
 	bool CanCheckMove(int index);
 	void CheckPlayerTile();
 	void CheckCollision();
+	
 
 public:
 	int GetPlayerTilePos() { return _playerTilePos; };

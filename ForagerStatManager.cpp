@@ -56,6 +56,8 @@ HRESULT ForagerStatManager::init()
 	_levelNum[9]=IMAGEMANAGER->addImage("9", "Images/이미지/GUI/9.bmp", 15, 19, true, RGB(255, 0, 255));
 
 	_staminSizeCurrent = _staminaImgSizeMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
+	
+
 	_expImgSizeMax = IMAGEMANAGER->findImage("expBar")->getWidth();
 	playerStaminaCount = 0;
 	staminaLoss = false;

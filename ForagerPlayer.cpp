@@ -168,6 +168,8 @@ void ForagerPlayer::update()
 	
 	STATMANAGER->update();
 	STATMANAGER->setinvenopen(inven_open);
+
+
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -613,7 +615,7 @@ void ForagerPlayer::MeleeWeaponClick()
 					targetUnit->hurt(Atk);
 
 					// À¯´ÖÀÌ ÆÄ±«µÇ¸é
-					if (targetUnit->isDead())
+					if (targetUnit->isDead() )
 					{
 						if (targetUnit->objKey == "skull")
 							SOUNDMANAGER->play("ÇØ°ñ»ç¸Á¼Ò¸®");
@@ -671,7 +673,10 @@ void ForagerPlayer::ArrowFire()
 		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
 		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
 		_bowPowerGauge = .1f;
+		
 	}
+	
+
 }
 
 
@@ -904,6 +909,7 @@ void ForagerPlayer::CheckCollision()
 		}
 	}
 }
+
 
 void ForagerPlayer::hurt(int damage)
 {

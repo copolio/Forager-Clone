@@ -43,9 +43,9 @@ void SpawnManager::TrySpawn()
 			switch (pattern)
 			{
 			case 0:
-				//SpawnPatternOne("skull", 5);
-				//SpawnPatternOne("wraithIdle",1);
-				SpawnPatternOne("cow",3);
+				//SpawnPatternOne("skull", 10);
+				//SpawnPatternOne("wraithIdle",5);
+				SpawnPatternOne("cow",10);
 				break;
 			}
 		}
