@@ -193,7 +193,6 @@ void saveManager::Unit_transform()
 		}
 		else {
 			My_unit[i].tag = TAG::NONE;
-
 		}
 	}
 }
