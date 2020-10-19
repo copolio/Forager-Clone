@@ -8,6 +8,7 @@ void Astar::init(vector<tile> vTile, bool checkwall)
 	_endNode = NULL;
 	_curNode = NULL;
 	_vTiles = vTile;
+	idleCount = 0;
 	//전체노드 초기화
 	for (int y = 0; y < MAPTILEY; y++)
 	{
@@ -81,7 +82,10 @@ vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, boo
 		
 		//현재노드가 이전노드와 같냐? (목적지까지 경로가 없다)
 		if (_curNode == _prevNode) {
-			return _finalList;
+			idleCount++;
+			if (idleCount > 10) {
+				return _finalList;
+			}
 		}
 		//현재노드가 마지막 노드와 같냐? (길찾았다)
 		if (_curNode == _endNode)
