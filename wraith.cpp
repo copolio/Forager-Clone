@@ -26,7 +26,6 @@ void wraith::update()
 		wraithMove();
 		break;
 	case SHOOT:
-		
 		break;
 	}
 	wraithAttack();
@@ -122,15 +121,17 @@ void wraith::wraithMove()
 
 void wraith::wraithAttack()
 {
-	if (!tryAttack)
+	if (!tryAttack)	//플레이어가 레이스 공격 범위에 들기 전, 
 	{
 		if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
 		{
 			tryAttack = true;
+	
 		}
 		else
 			_state3 = FLY;
 	}
+	//플레이어가 공격 범위 안에 들고 나서, 
 	else
 	{
 		wraithWaitCount++;
@@ -145,8 +146,6 @@ void wraith::wraithAttack()
 			}
 			_state3 = SHOOT;
 			wraithFire();
-			//if(wraithWaitCount == 50)
-			
 		}
 		else
 		{
@@ -167,10 +166,7 @@ void wraith::wraithAnimation()
 			if (_index++ > 4)
 				_index = 0;
 		}
-
 		break;
-
-
 	case SHOOT:
 		
 		objFrameY = (isLeft) ? 1 : 0;

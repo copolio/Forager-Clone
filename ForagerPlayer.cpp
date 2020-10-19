@@ -37,18 +37,20 @@ HRESULT ForagerPlayer::init()
 	_isGotDamage = false;
 	
 	
+	
 	_state = STATE::IDLE;
 	_angle = 0.0f;
 	// 무기 위치 초기화
 	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56);
 
-	// 기본 플레이어 이미지
+	//기본 플레이어 이미지
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerWork", "Images/이미지/플레이어/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
 
+	//플레이어 맞을 때 
 	IMAGEMANAGER->addFrameImage("playerHurt", "Images/이미지/플레이어/playerGotDamage.bmp", 480, 112, 12, 2, true, RGB(255, 0, 255));
 	
 	//곡괭이 이미지
@@ -189,6 +191,7 @@ void ForagerPlayer::render(HDC hdc)
 		else
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
+	
 	case ROTATE:
 		if (_isLeft)
 		{
@@ -203,6 +206,8 @@ void ForagerPlayer::render(HDC hdc)
 				IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
 		}
 		break;
+		
+		
 	case HAMMERING:
 		IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
 		if (_equipWeapon == PICKAXE) {
@@ -487,94 +492,97 @@ void ForagerPlayer::PlayerControll()
 	//	DIALOGUE->ShowDialogue(str, &rc);
 	//}
 
-	if (_state != STATE::ROTATE) {
-		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
-		{
-			_state = IDLE;
-			_isMoveHorizon = false;
-			_isMoveVertical = false;
-		}
-		//뛰어다니는 상태 (좌우 움직임)
-		if (INPUT->GetKey('A') || INPUT->GetKey('D'))
-		{
-			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-				switch (RANDOM->range(2)) {
-				case 0:
-					SOUNDMANAGER->play("플레이어걸음1");
+if (_state != STATE::ROTATE) {
+	if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
+	{
+		_state = IDLE;
+		_isMoveHorizon = false;
+		_isMoveVertical = false;
+	}
+	//뛰어다니는 상태 (좌우 움직임)
+	if (INPUT->GetKey('A') || INPUT->GetKey('D'))
+	{
+		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+			switch (RANDOM->range(2)) {
+			case 0:
+				SOUNDMANAGER->play("플레이어걸음1");
 
-					break;
-				case 1:
-					SOUNDMANAGER->play("플레이어걸음2");
+				break;
+			case 1:
+				SOUNDMANAGER->play("플레이어걸음2");
 
-					break;
-				}
-			}
-			_isMoveHorizon = true;
-			_state = RUN;
-			_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
-		}
-		//뛰어다니는 상태 (상하 움직임)
-		if (INPUT->GetKey('W') || INPUT->GetKey('S'))
-		{
-			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-				switch (RANDOM->range(2)) {
-				case 0:
-					SOUNDMANAGER->play("플레이어걸음1");
-
-					break;
-				case 1:
-					SOUNDMANAGER->play("플레이어걸음2");
-
-					break;
-				}
-			}
-			_isMoveVertical = true;
-			_state = RUN;
-			_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
-		}
-
-		// 움직일 떄만 굴러갈 수 있게
-		if (_state != STATE::IDLE)
-		{
-			//굴러다니는 상태 
-			if (INPUT->GetKeyDown(VK_SPACE))
-			{
-				_state = ROTATE;
-				_isMoveRotate = true;
-				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-				STATMANAGER->setRight(5);
+				break;
 			}
 		}
-		// 공격 좌클릭
-		if (INPUT->GetKey(VK_LBUTTON))
-		{
-			if (_isGotDamage)
-			{
-				_isGotDamage = false;
-				_index = 0;
-				_count = 0;
-			}
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
-				MeleeWeaponClick();
-			}
-			else if (_equipWeapon == EQUIPWEAPON::BOW) {
-				BowClick();
+		_isMoveHorizon = true;
+		_state = RUN;
+		_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
+	}
+	//뛰어다니는 상태 (상하 움직임)
+	if (INPUT->GetKey('W') || INPUT->GetKey('S'))
+	{
+		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+			switch (RANDOM->range(2)) {
+			case 0:
+				SOUNDMANAGER->play("플레이어걸음1");
+
+				break;
+			case 1:
+				SOUNDMANAGER->play("플레이어걸음2");
+
+				break;
 			}
 		}
+		_isMoveVertical = true;
+		_state = RUN;
+		_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
+	}
 
-		if (INPUT->GetKeyUp(VK_LBUTTON)) {
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE)
-			{
-				_hitDelayCount = 1;
-				_index = (_isLeft) ? 3 : 0;
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-			}
-			else if (_equipWeapon == EQUIPWEAPON::BOW) {
-				ArrowFire();
-			}
+	// 움직일 떄만 굴러갈 수 있게
+	if (_state != STATE::IDLE || _isGotDamage == false)
+	{
+		//굴러다니는 상태 
+		if (INPUT->GetKeyDown(VK_SPACE))
+		{
+			_state = ROTATE;
+			_isMoveRotate = false;
+			//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+			STATMANAGER->setRight(5);
 		}
 	}
+
+	// 공격 좌클릭
+	if (INPUT->GetKey(VK_LBUTTON))
+	{
+		if (_isGotDamage)
+		{
+			_isGotDamage = false;
+			_index = 0;
+			_count = 0;
+		}
+		if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
+			MeleeWeaponClick();
+		}
+		else if (_equipWeapon == EQUIPWEAPON::BOW) {
+			BowClick();
+		}
+	}
+
+	if (INPUT->GetKeyUp(VK_LBUTTON)) {
+		if (_equipWeapon == EQUIPWEAPON::PICKAXE)
+		{
+			_hitDelayCount = 1;
+			_index = (_isLeft) ? 3 : 0;
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameX(_index);
+		}
+		else if (_equipWeapon == EQUIPWEAPON::BOW) {
+			ArrowFire();
+		}
+	}
+}
+	else
+	_isGotDamage = false;
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -904,6 +912,7 @@ void ForagerPlayer::hurt(int damage)
 	_isGotDamage = true;
 	_index = 0;
 	_count = 0;
+
 }
 
 

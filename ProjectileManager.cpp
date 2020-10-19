@@ -51,20 +51,19 @@ void ProjectileManager::update()
 
 void ProjectileManager::render(HDC hdc)
 {
-	for (int i = 0; i < PROJECTILE_MAX; i++) {
+	for (int i = 0; i < PROJECTILE_MAX; i++) 
+	{
+		
 		if (_projectiles[i].isAppear) {
+			RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20);
 			if(!_projectiles[i].isStretch)
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, 
 									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY);
 			else
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc,
 					CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY);
-
 		}
-		
 	}
-
-	
 }
 
 void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage, float angle, float speed, bool isEnemy, bool isStretch)
