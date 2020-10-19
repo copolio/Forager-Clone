@@ -34,7 +34,7 @@ void SpawnManager::GetCanSpawnTile()
 void SpawnManager::TrySpawn()
 {
 
-	if (UNITMANAGER->GetMonsterCount() < 4 && _map->GetIslandCount() >= 3) {
+	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 3) {
 
 		GetCanSpawnTile();
 
