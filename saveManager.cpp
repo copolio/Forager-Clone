@@ -101,6 +101,8 @@ bool saveManager::load()
 			vector<tile*> vTemp;
 			int exp;
 			int level;
+			int stamina;
+			int staminaBack;
 			if(My_unit[i].tileIndex >= 0)
 				ptile = _map->GetTileP(My_unit[i].tileIndex);
 
@@ -114,8 +116,12 @@ bool saveManager::load()
 			case TAG::PLAYER:
 				exp = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Exp");
 				level = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Level");
+				stamina = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Stamina");
+				staminaBack = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "StaminaBack");
 				STATMANAGER->SetCurrentExp(exp);
 				STATMANAGER->SetLevel(level);
+				STATMANAGER->SetStamina(stamina);
+				STATMANAGER->SetStaminaMax(staminaBack);
 				break;
 			case TAG::OBJECT:
 				UNITMANAGER->AddResource(My_unit[i].objKey, ptile, My_unit[i].tileIndex);
@@ -196,10 +202,17 @@ void saveManager::Player_transform()
 {
 	int exp = STATMANAGER->GetCurrentExp();
 	int level = STATMANAGER->GetLevel();
+	int stamina = STATMANAGER->GetStamina();
+	int staminaBack = STATMANAGER->GetStaminaMax();
 	string sExp = to_string(exp);
 	string sLevel = to_string(level);
+	string sStamina = to_string(stamina);
+	string sStaminaBack = to_string(staminaBack);
+	
 	INIDATA->addData("Player", "Exp", sExp.c_str());
 	INIDATA->addData("Player", "Level", sLevel.c_str());
+	INIDATA->addData("Player", "Stamina", sStamina.c_str());
+	INIDATA->addData("Player", "StaminaBack", sStaminaBack.c_str());
 	INIDATA->saveINI(My_Game_save_file_player);
 }
 

@@ -91,7 +91,6 @@ void UnitManager::update()
 void UnitManager::checkCollision(unit * p_unit)
 {
 	for (int k = 0; k < PROJECTILE_MAX; k++) {
-
 		RECT temp;
 		if (!_pProjectiles[k].isAppear) continue; 	// 발사 안 된 투사체는 무시
 
@@ -104,7 +103,8 @@ void UnitManager::checkCollision(unit * p_unit)
 				if (p_unit->tag == TAG::PLAYER)
 				{
 					//SOUNDMANAGER->play("유령무기맞는소리", 0.4f);
-					IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+					//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+					STATMANAGER->setRight(5);
 				}
 					
 				if (p_unit->tag != TAG::ENEMY)
@@ -116,7 +116,35 @@ void UnitManager::checkCollision(unit * p_unit)
 				if (p_unit->tag != TAG::PLAYER) {
 					p_unit->hurt(_pProjectiles[k].damage);
 					_pProjectiles[k].isAppear = false;
+					if (p_unit->isDead())
+					{
+						if (p_unit->objKey == "skull")
+							SOUNDMANAGER->play("해골사망소리");
+						else if (p_unit->objKey == "cow")
+							SOUNDMANAGER->play("황소사망소리");
+
+						//스태니마 감소
+						STATMANAGER->setRight(5);
+
+						//그 유닛의 경험치 획득.
+						int t_exp = p_unit->exp;
+						if (t_exp > 0) {
+							t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
+							POINT pt = { p_unit->rc.left, p_unit->rc.top };
+							string str = std::to_string(t_exp);
+							str.insert(0, "EXP ");
+							TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
+							STATMANAGER->IncreaseExp(t_exp);
+
+						}
+						// 타격 줌인 연출
+						CAMERA->forceZoomIn(0.04f, 0.008f);
+					}
+					else {
+						CAMERA->forceZoomIn(0.008f, 0.002f);
+					}
 				}
+				
 			}
 		}
 	}

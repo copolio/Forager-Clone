@@ -33,6 +33,7 @@ private:
 	float _height;					//체력바 세로길이
 	float _staminaImgSizeMax;		//최대 스테미나 
 	float _staminSizeCurrent;		//현재 스테미나 
+
 	tagStamina* _foragerStamina;
 	ForagerPlayer* _player;
 	tagExp* _foragerExp;
@@ -75,8 +76,13 @@ public :
 
 	int GetCurrentExp() { return currentExp; };
 	int GetLevel() { return level; };
+	int GetStamina() { return _staminSizeCurrent; };
+	int GetStaminaMax() { return _staminaImgSizeMax; };
 
 	void SetCurrentExp(int exp) { currentExp = exp; };
 	void SetLevel(int lev) { level = lev; };
+	void SetStamina(int stam) { _staminSizeCurrent = stam; };
+	void SetStaminaMax(int stamBack) { _staminaImgSizeMax = stamBack; };
+	
 };
 

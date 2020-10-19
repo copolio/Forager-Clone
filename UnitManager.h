@@ -16,7 +16,7 @@
 #include "wraith.h"
 #include "npc.h"
 
-#define MAXENEMYUNIT 40
+#define MAXENEMYUNIT 60
 
 class earth;
 
