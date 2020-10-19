@@ -49,6 +49,8 @@ private:
 	node* _endNode;						//종료노드
 	node* _curNode;						//현재노드
 
+	int idleCount;
+
 	vector<node*> _openList;			//오픈리스트 (탑색할 노드들을 담아둘 벡터)
 	vector<node*> _closeList;			//길을 찾은 노드들을 담아둘 벡터
 	//vector<node*> _finalList;			//클로즈리스트에 담겨있는 노드들을 리버스시켜서 담아둘 벡터

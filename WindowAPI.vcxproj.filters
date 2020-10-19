@@ -300,9 +300,6 @@
     <ClCompile Include="productionManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
-    </ClCompile>
     <ClCompile Include="SpawnManager.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
@@ -326,6 +323,9 @@
     </ClCompile>
     <ClCompile Include="inGameResource.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
