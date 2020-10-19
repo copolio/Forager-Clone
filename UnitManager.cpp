@@ -106,10 +106,8 @@ void UnitManager::checkCollision(unit * p_unit)
 					//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
 					STATMANAGER->setRight(5);
 				}
-					
 				if (p_unit->tag != TAG::ENEMY)
 					_pProjectiles[k].isAppear = false;
-				
 			}
 			// Player 투사체는 모든 유닛에게 데미지 적용
 			else {
