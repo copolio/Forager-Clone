@@ -45,7 +45,7 @@ void SpawnManager::TrySpawn()
 			case 0:
 				//SpawnPatternOne("skull", 10);
 				//SpawnPatternOne("wraithIdle",5);
-				SpawnPatternOne("cow",10);
+				SpawnPatternOne("cow",2);
 				break;
 			}
 		}
