@@ -605,7 +605,7 @@ if (_state != STATE::ROTATE) {
 		if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
 			_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
 			STATMANAGER->setRight(-5);
-			
+			SOUNDMANAGER->play("ÇÇÂû¶§¼Ò¸®", false);
 		}
 		else {
 			_quick->target(0);
