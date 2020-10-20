@@ -117,7 +117,7 @@ void quick_slot::quick_slot_update()
 		}
 	}
 	
-	this->target(0);
+	_targetBox->SetTarget(_quick[ITEMMANAGER->equip_count()-1]->_rc, 2, ITEMMANAGER->equip_count()-1, 4, false);
 }
 
 void quick_slot::target(int i)
