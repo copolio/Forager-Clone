@@ -146,6 +146,13 @@ void ForagerPlayer::update()
 	else if (_quick->GetQuickSlotNumber()->img_name == "sword") {
 		_equipWeapon = EQUIPWEAPON::SWORD;
 	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
+		_equipWeapon = EQUIPWEAPON::FOOD;
+	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
+		_equipWeapon = EQUIPWEAPON::FOOD;
+	}
+
 
 
 
@@ -242,6 +249,27 @@ void ForagerPlayer::render(HDC hdc)
 				IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
 			else
 				IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
+		}
+		else if (_equipWeapon == FOOD) {
+		
+			if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
+				if (_isLeft) {
+					IMAGEMANAGER->render("carry_milk", hdc, relWeaponX -30, relWeaponY + 30, CAMERA->GetZoom());
+				}
+				else {
+					IMAGEMANAGER->render("carry_milk", hdc, relWeaponX +10, relWeaponY + 30, CAMERA->GetZoom());
+				}
+				
+			}if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
+				if (_isLeft) {
+					IMAGEMANAGER->render("carry_berry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
+				}
+				else {
+					IMAGEMANAGER->render("carry_berry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
+				}
+
+			}
+
 		}
 	}
 	STATMANAGER->render(hdc);
@@ -568,8 +596,17 @@ if (_state != STATE::ROTATE) {
 		else if (_equipWeapon == EQUIPWEAPON::BOW) {
 			BowClick();
 		}
+		
+		
 	}
-
+	
+	if (INPUT->GetKeyDown(VK_LBUTTON)) {
+	if (_equipWeapon == EQUIPWEAPON::FOOD) {
+		ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+		_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+		STATMANAGER->setRight(-5);
+	}
+	}
 	if (INPUT->GetKeyUp(VK_LBUTTON)) {
 		if (_equipWeapon == EQUIPWEAPON::PICKAXE)
 		{
@@ -894,6 +931,9 @@ void ForagerPlayer::CheckCollision()
 					_quick->target(0);
 				}
 				else {
+					if (t_vUnit[i]->dropItem.itemKey == "berryDrop" || t_vUnit[i]->dropItem.itemKey == "milkDrop") {
+						_quick->quick_slot_update();
+					}
 					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
 				}
 				break;

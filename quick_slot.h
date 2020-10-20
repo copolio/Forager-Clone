@@ -18,5 +18,6 @@ public:
 
 	void quick_slot_target_Move();
 	inventory_slot* GetQuickSlotNumber() { return _quick[targetnum]; };
+	void Item_Minus(string key,int count);
 };
 
