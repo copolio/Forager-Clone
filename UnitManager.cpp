@@ -22,6 +22,7 @@ void UnitManager::init()
 
 
 	
+
 	//에너미 - (해골, 소, 레이스)
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
@@ -61,6 +62,7 @@ void UnitManager::release()
 	for(int i = 0 ; i < _vUnits.size(); i++)
 		SAFE_DELETE(_vUnits[i]);
 	_vUnits.clear();
+	_vEnemy.clear();
 }
 
 
@@ -197,8 +199,17 @@ void UnitManager::CheckRemoveUnit()
 					PRODUCTIONMANAGER->removeBuildingRc((*iter)->rc);
 				}
 				SAFE_DELETE((*iter));
-				
 				iter = _vUnits.erase(iter);
+			}
+			else
+				++iter;
+		}
+	}
+
+	if (_vEnemy.size() > 0) {
+		for (auto iter = _vEnemy.begin(); iter != _vEnemy.end();) {
+			if ((*iter)->isDead()) {
+				iter = _vEnemy.erase(iter);
 			}
 			else
 				++iter;
@@ -234,7 +245,7 @@ void UnitManager::AddUnits(cow * p_unit, bool test)
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
-	if (_vEnemy.size() >= MAXENEMYUNIT) return;
+
 	// 에너미 생성
 	if (enemyCheck) {
 		//해골
