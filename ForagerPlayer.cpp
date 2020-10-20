@@ -602,9 +602,11 @@ if (_state != STATE::ROTATE) {
 	
 	if (INPUT->GetKeyDown(VK_LBUTTON)) {
 	if (_equipWeapon == EQUIPWEAPON::FOOD) {
-		ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
-		_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
-		STATMANAGER->setRight(-5);
+		if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
+			_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+			STATMANAGER->setRight(-5);
+		}
+		
 	}
 	}
 	if (INPUT->GetKeyUp(VK_LBUTTON)) {
@@ -927,13 +929,13 @@ void ForagerPlayer::CheckCollision()
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
 				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
-					_quick->quick_slot_update();
+					
 					_quick->target(0);
 				}
 				else {
-					if (t_vUnit[i]->dropItem.itemKey == "berryDrop" || t_vUnit[i]->dropItem.itemKey == "milkDrop") {
-						_quick->quick_slot_update();
-					}
+					
+						
+					
 					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
 				}
 				break;
@@ -948,6 +950,7 @@ void ForagerPlayer::CheckCollision()
 
 		}
 	}
+	_quick->quick_slot_update();
 }
 
 

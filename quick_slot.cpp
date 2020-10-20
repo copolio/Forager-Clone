@@ -148,9 +148,16 @@ void quick_slot::quick_slot_target_Move()
 void quick_slot::Item_Minus(string key, int count)
 {
 	for (int i = 0; i < _quick.size(); i++) {
-		if (_quick[i]->img_name == key) {
+		if (_quick[i]->img_name == key && _quick[i]->count >= count) {
 			_quick[i]->count -= count;
 			break;
 		}
+		if (_quick[i]->Kinds == ITEM_FOOD && _quick[i]->count == 0) {
+			_quick[i]->Kinds = ITEM_NULL;
+			_quick[i]->count = 0;
+			_quick[i]->img_name = "";
+
+		}
+		
 	}
 }
