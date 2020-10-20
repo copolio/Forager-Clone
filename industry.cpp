@@ -66,6 +66,9 @@ HRESULT industry::init()
 	IMAGEMANAGER->addFrameImage("steelwork", "Images/이미지/오브젝트/building/img_object_steelwork.bmp", 336, 168, 3, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("anvil", "Images/이미지/오브젝트/building/img_object_anvil.bmp", 285, 95, 3, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("sewingmachine", "Images/이미지/오브젝트/building/img_object_sewingmachine.bmp", 378, 155, 3, 1, true, RGB(255, 0, 255));
+	
+	buildCount = 0;
+
 	return S_OK;
 }
 
@@ -171,6 +174,7 @@ bool industry::industryItemCheck()
 			if (indu_rc[i]->kind == INDUSTRY_STEELWORK) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;
+					buildCount++;
 					building = "steelwork";
 				}
 				return ITEMMANAGER->Item_industry_check("steelwork");
@@ -178,6 +182,7 @@ bool industry::industryItemCheck()
 			else if (indu_rc[i]->kind == INDUSTRY_ANVIL) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;
+					buildCount++;
 					building = "anvil";
 				}
 				return ITEMMANAGER->Item_industry_check("anvil");
@@ -185,6 +190,7 @@ bool industry::industryItemCheck()
 			else if (indu_rc[i]->kind == INDUSTRY_SEWINGMACHINE) {
 				if (ITEMMANAGER->Item_industry_check("steelwork")) {
 					is_building_check = true;
+					buildCount++;
 					building = "sewingmachine";
 				}
 				return ITEMMANAGER->Item_industry_check("sewingmachine");
@@ -196,8 +202,9 @@ bool industry::industryItemCheck()
 
 void industry::addBuilding()
 {
-	if (INPUT->GetKey(VK_LBUTTON)) {
-		if (is_building_check &&
+	RECT darkback = RectMake(960, 0, WINSIZEX - 960, WINSIZEY);
+	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, CAMERA->GetMouseRelativePos(_ptMouse))) {
+		if (is_building_check && buildCount > 0 &&
 			!_map->GetTileP(_tileIndex)->hasUnit &&
 			!_map->GetTileP(_tileIndex+1)->hasUnit &&
 			!_map->GetTileP(_tileIndex+MAPTILEX)->hasUnit &&
@@ -217,7 +224,10 @@ void industry::addBuilding()
 			tiles.push_back(_map->GetTileP(_tileIndex+1));
 			tiles.push_back(_map->GetTileP(_tileIndex+MAPTILEX));
 			tiles.push_back(_map->GetTileP(_tileIndex+MAPTILEX+1));
-			is_building_check = false;
+			buildCount--;
+			if (buildCount == 0) {
+				is_building_check = false;
+			}
 			UNITMANAGER->AddBuilding(building, tiles, _tileIndex);
 			ITEMMANAGER->_Item_industry_decrease(building);
 			SOUNDMANAGER->play("건설성공");
@@ -230,6 +240,7 @@ void industry::addBuilding()
 	}
 	if (INPUT->GetKey(VK_RBUTTON)) {
 		is_building_check = false;
+		buildCount = 0;
 		if (!SOUNDMANAGER->isPlaySound("건설취소")) {
 			SOUNDMANAGER->play("건설취소");
 		}

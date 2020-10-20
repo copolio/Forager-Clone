@@ -39,6 +39,7 @@ private:
 	image* greentile;
 	image* redtile;
 	earth* _map;
+	int buildCount;
 public:
 	void setAgMapLink(earth* map) { _map = map; };
 	void renderBuildableTile(HDC hdc);
