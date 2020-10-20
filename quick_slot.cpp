@@ -17,8 +17,11 @@ void quick_slot::release()
 
 void quick_slot::update()
 {
+	this->target(targetnum);
 	_targetBox->update();
 	quick_slot_target_Move();
+	Item_Minus("", 0);
+	
 }
 
 void quick_slot::render(HDC hdc)
@@ -114,6 +117,7 @@ void quick_slot::quick_slot_update()
 		}
 	}
 	
+	this->target(0);
 }
 
 void quick_slot::target(int i)
@@ -143,6 +147,7 @@ void quick_slot::quick_slot_target_Move()
 	else if (INPUT->GetKeyDown('7') && ITEMMANAGER->equip_count() >= 7) {
 		target(6); targetnum = 6;
 	}
+
 }
 
 void quick_slot::Item_Minus(string key, int count)
@@ -150,13 +155,13 @@ void quick_slot::Item_Minus(string key, int count)
 	for (int i = 0; i < _quick.size(); i++) {
 		if (_quick[i]->img_name == key && _quick[i]->count >= count) {
 			_quick[i]->count -= count;
-			break;
+			
 		}
 		if (_quick[i]->Kinds == ITEM_FOOD && _quick[i]->count == 0) {
-			_quick[i]->Kinds = ITEM_NULL;
-			_quick[i]->count = 0;
-			_quick[i]->img_name = "";
-
+			this->settargetNum(0);
+			this->target(0);
+			quick_slot_update();
+			break;
 		}
 		
 	}

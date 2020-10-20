@@ -605,6 +605,11 @@ if (_state != STATE::ROTATE) {
 		if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
 			_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
 			STATMANAGER->setRight(-5);
+			
+		}
+		else {
+			_quick->target(0);
+			_quick->settargetNum(0);
 		}
 		
 	}
@@ -924,21 +929,21 @@ void ForagerPlayer::CheckCollision()
 			RECT t_bound = RectMakeCenter(GetCenterX(), GetCenterY(), 30, 30);
 			if (IntersectRect(&temp, &t_bound, &t_vUnit[i]->rc)) {
 				SOUNDMANAGER->play("아이템충돌");
+				
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
 				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
-					
-					_quick->target(0);
+					_quick->quick_slot_update();
 				}
 				else {
-					
-						
-					
 					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);	
+					_quick->quick_slot_update();
 				}
+				_quick->quick_slot_update();
 				break;
+				
 			}
 		}
 		// 빌딩 상호작용 렉트 충돌
@@ -950,7 +955,8 @@ void ForagerPlayer::CheckCollision()
 
 		}
 	}
-	_quick->quick_slot_update();
+	
+
 }
 
 
