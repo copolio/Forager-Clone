@@ -40,6 +40,8 @@ public:
 	int currentCount;
 	int nextCount;
 
+	bool hasRes;
+
 public:
 	virtual void update();
 	void render(HDC hdc) override;

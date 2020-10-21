@@ -19,13 +19,23 @@ void cursor::update()
 	_targetingBox.update();
 	if (isbuilding) {
 		if (INPUT->GetKeyDown('E')) {
-
-			if (interaction) {
-				interaction = false;
+			if (_unit->objKey == "fishtrap") {
+				if (_unit->hasRes) {
+					_unit->hasRes = false;
+					//isbuilding = false;
+					//interaction = false;
+					UNITMANAGER->AddUnits("fish", CAMERA->GetMouseRelativePos(_ptMouse));
+				}
 			}
 			else {
-				interaction = true;
-				SOUNDMANAGER->play("건물상호작용");
+				if (interaction) {
+					interaction = false;
+				}
+				else {
+					interaction = true;
+
+					SOUNDMANAGER->play("건물상호작용");
+				}
 			}
 		}
 	}
@@ -88,6 +98,7 @@ void cursor::CheckObject()
 						_unit = &(*vUnit[i]);
 						if (_unit->objKey != "bridge") {
 							isbuilding = true;
+
 							PRODUCTIONMANAGER->getRc(t_rc);
 							number = i;
 						}

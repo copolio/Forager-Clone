@@ -167,6 +167,7 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="equipMent.h" />
     <ClInclude Include="fieldItem.h" />
+    <ClInclude Include="fishTrap.h" />
     <ClInclude Include="ForagerPlayer.h" />
     <ClInclude Include="ForagerStatManager.h" />
     <ClInclude Include="gamemap.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="equipMent.cpp" />
     <ClCompile Include="fieldItem.cpp" />
+    <ClCompile Include="fishTrap.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
     <ClCompile Include="ForagerStatManager.cpp" />
     <ClCompile Include="gamemap.cpp" />
