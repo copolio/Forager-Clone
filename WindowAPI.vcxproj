@@ -169,6 +169,7 @@
     <ClInclude Include="fieldItem.h" />
     <ClInclude Include="ForagerPlayer.h" />
     <ClInclude Include="ForagerStatManager.h" />
+    <ClInclude Include="gamemap.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="gameObject.h" />
     <ClInclude Include="gameScene.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="fieldItem.cpp" />
     <ClCompile Include="ForagerPlayer.cpp" />
     <ClCompile Include="ForagerStatManager.cpp" />
+    <ClCompile Include="gamemap.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="gameObject.cpp" />
     <ClCompile Include="gameScene.cpp" />

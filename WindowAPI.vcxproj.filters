@@ -327,6 +327,9 @@
     <ClCompile Include="Astar.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="gamemap.cpp">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -529,6 +532,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>아이콘</Filter>
+    </ClInclude>
+    <ClInclude Include="gamemap.h">
+      <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
