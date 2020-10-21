@@ -131,6 +131,9 @@ HRESULT ForagerPlayer::init()
 	// 기타
 	inven_open = false;
 
+	_startBalloon = false;		// 시작 말풍선
+	_cntDelayStartBalloon = 0;
+	_delayStartBalloon = 240;
 	return S_OK;
 }
 
@@ -798,7 +801,19 @@ void ForagerPlayer::hungryBalloon()
 		else {
 			_cntBalloon = 0;
 		}
+		if (!_startBalloon) {
+
+			if (_cntDelayStartBalloon++ >= _delayStartBalloon) {
+				_startBalloon = true;
+				vector<string> t_vStr;
+				t_vStr.push_back("우선 용광로부터 지어야겠어!");
+				DIALOGUE->ShowDialogue(t_vStr, &rc, 0);
+			}
+		}
 	}
+
+
+
 }
 
 POINT ForagerPlayer::GetBowXY()
