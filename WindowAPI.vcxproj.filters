@@ -213,9 +213,6 @@
     <ClCompile Include="ForagerPlayer.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\player</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="cursor.cpp">
       <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClCompile>
@@ -323,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="gamemap.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

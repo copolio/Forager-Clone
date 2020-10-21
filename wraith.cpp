@@ -172,7 +172,7 @@ void wraith::wraithAnimation()
 		}
 		break;
 	case SHOOT:
-		
+
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _attackIndex;
 		if (wraithHitCount++ % 20 == 0)
@@ -191,7 +191,7 @@ void wraith::wraithAnimation()
 
 void wraith::wraithLookDirection()
 {
-	if ( _state3 == SHOOT || _state3 == FLY)
+	if (_state3 == SHOOT || _state3 == FLY)
 	{
 		if (rc.left > _target->rc.left)
 			isLeft = true;

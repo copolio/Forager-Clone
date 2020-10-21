@@ -37,8 +37,8 @@ HRESULT ForagerPlayer::init()
 	_isGotDamage = false;
 	
 	
-	
 	_state = STATE::IDLE;
+	_priorState = _state;
 	_angle = 0.0f;
 	// 무기 위치 초기화
 	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56);
@@ -176,7 +176,12 @@ void ForagerPlayer::update()
 	STATMANAGER->update();
 	STATMANAGER->setinvenopen(inven_open);
 
-
+	if (_priorState != _state) {
+		_count = 0;
+		_index = 0;
+		_hitDelayCount = 0;
+	}
+	_priorState = _state;
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -195,12 +200,12 @@ void ForagerPlayer::render(HDC hdc)
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
 	case RUN:
-		if(!_isGotDamage)
-		IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
+		if (!_isGotDamage)
+			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
 		else
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
-	
+
 	case ROTATE:
 		if (_isLeft)
 		{
@@ -215,8 +220,8 @@ void ForagerPlayer::render(HDC hdc)
 				IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
 		}
 		break;
-		
-		
+
+
 	case HAMMERING:
 		IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
 		if (_equipWeapon == PICKAXE) {
@@ -283,50 +288,24 @@ void ForagerPlayer::animation()
 		switch (_state)
 		{
 		case IDLE:
-			if (_isLeft)
+			_foragerIdle->setFrameY((_isLeft) ? 1 : 0);
+			_foragerIdle->setFrameX(_index);
+			if (_count++ % 10 == 0)
 			{
-				_foragerIdle->setFrameY(1);
-				_foragerIdle->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index-- <= 0)
-						_index = 3;
-				}
+				if (_index++ > 3)
+					_index = 0;
 			}
-			else
+			break;
+		case RUN:
+			_foragerRun->setFrameY( (_isLeft) ? 1 : 0);
+			_foragerRun->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_foragerIdle->setFrameY(0);
-				_foragerIdle->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index++ > 3)
-						_index = 0;
-				}
+				if (_index++ > 4)
+					_index = 0;
 			}
 			break;
 
-		case RUN:
-			if (_isLeft)
-			{
-				_foragerRun->setFrameY(1);
-				_foragerRun->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index-- <= 0)
-						_index = 4;
-				}
-			}
-			else
-			{
-				_foragerRun->setFrameY(0);
-				_foragerRun->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index++ > 4)
-						_index = 0;
-				}
-			}
-			break;
 		case ROTATE:
 			if (_isLeft)
 			{
@@ -365,32 +344,17 @@ void ForagerPlayer::animation()
 			else {
 				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
 			}
-			if (_isLeft)
+			
+			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_playerHammering->setFrameX(_index);
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				_foragerHammering->setFrameY(1);
-				_playerHammering->setFrameY(1);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
+				if (_index++ > 3)
 				{
-					if (_index-- <= 0) {
-						_index = 3;
-						_hitDelayCount = 1;
-					}
-				}
-			}
-			else
-			{
-				_foragerHammering->setFrameY(0);
-				_playerHammering->setFrameY(0);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
-				{
-					if (_index++ >= 3) {
-						_hitDelayCount = 1;
-						_index = 0;
-					}
+					_index = 0;
+					_hitDelayCount = 1;
 				}
 			}
 			break;
@@ -426,34 +390,18 @@ void ForagerPlayer::animation()
 			else {
 				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
 			}
-			if (_isLeft)
+			
+			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_playerHammering->setFrameX(_index);
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				_foragerHammering->setFrameY(1);
-				_playerHammering->setFrameY(1);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
+				if (_index++ > 3)
 				{
-					if (_index-- <= 0) {
-						_index = 3;
-						_hitDelayCount = 1;
-					}
+					_hitDelayCount = 1;
+					_index = 0;
 				}
-			}
-			else
-			{
-				_foragerHammering->setFrameY(0);
-				_playerHammering->setFrameY(0);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
-				{
-					if (_index++ >= 3) {
-						_hitDelayCount = 1;
-						_index = 0;
-					}
-				}
-
 			}
 			break;
 		}
@@ -501,134 +449,111 @@ void ForagerPlayer::bowAnimation()
 
 void ForagerPlayer::PlayerControll()
 {
-	//if (INPUT->GetKeyDown('0')) {
-	//	_equipWeapon = PICKAXE;
-	//}
-	//else if (INPUT->GetKeyDown('1')) {
-	//	_equipWeapon = BOW;
-	//}
-	
-	
+	if (_state != ROTATE) {
+		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
+		{
+			_state = IDLE;
+			_isMoveHorizon = false;
+			_isMoveVertical = false;
+		}
+		//뛰어다니는 상태 (좌우 움직임)
+		if (INPUT->GetKey('A') || INPUT->GetKey('D'))
+		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
 
-	//if (INPUT->GetKeyDown('2')) {
-	//	vector<string> str;
-	//	str.push_back("지금은 아무것도 할 게 없어.");
-	//	DIALOGUE->ShowDialogue(str, &rc);
-	//}
-	//else if (INPUT->GetKeyDown('3')) {
-	//	vector<string> str;
-	//	str.push_back("배가 고파지기 시작했어.");
-	//	str.push_back("뭐라도 먹는 게 좋을 것 같아.");
-	//	DIALOGUE->ShowDialogue(str, &rc);
-	//}
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
 
-if (_state != STATE::ROTATE) {
-	if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
-	{
-		_state = IDLE;
-		_isMoveHorizon = false;
-		_isMoveVertical = false;
-	}
-	//뛰어다니는 상태 (좌우 움직임)
-	if (INPUT->GetKey('A') || INPUT->GetKey('D'))
-	{
-		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-			switch (RANDOM->range(2)) {
-			case 0:
-				SOUNDMANAGER->play("플레이어걸음1");
+					break;
+				}
+			}
+			_isMoveHorizon = true;
+			_state = RUN;
+			_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
+		}
+		//뛰어다니는 상태 (상하 움직임)
+		if (INPUT->GetKey('W') || INPUT->GetKey('S'))
+		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
 
-				break;
-			case 1:
-				SOUNDMANAGER->play("플레이어걸음2");
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
 
-				break;
+					break;
+				}
+			}
+			_isMoveVertical = true;
+			_state = RUN;
+			_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
+		}
+
+		// 움직일 떄만 굴러갈 수 있게
+		if (_state != IDLE || _isGotDamage == false)
+		{
+			//굴러다니는 상태 
+			if (INPUT->GetKeyDown(VK_SPACE))
+			{
+				_state = ROTATE;
+				_isMoveRotate = false;
+				STATMANAGER->setRight(5);
 			}
 		}
-		_isMoveHorizon = true;
-		_state = RUN;
-		_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
-	}
-	//뛰어다니는 상태 (상하 움직임)
-	if (INPUT->GetKey('W') || INPUT->GetKey('S'))
-	{
-		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-			switch (RANDOM->range(2)) {
-			case 0:
-				SOUNDMANAGER->play("플레이어걸음1");
 
-				break;
-			case 1:
-				SOUNDMANAGER->play("플레이어걸음2");
-
-				break;
+		// 공격 좌클릭
+		if (INPUT->GetKey(VK_LBUTTON))
+		{
+			if (_isGotDamage)
+			{
+				_isGotDamage = false;
+				_index = 0;
+				_count = 0;
+			}
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
+				MeleeWeaponClick();
+			}
+			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+				BowClick();
 			}
 		}
-		_isMoveVertical = true;
-		_state = RUN;
-		_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
-	}
 
-	// 움직일 떄만 굴러갈 수 있게
-	if (_state != STATE::IDLE || _isGotDamage == false)
-	{
-		//굴러다니는 상태 
-		if (INPUT->GetKeyDown(VK_SPACE))
-		{
-			_state = ROTATE;
-			_isMoveRotate = false;
-			//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-			STATMANAGER->setRight(5);
-		}
-	}
+		if (INPUT->GetKeyDown(VK_LBUTTON)) {
+			if (_equipWeapon == EQUIPWEAPON::FOOD) {
+				if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
+					_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+					STATMANAGER->setRight(-5);
+					SOUNDMANAGER->play("피찰때소리", false);
+				}
+				else {
+					_quick->target(0);
+					_quick->settargetNum(0);
+				}
 
-	// 공격 좌클릭
-	if (INPUT->GetKey(VK_LBUTTON))
-	{
-		if (_isGotDamage)
+			}
+		}
+		if (INPUT->GetKeyUp(VK_LBUTTON))
 		{
-			_isGotDamage = false;
-			_index = 0;
-			_count = 0;
-		}
-		if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
-			MeleeWeaponClick();
-		}
-		else if (_equipWeapon == EQUIPWEAPON::BOW) {
-			BowClick();
-		}
-		
-		
-	}
-	
-	if (INPUT->GetKeyDown(VK_LBUTTON)) {
-	if (_equipWeapon == EQUIPWEAPON::FOOD) {
-		if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
-			_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
-			STATMANAGER->setRight(-5);
-			SOUNDMANAGER->play("피찰때소리", false);
-		}
-		else {
-			_quick->target(0);
-			_quick->settargetNum(0);
-		}
-		
-	}
-	}
-	if (INPUT->GetKeyUp(VK_LBUTTON)) {
-		if (_equipWeapon == EQUIPWEAPON::PICKAXE)
-		{
-			_hitDelayCount = 1;
-			_index = (_isLeft) ? 3 : 0;
-			_foragerHammering->setFrameX(_index);
-			_playerHammering->setFrameX(_index);
-		}
-		else if (_equipWeapon == EQUIPWEAPON::BOW) {
-			ArrowFire();
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE)
+			{
+				_hitDelayCount = 1;
+				_index = (_isLeft) ? 3 : 0;
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
+			}
+			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+				ArrowFire();
+			}
 		}
 	}
-}
 	else
-	_isGotDamage = false;
+		_isGotDamage = false;
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -719,8 +644,6 @@ void ForagerPlayer::ArrowFire()
 		_bowPowerGauge = .1f;
 		
 	}
-	
-
 }
 
 
@@ -783,7 +706,6 @@ void ForagerPlayer::playerMove()
 void ForagerPlayer::playerLookingDirection()
 {
 	int forgaerCenter = (rc.left + rc.right) / 2;
-
 
 	if (_state != STATE::ROTATE) {
 		if (forgaerCenter < CAMERA->GetMouseRelativePos(_ptMouse).x)
@@ -955,8 +877,6 @@ void ForagerPlayer::CheckCollision()
 
 		}
 	}
-	
-
 }
 
 
@@ -967,7 +887,6 @@ void ForagerPlayer::hurt(int damage)
 	_isGotDamage = true;
 	_index = 0;
 	_count = 0;
-
 }
 
 

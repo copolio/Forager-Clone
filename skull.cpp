@@ -25,7 +25,7 @@ void skull::update()
 {
 	skullAnimation();
 	skullMove();
-	if (_state != APPEAR ) {
+	if (_state != APPEAR) {
 		canAttackCheck();
 	}
 	skullLookDirection();
@@ -40,11 +40,11 @@ void skull::render(HDC hdc)
 	switch (_state)
 	{
 	case STAY:
-		IMAGEMANAGER->frameRender("skull", hdc, CAMERA->GetRelativeX(rc.left - 13 ),
-			CAMERA->GetRelativeY(rc.top - 10) , objFrameX, objFrameY, CAMERA->GetZoom());
+		IMAGEMANAGER->frameRender("skull", hdc, CAMERA->GetRelativeX(rc.left - 13),
+			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case ATTACK:
-		IMAGEMANAGER->frameRender("skullAttack", hdc, CAMERA->GetRelativeX(rc.left -53),
+		IMAGEMANAGER->frameRender("skullAttack", hdc, CAMERA->GetRelativeX(rc.left - 53),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case APPEAR:
@@ -61,7 +61,7 @@ void skull::render(HDC hdc)
 //1Å¸ÀÏ¾¿ »óÇÏÁÂ¿ì ·£´ý¿òÁ÷ÀÌ´Âµ¥, ÃÑ 5¹ø 
 void skull::skullMove()
 {
-	if (_state == STAY) 
+	if (_state == STAY)
 	{
 		if (!checkDestination)
 		{
@@ -219,7 +219,7 @@ void skull::canAttackCheck()
 		if (skullHitWaitCount > 120)
 		{
 			if (skullHitCount == 17) {
-				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)	
+				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
 					_target->hurt(Atk);
 			}
 			_state = ATTACK;
@@ -290,7 +290,7 @@ void skull::skullAnimation()
 
 void skull::skullLookDirection()
 {
-	if ( _state == ATTACK || isattacking)
+	if (_state == ATTACK || isattacking)
 	{
 		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
 			isLeft = true;

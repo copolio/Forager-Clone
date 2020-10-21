@@ -11,7 +11,6 @@
 class inventory;
 class earth;
 class cursor;
-
 enum STATE
 {
 	IDLE,
@@ -34,6 +33,8 @@ private:
 
 	// 기본
 	STATE _state;				// 캐릭터 상태
+	STATE _priorState;			// 이전 캐릭터 상태
+
 	float _speed;				// 플레이어 스피드 
 	float _currentSpeed;		// 플레이어 현재 스피드 
 	int Atk;					// 공격력

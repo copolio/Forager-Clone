@@ -2,7 +2,6 @@
 #include "enemy.h"
 #define MOVERANGE 2
 #define MOVESPEED 1
-
 enum SKULLSTATE
 {
 	STAY,	//걸어다니는 이미지랑 
