@@ -20,8 +20,9 @@ void unit::update()
 	count++;
 }
 
-void unit::animation()
+void unit::animation() 
 {
+	if (frameX < 0) frameX = 0;
 	if (isHit) {
 		if (currentCount++ >= nextCount) {
 			currentCount = 0;
