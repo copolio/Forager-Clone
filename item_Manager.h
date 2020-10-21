@@ -40,6 +40,9 @@ public:
 	int getMoney() {
 		return *money;
 	}
+	void setMoney(int m) {
+		*money = m;
+	}
 public:
 	
 	int equip_count();

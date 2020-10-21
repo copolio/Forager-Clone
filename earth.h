@@ -9,7 +9,7 @@
 class earth : public gamemap
 {
 private:
-	ForagerPlayer* _player; // �÷��̾�
+	ForagerPlayer* _player; // ÇÃ·¹ÀÌ¾î
 
 private:
 	image* watertile;

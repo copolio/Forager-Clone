@@ -9,6 +9,8 @@ void saveManager::save()
 	this->Tile_transform();
 	this->Unit_transform();
 	this->Player_transform();
+	this->npc_transform();
+
 	HANDLE file;
 	DWORD write;
 
@@ -26,6 +28,10 @@ void saveManager::save()
 
 	file = CreateFile(My_Game_save_file_unit, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	WriteFile(file, My_unit, sizeof(unit) * _Unit.size(), &write, NULL);
+	CloseHandle(file);
+
+	file = CreateFile(My_Game_save_file_npc, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	WriteFile(file, quest, sizeof(npc) * NPCMAXSIZE, &write, NULL);
 	CloseHandle(file);
 
 }
@@ -118,6 +124,7 @@ bool saveManager::load()
 				level = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Level");
 				stamina = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Stamina");
 				staminaBack = INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "StaminaBack");
+				ITEMMANAGER->setMoney(INIDATA->loadDataInteger(My_Game_save_file_player, "Player", "Money"));
 				STATMANAGER->SetCurrentExp(exp);
 				STATMANAGER->SetLevel(level);
 				STATMANAGER->SetStamina(stamina);
@@ -145,6 +152,22 @@ bool saveManager::load()
 			}
 		}
 	}
+
+	file = CreateFile(My_Game_save_file_npc, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	ReadFile(file, quest, sizeof(npc) * NPCMAXSIZE, &read, NULL);
+	CloseHandle(file);
+
+	if (file != INVALID_HANDLE_VALUE) {
+		vector<npc*> _npclode = UNITMANAGER->GetNpc();
+		for (int i = 0; i < NPCMAXSIZE;i++) {
+			cout << quest[i].get_isQuestReceive() << endl;
+			cout << quest[i].get_isQuestComplete() << endl;
+			UNITMANAGER->GetNpc()[i]->set_isQuestReceive(quest[i].get_isQuestReceive());
+			UNITMANAGER->GetNpc()[i]->set_isQuestComplete(quest[i].get_isQuestComplete());
+		}
+	}
+
+
 	return true;
 }
 
@@ -203,16 +226,32 @@ void saveManager::Player_transform()
 	int level = STATMANAGER->GetLevel();
 	int stamina = STATMANAGER->GetStamina();
 	int staminaBack = STATMANAGER->GetStaminaMax();
+	int money = ITEMMANAGER->getMoney();
 	string sExp = to_string(exp);
 	string sLevel = to_string(level);
 	string sStamina = to_string(stamina);
 	string sStaminaBack = to_string(staminaBack);
+	string smoney = to_string(money);
 	
 	INIDATA->addData("Player", "Exp", sExp.c_str());
 	INIDATA->addData("Player", "Level", sLevel.c_str());
 	INIDATA->addData("Player", "Stamina", sStamina.c_str());
 	INIDATA->addData("Player", "StaminaBack", sStaminaBack.c_str());
+	INIDATA->addData("Player", "Money", smoney.c_str());
 	INIDATA->saveINI(My_Game_save_file_player);
+}
+
+void saveManager::npc_transform()
+{
+	vector<npc*> *_npc = UNITMANAGER->PGetNpc();
+	for (int i = 0; i < (*_npc).size(); i++) {
+		quest[i].set_isQuestReceive((*_npc)[i]->get_isQuestReceive());
+		
+		quest[i].set_isQuestComplete((*_npc)[i]->get_isQuestComplete());
+		cout << quest[i].get_isQuestReceive() << endl;
+		cout << quest[i].get_isQuestComplete() << endl;
+	
+	}
 }
 
 void saveManager::Tile_transform()
