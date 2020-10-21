@@ -34,7 +34,7 @@ void skull::update()
 void skull::render(HDC hdc)
 {
 	if (0 < currentHp && currentHp < maxHp) {
-		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom + 16));
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left-11), CAMERA->GetRelativeY(rc.bottom + 16));
 		_hpBar.render(hdc);
 	}
 	switch (_state)
@@ -237,25 +237,12 @@ void skull::skullAnimation()
 	{
 		//«ÿ∞Ò ∂Ÿ¥Û±Ë
 	case STAY:
-		if (isLeft)
+		objFrameY = (isLeft) ? 1 : 0;
+		objFrameX = _index;
+		if (_count++ % 10 == 0)
 		{
-			objFrameY = 1;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
-			{
-				if (_index-- <= 0)
-					_index = 4;
-			}
-		}
-		else
-		{
-			objFrameY = 0;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
-			{
-				if (_index++ > 5)
-					_index = 0;
-			}
+			if (_index++ > 5)
+				_index == 0;
 		}
 		break;
 		//«ÿ∞Ò ∂•ø°º≠ µÓ¿Â.
