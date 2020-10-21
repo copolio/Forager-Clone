@@ -142,7 +142,7 @@ void TextManager::ShowText(HDC hdc, bool isRelative, string str, POINT ptPos, in
 		if(!isRelative)
 			TextOut(hdc, ptPos.x - interval, ptPos.y + interval, str.c_str(), strlen(str.c_str()));
 		else
-			TextOut(hdc, CAMERA->GetRelativeX(ptPos.x - interval), CAMERA->GetRelativeY(ptPos.y + interval), str.c_str(), strlen(str.c_str()));
+			TextOut(hdc, CAMERA->GetRelativeX(ptPos.x - interval) * CAMERA->GetZoom(), CAMERA->GetRelativeY(ptPos.y + interval) * CAMERA->GetZoom(), str.c_str(), strlen(str.c_str()));
 	}
 
 	SetTextColor(hdc, color);
@@ -155,7 +155,7 @@ void TextManager::ShowText(HDC hdc, bool isRelative, string str, POINT ptPos, in
 	if(!isRelative)
 		TextOut(hdc, ptPos.x, ptPos.y, str.c_str(), strlen(str.c_str()));
 	else
-		TextOut(hdc, CAMERA->GetRelativeX(ptPos.x), CAMERA->GetRelativeY(ptPos.y), str.c_str(), strlen(str.c_str()));
+		TextOut(hdc, CAMERA->GetRelativeX(ptPos.x) * CAMERA->GetZoom(), CAMERA->GetRelativeY(ptPos.y) * CAMERA->GetZoom(), str.c_str(), strlen(str.c_str()));
 
 
 	SetTextAlign(hdc, TA_LEFT);

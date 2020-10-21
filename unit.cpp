@@ -34,15 +34,18 @@ void unit::animation()
 		}
 	}
 	if (objKey == "bridge") {
-		if (frameX > 3) frameX = 0;
-		objFrameX = frameX;
-		if (count%15 == 0) frameX++;
+		
+		if (count % 15 == 0) {
+			objFrameX += waveUp ? 1 : -1;
+			
+			if (objFrameX > 3 || objFrameX < 1) {
+				waveUp = !waveUp;
+			}
+		}
 	}
-	if (objKey == "fishtrap") {
-		if (frameX > 2) frameX = 0;
-		objFrameX = frameX;
-		if (count % 20 == 0) frameX++;
-	}
+
+
+
 }
 
 void unit::dead()

@@ -44,15 +44,18 @@ void cursor::update()
 
 void cursor::render(HDC hdc)
 {
-	_targetingBox.render(hdc);
-	if (isbuilding) {
-		IMAGEMANAGER->render("BuildingInteractionE", hdc,
-			CAMERA->GetRelativeX(_unit->GetCenterX()-20),
-			CAMERA->GetRelativeY(_unit->GetCenterY()-20));
+	if (CAMERA->movelimit) {
+		_targetingBox.render(hdc);
+		if (isbuilding) {
+			IMAGEMANAGER->render("BuildingInteractionE", hdc,
+				CAMERA->GetRelativeX(_unit->GetCenterX() - 20),
+				CAMERA->GetRelativeY(_unit->GetCenterY() - 20));
+		}
+		if (interaction) {
+			_buildinginteraction->targertrender(hdc, vUnit[number]->objKey);
+		}
 	}
-	if (interaction) {
-		_buildinginteraction->targertrender(hdc, vUnit[number]->objKey);
-	}
+
 }
 
 

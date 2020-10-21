@@ -43,6 +43,7 @@ public:
 	int count;
 
 	bool hasRes;
+	bool waveUp;
 
 public:
 	virtual void update();
