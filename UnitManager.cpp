@@ -63,6 +63,7 @@ void UnitManager::release()
 		SAFE_DELETE(_vUnits[i]);
 	_vUnits.clear();
 	_vEnemy.clear();
+	_vNpc.clear();
 }
 
 
