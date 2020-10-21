@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "startScene.h"
 
-
 HRESULT startScene::init()
 {
 	SCENEMANAGER->deleteScene("게임 화면");
@@ -187,13 +186,15 @@ void startScene::CheckCursorOnButton()
 
 void startScene::CheckButtonClick()
 {
-	if (INPUT->GetKeyDown(VK_RBUTTON)) {
-		EFFECTMANAGER->ShowEffectFrame("DigSmoke", _ptMouse);
-	}
+	//if (INPUT->GetKeyDown(VK_RBUTTON)) {
+	//	EFFECTMANAGER->ShowEffectFrame("DigSmoke", _ptMouse);
+	//}
 
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{
+		cout << "click r" << endl;
+
 		if (!PtInRect(&_game_setting->GetRcWindow(), _ptMouse) && gameOptionCheck) {
 			gameOptionCheck = false;
 		}
@@ -248,7 +249,42 @@ void startScene::CheckButtonClick()
 		}
 	}
 	//우측 클릭시 삭제
-	//if (INPUT->GetKeyDown(VK_RBUTTON))
-	//{
-	//}
+	if (INPUT->GetKeyDown(VK_RBUTTON))
+	{
+		cout << "click r" << endl;
+		for (int i = 0; i < BUTTON_MAX; i++)
+		{
+			if (PtInRect(&_button[i].GetRect(), _ptMouse))
+			{
+				SOUNDMANAGER->play("클릭");
+				switch (i) {
+				case BTN::SLOT1:
+					DeleteFile(TEXT("save/item_save1.map"));
+					DeleteFile(TEXT("save/equip_save1.map"));
+					DeleteFile(TEXT("save/tile_save1.map"));
+					DeleteFile(TEXT("save/unit_save1.map"));
+					DeleteFile(TEXT("save/player_save1.ini"));
+					CheckGameFile();
+					break;	// 게임 슬롯 1
+
+				case BTN::SLOT2:
+					DeleteFile(TEXT("save/item_save2.map"));
+					DeleteFile(TEXT("save/equip_save2.map"));
+					DeleteFile(TEXT("save/tile_save2.map"));
+					DeleteFile(TEXT("save/unit_save2.map"));
+					DeleteFile(TEXT("save/player_save2.ini"));
+					CheckGameFile();
+					break;	// 게임 슬롯 2
+				case BTN::SLOT3:
+					DeleteFile(TEXT("save/item_save3.map"));
+					DeleteFile(TEXT("save/equip_save3.map"));
+					DeleteFile(TEXT("save/tile_save3.map"));
+					DeleteFile(TEXT("save/unit_save3.map"));
+					DeleteFile(TEXT("save/player_save3.ini"));
+					CheckGameFile();
+					break;	// 게임 슬롯 3
+				}
+			}
+		}
+	}
 }
