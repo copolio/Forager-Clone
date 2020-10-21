@@ -22,9 +22,6 @@
     <Filter Include="GameFramework\로딩">
       <UniqueIdentifier>{380f7478-b624-45de-aeae-2ccb9055ab48}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\사운드테스트">
-      <UniqueIdentifier>{fddc1305-6e22-4095-a825-8f29605b50ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\INI테스트">
       <UniqueIdentifier>{8e6d480c-fe29-46b8-90ae-1b8ccd219b09}</UniqueIdentifier>
     </Filter>
@@ -170,9 +167,6 @@
     </ClCompile>
     <ClCompile Include="soundManager.cpp">
       <Filter>GameFramework\매니져</Filter>
-    </ClCompile>
-    <ClCompile Include="soundTestScene.cpp">
-      <Filter>GameFramework\사운드테스트</Filter>
     </ClCompile>
     <ClCompile Include="loading.cpp">
       <Filter>GameFramework\로딩</Filter>
@@ -376,9 +370,6 @@
     </ClInclude>
     <ClInclude Include="soundManager.h">
       <Filter>GameFramework\매니져</Filter>
-    </ClInclude>
-    <ClInclude Include="soundTestScene.h">
-      <Filter>GameFramework\사운드테스트</Filter>
     </ClInclude>
     <ClInclude Include="loading.h">
       <Filter>GameFramework\로딩</Filter>
