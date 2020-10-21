@@ -15,6 +15,7 @@
 #include "ProjectileManager.h"
 #include "wraith.h"
 #include "npc.h"
+#include "fishTrap.h"
 
 #define MAXENEMYUNIT 60
 

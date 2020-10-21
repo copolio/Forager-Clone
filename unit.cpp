@@ -58,6 +58,8 @@ void unit::render(HDC hdc)
 			CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
 			objFrameX, objFrameY);
 	
+
+
 }
 
 bool unit::isDead()

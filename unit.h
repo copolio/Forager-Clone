@@ -42,6 +42,8 @@ public:
 	int frameX;
 	int count;
 
+	bool hasRes;
+
 public:
 	virtual void update();
 	void render(HDC hdc) override;

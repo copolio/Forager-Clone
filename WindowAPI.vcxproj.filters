@@ -127,6 +127,9 @@
     <Filter Include="GameFramework\MainGame\Forager\ItemDatabase">
       <UniqueIdentifier>{ee62a449-8055-4262-be55-89b2085dec97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\building\Fishtrap">
+      <UniqueIdentifier>{e2f1e852-6a15-4493-8862-aada780d2cb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -329,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="gamemap.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="fishTrap.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -535,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="gamemap.h">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="fishTrap.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

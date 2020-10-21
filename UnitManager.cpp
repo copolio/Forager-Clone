@@ -12,6 +12,9 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("carry_berry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fish", "Images/이미지/아이템/물고기.bmp", 56, 56, true, RGB(255, 0, 255));
+
+
 	
 	//자원 2 ('해골, 소'의 드랍아이템)
 	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
@@ -337,9 +340,18 @@ void UnitManager::setLinkMap(earth * p_map)
 
 void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {
-	building* _building = new building;
-	_building->setBuilding(buildkey, _tile, tileindex);
-	_vUnits.push_back(_building);
+	if (buildkey == "fishtrap") {
+		fishTrap *t_fishTrap = new fishTrap;
+		t_fishTrap->setFishTrap(buildkey, _tile, tileindex);
+		_vUnits.push_back(t_fishTrap);
+
+	}
+	else {
+		building* _building = new building;
+		_building->setBuilding(buildkey, _tile, tileindex);
+		_vUnits.push_back(_building);
+
+	}
 }
 
 void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles, int tileindex)
