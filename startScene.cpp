@@ -267,6 +267,7 @@ void startScene::CheckButtonClick()
 					DeleteFile(TEXT("save/tile_save1.map"));
 					DeleteFile(TEXT("save/unit_save1.map"));
 					DeleteFile(TEXT("save/player_save1.ini"));
+					DeleteFile(TEXT("save/quest_save1.map"));
 					CheckGameFile();
 					break;	// ∞‘¿” ΩΩ∑‘ 1
 
@@ -276,6 +277,8 @@ void startScene::CheckButtonClick()
 					DeleteFile(TEXT("save/tile_save2.map"));
 					DeleteFile(TEXT("save/unit_save2.map"));
 					DeleteFile(TEXT("save/player_save2.ini"));
+					DeleteFile(TEXT("save/quest_save2.map"));
+
 					CheckGameFile();
 					break;	// ∞‘¿” ΩΩ∑‘ 2
 				case BTN::SLOT3:
@@ -284,6 +287,7 @@ void startScene::CheckButtonClick()
 					DeleteFile(TEXT("save/tile_save3.map"));
 					DeleteFile(TEXT("save/unit_save3.map"));
 					DeleteFile(TEXT("save/player_save3.ini"));
+					DeleteFile(TEXT("save/quest_save3.map"));
 					CheckGameFile();
 					break;	// ∞‘¿” ΩΩ∑‘ 3
 				}
