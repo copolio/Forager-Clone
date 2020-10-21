@@ -34,7 +34,7 @@ void unit::animation()
 		}
 	}
 	if (objKey == "bridge") {
-		
+		if (objFrameX < 0) objFrameX = 0;
 		if (count % 15 == 0) {
 			objFrameX += waveUp ? 1 : -1;
 			

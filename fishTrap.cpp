@@ -22,7 +22,7 @@ void fishTrap::update()
 	}
 
 	if (objKey == "fishtrap") {
-
+		if (objFrameX < 0) objFrameX = 0;
 		if (count % 15 == 0) {
 			objFrameX += waveUp ? 1 : -1;
 
