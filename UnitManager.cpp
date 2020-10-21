@@ -63,6 +63,7 @@ void UnitManager::release()
 		SAFE_DELETE(_vUnits[i]);
 	_vUnits.clear();
 	_vEnemy.clear();
+	_vNpc.clear();
 }
 
 
@@ -290,6 +291,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			npc* t_npc = new npc;
 			t_npc->setNpc(p_unitName, p_pos, &_player->rc);
 			_vUnits.push_back(t_npc);
+			_vNpc.push_back(t_npc);
 		}
 	}
 }

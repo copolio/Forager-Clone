@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "startScene.h"
 
-
 HRESULT startScene::init()
 {
 	SCENEMANAGER->deleteScene("게임 화면");
@@ -187,13 +186,15 @@ void startScene::CheckCursorOnButton()
 
 void startScene::CheckButtonClick()
 {
-	if (INPUT->GetKeyDown(VK_RBUTTON)) {
-		EFFECTMANAGER->ShowEffectFrame("DigSmoke", _ptMouse);
-	}
+	//if (INPUT->GetKeyDown(VK_RBUTTON)) {
+	//	EFFECTMANAGER->ShowEffectFrame("DigSmoke", _ptMouse);
+	//}
 
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{
+		cout << "click r" << endl;
+
 		if (!PtInRect(&_game_setting->GetRcWindow(), _ptMouse) && gameOptionCheck) {
 			gameOptionCheck = false;
 		}
@@ -220,6 +221,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save1.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save1.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save1";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save1";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 1
 
@@ -230,6 +232,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save2.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save2.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save2";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save2";
 						SCENEMANAGER->loadScene("게임 화면");
 
 						break;	// 게임 슬롯 2
@@ -240,6 +243,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save3.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save3.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save3";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save3";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 3
 					}
@@ -248,7 +252,46 @@ void startScene::CheckButtonClick()
 		}
 	}
 	//우측 클릭시 삭제
-	//if (INPUT->GetKeyDown(VK_RBUTTON))
-	//{
-	//}
+	if (INPUT->GetKeyDown(VK_RBUTTON))
+	{
+		cout << "click r" << endl;
+		for (int i = 0; i < BUTTON_MAX; i++)
+		{
+			if (PtInRect(&_button[i].GetRect(), _ptMouse))
+			{
+				SOUNDMANAGER->play("클릭");
+				switch (i) {
+				case BTN::SLOT1:
+					DeleteFile(TEXT("save/item_save1.map"));
+					DeleteFile(TEXT("save/equip_save1.map"));
+					DeleteFile(TEXT("save/tile_save1.map"));
+					DeleteFile(TEXT("save/unit_save1.map"));
+					DeleteFile(TEXT("save/player_save1.ini"));
+					DeleteFile(TEXT("save/quest_save1.map"));
+					CheckGameFile();
+					break;	// 게임 슬롯 1
+
+				case BTN::SLOT2:
+					DeleteFile(TEXT("save/item_save2.map"));
+					DeleteFile(TEXT("save/equip_save2.map"));
+					DeleteFile(TEXT("save/tile_save2.map"));
+					DeleteFile(TEXT("save/unit_save2.map"));
+					DeleteFile(TEXT("save/player_save2.ini"));
+					DeleteFile(TEXT("save/quest_save2.map"));
+
+					CheckGameFile();
+					break;	// 게임 슬롯 2
+				case BTN::SLOT3:
+					DeleteFile(TEXT("save/item_save3.map"));
+					DeleteFile(TEXT("save/equip_save3.map"));
+					DeleteFile(TEXT("save/tile_save3.map"));
+					DeleteFile(TEXT("save/unit_save3.map"));
+					DeleteFile(TEXT("save/player_save3.ini"));
+					DeleteFile(TEXT("save/quest_save3.map"));
+					CheckGameFile();
+					break;	// 게임 슬롯 3
+				}
+			}
+		}
+	}
 }

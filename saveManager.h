@@ -2,11 +2,13 @@
 #include "singletonBase.h"
 #include "inventory_slot.h"
 #include "tile.h"
+#include "npc.h"
 #define ITEMSIZE 20
 #define	EQUIPSIZE 7
 #define TILEMAXSIZE 7056
 #define UNITMAXSIZE 1000
-class qucik_slot;
+#define NPCMAXSIZE 1			//NPC °³¼ö
+class qucik_slot;	
 class earth;
 class saveManager : public singletonBase<saveManager>
 {
@@ -24,6 +26,7 @@ double* a = &v[0];
 	quick_slot* _quick_slot;
 	inventory_slot My_Item[ITEMSIZE];
 	inventory_slot My_equip[EQUIPSIZE];
+	npc quest[NPCMAXSIZE];
 	vector<tile> *_game_tile;
 public:
 	void set_quick_slot_info(quick_slot* _q) {
@@ -44,12 +47,14 @@ public:
 	LPCSTR My_Game_save_file_tile;
 	LPCSTR My_Game_save_file_unit;
 	LPCSTR My_Game_save_file_player;
+	LPCSTR My_Game_save_file_npc;
 
 	void Tile_transform();
 	void Item_transform();
 	void equip_transform();
 	void Unit_transform();
 	void Player_transform();
+	void npc_transform();
 
 };
 
