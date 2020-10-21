@@ -183,6 +183,7 @@
     <ClInclude Include="inventory.h" />
     <ClInclude Include="inventory_images.h" />
     <ClInclude Include="inventory_slot.h" />
+    <ClInclude Include="ItemDatabase.h" />
     <ClInclude Include="item_info.h" />
     <ClInclude Include="item_Manager.h" />
     <ClInclude Include="loading.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="inventory.cpp" />
     <ClCompile Include="inventory_images.cpp" />
     <ClCompile Include="inventory_slot.cpp" />
+    <ClCompile Include="ItemDatabase.cpp" />
     <ClCompile Include="item_info.cpp" />
     <ClCompile Include="item_Manager.cpp" />
     <ClCompile Include="loading.cpp" />

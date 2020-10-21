@@ -55,8 +55,8 @@ private:
 	bool _isRun;		//뛰고 있는가?
 	bool _isHammering;	//곡괭이질인가?
 	bool _isBowPulling;	//활시위를 당기고 있는가?
+	bool _isGotDamage;  //데미지 받았는가?
 
-	bool _isGotDamage;
 
 	// 이미지
 	image* _foragerIdle;
@@ -86,7 +86,10 @@ private:
 	float _spinSpeed;
 
 	// 기타
-	bool inven_open;	// 인벤 열면 이동 불가능
+	bool inven_open;		// 인벤 열면 이동 불가능
+	float _balloonRatio;	// 에너지 비율이 몇일때 말풍선이 나올지
+	int _cntBalloon;		// 배고플 때 나오는 말풍선 카운트
+	int _cntBalloonMax;		// 말풍선 출력 카운트
 
 	// 참조
 	earth* _map;
@@ -112,6 +115,8 @@ private:
 	void animation();
 	void playerMove();
 	void playerLookingDirection();
+	void weaponCheck();
+	void hungryBalloon();
 
 public:
 	float getPlayerMaxHp() { return maxHp; }

@@ -28,6 +28,7 @@ void fieldItem::setFieldItem(POINT ptPos, string itemKey)
 	objKey = itemKey;
 	dropItem.itemKey = itemKey;
 
+
 	x = ptPos.x + RANDOM->range(-40, 40);
 	y = ptPos.y + RANDOM->range(-80, 0);
 	rc = RectMakeCenter(x, y, 56, 56);

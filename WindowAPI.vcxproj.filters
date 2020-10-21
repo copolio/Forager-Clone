@@ -127,6 +127,9 @@
     <Filter Include="아이콘">
       <UniqueIdentifier>{2b2fee73-3d01-4117-8f16-ca18caa3b476}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\ItemDatabase">
+      <UniqueIdentifier>{ee62a449-8055-4262-be55-89b2085dec97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="Astar.cpp">
       <Filter>GameFramework\MainGame\Forager\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemDatabase.cpp">
+      <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>아이콘</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDatabase.h">
+      <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

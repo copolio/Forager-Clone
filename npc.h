@@ -23,13 +23,13 @@ public:
 	void setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer);
 	void update() override;
 	void render(HDC hdc) override;
-
 	void hurt(int damage) override;
+
+
 private:
 	void animation();
 	void checkNearPlayer();
 	void showDialogue();
 	void countTimer();
-
 };
 

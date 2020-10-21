@@ -6,6 +6,7 @@ enum WRAITHSTATE
 	FLY,
 	SHOOT
 };
+
 class wraith :public enemy
 {
 

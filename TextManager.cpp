@@ -198,23 +198,7 @@ void TextManager::AppearItemText(string pImgKey)
 	itemText.count = 0;
 	itemText.num = 1;
 	itemText.imgKey = pImgKey;
-	if (pImgKey == "berryDrop") itemText.itemName = "¿­¸Å";
-	else if (pImgKey == "treeDrop") itemText.itemName = "³ª¹«";
-	else if (pImgKey == "rockDrop") itemText.itemName = "µ¹¸ÍÀÌ";
-	else if (pImgKey == "pooDrop") itemText.itemName = "¶Ë";
-	else if (pImgKey == "letherDrop") itemText.itemName = "°¡Á×";
-	else if (pImgKey == "milkDrop") itemText.itemName = "¿ìÀ¯";
-	else if (pImgKey == "skullHeadDrop") itemText.itemName = "ÇØ°ñ";
-	else if (pImgKey == "slot_Bow") itemText.itemName = "È°";
-	else if (pImgKey == "sword") itemText.itemName = "Ä®";
-	else if (pImgKey == "Iron_ore") itemText.itemName = "Ã¶±¤¼®";
-	else if (pImgKey == "coal") itemText.itemName = "¼®Åº";
-	else if (pImgKey == "±«Ã¶") itemText.itemName = "±«Ã¶";
-	else if (pImgKey == "±Ý±«") itemText.itemName = "±Ý±«";
-	else if (pImgKey == "±Ý±¤¼®") itemText.itemName = "±Ý±¤¼®";
-	else if (pImgKey == "brick") itemText.itemName = "º®µ¹";
-	else if (pImgKey == "img_game_money_icon") itemText.itemName = "ÄÚÀÎ";
-	else itemText.itemName = pImgKey;
+	itemText.itemName = DATABASE->_itemDictionary[pImgKey].itemName;
 	_vFieldItemText.push_back(itemText);
 }
 
