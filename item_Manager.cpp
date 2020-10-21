@@ -10,6 +10,11 @@ int item_Manager::equip_count()
 			count++;
 		}
 	}
+	for (int i = 0; i < ITEMMANAGER->getvInventory_info().size(); i++) {
+		if (ITEMMANAGER->getvInventory_info()[i]->Kinds != ITEM_FOOD) continue;
+			count++;
+		
+	}
 	return count;
 }
 

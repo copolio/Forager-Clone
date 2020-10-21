@@ -24,7 +24,8 @@ enum STATE
 enum EQUIPWEAPON {
 	PICKAXE,
 	BOW,
-	SWORD
+	SWORD,
+	FOOD
 };
 class quick_slot;
 class ForagerPlayer : public unit

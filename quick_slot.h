@@ -15,8 +15,12 @@ public:
 	void render(HDC hdc);
 	void quick_slot_update();
 	void target(int i);
+	void settargetNum(int i) {
+		targetnum = i;
+	}
 
 	void quick_slot_target_Move();
 	inventory_slot* GetQuickSlotNumber() { return _quick[targetnum]; };
+	void Item_Minus(string key,int count);
 };
 

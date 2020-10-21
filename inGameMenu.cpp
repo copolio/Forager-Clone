@@ -43,22 +43,25 @@ HRESULT inGameMenu::init()
 
 void inGameMenu::release()
 {
-	_inven->release();
-	_equip->release();
-	_construction->release();
-	_purchaese->release();
-	_game_setting->release();
-	SAFE_DELETE(_inven);
-	SAFE_DELETE(_equip);
-	SAFE_DELETE(_construction);
-	SAFE_DELETE(_purchaese);
-	SAFE_DELETE(_game_setting);
+	if (SCENEMANAGER->get_ischeck())
+	{
+		_inven->release();
+		_equip->release();
+		_construction->release();
+		_purchaese->release();
+		_game_setting->release();
+		SAFE_DELETE(_inven);
+		SAFE_DELETE(_equip);
+		SAFE_DELETE(_construction);
+		SAFE_DELETE(_purchaese);
+		SAFE_DELETE(_game_setting);
 
-	_inven = NULL;
-	_equip = NULL;
-	_construction = NULL;
-	_purchaese = NULL;
-	_game_setting = NULL;
+		_inven = NULL;
+		_equip = NULL;
+		_construction = NULL;
+		_purchaese = NULL;
+		_game_setting = NULL;
+	}
 }
 
 void inGameMenu::update()

@@ -40,6 +40,7 @@ private:
 	string building;
 	earth* _map;
 	int _tileIndex;
+	int buildCount;
 public:
 	void setInMapLink(earth* map) { _map = map; };
 	void renderBuildableTile(HDC hdc);

@@ -64,6 +64,7 @@ HRESULT Agriculture::init()
 	IMAGEMANAGER->addImage("fishtrapdesign", "Images/이미지/오브젝트/통발.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("fishtrap", "Images/이미지/오브젝트/building/img_object_fishtrap.bmp", 168, 56, 3, 1, true, RGB(255, 0, 255));
 
+	buildCount = 0;
 
 	return S_OK;
 }
@@ -152,6 +153,7 @@ bool Agriculture::agricultureItemCheck()
 			if (agriRc[i]->kind == AGRICULTUREKIND_BRIDGE) {
 				if (ITEMMANAGER->Item_industry_check("bridge")) {
 					is_building_check = true;
+					buildCount++;
 					building = "bridge";
 				}
 				return ITEMMANAGER->Item_industry_check("bridge");
@@ -159,6 +161,7 @@ bool Agriculture::agricultureItemCheck()
 			else if (agriRc[i]->kind == AGRICULTUREKIND_FISHTRAP) {
 				if (ITEMMANAGER->Item_industry_check("fishtrap")) {
 					is_building_check = true;
+					buildCount++;
 					building = "fishtrap";
 				}
 				return ITEMMANAGER->Item_industry_check("fishtrap");
@@ -170,14 +173,18 @@ bool Agriculture::agricultureItemCheck()
 
 void Agriculture::addBuilding()
 {
-	if (INPUT->GetKey(VK_LBUTTON)) {
-		if (is_building_check) {
+	RECT darkback = RectMake(960, 0, WINSIZEX - 960, WINSIZEY);
+	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, CAMERA->GetMouseRelativePos(_ptMouse))) {
+		if (is_building_check && buildCount > 0) {
 
 			tile* t_pTile = _map->GetTileP(_tileIndex);
 
 			if (!t_pTile->hasUnit && t_pTile->terrKey == "watertile")
 			{
-				is_building_check = false;
+				buildCount--;
+				if (buildCount == 0) {
+					is_building_check = false;
+				}
 				_map->setTileHasUnit(_tileIndex);
 				UNITMANAGER->AddBuilding(building, t_pTile, _tileIndex);
 				ITEMMANAGER->_Item_industry_decrease(building);
@@ -192,6 +199,7 @@ void Agriculture::addBuilding()
 	}
 	if (INPUT->GetKey(VK_RBUTTON)) {
 		is_building_check = false;
+		buildCount = 0;
 		if (!SOUNDMANAGER->isPlaySound("건설취소")) {
 			SOUNDMANAGER->play("건설취소");
 		}

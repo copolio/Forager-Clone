@@ -9,17 +9,20 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("berryDrop", "Images/이미지/아이템/berry.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("carry_berry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 	
 	//자원 2 ('해골, 소'의 드랍아이템)
 	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("milkDrop", "Images/이미지/아이템/milk.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("carry_milk", "Images/이미지/아이템/milk.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pooDrop", "Images/이미지/아이템/poo.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("leatherDrop", "Images/이미지/아이템/leather.bmp", 56, 56, true, RGB(255, 0, 255));
 
 
 	
+
 	//에너미 - (해골, 소, 레이스)
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
@@ -59,6 +62,7 @@ void UnitManager::release()
 	for(int i = 0 ; i < _vUnits.size(); i++)
 		SAFE_DELETE(_vUnits[i]);
 	_vUnits.clear();
+	_vEnemy.clear();
 }
 
 
@@ -195,8 +199,17 @@ void UnitManager::CheckRemoveUnit()
 					PRODUCTIONMANAGER->removeBuildingRc((*iter)->rc);
 				}
 				SAFE_DELETE((*iter));
-				
 				iter = _vUnits.erase(iter);
+			}
+			else
+				++iter;
+		}
+	}
+
+	if (_vEnemy.size() > 0) {
+		for (auto iter = _vEnemy.begin(); iter != _vEnemy.end();) {
+			if ((*iter)->isDead()) {
+				iter = _vEnemy.erase(iter);
 			}
 			else
 				++iter;
@@ -232,7 +245,7 @@ void UnitManager::AddUnits(cow * p_unit, bool test)
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
-	if (_vEnemy.size() >= MAXENEMYUNIT) return;
+
 	// 에너미 생성
 	if (enemyCheck) {
 		//해골
