@@ -174,7 +174,7 @@ bool Agriculture::agricultureItemCheck()
 void Agriculture::addBuilding()
 {
 	RECT darkback = RectMake(960, 0, WINSIZEX - 960, WINSIZEY);
-	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, CAMERA->GetMouseRelativePos(_ptMouse))) {
+	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, _ptMouse)) {
 		if (is_building_check && buildCount > 0) {
 
 			tile* t_pTile = _map->GetTileP(_tileIndex);

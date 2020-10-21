@@ -39,6 +39,8 @@ public:
 	// 애니메이션 재생 속도 관련
 	int currentCount;
 	int nextCount;
+	int frameX;
+	int count;
 
 public:
 	virtual void update();

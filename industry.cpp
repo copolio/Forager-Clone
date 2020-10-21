@@ -203,7 +203,7 @@ bool industry::industryItemCheck()
 void industry::addBuilding()
 {
 	RECT darkback = RectMake(960, 0, WINSIZEX - 960, WINSIZEY);
-	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, CAMERA->GetMouseRelativePos(_ptMouse))) {
+	if (INPUT->GetKey(VK_LBUTTON) && !PtInRect(&darkback, _ptMouse)) {
 		if (is_building_check && buildCount > 0 &&
 			!_map->GetTileP(_tileIndex)->hasUnit &&
 			!_map->GetTileP(_tileIndex+1)->hasUnit &&

@@ -17,6 +17,7 @@ void unit::hurt(int damage)
 void unit::update()
 {
 	animation();
+	count++;
 }
 
 void unit::animation()
@@ -30,6 +31,11 @@ void unit::animation()
 				isHit = false;
 			}
 		}
+	}
+	if (objKey == "bridge") {
+		if (frameX > 3) frameX = 0;
+		objFrameX = frameX;
+		if (count%15 == 0) frameX++;
 	}
 }
 
