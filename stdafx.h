@@ -50,6 +50,7 @@ using namespace MY_UTIL;
 #include "SpawnManager.h"
 #include "Astar.h"
 #include "saveManager.h"
+#include "ItemDatabase.h"
 
 //=============================================================
 //	## 싱글톤을 추가한다 ##
@@ -73,6 +74,7 @@ using namespace MY_UTIL;
 #define STATMANAGER ForagerStatManager::getSingleton()
 #define SPAWNMANAGER SpawnManager::getSingleton()
 #define ASTAR Astar::getSingleton()
+#define DATABASE ItemDatabase::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)

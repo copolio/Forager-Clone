@@ -78,11 +78,11 @@ public :
 	int GetLevel() { return level; };
 	int GetStamina() { return _staminSizeCurrent; };
 	int GetStaminaMax() { return _staminaImgSizeMax; };
+	float GetSpRatio() { return _staminSizeCurrent / _staminaImgSizeMax; };
 
 	void SetCurrentExp(int exp) { currentExp = exp; };
 	void SetLevel(int lev) { level = lev; };
 	void SetStamina(int stam) { _staminSizeCurrent = stam; };
 	void SetStaminaMax(int stamBack) { _staminaImgSizeMax = stamBack; };
-	
 };
 

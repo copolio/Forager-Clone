@@ -36,6 +36,10 @@ HRESULT ForagerPlayer::init()
 	_isBowPulling = false;
 	_isGotDamage = false;
 	
+	_balloonRatio = 0.2f;			// 에너지 비율이 몇일때 말풍선이 나올지
+	_cntBalloonMax = 1200;			// 말풍선 출력 카운트
+	_cntBalloon = 0;				// 말풍선 카운트
+
 	
 	
 	_state = STATE::IDLE;
@@ -137,24 +141,7 @@ void ForagerPlayer::release()
 void ForagerPlayer::update()
 {
 
-	if (_quick->GetQuickSlotNumber()->img_name == "slot_Bow") {
-		_equipWeapon = EQUIPWEAPON::BOW;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "pick") {
-		_equipWeapon = EQUIPWEAPON::PICKAXE;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "sword") {
-		_equipWeapon = EQUIPWEAPON::SWORD;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
-		_equipWeapon = EQUIPWEAPON::FOOD;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
-		_equipWeapon = EQUIPWEAPON::FOOD;
-	}
-
-
-
+	weaponCheck();
 
 	animation();
 	if (_equipWeapon == BOW && !inven_open) bowAnimation();
@@ -166,17 +153,14 @@ void ForagerPlayer::update()
 		CheckPlayerTile();
 		CheckCollision();
 	}
-
-	if (_equipWeapon == BOW && !inven_open)
-		bowAnimation();
 	
 	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
 	CAMERA->targetFollow(rc.left, rc.top);
-	
 	STATMANAGER->update();
 	STATMANAGER->setinvenopen(inven_open);
 
-
+	hungryBalloon();
+	
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -501,134 +485,115 @@ void ForagerPlayer::bowAnimation()
 
 void ForagerPlayer::PlayerControll()
 {
-	//if (INPUT->GetKeyDown('0')) {
-	//	_equipWeapon = PICKAXE;
-	//}
-	//else if (INPUT->GetKeyDown('1')) {
-	//	_equipWeapon = BOW;
-	//}
-	
-	
 
-	//if (INPUT->GetKeyDown('2')) {
-	//	vector<string> str;
-	//	str.push_back("지금은 아무것도 할 게 없어.");
-	//	DIALOGUE->ShowDialogue(str, &rc);
-	//}
-	//else if (INPUT->GetKeyDown('3')) {
-	//	vector<string> str;
-	//	str.push_back("배가 고파지기 시작했어.");
-	//	str.push_back("뭐라도 먹는 게 좋을 것 같아.");
-	//	DIALOGUE->ShowDialogue(str, &rc);
-	//}
 
-if (_state != STATE::ROTATE) {
-	if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
-	{
-		_state = IDLE;
-		_isMoveHorizon = false;
-		_isMoveVertical = false;
-	}
-	//뛰어다니는 상태 (좌우 움직임)
-	if (INPUT->GetKey('A') || INPUT->GetKey('D'))
-	{
-		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-			switch (RANDOM->range(2)) {
-			case 0:
-				SOUNDMANAGER->play("플레이어걸음1");
+	if (_state != STATE::ROTATE) {
+		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
+		{
+			_state = IDLE;
+			_isMoveHorizon = false;
+			_isMoveVertical = false;
+		}
+		//뛰어다니는 상태 (좌우 움직임)
+		if (INPUT->GetKey('A') || INPUT->GetKey('D'))
+		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
 
-				break;
-			case 1:
-				SOUNDMANAGER->play("플레이어걸음2");
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
 
-				break;
+					break;
+				}
+			}
+			_isMoveHorizon = true;
+			_state = RUN;
+			_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
+		}
+		//뛰어다니는 상태 (상하 움직임)
+		if (INPUT->GetKey('W') || INPUT->GetKey('S'))
+		{
+			if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
+				switch (RANDOM->range(2)) {
+				case 0:
+					SOUNDMANAGER->play("플레이어걸음1");
+
+					break;
+				case 1:
+					SOUNDMANAGER->play("플레이어걸음2");
+
+					break;
+				}
+			}
+			_isMoveVertical = true;
+			_state = RUN;
+			_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
+		}
+
+		// 움직일 떄만 굴러갈 수 있게
+		if (_state != STATE::IDLE || _isGotDamage == false)
+		{
+			//굴러다니는 상태 
+			if (INPUT->GetKeyDown(VK_SPACE))
+			{
+				_state = ROTATE;
+				_isMoveRotate = false;
+				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
+				STATMANAGER->setRight(5);
 			}
 		}
-		_isMoveHorizon = true;
-		_state = RUN;
-		_isLeft = (INPUT->GetKey('A')) ? true : false;	//방향설정
-	}
-	//뛰어다니는 상태 (상하 움직임)
-	if (INPUT->GetKey('W') || INPUT->GetKey('S'))
-	{
-		if (!SOUNDMANAGER->isPlaySound("플레이어걸음2") && !SOUNDMANAGER->isPlaySound("플레이어걸음1")) {
-			switch (RANDOM->range(2)) {
-			case 0:
-				SOUNDMANAGER->play("플레이어걸음1");
 
-				break;
-			case 1:
-				SOUNDMANAGER->play("플레이어걸음2");
+		// 공격 좌클릭
+		if (INPUT->GetKey(VK_LBUTTON))
+		{
+			if (_isGotDamage)
+			{
+				_isGotDamage = false;
+				_index = 0;
+				_count = 0;
+			}
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
+				MeleeWeaponClick();
+			}
+			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+				BowClick();
+			}
 
-				break;
+
+		}
+
+		if (INPUT->GetKeyDown(VK_LBUTTON)) {
+			if (_equipWeapon == EQUIPWEAPON::FOOD) {
+				if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
+					_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+					STATMANAGER->setRight(-5);
+					SOUNDMANAGER->play("피찰때소리", false);
+				}
+				else {
+					_quick->target(0);
+					_quick->settargetNum(0);
+				}
+
 			}
 		}
-		_isMoveVertical = true;
-		_state = RUN;
-		_isUp = (INPUT->GetKey('W')) ? true : false;	//방향 설정
-	}
-
-	// 움직일 떄만 굴러갈 수 있게
-	if (_state != STATE::IDLE || _isGotDamage == false)
-	{
-		//굴러다니는 상태 
-		if (INPUT->GetKeyDown(VK_SPACE))
-		{
-			_state = ROTATE;
-			_isMoveRotate = false;
-			//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-			STATMANAGER->setRight(5);
+		if (INPUT->GetKeyUp(VK_LBUTTON)) {
+			if (_equipWeapon == EQUIPWEAPON::PICKAXE)
+			{
+				_hitDelayCount = 1;
+				_index = (_isLeft) ? 3 : 0;
+				_foragerHammering->setFrameX(_index);
+				_playerHammering->setFrameX(_index);
+			}
+			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+				ArrowFire();
+			}
 		}
 	}
-
-	// 공격 좌클릭
-	if (INPUT->GetKey(VK_LBUTTON))
-	{
-		if (_isGotDamage)
-		{
-			_isGotDamage = false;
-			_index = 0;
-			_count = 0;
-		}
-		if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
-			MeleeWeaponClick();
-		}
-		else if (_equipWeapon == EQUIPWEAPON::BOW) {
-			BowClick();
-		}
-		
-		
-	}
-	
-	if (INPUT->GetKeyDown(VK_LBUTTON)) {
-	if (_equipWeapon == EQUIPWEAPON::FOOD) {
-		if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
-			_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
-			STATMANAGER->setRight(-5);
-			SOUNDMANAGER->play("피찰때소리", false);
-		}
-		else {
-			_quick->target(0);
-			_quick->settargetNum(0);
-		}
-		
-	}
-	}
-	if (INPUT->GetKeyUp(VK_LBUTTON)) {
-		if (_equipWeapon == EQUIPWEAPON::PICKAXE)
-		{
-			_hitDelayCount = 1;
-			_index = (_isLeft) ? 3 : 0;
-			_foragerHammering->setFrameX(_index);
-			_playerHammering->setFrameX(_index);
-		}
-		else if (_equipWeapon == EQUIPWEAPON::BOW) {
-			ArrowFire();
-		}
-	}
-}
 	else
-	_isGotDamage = false;
+		_isGotDamage = false;
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -790,6 +755,49 @@ void ForagerPlayer::playerLookingDirection()
 			_isLeft = false;
 		else
 			_isLeft = true;
+	}
+}
+
+void ForagerPlayer::weaponCheck()
+{
+	if (_quick->GetQuickSlotNumber()->img_name == "slot_Bow") {
+		_equipWeapon = EQUIPWEAPON::BOW;
+	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "pick") {
+		_equipWeapon = EQUIPWEAPON::PICKAXE;
+	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "sword") {
+		_equipWeapon = EQUIPWEAPON::SWORD;
+	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
+		_equipWeapon = EQUIPWEAPON::FOOD;
+	}
+	else if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
+		_equipWeapon = EQUIPWEAPON::FOOD;
+	}
+
+}
+
+void ForagerPlayer::hungryBalloon()
+{
+	if (!inven_open) {
+		if (STATMANAGER->GetSpRatio() <= _balloonRatio) {
+			if (_cntBalloon-- <= 0) {
+				_cntBalloon = _cntBalloonMax;
+				vector<string> t_vStr;
+				string str;
+				int t_random = RANDOM->range(0, 2);
+				if (t_random == 0)
+					str = "배가 고파지기 시작했어.";
+				else if (t_random == 1)
+					str = "뭐라도 먹어야만 해.";
+				t_vStr.push_back(str);
+				DIALOGUE->ShowDialogue(t_vStr, &rc, 0);
+			}
+		}
+		else {
+			_cntBalloon = 0;
+		}
 	}
 }
 

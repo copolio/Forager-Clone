@@ -18,6 +18,7 @@ HRESULT gameNode::init()
 	EFFECTMANAGER->init();				//이펙트매니저 초기화
 	TIME->init();						//타임매니져 초기화
 	UNITMANAGER->init();				//유닛매니저 초기화
+	DATABASE->init();					//아이템 데이터베이스 초기화
 	return S_OK;
 }
 
