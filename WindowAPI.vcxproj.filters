@@ -326,6 +326,7 @@
     </ClCompile>
     <ClCompile Include="ItemDatabase.cpp">
       <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
+    </ClCompile>
     <ClCompile Include="gamemap.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClCompile>
@@ -531,6 +532,7 @@
     </ClInclude>
     <ClInclude Include="ItemDatabase.h">
       <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
+    </ClInclude>
     <ClInclude Include="gamemap.h">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
     </ClInclude>
