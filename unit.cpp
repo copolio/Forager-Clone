@@ -37,6 +37,11 @@ void unit::animation()
 		objFrameX = frameX;
 		if (count%15 == 0) frameX++;
 	}
+	if (objKey == "fishtrap") {
+		if (frameX > 2) frameX = 0;
+		objFrameX = frameX;
+		if (count % 20 == 0) frameX++;
+	}
 }
 
 void unit::dead()
