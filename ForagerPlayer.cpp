@@ -615,7 +615,7 @@ void ForagerPlayer::MeleeWeaponClick()
 			{
 				//SOUNDMANAGER->play("근접무기");
 				// 타겟과의 거리와 가까우면
-				if (abs(targetUnit->rc.left - rc.left) <= 100 && abs(targetUnit->rc.top - rc.top) <= 100)
+				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= 100 && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= 100)
 				{
 					// 타겟 공격
 					if (_equipWeapon == EQUIPWEAPON::PICKAXE) {

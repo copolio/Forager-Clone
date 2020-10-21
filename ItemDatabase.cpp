@@ -10,7 +10,7 @@ void ItemDatabase::init()
 	// 임시로 10개
 	tagItem items[ITEM_MAX];
 	items[0] = tagItem("berryDrop", "열매", CONSUMABLE, 1, 5);
-	items[1] = tagItem("물고기", "물고기", CONSUMABLE, 1, 5);
+	items[1] = tagItem("fish", "물고기", CONSUMABLE, 1, 5);
 	items[2] = tagItem("milkDrop", "우유", CONSUMABLE, 3, 5);
 	items[3] = tagItem("rockDrop", "돌", INGREDIANT, 1, 0);
 	items[4] = tagItem("treeDrop", "목재", INGREDIANT, 1, 0);
@@ -20,7 +20,7 @@ void ItemDatabase::init()
 	items[8] = tagItem("Iron_ore", "철광석", INGREDIANT, 1, 0);
 	items[9] = tagItem("coal", "석탄", INGREDIANT, 1, 0);
 	items[10] = tagItem("skullHeadDrop", "스컬머리", INGREDIANT, 1, 0);
-	items[11] = tagItem("leather", "가죽", INGREDIANT, 1, 0);
+	items[11] = tagItem("leatherDrop", "가죽", INGREDIANT, 1, 0);
 	items[12] = tagItem("slot_Bow", "활", EQUIPMENT, 1, 0);
 	items[13] = tagItem("sword", "칼", EQUIPMENT, 1, 0);
 
