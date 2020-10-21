@@ -220,6 +220,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save1.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save1.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save1";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save1";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 1
 
@@ -230,6 +231,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save2.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save2.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save2";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save2";
 						SCENEMANAGER->loadScene("게임 화면");
 
 						break;	// 게임 슬롯 2
@@ -240,6 +242,7 @@ void startScene::CheckButtonClick()
 						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save3.map";
 						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save3.map";
 						SAVEMANAGER->My_Game_save_file_player = "save/player_save3";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save3";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 3
 					}

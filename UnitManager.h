@@ -25,6 +25,8 @@ class UnitManager : public singletonBase<UnitManager>
 private:
 	vector<unit*> _vUnits;
 	vector<enemy*> _vEnemy;
+	vector<npc*> _vNpc;
+
 	tagProjectile* _pProjectiles;
 	earth *_map;
 	//SpawnManager *_spawnManager;
@@ -59,6 +61,8 @@ public:
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };
+	vector<npc*>* PGetNpc() { return &_vNpc; }
+	vector<npc*> GetNpc() { return _vNpc; }
 	int GetMonsterCount();
 	void setLinkMap(earth *p_map);
 	ProjectileManager* GetProjectileMG() { return _projectileManager; };
