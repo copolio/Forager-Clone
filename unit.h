@@ -42,7 +42,6 @@ public:
 	int frameX;
 	int count;
 
-	bool hasRes;
 	bool waveUp;
 
 public:

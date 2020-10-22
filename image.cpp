@@ -597,6 +597,28 @@ void image::frameRender(HDC hdc, int destX, int destY, int currentFrameX, int cu
 	}
 }
 
+void image::frameRender(HDC hdc, int destX, int destY, int p_width, int p_height, int currentFrameX, int currentFrameY, float zoomRate)
+{
+	if (!_stretchImage) initStretch();
+
+	//이미지 예외처리
+	_imageInfo->currentFrameX = currentFrameX;
+	_imageInfo->currentFrameY = currentFrameY;
+	if (currentFrameX > _imageInfo->maxFrameX)
+		_imageInfo->currentFrameX = _imageInfo->maxFrameX;
+	if (currentFrameY > _imageInfo->maxFrameY)
+		_imageInfo->currentFrameY = _imageInfo->maxFrameX;
+
+	int width = _imageInfo->frameWidth;
+	int height = _imageInfo->frameHeight;
+	if (_isTrans)//배경색 없애고 출력
+	{
+		TransparentBlt(hdc, ceilf(destX * zoomRate), ceilf(destY * zoomRate), ceilf((width+ p_width) * zoomRate), ceilf((height +p_height)* zoomRate), _imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, RGB(255, 0, 255));
+		//GdiAlphaBlend(hdc, dx * zoomRate, dy * zoomRate, width * zoomRate, height * zoomRate, _blendImage->hMemDC, 0, 0, _imageInfo->width, _imageInfo->height, _blendFunc);
+	}
+}
+
+
 void image::stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int width, int height)
 {
 	if (!_stretchImage) initStretch();
