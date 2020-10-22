@@ -55,6 +55,8 @@ void UnitManager::init()
 	// NPC
 	IMAGEMANAGER->addFrameImage("David", "Images/이미지/NPC/img_npc_David.bmp", 444, 88, 4, 1, true, RGB(255, 0, 255));
 
+	// 보물 상자
+	IMAGEMANAGER->addImage("treasureBox", "Images/이미지/오브젝트/treasureBox.bmp", 140, 132, true, RGB(255, 0, 255));
 
 	// 체력바
 	IMAGEMANAGER->addImage("hpBarBG", "Images/이미지/NPC/NPC체력(뒤).bmp", 50, 20, true, RGB(255, 0, 255));
@@ -444,6 +446,13 @@ void UnitManager::AddResource(string key, tile * _tile, int p_tileIndex)
 	inGameResource* _res = new inGameResource;
 	_res->setResource(key, _tile, p_tileIndex);
 	_vUnits.push_back(_res);
+}
+
+void UnitManager::AddTreasure(string p_key, string p_itemRewardKey, POINT p_ptPos)
+{
+	treasureBox *t_tBox = new treasureBox;
+	t_tBox->setTreasureBox(p_key, p_itemRewardKey, p_ptPos, &_player->rc);
+	_vUnits.push_back(t_tBox);
 }
 
 

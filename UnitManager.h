@@ -18,6 +18,7 @@
 #include "demon.h"
 #include "fishTrap.h"
 #include "muBoss.h"
+#include "treasureBox.h"
 
 #define MAXENEMYUNIT 60
 
@@ -63,6 +64,8 @@ public:
 	void AddProduction(string p_itemKey, POINT p_pos);
 	void AddResource(tile* _tile, int p_tileIndex);
 	void AddResource(string key, tile* _tile, int p_tileIndex);
+	
+	void AddTreasure(string p_key, string p_itemRewardKey, POINT p_ptPos);
 
 public:
 	vector<unit*> GetUnits() { return _vUnits; };
