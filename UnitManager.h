@@ -67,5 +67,7 @@ public:
 	int GetMonsterCount();
 	void setLinkMap(earth *p_map);
 	ProjectileManager* GetProjectileMG() { return _projectileManager; };
+	RECT GetPlayerRc() { return _player->rc; };
+	POINT GetPlayerFootPt();
 };
 

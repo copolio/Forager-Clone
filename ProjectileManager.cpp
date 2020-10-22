@@ -62,10 +62,6 @@ void ProjectileManager::render(HDC hdc)
 			else
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc,
 					CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY);
-
-
-			RECT rc = RectMakeCenter(CAMERA->GetRelativeX(_projectiles[i].x + 50), CAMERA->GetRelativeY(_projectiles[i].y + 50), 20, 20);
-			Rectangle(hdc, rc);
 		}
 	}
 }
