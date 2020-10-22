@@ -5,10 +5,6 @@
 #define PI 3.1415926f
 
 
-
-
-
-
 class earth;
 class enemy :public unit
 {
@@ -52,7 +48,7 @@ public:
 	 void setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos);
 	 void render(HDC hdc) override ;
 	 void update() override;
-	 void dead()override;
+	 void dead() override;
 	
 	//virtual void move(vector<int> vDestTileIndex);
 };

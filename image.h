@@ -93,6 +93,7 @@ public:
 	void frameRender(HDC hdc, int destX, int destY, float zoomRate);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
 	void frameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate);
+	void frameRender(HDC hdc, int destX, int destY, int p_width, int p_height, int currentFrameX, int currentFrameY, float zoomRate);
 	//스트레치렌더
 	void stretchRender(HDC hdc, int dx, int dy, int sourX, int sourY, int sourWidth, int sourHeight);
 	//알파스트레치렌더

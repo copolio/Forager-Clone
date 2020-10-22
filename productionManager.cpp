@@ -16,6 +16,7 @@ void productionManager::update()
 {
 
 	count_increase();
+
 	//cout << Myrc.left << endl;;
 }
 
@@ -27,16 +28,28 @@ void productionManager::render(HDC hdc)
 			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2) * CAMERA->GetZoom();
 			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) * CAMERA->GetZoom();
 
+			img_alpha[i]+=3;
+			if (img_alpha[i] > 255) {
+				img_alpha[i] = 0;
+				POINT img_pos;
+				img_pos.x = (_production[i]->rc.left + _production[i]->rc.right) / 2 ;
+				img_pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2 -180;
+				EFFECTMANAGER->ShowEffectFrame("img_smoke", img_pos,15,true);
+			}
+			
+			
 			if (_production[i]->image_name == "Bow") {
 				IMAGEMANAGER->alphaRender("slot_Bow", hdc, pos.x-25, pos.y-5, _production[i]->alpha);
 			}
 			else {
+				cout << _production[i]->image_name<< endl;
 				IMAGEMANAGER->alphaRender(_production[i]->image_name, hdc, pos.x - 15, pos.y, _production[i]->alpha);
 			}
 			
 			pos.x += 15 * CAMERA->GetZoom();
 			pos.y += 15 * CAMERA->GetZoom();
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
+			IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x-30, pos.y-99 , img_alpha[i], CAMERA->GetZoom());
 		}
 	}
 }
@@ -89,6 +102,7 @@ void productionManager::settion(RECT rc)
 		_pro->image_name = "";
 		_pro->countStart = false;
 		_production.push_back(_pro);
+
 	}
 }//처음 e를 눌렀을때 그위치 저장.
 
@@ -101,7 +115,9 @@ int productionManager::isCilck(RECT rc)
 		}
 	}
 	return -1;
-}//같은 건물인지 검사
+}
+
+//같은 건물인지 검사
 void productionManager::isCount(string name)
 {
 	int cilck = isCilck(this->Myrc);

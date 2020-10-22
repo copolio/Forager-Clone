@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ItemDatabase.h"
 
-#define ITEM_MAX 14
+#define ITEM_MAX 15
 
 void ItemDatabase::init()
 {
@@ -23,6 +23,7 @@ void ItemDatabase::init()
 	items[11] = tagItem("leatherDrop", "°¡Á×", INGREDIANT, 1, 0);
 	items[12] = tagItem("slot_Bow", "È°", EQUIPMENT, 1, 0);
 	items[13] = tagItem("sword", "Ä®", EQUIPMENT, 1, 0);
+	items[14] = tagItem("brick", "º®µ¹", INGREDIANT, 3, 0);
 
 	for (int i = 0; i < ITEM_MAX; i++) {
 		_itemDictionary.insert(make_pair(items[i].itemKey, items[i]));

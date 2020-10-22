@@ -187,7 +187,7 @@ void wraith::wraithAnimation()
 		}
 		break;
 	case SHOOT:
-		
+
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _attackIndex;
 		if (wraithHitCount++ % 20 == 0)
@@ -206,7 +206,7 @@ void wraith::wraithAnimation()
 
 void wraith::wraithLookDirection()
 {
-	if ( _state3 == SHOOT || _state3 == FLY)
+	if (_state3 == SHOOT || _state3 == FLY)
 	{
 		if (rc.left > _target->rc.left)
 			isLeft = true;
@@ -226,7 +226,7 @@ void wraith::wraithFire()
 			for (int i = 0; i < 8; i++)
 			{
 				float t_angle = (45.0f * i);
-				UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, t_angle, 5, true, true);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, t_angle, 5,50, true, true);
 			}
 			skillFireCount = 0;
 		}
@@ -236,9 +236,9 @@ void wraith::wraithFire()
 			int y = _target->rc.top - rc.top;
 			_angle = atan2f(-y, x);
 			_angle = _angle * 180 / PI;
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, true, true);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, true, true);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, 50, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, 50, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, 50, true, true);
 			skillFireCount = 0;
 		}
 	}

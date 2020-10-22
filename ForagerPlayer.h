@@ -11,7 +11,6 @@
 class inventory;
 class earth;
 class cursor;
-
 enum STATE
 {
 	IDLE,
@@ -34,6 +33,8 @@ private:
 
 	// 기본
 	STATE _state;				// 캐릭터 상태
+	STATE _priorState;			// 이전 캐릭터 상태
+
 	float _speed;				// 플레이어 스피드 
 	float _currentSpeed;		// 플레이어 현재 스피드 
 	int Atk;					// 공격력
@@ -56,7 +57,6 @@ private:
 	bool _isHammering;	//곡괭이질인가?
 	bool _isBowPulling;	//활시위를 당기고 있는가?
 	bool _isGotDamage;  //데미지 받았는가?
-
 
 	// 이미지
 	image* _foragerIdle;
@@ -94,6 +94,8 @@ private:
 	bool _startBalloon;		// 시작 말풍선
 	int _cntDelayStartBalloon;
 	int _delayStartBalloon;
+
+	int _powerOverwhelmingTime;
 
 	// 참조
 	earth* _map;

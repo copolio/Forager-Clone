@@ -26,6 +26,8 @@ class ForagerPlayer;
 class ForagerStatManager :public singletonBase< ForagerStatManager>
 {
 private:
+	bool superMode;
+
 
 	RECT _rcForagerHpBar;				//체력바 렉트
 	float _x, _y;					//체력바 위치좌표
@@ -50,6 +52,8 @@ private:
 	image* _levelNum[10];
 	
 	bool inven_open;
+
+	
 public :
 
 	HRESULT init();

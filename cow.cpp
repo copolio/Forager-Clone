@@ -8,9 +8,9 @@ HRESULT cow::init()
 	searchCount = 0;
 	cowDashRange = 100;
 	_attackIndex = 0;
-	_state2 = WALK;
 	tryAttack = false;
 	isattacking = false;
+	_state2 = WALK;
 
 	Atk = 20;
 	return S_OK;
@@ -56,25 +56,12 @@ void cow::cowAnimation()
 	{
 		//소 걷기 
 	case WALK:
-		if (isLeft)
+		objFrameX = _index;
+		objFrameY = (isLeft) ? 1 : 0;
+		if (_count++ % 10 == 0)
 		{
-			objFrameY = 1;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
-			{
-				if (_index-- <= 0)
-					_index = 4;
-			}
-		}
-		else
-		{
-			objFrameY = 0;
-			objFrameX = _index;
-			if (_count++ % 10 == 0)
-			{
-				if (_index++ > 5)
-					_index = 0;
-			}
+			if (_index++ > 5)
+				_index = 0;
 		}
 		break;
 		//소 가만히.
@@ -91,7 +78,7 @@ void cow::cowAnimation()
 	case DASH:
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _attackIndex;
-
+	
 		cowHitCount++;
 		if (cowHitCount < 5) _attackIndex = 0;
 		else if (cowHitCount == 10) _attackIndex = 1;

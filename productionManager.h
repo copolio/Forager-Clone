@@ -10,15 +10,25 @@ struct tagProduction
 	
 
 };
-
+struct tagSmoke
+{
+	RECT rc;
+	POINT pos;
+	image* img;
+	int image_count;
+	int image_index;
+};
 class productionManager :public singletonBase<productionManager>
 {
 
 private:
 	vector<tagProduction*>  _production;
-
 	int count;
-	
+	int img_alpha[50] = {0};
+
+
+	int img_count;
+	int img_index;
 	RECT Myrc;
 private:
 	void count_increase();

@@ -219,9 +219,6 @@
     <ClCompile Include="ForagerPlayer.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\player</Filter>
     </ClCompile>
-    <ClCompile Include="gameObject.cpp">
-      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
-    </ClCompile>
     <ClCompile Include="cursor.cpp">
       <Filter>GameFramework\MainGame\Cursor</Filter>
     </ClCompile>
@@ -332,6 +329,12 @@
     </ClCompile>
     <ClCompile Include="gamemap.cpp">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="gameObject.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="demon.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
     <ClCompile Include="fishTrap.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
@@ -544,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="fishTrap.h">
       <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
+    </ClInclude>
+    <ClInclude Include="demon.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

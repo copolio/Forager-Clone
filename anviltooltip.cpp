@@ -23,7 +23,6 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		break;
 	case 1:
 		IMAGEMANAGER->render("±Ý±«", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
@@ -35,21 +34,18 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 2:
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 3:
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 4:
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
@@ -94,14 +90,12 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 7:
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 8:
-		pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
