@@ -18,16 +18,34 @@ void sewingmachinetooltip::render(HDC hdc, int num, RECT rc)
 		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
 		break;
 	case 1:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 2:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 3:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 4:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 5:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 6:
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 40;
+		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	}
 

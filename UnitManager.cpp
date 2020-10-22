@@ -307,6 +307,22 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 		t_fieldItem->setFieldItem(p_pos, p_itemKey);
 		_vUnits.push_back(t_fieldItem);
 	}
+	if (p_itemKey == "rockDrop") {
+		if (RANDOM->range(3, 10) > 5) {
+			for (int i = 0; i < RANDOM->range(2) + 1; i++) {
+				fieldItem* t_fieldItem = new fieldItem;
+				t_fieldItem->setFieldItem(p_pos, "Iron_ore");
+				_vUnits.push_back(t_fieldItem);
+			}
+		}
+		if (RANDOM->range(0, 5) < 3) {
+			for (int i = 0; i < RANDOM->range(2) + 1; i++) {
+				fieldItem* t_fieldItem = new fieldItem;
+				t_fieldItem->setFieldItem(p_pos, "±Ý±¤¼®");
+				_vUnits.push_back(t_fieldItem);
+			}
+		}
+	}
 }
 
 void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
