@@ -161,6 +161,7 @@
     <ClInclude Include="construction_tool_tip.h" />
     <ClInclude Include="cow.h" />
     <ClInclude Include="cursor.h" />
+    <ClInclude Include="demon.h" />
     <ClInclude Include="DialogueManager.h" />
     <ClInclude Include="earth.h" />
     <ClInclude Include="EffectManager.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="construction_tool_tip.cpp" />
     <ClCompile Include="cow.cpp" />
     <ClCompile Include="cursor.cpp" />
+    <ClCompile Include="demon.cpp" />
     <ClCompile Include="DialogueManager.cpp" />
     <ClCompile Include="earth.cpp" />
     <ClCompile Include="EffectManager.cpp" />

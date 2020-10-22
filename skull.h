@@ -7,7 +7,8 @@ enum SKULLSTATE
 	STAY,	//걸어다니는 이미지랑 
 	ATTACK,
 	APPEAR,
-	IDLE2
+	IDLE2,
+	GOTHIT
 };
 
 class skull :public enemy

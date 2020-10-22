@@ -8,13 +8,18 @@ struct tagProjectile {
 		float x, y;
 		float angle;
 		float speed;
+		int width;
+		int height;
 		int frameX;
 		int frameY;
 		int damage;
 		int count;
+		int brassCount;
 		bool isStretch;
 		bool isEnemyProjectTile;
 		bool isAppear;
+		bool isBrassing;
+		bool isPingPong;
 
 };
 
@@ -28,7 +33,10 @@ public:
 	void init();
 	void update();
 	void render(HDC hdc);
-	void CreateProjectile(string imgKey, int x, int y, int damage = 10, float angle = 0.0f, float speed = 0.5f, bool isEnemy = false, bool isStretch = false);
+	void CreateProjectile(string imgKey, int x, int y, int damage = 10, float angle = 0.0f,
+		float speed = 0.5f, int size = 20, bool isEnemy = false, bool isStretch = false);
+
+	void CreateProjectile(string imgKey, int x, int y, int damage = 1, int width = 100, int height = 20, bool isLeft = false);
 	tagProjectile* GetProjectile() { return _projectiles; }
 };
 

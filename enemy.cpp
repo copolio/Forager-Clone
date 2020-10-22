@@ -33,8 +33,8 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	if (objKey == "wraithIdle")
 	{
 		rc = RectMakeCenter(x, y, 100, 100);
-		maxHp = 100;
-		currentHp = 100;
+		maxHp = 200;
+		currentHp = 200;
 		exp = 50;
 
 	}
@@ -51,6 +51,14 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		maxHp = 50;
 		currentHp = 50;
 		exp = 30;
+	}
+
+	else if (objKey == "demonIdle")
+	{
+		rc = RectMakeCenter(x, y, 60, 60);
+		maxHp = 100;
+		currentHp = 100;
+		exp = 50;
 	}
 	
 

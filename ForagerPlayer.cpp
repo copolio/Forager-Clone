@@ -127,6 +127,8 @@ HRESULT ForagerPlayer::init()
 	// 기타
 	inven_open = false;
 
+	_powerOverwhelmingTime = 100;
+
 	return S_OK;
 }
 
@@ -175,6 +177,10 @@ void ForagerPlayer::update()
 	
 	STATMANAGER->update();
 	STATMANAGER->setinvenopen(inven_open);
+
+	if (_isGotDamage) {
+		_powerOverwhelmingTime++;
+	}
 
 	if (_priorState != _state) {
 		_count = 0;
@@ -309,7 +315,7 @@ void ForagerPlayer::animation()
 		case ROTATE:
 			if (_isLeft)
 			{
-				if (_count++ % 1 == 0)
+				if (_count++ % 3 == 0)
 				{
 					if (_index++ > 11)
 					{
@@ -325,7 +331,7 @@ void ForagerPlayer::animation()
 			{
 				_foragerRotate->setFrameY(0);
 				_foragerRotate->setFrameX(_index);
-				if (_count++ % 1 == 0)
+				if (_count++ % 3 == 0)
 				{
 					if (_index++ > 11)
 					{
@@ -372,6 +378,7 @@ void ForagerPlayer::animation()
 				{
 					_index = 0;
 					_isGotDamage = false;
+					_powerOverwhelmingTime = 100;
 				}
 				_index++;
 				_playerGotHurt->setFrameX(_index);
@@ -552,8 +559,11 @@ void ForagerPlayer::PlayerControll()
 			}
 		}
 	}
-	else
+	else {
+
 		_isGotDamage = false;
+		_powerOverwhelmingTime = 100;
+	}
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -638,9 +648,9 @@ void ForagerPlayer::ArrowFire()
 	if (_isBowPulling) {
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
-		int arrowDamage = (Atk * 4) * _bowPowerGauge;
+		int arrowDamage = (Atk * 2) * _bowPowerGauge;
 		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
-		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
+		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f,20, false, false);
 		_bowPowerGauge = .1f;
 		
 	}
@@ -662,7 +672,7 @@ void ForagerPlayer::playerMove()
 			OffsetRect(&rc, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE) {
-				_spinSpeed = applySpeed * 2;
+				_spinSpeed = applySpeed * 1.5f;
 				OffsetRect(&rc, _spinSpeed, 0);
 			}
 		}
@@ -683,7 +693,7 @@ void ForagerPlayer::playerMove()
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE)
 			{
-				_spinSpeed = applySpeed * 2;
+				_spinSpeed = applySpeed * 1.5f;
 				OffsetRect(&rc, 0, _spinSpeed);
 			}
 		}
@@ -882,11 +892,15 @@ void ForagerPlayer::CheckCollision()
 
 void ForagerPlayer::hurt(int damage)
 {
-	STATMANAGER->setRight(damage);
-	SOUNDMANAGER->play("나무타격");
-	_isGotDamage = true;
-	_index = 0;
-	_count = 0;
+	if (_powerOverwhelmingTime >= 10) {
+		_powerOverwhelmingTime = 0;
+		STATMANAGER->setRight(damage);
+		SOUNDMANAGER->play("나무타격");
+		_isGotDamage = true;
+		_index = 1;
+		_count = 0;
+	}
+	
 }
 
 

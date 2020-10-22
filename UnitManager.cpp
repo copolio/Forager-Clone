@@ -28,6 +28,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("skullappa", "Images/이미지/NPC/skullitai.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowWalk", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
@@ -37,6 +38,10 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("wraithAttack", "Images/이미지/NPC/레이스2.bmp", 1710, 400, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithIdle", "Images/이미지/NPC/레이스IDLE2.bmp", 2280, 400, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithBullet", "Images/이미지/NPC/레이스무기발사.bmp", 80, 600, 1, 2, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("demonYell", "Images/이미지/NPC/small_demon_yell.bmp", 576, 128, 9, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("demonIdle", "Images/이미지/NPC/small_demon_idle.bmp", 256, 128, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("demonWalk", "Images/이미지/NPC/small_demon_walk.bmp", 576, 102, 9, 2, true, RGB(255, 0, 255));
 	
 	// NPC
 	IMAGEMANAGER->addFrameImage("David", "Images/이미지/NPC/img_npc_David.bmp", 444, 88, 4, 1, true, RGB(255, 0, 255));
@@ -99,7 +104,8 @@ void UnitManager::checkCollision(unit * p_unit)
 		if (!_pProjectiles[k].isAppear) continue; 	// 발사 안 된 투사체는 무시
 
 		// 유닛과 충돌한 투사체가 있다면
-		if (IntersectRect(&temp, &p_unit->rc, &RectMakeCenter(_pProjectiles[k].x, _pProjectiles[k].y, 20, 20)))
+		if (IntersectRect(&temp, &p_unit->rc, &RectMake(_pProjectiles[k].x, 
+			_pProjectiles[k].y, _pProjectiles[k].width, _pProjectiles[k].height)))
 		{
 			// Enemy 투사체는 플레이어에게만 데미지 적용
 			if (_pProjectiles[k].isEnemyProjectTile)
@@ -108,10 +114,13 @@ void UnitManager::checkCollision(unit * p_unit)
 				{
 					//SOUNDMANAGER->play("유령무기맞는소리", 0.4f);
 					//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
-					STATMANAGER->setRight(5);
+					_player->hurt(_pProjectiles[k].damage);
 				}
-				if (p_unit->tag != TAG::ENEMY)
-					_pProjectiles[k].isAppear = false;
+				if (p_unit->tag != TAG::ENEMY && p_unit->tag != TAG::OBJECT) {
+					if(!_pProjectiles[k].isBrassing)
+						_pProjectiles[k].isAppear = false;
+				}
+
 			}
 			// Player 투사체는 모든 유닛에게 데미지 적용
 			else {
@@ -242,6 +251,12 @@ void UnitManager::AddUnits(cow * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(demon * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
+
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
@@ -280,6 +295,17 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_wraith->init();
 			_vUnits.push_back(_wraith);
 			_vEnemy.push_back(_wraith);
+		}
+
+		//데몬
+		if (p_unitName == "demonIdle")
+		{
+			demon* _demon = new demon;
+			_demon->setLinkMap(_map);
+			_demon->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_demon->init();
+			_vUnits.push_back(_demon);
+			_vEnemy.push_back(_demon);
 		}
 	}
 	

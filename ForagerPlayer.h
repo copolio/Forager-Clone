@@ -57,6 +57,7 @@ private:
 	bool _isHammering;	//곡괭이질인가?
 	bool _isBowPulling;	//활시위를 당기고 있는가?
 
+	
 	bool _isGotDamage;
 
 	// 이미지
@@ -88,6 +89,8 @@ private:
 
 	// 기타
 	bool inven_open;	// 인벤 열면 이동 불가능
+
+	int _powerOverwhelmingTime;
 
 	// 참조
 	earth* _map;

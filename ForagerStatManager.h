@@ -50,6 +50,8 @@ private:
 	image* _levelNum[10];
 	
 	bool inven_open;
+
+	
 public :
 
 	HRESULT init();

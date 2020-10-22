@@ -324,6 +324,9 @@
     <ClCompile Include="gameObject.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="demon.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -526,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="gamemap.h">
       <Filter>GameFramework\MainGame\Forager\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="demon.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

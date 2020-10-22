@@ -1,67 +1,59 @@
 #include "stdafx.h"
-#include "skull.h"
+#include "demon.h"
 
-
-HRESULT skull::init()
+HRESULT demon::init()
 {
-	//skullMoveCount = 0;
-	//skullIdleCount = 0;
+	_state4 = DIDLE;
+	demonWaitCount = 0;
+	demonBrassCount = 0;
+	demonHitCount = 0;
 	searchCount = 0;
-	skullHitCount = 0;
-	skullHitWaitCount = 0;
-	skullAttackRange = 80;
-	_attackIndex = 0;
-	//hitPlayer = false;
+	demonAttackRange = 350;
+	skillFireCount = 0;
+
 	tryAttack = false;
-	isattacking = true;
-	_state = APPEAR;
-	Atk = 15;
-	
+	isattacking = false;
+	Atk = 1;
+
 	return S_OK;
 }
 
-void skull::update()
+void demon::update()
 {
-	skullAnimation();
-	skullMove();
-	if (_state != APPEAR) {
-		canAttackCheck();
-	}
-	skullLookDirection();
-	
+	demonAnimation();
+	demonLookDirection();
+	demonAttack();
+	demonMove();
+
 }
 
-void skull::render(HDC hdc)
+void demon::render(HDC hdc)
 {
 	if (0 < currentHp && currentHp < maxHp) {
-		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left-11), CAMERA->GetRelativeY(rc.bottom + 16));
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left - 11), CAMERA->GetRelativeY(rc.bottom + 16));
 		_hpBar.render(hdc);
 	}
-	switch (_state)
+
+	switch (_state4)
 	{
-	case STAY:
-		IMAGEMANAGER->frameRender("skull", hdc, CAMERA->GetRelativeX(rc.left - 13),
+	case DWALK:
+		IMAGEMANAGER->frameRender("demonWalk", hdc, CAMERA->GetRelativeX(rc.left - 13),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-	case ATTACK:
-		IMAGEMANAGER->frameRender("skullAttack", hdc, CAMERA->GetRelativeX(rc.left - 53),
+	case DIDLE:
+		IMAGEMANAGER->frameRender("demonIdle", hdc, CAMERA->GetRelativeX(rc.left - 13),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-	case APPEAR:
-		IMAGEMANAGER->frameRender("skullAppear", hdc, CAMERA->GetRelativeX(rc.left - 13),
+	case DYELL:
+		IMAGEMANAGER->frameRender("demonYell", hdc, CAMERA->GetRelativeX(rc.left - 13),
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-	case IDLE2:
-		IMAGEMANAGER->frameRender("skullIdle", hdc, CAMERA->GetRelativeX(rc.left - 13),
-			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
-		break;
-	}	
+	}
 }
 
-//1Å¸ÀÏ¾¿ »óÇÏÁÂ¿ì ·£´ý¿òÁ÷ÀÌ´Âµ¥, ÃÑ 5¹ø 
-void skull::skullMove()
+void demon::demonMove()
 {
-	if (_state == STAY)
+	if (_state4 == DIDLE)
 	{
 		if (!checkDestination)
 		{
@@ -69,6 +61,7 @@ void skull::skullMove()
 			if (searchCount > 50)
 			{
 				if (isattacking) {
+					
 					auto path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, false);
 					//_vDestTileIndex = path;
 					if (path.size() > 0) {
@@ -158,11 +151,12 @@ void skull::skullMove()
 					checkDestination = true;
 					_destCount = 0;
 				}
-
+	
 			}
 		}
 		else
 		{
+			_state4 = DWALK;
 			if (_vDestTileIndex.size() > 0)
 			{
 				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
@@ -184,7 +178,7 @@ void skull::skullMove()
 					{
 						OffsetRect(&rc, 0, -MOVESPEED);
 					}
-
+	
 				}
 				else
 				{
@@ -201,96 +195,72 @@ void skull::skullMove()
 	}
 }
 
-void skull::canAttackCheck()
+void demon::demonAttack()
 {
 	if (!tryAttack)
 	{
-		if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-		{
+		if (abs(_target->rc.left - rc.left) <= demonAttackRange && abs(_target->rc.top - rc.top) <= 30)
 			tryAttack = true;
-			isattacking = true;
-		}
 		else
-			_state = STAY;
+			_state4 = DIDLE;
 	}
 	else
 	{
-
-		if (skullHitWaitCount > 120)
+		demonWaitCount++;
+		if (demonWaitCount > 23)
 		{
-			if (skullHitCount == 17) {
-				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-					_target->hurt(Atk);
-			}
-			_state = ATTACK;
+			_state4 = DYELL;
+			demonBrassFire();
 		}
-		else {
-			skullHitWaitCount++;
-			_state = IDLE2;
-		}
+		else
+			_state4 = DIDLE;
 	}
 }
 
-void skull::skullAnimation()
+void demon::demonAnimation()
 {
-	switch (_state)
+	switch (_state4)
 	{
-		//ÇØ°ñ ¶Ù´ó±è
-	case STAY:
+	case DWALK:
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _index;
 		if (_count++ % 10 == 0)
 		{
-			if (_index++ > 5)
+			if (_index++ > 11)
 				_index == 0;
 		}
 		break;
-		//ÇØ°ñ ¶¥¿¡¼­ µîÀå.
-	case APPEAR:
-		objFrameY = 0;
-		objFrameX = _index;
-		if (_count++ % 30 == 0)
-		{
-			if (_index++ > 4)
-			{
-				_index = 0;
-				_state = STAY;
-			}
-		}
 		break;
-
-	case IDLE2:
+	case DIDLE:
 		objFrameY = (isLeft) ? 1 : 0;
 		objFrameX = _index;
 		if (_count++ % 10 == 0)
 		{
-			if (_index++ > 5)
+			if (_index++ > 4)
 				_index = 0;
 		}
 		break;
-		//ÇØ°ñ °ø°Ý
-	case ATTACK:
+	case DYELL:
 		objFrameY = (isLeft) ? 1 : 0;
-		objFrameX = _attackIndex;
+		objFrameX = _index;
+		if (_count++ % 15 == 0)
+		{
+			if (_index++ > 10)
+			{
+				_index = 0;
+				demonWaitCount = 0;
+				demonHitCount = 1;
+				tryAttack = false;
+			}
 
-		skullHitCount++;
-		if (skullHitCount < 5) _attackIndex = 0;
-		else if (skullHitCount == 10) _attackIndex = 1;
-		else if (skullHitCount == 15) _attackIndex = 2;
-		else if (skullHitCount == 20) _attackIndex = 1;
-		else if (skullHitCount >= 25) {
-			_attackIndex = 0;
-			skullHitCount = 1;
-			skullHitWaitCount = 0;
-			tryAttack = false;
 		}
 		break;
 	}
 }
 
-void skull::skullLookDirection()
+void demon::demonLookDirection()
 {
-	if (_state == ATTACK || isattacking)
+	if (_state4 == DIDLE || _state4 == DWALK)
 	{
 		if (rc.right > _target->rc.right && rc.left > _target->rc.left)
 			isLeft = true;
@@ -299,3 +269,21 @@ void skull::skullLookDirection()
 	}
 }
 
+void demon::demonBrassFire()
+{
+	skillFireCount++;
+	if (skillFireCount % 200 == 0) {
+		
+		_count = 0;
+		_index = 0;
+		
+		for (int i = 0; i < 2; i++)
+		{
+			if(isLeft)
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX() - 320, GetCenterY() - 40, 1, 320, 40, isLeft);
+			else
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX(), GetCenterY() - 40, 1, 320, 40, isLeft);
+		}
+		skillFireCount = 0;
+	}
+}
