@@ -10,6 +10,13 @@ void TextManager::init()
 	ZeroMemory(_floatingTexts, sizeof(tagFloatingText) * FLOATINGTEXT_MAX);
 	for (int i = 0; i < FLOATINGTEXT_MAX; i++)
 		_floatingTexts[i].str = "a";
+
+	_isAppearNotify = false;
+	_notifyCount = 0;
+	_notifyMaxCount = 500;
+	_notifyPtPos = { 0, 0 };
+	_notifyMessage = "temp";
+	_notifySize = 0;
 }
 
 void TextManager::release()
@@ -21,12 +28,14 @@ void TextManager::update()
 {
 	updateFloatingText();
 	updateItemText();
+	updateNotify();
 }
 
 void TextManager::render(HDC hdc)
 {
 	renderFloatingText(hdc);
 	renderItemText(hdc);
+	renderNotify(hdc);
 }
 
 void TextManager::updateFloatingText()
@@ -74,6 +83,33 @@ void TextManager::updateItemText()
 	}
 }
 
+void TextManager::updateNotify()
+{
+
+	if (_isAppearNotify) {
+
+		_notifyCount++;
+		if (_notifyCount <= 50) {
+			if (_notifyCount % 2 == 0)
+				_notifyPtPos.y--;
+		}
+		else if (_notifyCount <= 100) {
+			if (_notifyCount % 5 == 0)
+				_notifyPtPos.y--;
+		}
+		else if (_notifyCount <= 200) {
+			if (_notifyCount % 10 == 0)
+				_notifyPtPos.y--;
+		}
+		else {
+			_notifyPtPos.y = _notifyPtPos.y;
+		}
+		if (_notifyCount >= _notifyMaxCount)
+			_isAppearNotify = false;
+	}
+
+}
+
 void TextManager::renderFloatingText(HDC hdc)
 {
 	// 하나라도 있을 경우,
@@ -118,6 +154,15 @@ void TextManager::renderItemText(HDC hdc)
 
 	}
 
+}
+
+void TextManager::renderNotify(HDC hdc)
+{
+	if (_isAppearNotify) {
+
+		ShowText(hdc, false, _notifyMessage, _notifyPtPos, _notifySize, 1, _notifyFontColor, true, _notifyFontShadow, _notifyInterval);
+
+	}
 }
 
 
@@ -183,6 +228,18 @@ void TextManager::ShowFloatingText(string str, POINT ptPos, COLORREF color, COLO
 	//cout << "FloatingText 배열 개수 부족!!" << endl;
 		
 
+}
+
+void TextManager::ShowNotifyText(string str, POINT ptPos, int size, COLORREF color, COLORREF bgColor, int interval)
+{
+	_notifyCount = 0;
+	_isAppearNotify = true;
+	_notifyMessage = str;
+	_notifyPtPos = ptPos;
+	_notifySize = size;
+	_notifyFontColor = color;
+	_notifyFontShadow = bgColor;
+	_notifyInterval = interval;
 }
 
 void TextManager::AppearItemText(string pImgKey)

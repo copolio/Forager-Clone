@@ -16,11 +16,11 @@ void npc::setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer)
 	x = p_ptPos.x;
 	y = p_ptPos.y;
 	rc = RectMakeCenter(x, y, 56, 56);
-	
+
 	// 스테이터스 셋팅
 	maxHp = 9999;
 	currentHp = maxHp;
-	
+
 	// 플레이어 파싱.
 	_rcPlayer = p_rcPlayer;
 
@@ -67,8 +67,13 @@ void npc::render(HDC hdc)
 	int relY = CAMERA->GetRelativeY(rc.top);
 	_img->frameRender(hdc, relX, relY, objFrameX, objFrameY, CAMERA->GetZoom());
 
-	if (_isNearPlayer && _canDialogue)
-		IMAGEMANAGER->render("E", hdc, relX + 45, relY - 20, CAMERA->GetZoom());
+	if (_isNearPlayer && _canDialogue) {
+		POINT t_ptRelMouse = CAMERA->GetMouseRelativePos(_ptMouse);
+		if (abs(GetCenterX() - t_ptRelMouse.x) <= 30 && abs(GetCenterY() - t_ptRelMouse.y) <= 30)
+		{
+			IMAGEMANAGER->render("E", hdc, relX + 40, relY - 20, CAMERA->GetZoom());
+		}
+	}
 }
 
 void npc::hurt(int damage)
@@ -90,7 +95,7 @@ void npc::animation()
 
 void npc::checkNearPlayer()
 {
-	if (abs(_rcPlayer->left - rc.left) <= 100 && abs(_rcPlayer->top - rc.top) <= 100)
+	if (abs(_rcPlayer->left - rc.left) <= 80 && abs(_rcPlayer->top - rc.top) <= 80)
 		_isNearPlayer = true;
 	else
 		_isNearPlayer = false;

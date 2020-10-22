@@ -216,6 +216,7 @@
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="timeManager.h" />
+    <ClInclude Include="treasureBox.h" />
     <ClInclude Include="unit.h" />
     <ClInclude Include="UnitManager.h" />
     <ClInclude Include="util.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="timeManager.cpp" />
+    <ClCompile Include="treasureBox.cpp" />
     <ClCompile Include="unit.cpp" />
     <ClCompile Include="UnitManager.cpp" />
     <ClCompile Include="util.cpp" />

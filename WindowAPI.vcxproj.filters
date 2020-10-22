@@ -130,6 +130,9 @@
     <Filter Include="GameFramework\MainGame\Forager\Unit\building\Fishtrap">
       <UniqueIdentifier>{e2f1e852-6a15-4493-8862-aada780d2cb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\Unit\resource\TresureBox">
+      <UniqueIdentifier>{fc3e9d89-7f8e-483c-9406-ab9dc9606023}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
@@ -338,6 +341,9 @@
     </ClCompile>
     <ClCompile Include="fishTrap.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
+    </ClCompile>
+    <ClCompile Include="treasureBox.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource\TresureBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +556,9 @@
     </ClInclude>
     <ClInclude Include="demon.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="treasureBox.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\resource\TresureBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
