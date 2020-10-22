@@ -18,22 +18,13 @@ void cursor::update()
 	CheckObject();
 	_targetingBox.update();
 	if (isbuilding) {
-		if (INPUT->GetKeyDown('E')) {
-			if (_unit->objKey == "fishtrap") {
-				if (_unit->hasRes) {
-					_unit->hasRes = false;
-					//isbuilding = false;
-					//interaction = false;
-					UNITMANAGER->AddUnits("fish", CAMERA->GetMouseRelativePos(_ptMouse));
-				}
-			}
-			else {
+		if (_unit->objKey != "fishtrap") {
+			if (INPUT->GetKeyDown('E')) {
 				if (interaction) {
 					interaction = false;
 				}
 				else {
 					interaction = true;
-
 					SOUNDMANAGER->play("건물상호작용");
 				}
 			}
@@ -47,9 +38,11 @@ void cursor::render(HDC hdc)
 	if (CAMERA->movelimit) {
 		_targetingBox.render(hdc);
 		if (isbuilding) {
-			IMAGEMANAGER->render("BuildingInteractionE", hdc,
-				CAMERA->GetRelativeX(_unit->GetCenterX() - 20),
-				CAMERA->GetRelativeY(_unit->GetCenterY() - 20));
+			if (_unit->objKey != "fishtrap") {
+				IMAGEMANAGER->render("BuildingInteractionE", hdc,
+					CAMERA->GetRelativeX(_unit->GetCenterX() - 20),
+					CAMERA->GetRelativeY(_unit->GetCenterY() - 20));
+			}
 		}
 		if (interaction) {
 			_buildinginteraction->targertrender(hdc, vUnit[number]->objKey);

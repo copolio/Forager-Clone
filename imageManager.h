@@ -67,6 +67,8 @@ public:
 	void frameRender(string strKey, HDC hdc, int destX, int destY, float zoomRate);
 	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY);
 	void frameRender(string strKey, HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, float zoomRate);
+	void frameRender(string strKey, HDC hdc, int destX, int destY, int p_width, int p_height, int currentFrameX, int currentFrameY, float zoomRate);
+
 
 //=============================================================
 //	## ∑Á«¡∑ª¥ı ##

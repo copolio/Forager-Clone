@@ -309,6 +309,12 @@ void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int
 	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
 	image* img = findImage(strKey);
 	if (img) img->frameRender(hdc, destX, destY, currentFrameX, currentFrameY, zoomRate);
+
+}void imageManager::frameRender(string strKey, HDC hdc, int destX, int destY, int p_width, int p_height, int currentFrameX, int currentFrameY, float zoomRate)
+{
+	//이미지 찾아서 그냥 이미지클래스의 함수를 실행한다
+	image* img = findImage(strKey);
+	if (img) img->frameRender(hdc, destX, destY, p_width, p_height, currentFrameX, currentFrameY, zoomRate);
 }
 //=============================================================
 //	## 루프렌더 ##

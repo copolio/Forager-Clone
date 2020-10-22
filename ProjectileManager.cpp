@@ -27,9 +27,9 @@ void ProjectileManager::update()
 		if (_projectiles[i].isAppear) {
 			_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 			_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
+			
 			if (_projectiles[i].isStretch)
 			{
-
 				if (_projectiles[i].count++ % 10 == 0)
 				{
 					_projectiles[i].frameX++;
