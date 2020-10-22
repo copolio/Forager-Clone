@@ -73,4 +73,10 @@ void muBoss::hurt(int damage)
 	_index = 0;
 	_count = 0;
 	_state5 = CRY;
+	currentHp -= damage;
+
+	if(currentHp <= 0){
+		UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { GetCenterX(), GetCenterY()});
+	}
 }
+	

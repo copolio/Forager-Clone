@@ -146,10 +146,6 @@ void ForagerPlayer::release()
 
 void ForagerPlayer::update()
 {
-	if (INPUT->GetKeyDown('P')) {
-		UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { rc.left + 50, rc.top + 50 });
-	}
-
 
 
 	weaponCheck();

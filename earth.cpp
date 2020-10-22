@@ -206,7 +206,10 @@ void earth::setIsland(int x, int y)
 			}
 			if (GetIslandCount() > 1 && i == 5 && j == 5) {
 				int bossSpawnProabability = RANDOM->range(2);
-				if (bossSpawnProabability == 0) {
+				if (GetIslandCount() == 2) {
+					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 0) {
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
 			}

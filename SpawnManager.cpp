@@ -45,8 +45,8 @@ void SpawnManager::TrySpawn()
 			case 0:
 				//SpawnPatternOne("skull", 10);
 				//SpawnPatternOne("demonIdle",1);
-				//SpawnPatternOne("cow",1);
-				SpawnPatternOne("muBoss",1);
+				SpawnPatternOne("cow",1);
+				
 				break;
 			}
 		}
