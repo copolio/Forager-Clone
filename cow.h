@@ -3,8 +3,6 @@
 
 #define MOVERANGE 2
 #define MOVESPEED 1
-
-
 enum COWSTATE
 {
 	IDLE3,

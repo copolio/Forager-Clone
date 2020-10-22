@@ -43,6 +43,7 @@ HRESULT ForagerPlayer::init()
 	
 	
 	_state = STATE::IDLE;
+	_priorState = _state;
 	_angle = 0.0f;
 	// 무기 위치 초기화
 	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56);
@@ -134,6 +135,8 @@ HRESULT ForagerPlayer::init()
 	_startBalloon = false;		// 시작 말풍선
 	_cntDelayStartBalloon = 0;
 	_delayStartBalloon = 240;
+	_powerOverwhelmingTime = 100;
+
 	return S_OK;
 }
 
@@ -162,8 +165,18 @@ void ForagerPlayer::update()
 	STATMANAGER->update();
 	STATMANAGER->setinvenopen(inven_open);
 
+	if (_isGotDamage) {
+		_powerOverwhelmingTime++;
+	}
+
 	hungryBalloon();
 	
+	if (_priorState != _state) {
+		_count = 0;
+		_index = 0;
+		_hitDelayCount = 0;
+	}
+	_priorState = _state;
 }
 
 void ForagerPlayer::render(HDC hdc)
@@ -182,12 +195,12 @@ void ForagerPlayer::render(HDC hdc)
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
 	case RUN:
-		if(!_isGotDamage)
-		IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
+		if (!_isGotDamage)
+			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
 		else
 			IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
 		break;
-	
+
 	case ROTATE:
 		if (_isLeft)
 		{
@@ -202,8 +215,8 @@ void ForagerPlayer::render(HDC hdc)
 				IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
 		}
 		break;
-		
-		
+
+
 	case HAMMERING:
 		IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
 		if (_equipWeapon == PICKAXE) {
@@ -270,54 +283,28 @@ void ForagerPlayer::animation()
 		switch (_state)
 		{
 		case IDLE:
-			if (_isLeft)
+			_foragerIdle->setFrameY((_isLeft) ? 1 : 0);
+			_foragerIdle->setFrameX(_index);
+			if (_count++ % 10 == 0)
 			{
-				_foragerIdle->setFrameY(1);
-				_foragerIdle->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index-- <= 0)
-						_index = 3;
-				}
+				if (_index++ > 3)
+					_index = 0;
 			}
-			else
+			break;
+		case RUN:
+			_foragerRun->setFrameY( (_isLeft) ? 1 : 0);
+			_foragerRun->setFrameX(_index);
+			if (_count++ % 5 == 0)
 			{
-				_foragerIdle->setFrameY(0);
-				_foragerIdle->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index++ > 3)
-						_index = 0;
-				}
+				if (_index++ > 4)
+					_index = 0;
 			}
 			break;
 
-		case RUN:
-			if (_isLeft)
-			{
-				_foragerRun->setFrameY(1);
-				_foragerRun->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index-- <= 0)
-						_index = 4;
-				}
-			}
-			else
-			{
-				_foragerRun->setFrameY(0);
-				_foragerRun->setFrameX(_index);
-				if (_count++ % 5 == 0)
-				{
-					if (_index++ > 4)
-						_index = 0;
-				}
-			}
-			break;
 		case ROTATE:
 			if (_isLeft)
 			{
-				if (_count++ % 1 == 0)
+				if (_count++ % 3 == 0)
 				{
 					if (_index++ > 11)
 					{
@@ -333,7 +320,7 @@ void ForagerPlayer::animation()
 			{
 				_foragerRotate->setFrameY(0);
 				_foragerRotate->setFrameX(_index);
-				if (_count++ % 1 == 0)
+				if (_count++ % 3 == 0)
 				{
 					if (_index++ > 11)
 					{
@@ -352,32 +339,17 @@ void ForagerPlayer::animation()
 			else {
 				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
 			}
-			if (_isLeft)
+			
+			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_playerHammering->setFrameX(_index);
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				_foragerHammering->setFrameY(1);
-				_playerHammering->setFrameY(1);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
+				if (_index++ > 3)
 				{
-					if (_index-- <= 0) {
-						_index = 3;
-						_hitDelayCount = 1;
-					}
-				}
-			}
-			else
-			{
-				_foragerHammering->setFrameY(0);
-				_playerHammering->setFrameY(0);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
-				{
-					if (_index++ >= 3) {
-						_hitDelayCount = 1;
-						_index = 0;
-					}
+					_index = 0;
+					_hitDelayCount = 1;
 				}
 			}
 			break;
@@ -395,6 +367,7 @@ void ForagerPlayer::animation()
 				{
 					_index = 0;
 					_isGotDamage = false;
+					_powerOverwhelmingTime = 100;
 				}
 				_index++;
 				_playerGotHurt->setFrameX(_index);
@@ -413,34 +386,18 @@ void ForagerPlayer::animation()
 			else {
 				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
 			}
-			if (_isLeft)
+			
+			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_foragerHammering->setFrameX(_index);
+			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
+			_playerHammering->setFrameX(_index);
+			if (_hitDelayCount++ % 10 == 0)
 			{
-				_foragerHammering->setFrameY(1);
-				_playerHammering->setFrameY(1);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
+				if (_index++ > 3)
 				{
-					if (_index-- <= 0) {
-						_index = 3;
-						_hitDelayCount = 1;
-					}
+					_hitDelayCount = 1;
+					_index = 0;
 				}
-			}
-			else
-			{
-				_foragerHammering->setFrameY(0);
-				_playerHammering->setFrameY(0);
-				_foragerHammering->setFrameX(_index);
-				_playerHammering->setFrameX(_index);
-				if (_hitDelayCount++ % 10 == 0)
-				{
-					if (_index++ >= 3) {
-						_hitDelayCount = 1;
-						_index = 0;
-					}
-				}
-
 			}
 			break;
 		}
@@ -488,9 +445,7 @@ void ForagerPlayer::bowAnimation()
 
 void ForagerPlayer::PlayerControll()
 {
-
-
-	if (_state != STATE::ROTATE) {
+	if (_state != ROTATE) {
 		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
 		{
 			_state = IDLE;
@@ -537,14 +492,13 @@ void ForagerPlayer::PlayerControll()
 		}
 
 		// 움직일 떄만 굴러갈 수 있게
-		if (_state != STATE::IDLE || _isGotDamage == false)
+		if (_state != IDLE || _isGotDamage == false)
 		{
 			//굴러다니는 상태 
 			if (INPUT->GetKeyDown(VK_SPACE))
 			{
 				_state = ROTATE;
 				_isMoveRotate = false;
-				//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
 				STATMANAGER->setRight(5);
 			}
 		}
@@ -564,8 +518,6 @@ void ForagerPlayer::PlayerControll()
 			else if (_equipWeapon == EQUIPWEAPON::BOW) {
 				BowClick();
 			}
-
-
 		}
 
 		if (INPUT->GetKeyDown(VK_LBUTTON)) {
@@ -582,7 +534,8 @@ void ForagerPlayer::PlayerControll()
 
 			}
 		}
-		if (INPUT->GetKeyUp(VK_LBUTTON)) {
+		if (INPUT->GetKeyUp(VK_LBUTTON))
+		{
 			if (_equipWeapon == EQUIPWEAPON::PICKAXE)
 			{
 				_hitDelayCount = 1;
@@ -595,8 +548,11 @@ void ForagerPlayer::PlayerControll()
 			}
 		}
 	}
-	else
+	else {
+
 		_isGotDamage = false;
+		_powerOverwhelmingTime = 100;
+	}
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -681,14 +637,12 @@ void ForagerPlayer::ArrowFire()
 	if (_isBowPulling) {
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
-		int arrowDamage = (Atk * 4) * _bowPowerGauge;
+		int arrowDamage = (Atk * 2) * _bowPowerGauge;
 		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
-		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, false, false);
+		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f,20, false, false);
 		_bowPowerGauge = .1f;
 		
 	}
-	
-
 }
 
 
@@ -707,7 +661,7 @@ void ForagerPlayer::playerMove()
 			OffsetRect(&rc, applySpeed, 0);
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE) {
-				_spinSpeed = applySpeed * 2;
+				_spinSpeed = applySpeed * 1.5f;
 				OffsetRect(&rc, _spinSpeed, 0);
 			}
 		}
@@ -728,7 +682,7 @@ void ForagerPlayer::playerMove()
 			//플레이어가 움직이다가, 스페이스바 누르면 회전하면서 가속
 			if (_state == STATE::ROTATE)
 			{
-				_spinSpeed = applySpeed * 2;
+				_spinSpeed = applySpeed * 1.5f;
 				OffsetRect(&rc, 0, _spinSpeed);
 			}
 		}
@@ -751,7 +705,6 @@ void ForagerPlayer::playerMove()
 void ForagerPlayer::playerLookingDirection()
 {
 	int forgaerCenter = (rc.left + rc.right) / 2;
-
 
 	if (_state != STATE::ROTATE) {
 		if (forgaerCenter < CAMERA->GetMouseRelativePos(_ptMouse).x)
@@ -978,19 +931,20 @@ void ForagerPlayer::CheckCollision()
 
 		}
 	}
-	
-
 }
 
 
 void ForagerPlayer::hurt(int damage)
 {
-	STATMANAGER->setRight(damage);
-	SOUNDMANAGER->play("나무타격");
-	_isGotDamage = true;
-	_index = 0;
-	_count = 0;
-
+	if (_powerOverwhelmingTime >= 10) {
+		_powerOverwhelmingTime = 0;
+		STATMANAGER->setRight(damage);
+		SOUNDMANAGER->play("나무타격");
+		_isGotDamage = true;
+		_index = 1;
+		_count = 0;
+	}
+	
 }
 
 
