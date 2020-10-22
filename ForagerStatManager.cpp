@@ -5,6 +5,7 @@
 HRESULT ForagerStatManager::init()
 {
 	inven_open = false;
+	superMode = false;			//=================무적=======================
 	for (int i = 0; i < 3; i++)		//하트모양 체력 3개 
 	{
 		tagForagerHp* _hp = new tagForagerHp;
@@ -83,8 +84,11 @@ void ForagerStatManager::update()
 	//		break;
 	//	}
 	//}
+	if (INPUT->GetKeyDown(VK_F10)) {
+		superMode = !superMode;//=================무적=======================
+	}
 	
-	if (levelUp == true || _staminSizeCurrent<0)
+	if (levelUp == true || _staminSizeCurrent < 0)
 	{
 		if (levelUp)
 		{
@@ -93,20 +97,26 @@ void ForagerStatManager::update()
 		}
 		else
 		{
-			int i = _foragerHp.size() - 1;
-			for ( ; i >= 0; i--)
-			{
-				if (!_foragerHp[i]->_isHp)continue;
-				_foragerHp[i]->_isHp = false;
-				break;
+			if (!superMode) {			//=================무적=======================
+				int i = _foragerHp.size() - 1;
+				for (; i >= 0; i--)
+				{
+
+					if (!_foragerHp[i]->_isHp)continue;
+					_foragerHp[i]->_isHp = false;
+					break;
+				}
+
+				if (i == 0) {
+					_foragerHp.clear();
+					SCENEMANAGER->loadScene("시작 화면");
+				}
 			}
-			if (i == 0) {
-				_foragerHp.clear();
-				SCENEMANAGER->loadScene("시작 화면");
-			}
+
 		}
 		_staminSizeCurrent = _staminaImgSizeMax;
 	}
+	
 }
 
 void ForagerStatManager::render(HDC hdc)
