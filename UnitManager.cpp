@@ -26,25 +26,31 @@ void UnitManager::init()
 
 	
 
-	//에너미 - (해골, 소, 레이스)
+	//에너미 - 해골
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle2.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAppear", "Images/이미지/NPC/해골Appear.bmp", 224, 56, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullappa", "Images/이미지/NPC/skullitai.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
-
+	//에너미 - 황소
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowWalk", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowDash", "Images/이미지/NPC/cowDash.bmp", 320, 100, 4, 2, true, RGB(255, 0, 255));
 
-
+	//에너미 - 유령
 	IMAGEMANAGER->addFrameImage("wraithAttack", "Images/이미지/NPC/레이스2.bmp", 1710, 400, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithIdle", "Images/이미지/NPC/레이스IDLE2.bmp", 2280, 400, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wraithBullet", "Images/이미지/NPC/레이스무기발사.bmp", 80, 600, 1, 2, true, RGB(255, 0, 255));
 
+	//에너미 - 악마
 	IMAGEMANAGER->addFrameImage("demonYell", "Images/이미지/NPC/small_demon_yell.bmp", 576, 128, 9, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("demonIdle", "Images/이미지/NPC/small_demon_idle.bmp", 256, 128, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("demonWalk", "Images/이미지/NPC/small_demon_walk.bmp", 576, 102, 9, 2, true, RGB(255, 0, 255));
+
+	//에너미 - 무보스
+	IMAGEMANAGER->addFrameImage("muBoss", "Images/이미지/NPC/muboss_IDLE.bmp", 2898, 406, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("muBossCry", "Images/이미지/NPC/muBossCry.bmp", 1848, 406, 6, 1, true, RGB(255, 0, 255));
+	
 	
 	// NPC
 	IMAGEMANAGER->addFrameImage("David", "Images/이미지/NPC/img_npc_David.bmp", 444, 88, 4, 1, true, RGB(255, 0, 255));
@@ -260,6 +266,11 @@ void UnitManager::AddUnits(demon * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(muBoss * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
@@ -310,6 +321,17 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_demon->init();
 			_vUnits.push_back(_demon);
 			_vEnemy.push_back(_demon);
+		}
+
+		//무 보스 
+		if (p_unitName == "muBoss")
+		{
+			muBoss* _muBoss = new muBoss;
+			_muBoss->setLinkMap(_map);
+			_muBoss->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_muBoss->init();
+			_vUnits.push_back(_muBoss);
+			_vEnemy.push_back(_muBoss);
 		}
 	}
 	

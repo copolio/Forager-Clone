@@ -339,6 +339,9 @@
     <ClCompile Include="fishTrap.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
     </ClCompile>
+    <ClCompile Include="muBoss.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -549,6 +552,9 @@
       <Filter>GameFramework\MainGame\Forager\Unit\building\Fishtrap</Filter>
     </ClInclude>
     <ClInclude Include="demon.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="muBoss.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -192,6 +192,7 @@
     <ClInclude Include="loading.h" />
     <ClInclude Include="loadingScene.h" />
     <ClInclude Include="mainGame.h" />
+    <ClInclude Include="muBoss.h" />
     <ClInclude Include="npc.h" />
     <ClInclude Include="productionManager.h" />
     <ClInclude Include="progressBar.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="loadingScene.cpp" />
     <ClCompile Include="mainGame.cpp" />
+    <ClCompile Include="muBoss.cpp" />
     <ClCompile Include="npc.cpp" />
     <ClCompile Include="productionManager.cpp" />
     <ClCompile Include="progressBar.cpp" />

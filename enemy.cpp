@@ -15,6 +15,10 @@ void enemy::update()
 
 }
 
+void enemy::hurt(int damage)
+{
+}
+
 void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)
 {
 	tileIndex = 0;
@@ -60,6 +64,17 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		currentHp = 100;
 		exp = 50;
 	}
+
+	else if (objKey == "muBoss")
+	{
+		rc = RectMakeCenter(x, y, 400, 400);
+		maxHp = 100;
+		currentHp = 100;
+		exp = 200;
+	}
+
+
+	
 	
 
 	dropItem.itemKey = itemkey;
