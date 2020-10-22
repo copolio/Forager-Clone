@@ -32,6 +32,9 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addFrameImage("smoke_img", "Images/이미지/GUI/smoke_img.bmp", 364, 28,13,1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("steelwork_yellow", "Images/이미지/오브젝트/용광로_파티클.bmp", 33, 21,true, RGB(255, 0, 255));
+
 
 
 	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
@@ -64,6 +67,7 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("slot_Bow", "Images/이미지/아이템/slot_Bow.bmp", 63, 63, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("img_smoke", "Images/이미지/Effects/img_smoke.bmp", 600, 200,7,1, true, RGB(255, 0, 255));
 
 
 	//IMAGEMANAGER->addImage("용광로", "Images/이미지/오브젝트/용광로.bmp", 112, 160, true, RGB(255, 0, 255));

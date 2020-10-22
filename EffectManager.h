@@ -24,6 +24,8 @@ private:
 		int width;
 		int height;
 		bool isRelative;
+		bool isAlpha;
+		bool isStretch;
 	};
 
 private:
