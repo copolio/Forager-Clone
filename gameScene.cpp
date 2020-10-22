@@ -27,6 +27,7 @@ HRESULT gameScene::init()
 	_quick_slot->init();
 	_quick_slot->quick_slot_update();
 	_quick_slot->target(0);
+	_cursor->quick_slot_info(_quick_slot);
 	SAVEMANAGER->set_quick_slot_info(_quick_slot);
 	PRODUCTIONMANAGER->init();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
