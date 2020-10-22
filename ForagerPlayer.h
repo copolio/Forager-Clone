@@ -58,9 +58,6 @@ private:
 	bool _isBowPulling;	//활시위를 당기고 있는가?
 	bool _isGotDamage;  //데미지 받았는가?
 
-	
-	bool _isGotDamage;
-
 	// 이미지
 	image* _foragerIdle;
 	image* _foragerRun;
