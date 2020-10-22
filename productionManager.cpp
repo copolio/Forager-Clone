@@ -24,17 +24,19 @@ void productionManager::render(HDC hdc)
 {
 	for (int i = 0; i < _production.size(); i++) {
 		if (_production[i]->countStart) {
+			POINT pos;
+			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2) * CAMERA->GetZoom();
+			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) * CAMERA->GetZoom();
+
 			img_alpha[i]+=3;
 			if (img_alpha[i] > 255) {
 				img_alpha[i] = 0;
 				POINT img_pos;
-				img_pos.x = (CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2)  - 10);
-				img_pos.y = (CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) - 140);
-				EFFECTMANAGER->ShowEffectFrame("img_smoke", img_pos,15,150,false);
+				img_pos.x = (_production[i]->rc.left + _production[i]->rc.right) / 2 ;
+				img_pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2 -180;
+				EFFECTMANAGER->ShowEffectFrame("img_smoke", img_pos,15,true);
 			}
-			POINT pos;
-			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2) * CAMERA->GetZoom();
-			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) * CAMERA->GetZoom();
+			
 			
 			if (_production[i]->image_name == "Bow") {
 				IMAGEMANAGER->alphaRender("slot_Bow", hdc, pos.x-25, pos.y-5, _production[i]->alpha);
