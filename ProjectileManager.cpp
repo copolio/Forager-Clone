@@ -3,9 +3,9 @@
 
 void ProjectileManager::init()
 {
-	IMAGEMANAGER->addFrameImage("BowArrow", "Images/ÀÌ¹ÌÁö/¾ÆÀÌÅÛ/img_UI_bowArrow.bmp", 448, 56, 8, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("wratihMissile", "Images/ÀÌ¹ÌÁö/NPC/wratihMissile.bmp", 990, 90, 11, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("demonBrass", "Images/ÀÌ¹ÌÁö/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("BowArrow", "Images/ì´ë¯¸ì§€/ì•„ì´í…œ/img_UI_bowArrow.bmp", 448, 56, 8, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("wratihMissile", "Images/ì´ë¯¸ì§€/NPC/wratihMissile.bmp", 990, 90, 11, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("demonBrass", "Images/ì´ë¯¸ì§€/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		_projectiles[i].imgKey = "temp";
 		_projectiles[i].x = 0;
@@ -59,7 +59,7 @@ void ProjectileManager::update()
 				}
 			}
 			
-			// Ä«¸Ş¶ó ¹Ù±ùÀ¸·Î ³ª°¡¸é »èÁ¦
+			// ì¹´ë©”ë¼ ë°”ê¹¥ìœ¼ë¡œ ë‚˜ê°€ë©´ ì‚­ì œ
 			RECT temp;
 			if (!IntersectRect(&temp, &CAMERA->GetCameraRect(), &RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20)))
 				_projectiles[i].isAppear = false;
@@ -79,7 +79,7 @@ void ProjectileManager::render(HDC hdc)
 									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
 			else
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc,
-									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
+        CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
 		}
 	}
 }

@@ -8,10 +8,13 @@ void building::render(HDC hdc)
 		_hpBar.render(hdc);
 	}
 
-	IMAGEMANAGER->frameRender(objKey, hdc,
-		CAMERA->GetRelativeX(rc.left),
-		CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
-		objFrameX, objFrameY, CAMERA->GetZoom());
+	RECT temp = { CAMERA->GetRelativeX(this->rc.left), CAMERA->GetRelativeY(this->rc.top) , CAMERA->GetRelativeX(this->rc.right) , CAMERA->GetRelativeY(this->rc.bottom) };
+	if (PtInRect(&temp, UNITMANAGER->GetPlayerFootPt()) && CAMERA->movelimit) {
+		IMAGEMANAGER->alphaRender(objKey + "design", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), 150, CAMERA->GetZoom());
+	}
+	else {
+		IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), objFrameX, objFrameY, CAMERA->GetZoom());
+	}
 }
 
 void building::setBuilding(string buildingName, tile* _tile, int tileindex)

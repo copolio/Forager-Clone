@@ -31,7 +31,22 @@ void wraith::update()
 	wraithAttack();
 	wraithLookDirection();
 	if (searchCount % 500 == 0) {
-		SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos);
+		int possibility = RANDOM->range(10);
+		if (possibility == 0) {
+			SPAWNMANAGER->SpawnPatternOne("demonIdle", 1, _enemyTilePos + 1);
+		}
+		else if (possibility == 1) {
+			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos + 1);
+		}
+		else if (possibility == 2) {
+			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - 1);
+		}
+		else if (possibility == 3) {
+			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos + MAPTILEX);
+		}
+		else {
+			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - MAPTILEX);
+		}
 	}	
 }
 

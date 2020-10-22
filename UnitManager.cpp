@@ -379,6 +379,11 @@ void UnitManager::setLinkMap(earth * p_map)
 	SPAWNMANAGER->setLinkMap(_map);
 }
 
+POINT UnitManager::GetPlayerFootPt()
+{
+	return { CAMERA->GetRelativeX(_player->GetCenterX()) , CAMERA->GetRelativeY(_player->rc.bottom + 25) };
+}
+
 
 void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {
