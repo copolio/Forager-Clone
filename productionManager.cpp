@@ -49,7 +49,9 @@ void productionManager::render(HDC hdc)
 			pos.x += 15 * CAMERA->GetZoom();
 			pos.y += 15 * CAMERA->GetZoom();
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
-			IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x-30, pos.y-99 , img_alpha[i], CAMERA->GetZoom());
+			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2);
+			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2);
+			IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x-15, pos.y-85 , img_alpha[i], CAMERA->GetZoom());
 		}
 	}
 }
