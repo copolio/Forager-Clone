@@ -30,7 +30,7 @@ void wraith::update()
 	}
 	wraithAttack();
 	wraithLookDirection();
-	if (searchCount % 500 == 0) {
+	if (searchCount % 1000 == 0) {
 		int possibility = RANDOM->range(10);
 		if (possibility == 0) {
 			SPAWNMANAGER->SpawnPatternOne("demonIdle", 1, _enemyTilePos + 1);

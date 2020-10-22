@@ -34,7 +34,7 @@ void SpawnManager::GetCanSpawnTile()
 void SpawnManager::TrySpawn()
 {
 
-	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 1) {
+	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 4) {
 
 		GetCanSpawnTile();
 
@@ -44,8 +44,8 @@ void SpawnManager::TrySpawn()
 			{
 			case 0:
 				//SpawnPatternOne("skull", 10);
-				SpawnPatternOne("demonIdle",1);
-				//SpawnPatternOne("cow",2);
+				//SpawnPatternOne("demonIdle",1);
+				SpawnPatternOne("cow",1);
 				break;
 			}
 		}

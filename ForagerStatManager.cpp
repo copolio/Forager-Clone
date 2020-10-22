@@ -84,7 +84,7 @@ void ForagerStatManager::update()
 	//		break;
 	//	}
 	//}
-	if (INPUT->GetKeyDown(VK_F10)) {
+	if (INPUT->GetKeyDown(VK_F4)) {
 		superMode = !superMode;//=================¹«Àû=======================
 	}
 	

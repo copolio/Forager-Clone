@@ -199,8 +199,10 @@ void demon::demonAttack()
 {
 	if (!tryAttack)
 	{
-		if (abs(_target->rc.left - rc.left) <= demonAttackRange && abs(_target->rc.top - rc.top) <= 30)
+		if (abs(_target->rc.left - rc.left) <= demonAttackRange && abs(_target->rc.top - rc.top) <= 30) {
 			tryAttack = true;
+			isattacking = true;
+		}
 		else
 			_state4 = DIDLE;
 	}

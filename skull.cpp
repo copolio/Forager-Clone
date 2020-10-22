@@ -242,7 +242,7 @@ void skull::skullAnimation()
 		if (_count++ % 10 == 0)
 		{
 			if (_index++ > 5)
-				_index == 0;
+				_index = 0;
 		}
 		break;
 		//«ÿ∞Ò ∂•ø°º≠ µÓ¿Â.
