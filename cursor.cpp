@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "cursor.h"
 #include "earth.h"
+#include "quick_slot.h"
 void cursor::init()
 {
 	vUnit = UNITMANAGER->GetUnits();
@@ -30,6 +31,7 @@ void cursor::update()
 			}
 		}
 	}
+	itemPush();
 
 }
 
@@ -108,5 +110,36 @@ void cursor::CheckObject()
 
 		_unit = nullptr;
 		_targetingBox.RemoveTarget();
+	}
+}
+
+void cursor::itemPush()
+{
+	vector<unit*> t_vUnit = UNITMANAGER->GetUnits();
+	for (int i = 0; i < t_vUnit.size(); i++) {
+		if (t_vUnit[i]->tag == TAG::ITEM) {
+			/*POINT camera_Mouse;
+			camera_Mouse.x = CAMERA->GetRelativeX(_ptMouse.x);
+			camera_Mouse.y = CAMERA->GetRelativeX(_ptMouse.y);*/
+			RECT item = RectMake(CAMERA->GetRelativeX(t_vUnit[i]->rc.left), CAMERA->GetRelativeY(t_vUnit[i]->rc.top), (t_vUnit[i]->rc.right - t_vUnit[i]->rc.left), (t_vUnit[i]->rc.bottom - t_vUnit[i]->rc.top));
+			if (PtInRect(&item, _ptMouse))
+			{
+				cout << t_vUnit[i]->objKey << endl;
+				SOUNDMANAGER->play("아이템충돌");
+				t_vUnit[i]->collision();
+				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
+				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
+				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
+					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
+					_quick->quick_slot_update();
+				}
+				else {
+					ITEMMANAGER->vItem_push(t_vUnit[i]->dropItem.itemKey);
+					_quick->quick_slot_update();
+				}
+				_quick->quick_slot_update();
+			}
+			
+		}
 	}
 }
