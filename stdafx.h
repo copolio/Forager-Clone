@@ -13,6 +13,7 @@
 // Windows 헤더 파일:
 #include <Windows.h>
 // C 런타임 헤더 파일입니다.
+#include <crtdbg.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <tchar.h>
