@@ -408,6 +408,17 @@ POINT UnitManager::GetPlayerFootPt()
 	return { CAMERA->GetRelativeX(_player->GetCenterX()) , CAMERA->GetRelativeY(_player->rc.bottom + 25) };
 }
 
+int UnitManager::GetCowCount()
+{
+	int cowCount = 0;
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->objKey == "cow") {
+			cowCount++;
+		}
+	}
+	return cowCount;
+}
+
 
 void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {

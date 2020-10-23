@@ -20,7 +20,7 @@
 #include "muBoss.h"
 #include "treasureBox.h"
 
-#define MAXENEMYUNIT 60
+#define MAXENEMYUNIT 40
 
 class earth;
 
@@ -76,5 +76,6 @@ public:
 	ProjectileManager* GetProjectileMG() { return _projectileManager; };
 	RECT GetPlayerRc() { return _player->rc; };
 	POINT GetPlayerFootPt();
+	int GetCowCount();
 };
 
