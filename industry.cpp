@@ -14,61 +14,53 @@ HRESULT industry::init()
 	push->rc = RectMake(WINSIZEX - 267, 115, 220, 50);
 	push->name = "steelwork";
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
+
 
 	push = new IndustryRc;
 	push->kind = INDUSTRY_ANVIL;
 	push->name = "anvil";
 	push->rc = RectMake(WINSIZEX - 267, 175, 220, 50);
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
+
 	push = new IndustryRc;
 	push->kind = INDUSTRY_SEWINGMACHINE;
 	push->name = "sewingmachine";
 	push->rc = RectMake(WINSIZEX - 267, 235 , 220, 50);
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
+
 
 	push = new IndustryRc;
 	push->kind = INDUSTRY_MISSING;
 	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 295, 220, 50);
 	indu_rc.push_back(push);
-	push = NULL;
+
 
 	push = new IndustryRc;
 	push->kind = INDUSTRY_MISSING;
 	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 355, 220, 50);
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
+
 
 	push = new IndustryRc;
 	push->kind = INDUSTRY_MISSING;
 	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 415, 220, 50);
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
+
 
 	push = new IndustryRc;
 	push->kind = INDUSTRY_MISSING;
 	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 475, 220, 50);
 	indu_rc.push_back(push); 
-	SAFE_DELETE(push);
-	push = NULL;
+
 	push = new IndustryRc;
 	push->kind = INDUSTRY_MISSING;
 	push->name = "missing";
 	push->rc = RectMake(WINSIZEX - 267, 535, 220, 50);
 	indu_rc.push_back(push);
-	SAFE_DELETE(push);
-	push = NULL;
 	
 	//건물 건설 확인 렌더용 이미지 및 변수
 	is_building_check = false;

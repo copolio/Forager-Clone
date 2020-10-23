@@ -29,6 +29,20 @@ HRESULT buildinginteraction::init()
 
 void buildinginteraction::release()
 {
+	for (int i = 0; i < steelwork_menu.size(); i++) {
+		SAFE_DELETE(steelwork_menu[i]);
+		steelwork_menu[i] = NULL;
+	}
+	for (int i = 0; i < sewingmachine_menu.size(); i++) {
+		SAFE_DELETE(sewingmachine_menu[i]);
+		sewingmachine_menu[i] = NULL;
+	}
+
+	for (int i = 0; i < _anvil_menu.size(); i++) {
+		SAFE_DELETE(_anvil_menu[i]);
+		_anvil_menu[i] = NULL;
+	}
+
 }
 
 void buildinginteraction::targertrender(HDC hdc, string key)

@@ -296,6 +296,7 @@ void image::release()
 		//포인터 삭제
 		SAFE_DELETE(_blendImage);
 	}
+
 }
 
 //렌더(내가 원하는 좌표에 출력해라, 일반적으로 우리는 RECT의 LT좌표에 이미지를 붙인다)

@@ -13,6 +13,10 @@ void quick_slot::release()
 {
 	SAFE_DELETE(_targetBox);
 	_targetBox = NULL;
+	for (int i = 0; i < _quick.size(); i++) {
+		SAFE_DELETE(_quick[i]);
+		_quick[i] = NULL;
+	}
 }
 
 void quick_slot::update()

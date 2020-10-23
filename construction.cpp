@@ -10,12 +10,12 @@ HRESULT construction::init()
 	con->rc = RectMake(WINSIZEX - 280, 30, 250, 80);
 	con->kind = INDUSTRY;
 	_industry_Rc.push_back(con);
-	SAFE_DELETE(con);
+
 	con = new Con_Info;
 	con->rc = RectMake(WINSIZEX - 280, 150, 250, 80);
 	con->kind = AGRICULTURE;
 	_industry_Rc.push_back(con);
-	SAFE_DELETE(con);
+
 	isCheck = false;
 	isTargetBox = false;
 	agrocultureCheck = false;

@@ -62,6 +62,10 @@ void inGameMenu::release()
 		_purchaese = NULL;
 		_game_setting = NULL;
 	}
+	for (int i = 0; i < ingameMenuRc.size(); i++) {
+		SAFE_DELETE(ingameMenuRc[i]);
+		ingameMenuRc[i] = NULL;
+	}
 }
 
 void inGameMenu::update()
