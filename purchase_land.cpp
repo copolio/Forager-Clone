@@ -4,8 +4,6 @@
 
 HRESULT purchase_land::init()
 {
-	_targetBox = new targetingBox;
-	_targetBox->init();
 	balance = new int;
 	
 	IMAGEMANAGER->addImage("greenisland", "Images/이미지/타일/img_tile_green.bmp", 56*6, 56 * 6);
@@ -20,11 +18,10 @@ void purchase_land::release()
 
 void purchase_land::update()
 {
-	_targetBox->update();
 	_tileIndex = _map->tileColMouseTargetIndex();
 	_targetIslandrc = _map->GetIslandRc(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex));
 	_islandIndex = _map->GetIslandY(_tileIndex)*MAPTILEX + _map->GetIslandX(_tileIndex);
-	_targetBox->SetTarget(CAMERA->GetRelativeRc(_targetIslandrc), 4, _islandIndex, 4, false);
+	
 
 	if (INPUT->GetKey(VK_LBUTTON)) {
 		if (!_map->HasIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex)) &&
@@ -39,8 +36,6 @@ void purchase_land::update()
 
 void purchase_land::render(HDC hdc)
 {
-	_targetBox->render(hdc);
-
 	IMAGEMANAGER->render("inventory_Kinds", hdc, WINSIZEX / 2 - 240, 15);
 	IMAGEMANAGER->render("Q", hdc, 320, 70);
 	IMAGEMANAGER->render("E", hdc, 890, 70);
@@ -51,10 +46,19 @@ void purchase_land::render(HDC hdc)
 
 void purchase_land::renderBuildableTile(HDC hdc)
 {
+	int tarIsCenterX = CAMERA->GetRelativeRc(_targetIslandrc).left + (CAMERA->GetRelativeRc(_targetIslandrc).right - CAMERA->GetRelativeRc(_targetIslandrc).left) / 2 - 20;
+	int tarIsCenterY = CAMERA->GetRelativeRc(_targetIslandrc).top + (CAMERA->GetRelativeRc(_targetIslandrc).bottom - CAMERA->GetRelativeRc(_targetIslandrc).top) / 2;
 	if (_map->HasIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex))) {
-		IMAGEMANAGER->alphaRender("redisland", hdc, (CAMERA->GetRelativeRc(_targetIslandrc).left), (CAMERA->GetRelativeRc(_targetIslandrc).top), 150);
+		IMAGEMANAGER->alphaRender("redisland", hdc, CAMERA->GetRelativeRc(_targetIslandrc).left, CAMERA->GetRelativeRc(_targetIslandrc).top, 150);
+	}
+	else if (ITEMMANAGER->getMoney() < LANDPRICE) {
+		IMAGEMANAGER->alphaRender("redisland", hdc, CAMERA->GetRelativeRc(_targetIslandrc).left, CAMERA->GetRelativeRc(_targetIslandrc).top, 150);
+		IMAGEMANAGER->render("img_game_money_icon", hdc, tarIsCenterX, tarIsCenterY - 40);
+		TEXTMANAGER->ShowText(hdc, false, "가격: 10골드", { tarIsCenterX + 10 , tarIsCenterY + 30 }, 35, 1);
 	}
 	else {
-		IMAGEMANAGER->alphaRender("greenisland", hdc, (CAMERA->GetRelativeRc(_targetIslandrc).left), (CAMERA->GetRelativeRc(_targetIslandrc).top), 150);
+		IMAGEMANAGER->alphaRender("greenisland", hdc, (CAMERA->GetRelativeRc(_targetIslandrc).left), (CAMERA->GetRelativeRc(_targetIslandrc).top), 150);;
+		IMAGEMANAGER->render("img_game_money_icon", hdc, tarIsCenterX, tarIsCenterY - 40);
+		TEXTMANAGER->ShowText(hdc, false, "가격: 10골드", { tarIsCenterX+10 , tarIsCenterY + 30 }, 35, 1);
 	}
 }

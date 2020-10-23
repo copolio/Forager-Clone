@@ -6,7 +6,7 @@ HRESULT inventory::init()
 	_targetBox = new targetingBox;
 	_targetBox->init();
 	money = new int;
-	*money = 9999;
+	*money = 0;
 	StaminaMax = IMAGEMANAGER->findImage("스테미나")->getWidth();
 	for (int i = 1; i < 10; i++) {
 		item_count[i - 1] = i;

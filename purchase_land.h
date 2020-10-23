@@ -8,7 +8,6 @@ class purchase_land
 private:
 	bool isCheck;
 	earth* _map;
-	targetingBox *_targetBox;
 	int _tileIndex;
 	int _islandIndex;
 	RECT _targetIslandrc;

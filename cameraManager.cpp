@@ -182,7 +182,7 @@ void cameraManager::render(HDC hdc)
 	t_rc.top = GetRelativeY(t_rc.top) * GetZoom();
 	t_rc.bottom = GetRelativeY(t_rc.bottom) * GetZoom();
 
-	FrameRect(hdc, t_rc, RGB(255, 0, 0));
+	//FrameRect(hdc, t_rc, RGB(255, 0, 0));
 }
 
 void cameraManager::update()
