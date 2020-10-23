@@ -39,6 +39,7 @@ public:
 	bool HasIsland(int x, int y);
 	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
 	int GetIslandCount();
+	int GetTileIndex(POINT pt);
 public:
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();

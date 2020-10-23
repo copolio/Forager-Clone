@@ -31,8 +31,9 @@ HRESULT gameScene::init()
 	SAVEMANAGER->set_quick_slot_info(_quick_slot);
 	PRODUCTIONMANAGER->init();
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
-	UNITMANAGER->AddUnits(_player);
+	
 	UNITMANAGER->setLinkMap(_map);
+	UNITMANAGER->AddUnits(_player);
 	
 
 	_player->getquick_slotInfo(_quick_slot);

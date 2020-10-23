@@ -293,6 +293,15 @@ int earth::GetIslandCount()
 	return count;
 }
 
+int earth::GetTileIndex(POINT pt)
+{
+	for (int i = 0; i < _vTile.size(); i++) {
+		if (PtInRect(&_vTile[i].rc, pt)) {
+			return i;
+		}
+	}
+}
+
 tile* earth::tileMouseTarget()
 {
 	for (int i = 0; i < _vTile.size(); i++) {
