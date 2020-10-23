@@ -84,6 +84,7 @@ public :
 	int GetStaminaMax() { return _staminaImgSizeMax; };
 	float GetSpRatio() { return _staminSizeCurrent / _staminaImgSizeMax; };
 
+	void SetLinkPlayer(ForagerPlayer* p_player) { _player = p_player; };
 	void SetCurrentExp(int exp) { currentExp = exp; };
 	void SetLevel(int lev) { level = lev; };
 	void SetStamina(int stam) { _staminSizeCurrent = stam; };

@@ -137,6 +137,8 @@ HRESULT ForagerPlayer::init()
 	_delayStartBalloon = 240;
 	_powerOverwhelmingTime = 100;
 
+	STATMANAGER->SetLinkPlayer(this);
+
 	return S_OK;
 }
 
@@ -572,7 +574,8 @@ void ForagerPlayer::MeleeWeaponClick()
 			{
 				//SOUNDMANAGER->play("근접무기");
 				// 타겟과의 거리와 가까우면
-				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= 100 && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= 100)
+				int tarWidth = targetUnit->rc.left + (targetUnit->rc.right - targetUnit->rc.left) / 2;
+				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE)
 				{
 					// 타겟 공격
 					if (_equipWeapon == EQUIPWEAPON::PICKAXE) {

@@ -62,7 +62,6 @@ public:
 	void ShowText(HDC hdc, bool isRelative, string str = "Test", POINT ptPos = { 10, 10 }, int size = 15, int align = 0, COLORREF color = RGB(255, 255, 255), bool isBoundary = false, COLORREF colorBoundary = RGB(0, 0, 0), int interval = 3);
 	void ShowFloatingText(string str, POINT ptPos, COLORREF color = RGB(255, 255, 255), COLORREF bgColor = RGB(0, 0, 0));
 	void ShowNotifyText(string str, POINT ptPos, int size = 50, COLORREF color = RGB(255, 255, 255), COLORREF bgColor = RGB(0, 0, 0), int interval = 1);
-
 	void AppearItemText(string pImgKey);
 };
 

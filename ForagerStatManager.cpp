@@ -92,6 +92,7 @@ void ForagerStatManager::update()
 	{
 		if (levelUp)
 		{
+			EFFECTMANAGER->ShowEffectFrame("levelUp", { _player->GetCenterX(), _player->GetCenterY() }, 5, true);
 			_staminaImgSizeMax += 20;
 			levelUp = false;
 		}
