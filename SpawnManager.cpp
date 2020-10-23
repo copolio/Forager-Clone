@@ -34,7 +34,7 @@ void SpawnManager::GetCanSpawnTile()
 void SpawnManager::TrySpawn()
 {
 
-	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 2) {
+	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT && _map->GetIslandCount() >= 2) {
 
 		GetCanSpawnTile();
 
@@ -60,6 +60,7 @@ void SpawnManager::TrySpawn()
 
 void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
 {
+	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
 	for (int i = 0; i < p_count; i++) {
 		int randomTile = RANDOM->range(0, _plainTile.size() - 1);
 		RECT t_rc = _plainTile[randomTile].rc;
@@ -71,6 +72,7 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
 }
 void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx)
 {
+	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
 	for (int i = 0; i < p_count; i++) {
 		RECT t_rc = _map->GetTiles()[tileidx].rc;
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,

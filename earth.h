@@ -12,11 +12,6 @@ private:
 	ForagerPlayer* _player; // ÇÃ·¹ÀÌ¾î
 
 private:
-	image* watertile;
-	image* plaintile;
-	image* plainedge;
-	image* wave;
-	image* underwater;
 	int _count;
 	int _frameCount;
 	int wavetick;
@@ -39,6 +34,7 @@ public:
 	bool HasIsland(int x, int y);
 	void setLinkPlayer(ForagerPlayer *player) { _player = player; };
 	int GetIslandCount();
+	int GetTileIndex(POINT pt);
 public:
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();

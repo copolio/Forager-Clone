@@ -246,6 +246,7 @@ void UnitManager::AddUnits(ForagerPlayer* p_unit)
 
 	// NPC ¼¼ÆÃ
 	AddUnits("David", { WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }, false);
+	_map->setTileHasUnit(_map->GetTileIndex({ WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }));
 }
 
 void UnitManager::AddUnits(skull* p_unit, bool test)
