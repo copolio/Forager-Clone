@@ -80,6 +80,7 @@ void UnitManager::release()
 	_vUnits.clear();
 	_vEnemy.clear();
 	_vNpc.clear();
+	SAFE_DELETE(_projectileManager);
 }
 
 
@@ -87,6 +88,7 @@ void UnitManager::update()
 {
 	Sorting();
 	CheckRemoveUnit();
+
 
 	// 유닛 업데이트
 	for (int i = 0; i < _vUnits.size(); i++) {
@@ -278,7 +280,6 @@ void UnitManager::AddUnits(muBoss * p_unit, bool test)
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 {
-
 	// 에너미 생성
 	if (enemyCheck) {
 		//해골

@@ -124,7 +124,6 @@ void cursor::itemPush()
 			RECT item = RectMake(CAMERA->GetRelativeX(t_vUnit[i]->rc.left), CAMERA->GetRelativeY(t_vUnit[i]->rc.top), (t_vUnit[i]->rc.right - t_vUnit[i]->rc.left), (t_vUnit[i]->rc.bottom - t_vUnit[i]->rc.top));
 			if (PtInRect(&item, _ptMouse))
 			{
-				cout << t_vUnit[i]->objKey << endl;
 				SOUNDMANAGER->play("아이템충돌");
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);

@@ -82,7 +82,6 @@ void mainGame::release()
 void mainGame::update()
 {
 	gameNode::update();
-	
 	//씬매니져 업데이트
 	SCENEMANAGER->update();
 

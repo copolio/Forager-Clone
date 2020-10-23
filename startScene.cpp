@@ -193,8 +193,6 @@ void startScene::CheckButtonClick()
 	// 버튼 클릭
 	if (INPUT->GetKeyDown(VK_LBUTTON))
 	{
-		cout << "click r" << endl;
-
 		if (!PtInRect(&_game_setting->GetRcWindow(), _ptMouse) && gameOptionCheck) {
 			gameOptionCheck = false;
 		}
@@ -254,7 +252,6 @@ void startScene::CheckButtonClick()
 	//우측 클릭시 삭제
 	if (INPUT->GetKeyDown(VK_RBUTTON))
 	{
-		cout << "click r" << endl;
 		for (int i = 0; i < BUTTON_MAX; i++)
 		{
 			if (PtInRect(&_button[i].GetRect(), _ptMouse))
