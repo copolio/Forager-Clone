@@ -137,6 +137,8 @@ HRESULT ForagerPlayer::init()
 	_delayStartBalloon = 240;
 	_powerOverwhelmingTime = 100;
 
+	STATMANAGER->SetLinkPlayer(this);
+
 	return S_OK;
 }
 

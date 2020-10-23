@@ -58,6 +58,7 @@ void treasureBox::GiveReward()
 {
 
 	TEXTMANAGER->ShowNotifyText("아주 좋은 보상을 획득했다!", { WINSIZEX / 2, WINSIZEY / 2 - 190 }, 50, RGB(255, 255, 255), RGB(0, 0, 0), 3);
+	EFFECTMANAGER->ShowEffectFrame("treasure", { GetCenterX(), GetCenterY() }, 5, 2.0f, true);
 	currentHp = 0;
 
 }
