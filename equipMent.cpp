@@ -24,6 +24,10 @@ HRESULT equipMent::init()
 
 void equipMent::release()
 {
+	for (int i = 0; i < player_equip.size(); i++) {
+		SAFE_DELETE(player_equip[i]);
+		player_equip[i] = NULL;
+	}
 	player_equip.clear();
 }
 

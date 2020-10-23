@@ -73,7 +73,7 @@ void gameScene::release()
 
 void gameScene::update()
 {
-	_CrtMemDumpAllObjectsSince();
+
 	if (!_cursor->InteractionOpen()) {
 		_player->update();
 

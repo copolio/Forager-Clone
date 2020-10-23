@@ -16,9 +16,9 @@ HRESULT loadingScene::init()
 
 void loadingScene::release()
 {
-	//로딩클래스 해제
-	//_loading->release();
-	//SAFE_DELETE(_loading);
+
+	_loading->release();
+	SAFE_DELETE(_loading);
 }
 
 void loadingScene::update()

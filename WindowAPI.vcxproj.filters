@@ -566,6 +566,9 @@
     <ClInclude Include="muBoss.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
+    <ClInclude Include="CheckLeak.h">
+      <Filter>GameFramework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\이미지\Forager_Icon.ico">

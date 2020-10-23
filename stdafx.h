@@ -14,6 +14,10 @@
 #include <Windows.h>
 // C 런타임 헤더 파일입니다.
 #include <crtdbg.h>
+
+#ifdef _DEBUG
+#define new new( _CLIENT_BLOCK, __FILE__, __LINE__ )
+#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <tchar.h>

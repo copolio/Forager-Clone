@@ -348,6 +348,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_vNpc.push_back(t_npc);
 		}
 	}
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 }
 
 // À¯´Ö Ãß°¡

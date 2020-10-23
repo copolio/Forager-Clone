@@ -49,7 +49,10 @@ HRESULT inventory::init()
 
 void inventory::release()
 {
-	player_inventory.clear();
+	for (int i = 0; i < player_inventory.size(); i++) {
+		SAFE_DELETE(player_inventory[i]);
+		player_inventory[i] = NULL;
+	}
 }
 
 void inventory::update()

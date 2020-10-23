@@ -156,6 +156,7 @@
     <ClInclude Include="building.h" />
     <ClInclude Include="buildinginteraction.h" />
     <ClInclude Include="cameraManager.h" />
+    <ClInclude Include="CheckLeak.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="construction.h" />
     <ClInclude Include="construction_tool_tip.h" />

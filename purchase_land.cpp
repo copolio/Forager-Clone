@@ -14,6 +14,8 @@ HRESULT purchase_land::init()
 
 void purchase_land::release()
 {
+	SAFE_DELETE(balance);
+	balance = NULL;
 }
 
 void purchase_land::update()

@@ -20,6 +20,7 @@
 #include "muBoss.h"
 #include "treasureBox.h"
 
+
 #define MAXENEMYUNIT 40
 
 class earth;

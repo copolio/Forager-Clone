@@ -62,6 +62,10 @@ void gameNode::release()
 	UNITMANAGER->release();
 	UNITMANAGER->releaseSingleton();
 
+	ITEMMANAGER->releaseSingleton();
+	
+	ASTAR->releaseSingleton();
+
 	//HDC «ÿ¡¶
 	ReleaseDC(_hWnd, _hdc);
 }
