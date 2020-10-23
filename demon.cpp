@@ -49,6 +49,16 @@ void demon::render(HDC hdc)
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	}
+	RECT temp;
+	if (IntersectRect(&temp, &CAMERA->GetCameraRect(), &rc)) {
+		if (_state4 == DWALK) {
+			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0), rc.top + (rc.bottom - rc.top) / 2 - RANDOM->range(-1, -6) };
+			// 발걸음 이펙트
+			if (_count % 10 == 0) {
+				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, RANDOM->range(0.01f, 0.03f), 50, 150, true);
+			}
+		}
+	}
 }
 
 void demon::demonMove()
@@ -58,7 +68,7 @@ void demon::demonMove()
 		if (!checkDestination)
 		{
 			searchCount++;
-			if (searchCount > 50)
+			if (searchCount > 1)
 			{
 				if (isattacking) {
 					
@@ -230,7 +240,7 @@ void demon::demonAnimation()
 		if (_count++ % 10 == 0)
 		{
 			if (_index++ > 11)
-				_index == 0;
+				_index = 0;
 		}
 		break;
 		break;

@@ -2,7 +2,7 @@
 #include "singletonBase.h"
 #include <list>
 
-#define MAX_EFFECT 20
+#define MAX_EFFECT 200
 
 class EffectManager : public singletonBase<EffectManager>
 {

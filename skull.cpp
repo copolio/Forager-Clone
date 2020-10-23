@@ -56,6 +56,16 @@ void skull::render(HDC hdc)
 			CAMERA->GetRelativeY(rc.top - 10), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	}	
+	RECT temp;
+	if (IntersectRect(&temp, &CAMERA->GetCameraRect(), &rc)) {
+		if (_state == STAY) {
+			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0), rc.top + (rc.bottom - rc.top) / 2 - RANDOM->range(-1, -6) };
+			// 발걸음 이펙트
+			if (_count % 10 == 0) {
+				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, RANDOM->range(0.01f, 0.03f), 50, 150, true);
+			}
+		}
+	}
 }
 
 //1타일씩 상하좌우 랜덤움직이는데, 총 5번 
@@ -66,7 +76,7 @@ void skull::skullMove()
 		if (!checkDestination)
 		{
 			searchCount++;
-			if (searchCount > 50)
+			if (searchCount > 1)
 			{
 				if (isattacking) {
 					auto path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, false);
