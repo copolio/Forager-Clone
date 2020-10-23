@@ -17,6 +17,14 @@ void enemy::update()
 
 void enemy::hurt(int damage)
 {
+	currentHp -= damage;
+
+	if (currentHp <= 0)
+		dead();
+
+	else
+		isHit = true;
+	SOUNDMANAGER->play("나무타격");
 }
 
 void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)
