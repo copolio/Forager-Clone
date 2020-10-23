@@ -94,6 +94,7 @@ void ForagerStatManager::update()
 		{
 			_staminaImgSizeMax += 20;
 			levelUp = false;
+			_player->Init_PowerOverwhelmingTime();
 		}
 		else
 		{

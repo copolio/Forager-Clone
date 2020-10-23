@@ -148,6 +148,10 @@ public:
 	bool IsBow() { return _equipWeapon == EQUIPWEAPON::BOW; };
 	POINT GetBowXY();
 	void hurt(int damage) override;
+	void SetIsMoveRotate() { _isMoveRotate = false; };
+	void Init_PowerOverwhelmingTime() {
+		_powerOverwhelmingTime = 0;
+	}
 private:
 	void RotateImage(image* img);
 	void Rotate(image* img, int sizeX, int sizeY, int frameX, bool left = false);

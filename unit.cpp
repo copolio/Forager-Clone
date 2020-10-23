@@ -3,6 +3,7 @@
 
 void unit::hurt(int damage)
 {
+	
 	currentHp -= damage;
 
 	if (currentHp <= 0)

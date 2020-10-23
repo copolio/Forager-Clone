@@ -33,9 +33,10 @@ HRESULT gameScene::init()
 	CAMERA->init(_player->x, _player->y, _player->x, _player->y, 0.5f, 0.5f, WINSIZEX + 400, WINSIZEY + 300, -2000*5, -2000 * 5, 2000 * 5, 2000 * 5);
 	UNITMANAGER->AddUnits(_player);
 	UNITMANAGER->setLinkMap(_map);
+	
 
 	_player->getquick_slotInfo(_quick_slot);
-	
+	STATMANAGER->ForagerPlayerinfo(_player);
 	money_pos.x = 55;
 	money_pos.y = WINSIZEY - 50;
 	SCENEMANAGER->set_ischeck(true);

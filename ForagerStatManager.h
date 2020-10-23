@@ -62,7 +62,9 @@ public :
 	void render(HDC hdc);
 
 	vector<tagForagerHp*> _foragerHp;
-
+	void ForagerPlayerinfo(ForagerPlayer* _q) {
+		_player = _q;
+	}
 	void setinvenopen(bool open) {
 		inven_open = open;
 	}
