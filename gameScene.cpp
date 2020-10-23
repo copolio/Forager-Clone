@@ -73,6 +73,7 @@ void gameScene::release()
 
 void gameScene::update()
 {
+	_CrtMemDumpAllObjectsSince();
 	if (!_cursor->InteractionOpen()) {
 		_player->update();
 
@@ -151,5 +152,6 @@ void gameScene::render()
 		POINT clampPos = _player->GetBowXY();
 		IMAGEMANAGER->findImage("BowCursor")->render(getMemDC(), clampPos.x, clampPos.y);
 	}
+	STATMANAGER->render(getMemDC());
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 }

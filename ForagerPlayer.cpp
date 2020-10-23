@@ -358,7 +358,7 @@ void ForagerPlayer::render(HDC hdc)
 			}
 		}
 	}
-	STATMANAGER->render(hdc);
+	
 }
 
 
