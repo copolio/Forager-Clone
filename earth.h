@@ -12,11 +12,6 @@ private:
 	ForagerPlayer* _player; // ÇÃ·¹ÀÌ¾î
 
 private:
-	image* watertile;
-	image* plaintile;
-	image* plainedge;
-	image* wave;
-	image* underwater;
 	int _count;
 	int _frameCount;
 	int wavetick;
