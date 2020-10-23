@@ -15,6 +15,14 @@ void Astar::init(vector<tile> vTile, bool checkwall)
 		for (int x = 0; x < MAPTILEX; x++)
 		{
 			//새로운 노드와 렉트위치 설정
+			SAFE_DELETE(_totalNode[x][y]);
+		}
+	}
+	for (int y = 0; y < MAPTILEY; y++)
+	{
+		for (int x = 0; x < MAPTILEX; x++)
+		{
+			//새로운 노드와 렉트위치 설정
 			_totalNode[x][y] = new node(x, y);
 			_totalNode[x][y]->rc = _vTiles[y*MAPTILEY + x].rc;
 			if (checkwall) {
@@ -33,6 +41,7 @@ void Astar::init(vector<tile> vTile, bool checkwall)
 
 vector<int> Astar::pathFinding(vector<tile> vTile, int startidx, int endidx, bool checkwall, bool checkdiagonal)
 {
+
 	this->init(vTile, checkwall);
 	earth _map;
 	_startNode = _totalNode[_map.GetTileY(startidx)][_map.GetTileX(startidx)];
