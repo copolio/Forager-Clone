@@ -254,8 +254,8 @@ void demon::demonAnimation()
 				demonWaitCount = 0;
 				demonHitCount = 1;
 				tryAttack = false;
-				if(_index == 5 /*|| _index ==6*/)
-					SOUNDMANAGER->play("악마불지질때소리");
+				
+					
 			}
 
 		}
@@ -278,7 +278,7 @@ void demon::demonBrassFire()
 {
 	skillFireCount++;
 	if (skillFireCount % 200 == 0) {
-		
+		SOUNDMANAGER->play("악마불지질때소리");
 		_count = 0;
 		_index = 0;
 		

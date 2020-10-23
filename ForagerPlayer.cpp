@@ -560,6 +560,7 @@ void ForagerPlayer::PlayerControll()
 
 void ForagerPlayer::MeleeWeaponClick()
 {
+	_powerOverwhelmingTime = 100;
 	if (_hitDelayCount == 18)
 	{
 		SOUNDMANAGER->play("근접무기");
@@ -751,7 +752,7 @@ void ForagerPlayer::hungryBalloon()
 				else if (t_random == 1)
 					str = "뭐라도 먹어야만 해.";
 				t_vStr.push_back(str);
-				DIALOGUE->ShowDialogue(t_vStr, &rc, 0);
+				DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
 			}
 		}
 		else {
@@ -763,7 +764,7 @@ void ForagerPlayer::hungryBalloon()
 				_startBalloon = true;
 				vector<string> t_vStr;
 				t_vStr.push_back("우선 용광로부터 지어보자고!");
-				DIALOGUE->ShowDialogue(t_vStr, &rc, 0);
+				DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
 			}
 		}
 	}
@@ -942,7 +943,8 @@ void ForagerPlayer::hurt(int damage)
 	if (_powerOverwhelmingTime >= 10) {
 		_powerOverwhelmingTime = 0;
 		STATMANAGER->setRight(damage);
-		SOUNDMANAGER->play("나무타격");
+		if(damage > 1)
+			SOUNDMANAGER->play("나무타격");
 		_isGotDamage = true;
 		_index = 1;
 		_count = 0;
