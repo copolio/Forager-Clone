@@ -216,34 +216,34 @@ void startScene::CheckButtonClick()
 
 					case BTN::SLOT1:
 
-						SAVEMANAGER->My_Game_save_file_item = "Release/save/item_save1.map";
-						SAVEMANAGER->My_Game_save_file_equip = "Release/save/equip_save1.map";
-						SAVEMANAGER->My_Game_save_file_tile = "Release/save/tile_save1.map";
-						SAVEMANAGER->My_Game_save_file_unit = "Release/save/unit_save1.map";
-						SAVEMANAGER->My_Game_save_file_player = "Release/save/player_save1";
-						SAVEMANAGER->My_Game_save_file_npc = "Release/save/quest_save1";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save1.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save1.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save1.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save1.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save1";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save1";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 1
 
 					case BTN::SLOT2:
 
-						SAVEMANAGER->My_Game_save_file_item = "Release/save/item_save2.map";
-						SAVEMANAGER->My_Game_save_file_equip = "Release/save/equip_save2.map";
-						SAVEMANAGER->My_Game_save_file_tile = "Release/save/tile_save2.map";
-						SAVEMANAGER->My_Game_save_file_unit = "Release/save/unit_save2.map";
-						SAVEMANAGER->My_Game_save_file_player = "Release/save/player_save2";
-						SAVEMANAGER->My_Game_save_file_npc = "Release/save/quest_save2";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save2.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save2.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save2.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save2.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save2";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save2";
 						SCENEMANAGER->loadScene("게임 화면");
 
 						break;	// 게임 슬롯 2
 					case BTN::SLOT3:
 
-						SAVEMANAGER->My_Game_save_file_item = "Release/save/item_save3.map";
-						SAVEMANAGER->My_Game_save_file_equip = "Release/save/equip_save3.map";
-						SAVEMANAGER->My_Game_save_file_tile = "Release/save/tile_save3.map";
-						SAVEMANAGER->My_Game_save_file_unit = "Release/save/unit_save3.map";
-						SAVEMANAGER->My_Game_save_file_player = "Release/save/player_save3";
-						SAVEMANAGER->My_Game_save_file_npc = "Release/save/quest_save3";
+						SAVEMANAGER->My_Game_save_file_item = "save/item_save3.map";
+						SAVEMANAGER->My_Game_save_file_equip = "save/equip_save3.map";
+						SAVEMANAGER->My_Game_save_file_tile = "save/tile_save3.map";
+						SAVEMANAGER->My_Game_save_file_unit = "save/unit_save3.map";
+						SAVEMANAGER->My_Game_save_file_player = "save/player_save3";
+						SAVEMANAGER->My_Game_save_file_npc = "save/quest_save3";
 						SCENEMANAGER->loadScene("게임 화면");
 						break;	// 게임 슬롯 3
 					}
@@ -262,32 +262,32 @@ void startScene::CheckButtonClick()
 				SOUNDMANAGER->play("클릭");
 				switch (i) {
 				case BTN::SLOT1:
-					DeleteFile(TEXT("Release/save/item_save1.map"));
-					DeleteFile(TEXT("Release/save/equip_save1.map"));
-					DeleteFile(TEXT("Release/save/tile_save1.map"));
-					DeleteFile(TEXT("Release/save/unit_save1.map"));
-					DeleteFile(TEXT("Release/save/player_save1.ini"));
-					DeleteFile(TEXT("Release/save/quest_save1.map"));
+					DeleteFile(TEXT("save/item_save1.map"));
+					DeleteFile(TEXT("save/equip_save1.map"));
+					DeleteFile(TEXT("save/tile_save1.map"));
+					DeleteFile(TEXT("save/unit_save1.map"));
+					DeleteFile(TEXT("save/player_save1.ini"));
+					DeleteFile(TEXT("save/quest_save1.map"));
 					CheckGameFile();
 					break;	// 게임 슬롯 1
 
 				case BTN::SLOT2:
-					DeleteFile(TEXT("Release/save/item_save2.map"));
-					DeleteFile(TEXT("Release/save/equip_save2.map"));
-					DeleteFile(TEXT("Release/save/tile_save2.map"));
-					DeleteFile(TEXT("Release/save/unit_save2.map"));
-					DeleteFile(TEXT("Release/save/player_save2.ini"));
-					DeleteFile(TEXT("Release/save/quest_save2.map"));
+					DeleteFile(TEXT("save/item_save2.map"));
+					DeleteFile(TEXT("save/equip_save2.map"));
+					DeleteFile(TEXT("save/tile_save2.map"));
+					DeleteFile(TEXT("save/unit_save2.map"));
+					DeleteFile(TEXT("save/player_save2.ini"));
+					DeleteFile(TEXT("save/quest_save2.map"));
 
 					CheckGameFile();
 					break;	// 게임 슬롯 2
 				case BTN::SLOT3:
-					DeleteFile(TEXT("Release/save/item_save3.map"));
-					DeleteFile(TEXT("Release/save/equip_save3.map"));
-					DeleteFile(TEXT("Release/save/tile_save3.map"));
-					DeleteFile(TEXT("Release/save/unit_save3.map"));
-					DeleteFile(TEXT("Release/save/player_save3.ini"));
-					DeleteFile(TEXT("Release/save/quest_save3.map"));
+					DeleteFile(TEXT("save/item_save3.map"));
+					DeleteFile(TEXT("save/equip_save3.map"));
+					DeleteFile(TEXT("save/tile_save3.map"));
+					DeleteFile(TEXT("save/unit_save3.map"));
+					DeleteFile(TEXT("save/player_save3.ini"));
+					DeleteFile(TEXT("save/quest_save3.map"));
 					CheckGameFile();
 					break;	// 게임 슬롯 3
 				}
