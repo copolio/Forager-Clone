@@ -34,12 +34,12 @@ void SpawnManager::GetCanSpawnTile()
 void SpawnManager::TrySpawn()
 {
 
-	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 4) {
+	if (UNITMANAGER->GetMonsterCount() < MAXENEMYUNIT-2 && _map->GetIslandCount() >= 2) {
 
 		GetCanSpawnTile();
 
 		if (_plainTile.size() > 0) {
-
+			if (UNITMANAGER->GetCowCount() < _map->GetIslandCount())
 			switch (pattern)
 			{
 			case 0:
