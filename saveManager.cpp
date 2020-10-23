@@ -160,8 +160,6 @@ bool saveManager::load()
 	if (file != INVALID_HANDLE_VALUE) {
 		vector<npc*> _npclode = UNITMANAGER->GetNpc();
 		for (int i = 0; i < NPCMAXSIZE;i++) {
-			cout << quest[i].get_isQuestReceive() << endl;
-			cout << quest[i].get_isQuestComplete() << endl;
 			UNITMANAGER->GetNpc()[i]->set_isQuestReceive(quest[i].get_isQuestReceive());
 			UNITMANAGER->GetNpc()[i]->set_isQuestComplete(quest[i].get_isQuestComplete());
 		}
@@ -248,8 +246,6 @@ void saveManager::npc_transform()
 		quest[i].set_isQuestReceive((*_npc)[i]->get_isQuestReceive());
 		
 		quest[i].set_isQuestComplete((*_npc)[i]->get_isQuestComplete());
-		cout << quest[i].get_isQuestReceive() << endl;
-		cout << quest[i].get_isQuestComplete() << endl;
 	
 	}
 }

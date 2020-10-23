@@ -1023,7 +1023,6 @@ void ForagerPlayer::CheckCollision()
 
 void ForagerPlayer::hurt(int damage)
 {
-	cout << "¸ÂÀ½" << endl;
 	if (_powerOverwhelmingTime >= 10) {
 		
 		_powerOverwhelmingTime = 0;
