@@ -1,6 +1,6 @@
 #pragma once
 #include "targetingBox.h"
-#define LANDPRICE 100
+#define LANDPRICE 10
 class earth;
 
 class purchase_land 

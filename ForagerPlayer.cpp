@@ -193,20 +193,14 @@ void ForagerPlayer::render(HDC hdc)
 	int relWeaponY = CAMERA->GetRelativeY(_rcHammer.top);
 
 	if (_isGotDamage) {
-		if (_powerOverwhelmingTime % 5 == 0) {
+		if (_count % 5 == 0) {
 			switch (_state)
 			{
 			case IDLE:
-				//if (!_isGotDamage)
-					IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
-				/*else
-					IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());*/
+				IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
 				break;
 			case RUN:
-			//	if (!_isGotDamage)
-					IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
-			/*	else
-					IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());*/
+				IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
 				break;
 
 			case ROTATE:
@@ -283,22 +277,13 @@ void ForagerPlayer::render(HDC hdc)
 		}
 	}
 	else {
-
-
-
 		switch (_state)
 		{
 		case IDLE:
-			//if (!_isGotDamage)
-				IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
-		//	else
-			//	IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
 			break;
 		case RUN:
-			//if (!_isGotDamage)
-				IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
-		//	else
-		//		IMAGEMANAGER->frameRender("playerHurt", hdc, relX, relY, CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
 			break;
 
 		case ROTATE:
@@ -379,8 +364,8 @@ void ForagerPlayer::render(HDC hdc)
 
 void ForagerPlayer::animation()
 {
-	//if (!_isGotDamage)
-	//{
+	if (!_isGotDamage)
+	{
 		switch (_state)
 		{
 		case IDLE:
@@ -455,7 +440,7 @@ void ForagerPlayer::animation()
 			}
 			break;
 		}
-	/*}
+	}
 	else
 	{
 		if (_state != HAMMERING)
@@ -502,7 +487,7 @@ void ForagerPlayer::animation()
 			}
 			break;
 		}
-	}*/
+	}
 }
 
 void ForagerPlayer::bowAnimation()

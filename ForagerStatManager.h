@@ -91,5 +91,6 @@ public :
 	void SetLevel(int lev) { level = lev; };
 	void SetStamina(int stam) { _staminSizeCurrent = stam; };
 	void SetStaminaMax(int stamBack) { _staminaImgSizeMax = stamBack; };
+	bool GetSuperMode() {return superMode;	};
 };
 

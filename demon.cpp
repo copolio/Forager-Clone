@@ -12,7 +12,7 @@ HRESULT demon::init()
 	skillFireCount = 0;
 
 	tryAttack = false;
-	isattacking = false;
+	isattacking = true;
 	Atk = 1;
 
 	return S_OK;
