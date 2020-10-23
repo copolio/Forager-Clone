@@ -63,8 +63,8 @@ void npc::update()
 
 void npc::render(HDC hdc)
 {
-	int relX = CAMERA->GetRelativeX(rc.left);
-	int relY = CAMERA->GetRelativeY(rc.top);
+	int relX = CAMERA->GetRelativeX(rc.left - 25);
+	int relY = CAMERA->GetRelativeY(rc.top - 25);
 	_img->frameRender(hdc, relX, relY, objFrameX, objFrameY, CAMERA->GetZoom());
 
 	if (_isNearPlayer && _canDialogue) {
@@ -119,18 +119,18 @@ void npc::showDialogue()
 				// 퀘스트 완수
 				if (ITEMMANAGER->Item_count_Minus(_QuestItem, 5)) {
 					_isQuestComplete = true;
-					DIALOGUE->ShowDialogue(_vDialogueQuestComplete, &rc);
+					DIALOGUE->ShowDialogue(_vDialogueQuestComplete, &rc, 50);
 
 					UNITMANAGER->AddProduction(_QuestRewardItem, { rc.left - 50, rc.bottom + 50 });
 				}
 
 				// 퀘스트 진행중
 				else 
-					DIALOGUE->ShowDialogue(_vDialogueQuestGive, &rc);
+					DIALOGUE->ShowDialogue(_vDialogueQuestGive, &rc, 50);
 			}
 			// 퀘스트 클리어 후
 			else 
-				DIALOGUE->ShowDialogue(_vDialogueQuestComplete, &rc);
+				DIALOGUE->ShowDialogue(_vDialogueQuestComplete, &rc, 50);
 			
 			_canDialogue = false; // 중복 대화 방지
 		}

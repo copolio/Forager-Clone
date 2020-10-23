@@ -58,6 +58,30 @@ void treasureBox::GiveReward()
 {
 
 	TEXTMANAGER->ShowNotifyText("아주 좋은 보상을 획득했다!", { WINSIZEX / 2, WINSIZEY / 2 - 190 }, 50, RGB(255, 255, 255), RGB(0, 0, 0), 3);
+	EFFECTMANAGER->ShowEffectFrame("treasure", { GetCenterX(), GetCenterY() }, 5, 2.0f, true);
+	
+	int t_interval = 25;
+	for (int i = 0; i < 10; i++) {
+		if(i % 2 == 0)
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX() + i * t_interval, GetCenterY() });
+		else
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX() - i * t_interval, GetCenterY() });
+	}
+
+	for (int i = 0; i < 10; i++) {
+		if (i % 2 == 0)
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX(), GetCenterY() - i * t_interval });
+		else
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX(), GetCenterY() + i * t_interval });
+	}
+
+	for (int i = 0; i < 10; i++) {
+		if (i % 2 == 0)
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX() + i * t_interval, GetCenterY() - i * t_interval });
+		else
+			UNITMANAGER->AddUnits("img_game_money_icon", { GetCenterX() - i * t_interval, GetCenterY() + i * t_interval });
+	}
+	
 	currentHp = 0;
 
 }
@@ -68,7 +92,7 @@ void treasureBox::render(HDC hdc)
 	int relX = CAMERA->GetRelativeX(rc.left);
 	int relY = CAMERA->GetRelativeY(rc.top);
 
-	IMAGEMANAGER->render(objKey, hdc, relX, relY);
+	IMAGEMANAGER->render(objKey, hdc, relX, relY, CAMERA->GetZoom());
 	if (_isNear) {
 		
 		IMAGEMANAGER->render("E", hdc, relX + 40, relY - 20, CAMERA->GetZoom());

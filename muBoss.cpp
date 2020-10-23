@@ -5,6 +5,8 @@ HRESULT muBoss::init()
 {
 	_state5 = MIDLE;
 
+
+
 	return S_OK;
 }
 
@@ -70,13 +72,28 @@ void muBoss::muuAnimation()
 
 void muBoss::hurt(int damage)
 {
+	SOUNDMANAGER->play("무맞을때소리");
 	_index = 0;
 	_count = 0;
 	_state5 = CRY;
-	currentHp -= damage;
 
-	if(currentHp <= 0){
-		UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { GetCenterX(), GetCenterY()});
-	}
+	vector<string> t_vStr;
+	int t_random = RANDOM->range(0, 3);
+	if (t_random == 0)
+		t_vStr.push_back("그, 그래도 난 널 믿어...!");
+	else if (t_random == 1)
+		t_vStr.push_back("갑자기 왜 그러는 거야...!");
+	else
+		t_vStr.push_back("내, 내가 뭘 잘못한 거니...?!");
+
+	DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
+
+	unit::hurt(damage);
+
+}
+
+void muBoss::dead()
+{
+	UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { GetCenterX(), GetCenterY() });
 }
 	

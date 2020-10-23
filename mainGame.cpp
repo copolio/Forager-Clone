@@ -52,6 +52,9 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("유령무기발사소리", "Sound/\SoundEffect/wraithShootSound.mp3");
 	SOUNDMANAGER->addSound("유령무기맞는소리", "Sound/\SoundEffect/gotHitByWraith.mp3");
 	SOUNDMANAGER->addSound("피찰때소리", "Sound/\SoundEffect/plusBlooding.mp3");
+	SOUNDMANAGER->addSound("무맞을때소리", "Sound/\SoundEffect/muBossCry.mp3");
+	SOUNDMANAGER->addSound("악마불지질때소리", "Sound/\SoundEffect/fireBrass.mp3");
+	
 
 
 

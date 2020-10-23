@@ -213,6 +213,7 @@ void demon::demonAttack()
 		{
 			_state4 = DYELL;
 			demonBrassFire();
+			
 		}
 		else
 			_state4 = DIDLE;
@@ -253,6 +254,8 @@ void demon::demonAnimation()
 				demonWaitCount = 0;
 				demonHitCount = 1;
 				tryAttack = false;
+				
+					
 			}
 
 		}
@@ -275,7 +278,7 @@ void demon::demonBrassFire()
 {
 	skillFireCount++;
 	if (skillFireCount % 200 == 0) {
-		
+		SOUNDMANAGER->play("악마불지질때소리");
 		_count = 0;
 		_index = 0;
 		

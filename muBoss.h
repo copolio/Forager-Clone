@@ -18,6 +18,6 @@ public:
 	
 	void muuAnimation();
 	void hurt(int damage) override;
-
+	void dead() override;
 };
 
