@@ -590,7 +590,7 @@ void ForagerPlayer::MeleeWeaponClick()
 							SOUNDMANAGER->play("해골사망소리");
 						else if (targetUnit->objKey =="cow")
 							SOUNDMANAGER->play("황소사망소리");
-					   
+					
 						//스태니마 감소
 							STATMANAGER->setRight(5);
 
@@ -603,7 +603,6 @@ void ForagerPlayer::MeleeWeaponClick()
 								str.insert(0, "EXP ");
 								TEXTMANAGER->ShowFloatingText(str, pt, RGB(100, 255, 100), RGB(0, 0, 0));
 								STATMANAGER->IncreaseExp(t_exp);
-
 							}
 						// 타격 줌인 연출
 						CAMERA->forceZoomIn(0.04f, 0.008f);
@@ -760,7 +759,7 @@ void ForagerPlayer::hungryBalloon()
 			if (_cntDelayStartBalloon++ >= _delayStartBalloon) {
 				_startBalloon = true;
 				vector<string> t_vStr;
-				t_vStr.push_back("우선 용광로부터 지어야겠어!");
+				t_vStr.push_back("우선 용광로부터 지어보자고!");
 				DIALOGUE->ShowDialogue(t_vStr, &rc, 0);
 			}
 		}

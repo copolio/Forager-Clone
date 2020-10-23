@@ -46,11 +46,13 @@ void DialogueManager::update()
 void DialogueManager::render(HDC hdc)
 {
 	for (int i = 0; i < _vDialogues.size(); i++) {
-		POINT ptPos = { _vDialogues[i].rc->left, _vDialogues[i].rc->top - 40};
-		int balloonWidth = 15 * _vDialogues[i].vDialogueText[_vDialogues[i].currentLine].size();
-		IMAGEMANAGER->stretchRender("Balloon", hdc, CAMERA->GetRelativeX(ptPos.x - balloonWidth / 2), CAMERA->GetRelativeY(ptPos.y - 15), 0, 0, 15 * _vDialogues[i].vDialogueText[_vDialogues[i].currentLine].size(), 67, 100, CAMERA->GetZoom());
-		TEXTMANAGER->ShowText(hdc, true, _vDialogues[i].str, ptPos,
-			30, 1, RGB(255, 255, 255), true, RGB(0, 0, 0), 1);
+		if (_vDialogues[i].rc != nullptr) {
+			POINT ptPos = { _vDialogues[i].rc->left + (_vDialogues[i].rc->right - _vDialogues[i].rc->left) / 2, _vDialogues[i].rc->top - 55 };
+			int balloonWidth = 15 * _vDialogues[i].vDialogueText[_vDialogues[i].currentLine].size();
+			IMAGEMANAGER->stretchRender("Balloon", hdc, CAMERA->GetRelativeX(ptPos.x - balloonWidth / 2), CAMERA->GetRelativeY(ptPos.y - 15), 0, 0, 15 * _vDialogues[i].vDialogueText[_vDialogues[i].currentLine].size(), 67, 100, CAMERA->GetZoom());
+			TEXTMANAGER->ShowText(hdc, true, _vDialogues[i].str, ptPos,
+				30, 1, RGB(255, 255, 255), true, RGB(0, 0, 0), 1);
+		}
 	}
 }
 

@@ -68,7 +68,7 @@ void treasureBox::render(HDC hdc)
 	int relX = CAMERA->GetRelativeX(rc.left);
 	int relY = CAMERA->GetRelativeY(rc.top);
 
-	IMAGEMANAGER->render(objKey, hdc, relX, relY);
+	IMAGEMANAGER->render(objKey, hdc, relX, relY, CAMERA->GetZoom());
 	if (_isNear) {
 		
 		IMAGEMANAGER->render("E", hdc, relX + 40, relY - 20, CAMERA->GetZoom());

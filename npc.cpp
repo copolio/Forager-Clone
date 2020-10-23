@@ -63,8 +63,8 @@ void npc::update()
 
 void npc::render(HDC hdc)
 {
-	int relX = CAMERA->GetRelativeX(rc.left);
-	int relY = CAMERA->GetRelativeY(rc.top);
+	int relX = CAMERA->GetRelativeX(rc.left - 25);
+	int relY = CAMERA->GetRelativeY(rc.top - 25);
 	_img->frameRender(hdc, relX, relY, objFrameX, objFrameY, CAMERA->GetZoom());
 
 	if (_isNearPlayer && _canDialogue) {
