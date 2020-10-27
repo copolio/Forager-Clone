@@ -46,11 +46,8 @@ bool saveManager::load()
 	if (file != INVALID_HANDLE_VALUE) { // 파일의 존재 여부 확인
 		for (int i = 0; i < ITEMMANAGER->getvInventory_info().size(); i++) {
 			ITEMMANAGER->getvInventory_info()[i]->count = My_Item[i].count;
-			ITEMMANAGER->getvInventory_info()[i]->img_name = My_Item[i].img_name;
+			ITEMMANAGER->getvInventory_info()[i]->_item =  My_Item[i]._item;
 			ITEMMANAGER->getvInventory_info()[i]->isCheck = My_Item[i].isCheck;
-			ITEMMANAGER->getvInventory_info()[i]->item_Info = My_Item[i].item_Info;
-			ITEMMANAGER->getvInventory_info()[i]->item_name = My_Item[i].item_name;
-			ITEMMANAGER->getvInventory_info()[i]->Kinds = My_Item[i].Kinds;
 			ITEMMANAGER->getvInventory_info()[i]->x = My_Item[i].x;
 			ITEMMANAGER->getvInventory_info()[i]->y = My_Item[i].y;
 			ITEMMANAGER->getvInventory_info()[i]->_rc = My_Item[i]._rc;
@@ -65,11 +62,8 @@ bool saveManager::load()
 	if (file != INVALID_HANDLE_VALUE) { // 파일의 존재 여부 확인
 		for (int i = 0; i < ITEMMANAGER->get_equip_info().size(); i++) {
 			ITEMMANAGER->get_equip_info()[i]->count = My_equip[i].count;
-			ITEMMANAGER->get_equip_info()[i]->img_name = My_equip[i].img_name;
+			ITEMMANAGER->get_equip_info()[i]->_item = My_equip[i]._item;
 			ITEMMANAGER->get_equip_info()[i]->isCheck = My_equip[i].isCheck;
-			ITEMMANAGER->get_equip_info()[i]->item_Info = My_equip[i].item_Info;
-			ITEMMANAGER->get_equip_info()[i]->item_name = My_equip[i].item_name;
-			ITEMMANAGER->get_equip_info()[i]->Kinds = My_equip[i].Kinds;
 			ITEMMANAGER->get_equip_info()[i]->x = My_equip[i].x;
 			ITEMMANAGER->get_equip_info()[i]->y = My_equip[i].y;
 			ITEMMANAGER->get_equip_info()[i]->_rc = My_equip[i]._rc;
@@ -173,11 +167,8 @@ void saveManager::Item_transform()
 {
 	for (int i = 0; i < ITEMMANAGER->getvInventory_info().size(); i++) {
 		My_Item[i].count =ITEMMANAGER->getvInventory_info()[i]->count;
-		My_Item[i].img_name =ITEMMANAGER->getvInventory_info()[i]->img_name;
+		My_Item[i]._item =ITEMMANAGER->getvInventory_info()[i]->_item;
 		My_Item[i].isCheck =ITEMMANAGER->getvInventory_info()[i]->isCheck;
-		My_Item[i].item_Info =ITEMMANAGER->getvInventory_info()[i]->item_Info;
-		My_Item[i].item_name =ITEMMANAGER->getvInventory_info()[i]->item_name;
-		My_Item[i].Kinds =ITEMMANAGER->getvInventory_info()[i]->Kinds;
 		My_Item[i].x =ITEMMANAGER->getvInventory_info()[i]->x;
 		My_Item[i].y =ITEMMANAGER->getvInventory_info()[i]->y;
 		My_Item[i]._rc =ITEMMANAGER->getvInventory_info()[i]->_rc;
@@ -189,11 +180,8 @@ void saveManager::equip_transform()
 {
 	for (int i = 0; i < ITEMMANAGER->get_equip_info().size(); i++) {
 		 My_equip[i].count = ITEMMANAGER->get_equip_info()[i]->count;
-		 My_equip[i].img_name = ITEMMANAGER->get_equip_info()[i]->img_name;
+		 My_equip[i]._item = ITEMMANAGER->get_equip_info()[i]->_item;
 		 My_equip[i].isCheck = ITEMMANAGER->get_equip_info()[i]->isCheck;
-		 My_equip[i].item_Info = ITEMMANAGER->get_equip_info()[i]->item_Info;
-		 My_equip[i].item_name = ITEMMANAGER->get_equip_info()[i]->item_name;
-		 My_equip[i].Kinds = ITEMMANAGER->get_equip_info()[i]->Kinds;
 		 My_equip[i].x = ITEMMANAGER->get_equip_info()[i]->x;
 		 My_equip[i].y = ITEMMANAGER->get_equip_info()[i]->y;
 		 My_equip[i]._rc = ITEMMANAGER->get_equip_info()[i]->_rc;

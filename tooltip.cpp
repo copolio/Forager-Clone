@@ -1,16 +1,13 @@
 #include "stdafx.h"
-#include "item_info.h"
+#include "tooltip.h"
 
-void item_info::render(HDC hdc,string item_name)
+void tooltip::render(HDC hdc, string p_itemKey)
 {
-	/*berryDrop
-		rockDrop
-		treeDrop*/
 
-	if (item_name == "") return;
+	if (p_itemKey == "") return;
 
 	// 아이템 이미지 출력
-	 tagItem t_item = DATABASE->_itemDictionary[item_name];
+	 tagItem t_item = DATABASE->GetItem(p_itemKey);
 	 IMAGEMANAGER->render("img_UI_ItemTooltip", hdc, 900, 150);
 	 IMAGEMANAGER->render("bag", hdc, 1000, 450);
 	 IMAGEMANAGER->render(t_item.itemKey, hdc, 950, 180);

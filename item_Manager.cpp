@@ -6,12 +6,12 @@ int item_Manager::equip_count()
 {
 	int count=0;
 	for (int i = 0; i < _equip.size(); i++) {
-		if (_equip[i]->Kinds == ITEM_EQUIP) {
+		if (_equip[i]->_item.itemType == ItemType::EQUIPMENT) {
 			count++;
 		}
 	}
 	for (int i = 0; i < ITEMMANAGER->getvInventory_info().size(); i++) {
-		if (ITEMMANAGER->getvInventory_info()[i]->Kinds != ITEM_FOOD) continue;
+		if (ITEMMANAGER->getvInventory_info()[i]->_item.itemType != ItemType::CONSUMABLE) continue;
 			count++;
 		
 	}
@@ -30,8 +30,7 @@ void item_Manager::vItem_push(string key)
 	}
 	else {
 		int number = itemempty();
-		_item_push[number]->img_name = key;
-		_item_push[number]->Kinds = itemKind(key);
+		_item_push[number]->_item = DATABASE->GetItem(key);
 		_item_push[number]->count += 1;
 	}
 
@@ -42,10 +41,8 @@ void item_Manager::vequip_push(string key)
 {
 	if (!isequipCheck(key)) {
 		for (int i = 0; i < _equip.size(); i++) {
-			if (_equip[i]->img_name == "") {
-				_equip[i]->img_name = key;
-				_equip[i]->item_name = key;
-				_equip[i]->Kinds = ITEM_EQUIP;
+			if (_equip[i]->_item.itemKey == "") {
+				_equip[i]->_item = DATABASE->GetItem(key);
 				break;
 			}
 		}
@@ -55,7 +52,7 @@ void item_Manager::vequip_push(string key)
 bool item_Manager::isequipCheck(string key)
 {
 	for (int i = 0; i < _equip.size(); i++) {
-		if (_equip[i]->img_name == key) {
+		if (_equip[i]->_item.itemKey == key) {
 			return true;
 		}
 	}
@@ -64,12 +61,9 @@ bool item_Manager::isequipCheck(string key)
 void item_Manager::vItem_count_zoro()
 {
 	for (int i = 0; i < _item_push.size(); i++) {
-		if (_item_push[i]->img_name == "")continue;
+		if (_item_push[i]->_item.itemKey == "")continue;
 		if (_item_push[i]->count <= 0) {
-			_item_push[i]->Kinds = ITEM_NULL;
-			_item_push[i]->img_name = "";
-			_item_push[i]->item_name = "";
-			_item_push[i]->item_Info = "";
+			_item_push[i]->_item = tagItem();;
 		}
 	}
 }
@@ -195,7 +189,7 @@ bool item_Manager::Item_count_Minus(string key, int count, string key2, int coun
 bool item_Manager::isItemCheck(string key)
 {
 	for (int i = 0; i < _item_push.size(); i++) {
-		if (_item_push[i]->img_name == key) {
+		if (_item_push[i]->_item.itemKey == key) {
 			return true;
 		}
 	}
@@ -208,7 +202,7 @@ int item_Manager::itemempty()
 {
 	int i = 0;
 	for (; i < _item_push.size(); i++) {
-		if (_item_push[i]->img_name == "") {
+		if (_item_push[i]->_item.itemKey == "") {
 			return i;
 		}
 	}
@@ -216,32 +210,15 @@ int item_Manager::itemempty()
 }
 //비어있는 자릿수 반환 888은 가방이 더이상 들어갈때가 없을때 반환
 
-ItemKinds item_Manager::itemKind(string key)
-{
-	if (key == "berryDrop" || key == "milkDrop") {
-		return ITEM_FOOD;
-	}
-	else /*if (key == "rockDrop"|| key == "treeDrop"|| key == "coal" || key == "brick" || key == "Iron_ore" || key == "금광석")*/ {
-		return ITEM_MATERIAL;
-	}
 
-	return ITEM_NULL;
-}
 //아이템 종류 확인
 
-//item 종류 확인(아이템 종류가 늘어나면 if문 추가해야됨)
-/*
-	ITEM_NULL,
-	ITEM_FOOD,
-	ITEM_EQUIP,
-	ITEM_MATERIAL,
-*/
 
 int item_Manager::itemfind(string key)
 {
 	
 	for (int i = 0; i < _item_push.size(); i++) {
-		if (_item_push[i]->img_name == key) {
+		if (_item_push[i]->_item.itemKey == key) {
 			return i;
 		}
 	}

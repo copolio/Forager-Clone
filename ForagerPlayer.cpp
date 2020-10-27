@@ -16,7 +16,7 @@ HRESULT ForagerPlayer::init()
 	// Object 정보 초기화
 	tag = TAG::PLAYER;
 	layer = LAYER::OBJECT;
-	_equipWeapon = EQUIPWEAPON::PICKAXE;
+	_handleItem = DATABASE->GetItem("pickaxeDrop");
 
 	// 스탯 초기화
 	maxHp = 1;
@@ -153,7 +153,7 @@ void ForagerPlayer::update()
 	weaponCheck();
 
 	animation();
-	if (_equipWeapon == BOW && !inven_open) bowAnimation();
+	if (_handleItem.weaponType == WeaponType::BOW && !inven_open) bowAnimation();
 
 	if (!inven_open) {
 		PlayerControll();
@@ -207,13 +207,13 @@ void ForagerPlayer::render(HDC hdc)
 				if (_isLeft)
 				{
 					IMAGEMANAGER->frameRender("playerRotateLeft", hdc, relX, relY, CAMERA->GetZoom());
-					if (_equipWeapon == PICKAXE)
+					if (_handleItem.weaponType == PICKAXE)
 						IMAGEMANAGER->frameRender("HammerImgLeft", hdc, relX, relY, CAMERA->GetZoom());
 				}
 				else
 				{
 					IMAGEMANAGER->frameRender("playerRotate", hdc, relX, relY, CAMERA->GetZoom());
-					if (_equipWeapon == PICKAXE)
+					if (_handleItem.weaponType == PICKAXE)
 						IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
 				}
 				break;
@@ -221,10 +221,10 @@ void ForagerPlayer::render(HDC hdc)
 
 			case HAMMERING:
 				IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
-				if (_equipWeapon == PICKAXE) {
+				if (_handleItem.weaponType == PICKAXE) {
 					_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), CAMERA->GetZoom());
 				}
-				if (_equipWeapon == SWORD) {
+				if (_handleItem.weaponType == SWORD) {
 					_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), CAMERA->GetZoom());
 				}
 				break;
@@ -232,44 +232,43 @@ void ForagerPlayer::render(HDC hdc)
 			if (_state != ROTATE && _state != HAMMERING)
 			{
 				// 곡괭이 일반 상태
-				if (_equipWeapon == PICKAXE) {
+				if (_handleItem.weaponType == PICKAXE) {
 					if (_isLeft)
 						IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
 					else
 						IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
 				}
 				// 보우 일반 상태
-				else if (_equipWeapon == BOW)
+				else if (_handleItem.weaponType == BOW)
 				{
 					if (_isLeft)
 						_bow->frameRender(hdc, relWeaponX - 35, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
 					else
 						_bow->frameRender(hdc, relWeaponX - 15, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
 				}
-				else if (_equipWeapon == SWORD) {
+				else if (_handleItem.weaponType == SWORD) {
 					if (_isLeft)
 						IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
 					else
 						IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
 				}
-				else if (_equipWeapon == FOOD) {
+				else if (_handleItem.itemType == ItemType::CONSUMABLE) {
 
-					if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
+					if (_handleItem.itemKey == "milkDrop") {
 						if (_isLeft) {
-							IMAGEMANAGER->render("carry_milk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
+							IMAGEMANAGER->render("carryMilk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
 						}
 						else {
-							IMAGEMANAGER->render("carry_milk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
+							IMAGEMANAGER->render("carryMilk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
 						}
 
-					}if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
+					}if (_handleItem.itemKey == "berryDrop") {
 						if (_isLeft) {
-							IMAGEMANAGER->render("carry_berry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
+							IMAGEMANAGER->render("carryBerry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
 						}
 						else {
-							IMAGEMANAGER->render("carry_berry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
+							IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
 						}
-
 					}
 
 				}
@@ -290,13 +289,13 @@ void ForagerPlayer::render(HDC hdc)
 			if (_isLeft)
 			{
 				IMAGEMANAGER->frameRender("playerRotateLeft", hdc, relX, relY, CAMERA->GetZoom());
-				if (_equipWeapon == PICKAXE)
+				if (_handleItem.weaponType == WeaponType::PICKAXE)
 					IMAGEMANAGER->frameRender("HammerImgLeft", hdc, relX, relY, CAMERA->GetZoom());
 			}
 			else
 			{
 				IMAGEMANAGER->frameRender("playerRotate", hdc, relX, relY, CAMERA->GetZoom());
-				if (_equipWeapon == PICKAXE)
+				if (_handleItem.weaponType == WeaponType::PICKAXE)
 					IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
 			}
 			break;
@@ -304,10 +303,10 @@ void ForagerPlayer::render(HDC hdc)
 
 		case HAMMERING:
 			IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
-			if (_equipWeapon == PICKAXE) {
+			if (_handleItem.weaponType == WeaponType::PICKAXE) {
 				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), CAMERA->GetZoom());
 			}
-			if (_equipWeapon == SWORD) {
+			if (_handleItem.weaponType == WeaponType::SWORD) {
 				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), CAMERA->GetZoom());
 			}
 			break;
@@ -315,42 +314,42 @@ void ForagerPlayer::render(HDC hdc)
 		if (_state != ROTATE && _state != HAMMERING)
 		{
 			// 곡괭이 일반 상태
-			if (_equipWeapon == PICKAXE) {
+			if (_handleItem.weaponType == WeaponType::PICKAXE) {
 				if (_isLeft)
 					IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
 				else
 					IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
 			}
 			// 보우 일반 상태
-			else if (_equipWeapon == BOW)
+			else if (_handleItem.weaponType == WeaponType::BOW)
 			{
 				if (_isLeft)
 					_bow->frameRender(hdc, relWeaponX - 35, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
 				else
 					_bow->frameRender(hdc, relWeaponX - 15, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
 			}
-			else if (_equipWeapon == SWORD) {
+			else if (_handleItem.weaponType == WeaponType::SWORD) {
 				if (_isLeft)
 					IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
 				else
 					IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
 			}
-			else if (_equipWeapon == FOOD) {
+			else if (_handleItem.itemType == ItemType::CONSUMABLE) {
 
-				if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
+				if (_handleItem.itemKey == "milkDrop") {
 					if (_isLeft) {
-						IMAGEMANAGER->render("carry_milk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
+						IMAGEMANAGER->render("carryMilk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
 					}
 					else {
-						IMAGEMANAGER->render("carry_milk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
+						IMAGEMANAGER->render("carryMilk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
 					}
 
-				}if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
+				}if (_handleItem.itemKey == "berryDrop") {
 					if (_isLeft) {
-						IMAGEMANAGER->render("carry_berry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
+						IMAGEMANAGER->render("carryBerry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
 					}
 					else {
-						IMAGEMANAGER->render("carry_berry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
+						IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
 					}
 
 				}
@@ -419,7 +418,7 @@ void ForagerPlayer::animation()
 			}
 			break;
 		case HAMMERING:
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE) {
+			if (_handleItem.weaponType == WeaponType::PICKAXE) {
 				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
 			}
 			else {
@@ -466,7 +465,7 @@ void ForagerPlayer::animation()
 		switch (_state)
 		{
 		case HAMMERING:
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE) {
+			if (_handleItem.weaponType == WeaponType::PICKAXE) {
 				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
 			}
 			else {
@@ -598,18 +597,18 @@ void ForagerPlayer::PlayerControll()
 			//	_index = 0;
 			//	_count = 0;
 			//}
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE || _equipWeapon == EQUIPWEAPON::SWORD) {
+			if (_handleItem.weaponType == WeaponType::PICKAXE || _handleItem.weaponType == WeaponType::SWORD) {
 				MeleeWeaponClick();
 			}
-			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+			else if (_handleItem.weaponType == WeaponType::BOW) {
 				BowClick();
 			}
 		}
 
 		if (INPUT->GetKeyDown(VK_LBUTTON)) {
-			if (_equipWeapon == EQUIPWEAPON::FOOD) {
-				if (ITEMMANAGER->Item_count_Minus(_quick->GetQuickSlotNumber()->img_name, 1)) {
-					_quick->Item_Minus(_quick->GetQuickSlotNumber()->img_name, 1);
+			if (_handleItem.itemType == ItemType::CONSUMABLE) {
+				if (ITEMMANAGER->Item_count_Minus(_handleItem.itemKey, 1)) {
+					_quick->Item_Minus(_handleItem.itemKey, 1);
 					STATMANAGER->setRight(-5);
 					SOUNDMANAGER->play("피찰때소리", false);
 				}
@@ -622,14 +621,14 @@ void ForagerPlayer::PlayerControll()
 		}
 		if (INPUT->GetKeyUp(VK_LBUTTON))
 		{
-			if (_equipWeapon == EQUIPWEAPON::PICKAXE)
+			if (_handleItem.weaponType == WeaponType::PICKAXE)
 			{
 				_hitDelayCount = 1;
 				_index = (_isLeft) ? 3 : 0;
 				_foragerHammering->setFrameX(_index);
 				_playerHammering->setFrameX(_index);
 			}
-			else if (_equipWeapon == EQUIPWEAPON::BOW) {
+			else if (_handleItem.weaponType == WeaponType::BOW) {
 				ArrowFire();
 			}
 		}
@@ -662,10 +661,10 @@ void ForagerPlayer::MeleeWeaponClick()
 				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE)
 				{
 					// 타겟 공격
-					if (_equipWeapon == EQUIPWEAPON::PICKAXE) {
+					if (_handleItem.weaponType == WeaponType::PICKAXE) {
 						Atk = 15;
 					}
-					else if(_equipWeapon == EQUIPWEAPON::SWORD) {
+					else if(_handleItem.weaponType == WeaponType::SWORD) {
 						Atk = 25;
 					}
 					targetUnit->hurt(Atk);
@@ -803,22 +802,8 @@ void ForagerPlayer::playerLookingDirection()
 
 void ForagerPlayer::weaponCheck()
 {
-	if (_quick->GetQuickSlotNumber()->img_name == "slot_Bow") {
-		_equipWeapon = EQUIPWEAPON::BOW;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "pick") {
-		_equipWeapon = EQUIPWEAPON::PICKAXE;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "sword") {
-		_equipWeapon = EQUIPWEAPON::SWORD;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "berryDrop") {
-		_equipWeapon = EQUIPWEAPON::FOOD;
-	}
-	else if (_quick->GetQuickSlotNumber()->img_name == "milkDrop") {
-		_equipWeapon = EQUIPWEAPON::FOOD;
-	}
-
+	string t_imgKey = _quick->GetQuickSlotNumber()->_item.itemKey;
+	_handleItem = DATABASE->GetItem(t_imgKey);
 }
 
 void ForagerPlayer::hungryBalloon()
@@ -1001,7 +986,7 @@ void ForagerPlayer::CheckCollision()
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
+				if (t_vUnit[i]->dropItem.itemKey == "swordDrop" || t_vUnit[i]->dropItem.itemKey == "bowDrop") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
 					_quick->quick_slot_update();
 				}

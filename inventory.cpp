@@ -14,15 +14,12 @@ HRESULT inventory::init()
 
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 8; j++) {
-
 			inventory_slot* inven = new inventory_slot;
 			inven->isCheck = false;
-			inven->Kinds = ITEM_NULL;
 			inven->x = 80 + j * 95;
 			inven->y = 150 + i * 95;
 			inven->count = 0;
-			inven->item_name = "";
-			inven->img_name = "";
+			inven->_item = tagItem();
 			inven->_rc = RectMake(inven->x, inven->y, 88, 88);
 			player_inventory.push_back(inven);
 		}
@@ -58,45 +55,29 @@ void inventory::release()
 void inventory::update()
 {
 	if (INPUT->GetKeyDown(VK_F5)) {
-		player_inventory[0]->count += 10;
-		player_inventory[0]->Kinds = ITEM_MATERIAL;
-		player_inventory[0]->img_name = "treeDrop";
-		player_inventory[0]->item_name = "treeDrop";
+		player_inventory[0]->count = 999;
+		player_inventory[0]->_item = DATABASE->GetItem("rockDrop");
 
-		player_inventory[1]->count += 10;
-		player_inventory[1]->Kinds = ITEM_MATERIAL;
-		player_inventory[1]->img_name = "rockDrop";
-		player_inventory[1]->item_name = "rockDrop";
+		player_inventory[1]->count = 999;
+		player_inventory[1]->_item = DATABASE->GetItem("treeDrop");
 
-		player_inventory[2]->count += 10;
-		player_inventory[2]->Kinds = ITEM_FOOD;
-		player_inventory[2]->img_name = "berryDrop";
-		player_inventory[2]->item_name = "berryDrop";
+		player_inventory[2]->count = 999;
+		player_inventory[2]->_item = DATABASE->GetItem("berryDrop");
 
-		player_inventory[3]->count += 10;
-		player_inventory[3]->Kinds = ITEM_MATERIAL;
-		player_inventory[3]->img_name = "±Ý±¤¼®";
-		player_inventory[3]->item_name = "±Ý±¤¼®";
+		player_inventory[3]->count = 999;
+		player_inventory[3]->_item = DATABASE->GetItem("goldOreDrop");
 
-		player_inventory[4]->count += 10;
-		player_inventory[4]->Kinds = ITEM_MATERIAL;
-		player_inventory[4]->img_name = "coal";
-		player_inventory[4]->item_name = "coal";
+		player_inventory[4]->count = 999;
+		player_inventory[4]->_item = DATABASE->GetItem("coalDrop");
 
-		player_inventory[5]->count += 10;
-		player_inventory[5]->Kinds = ITEM_MATERIAL;
-		player_inventory[5]->img_name = "Iron_ore";
-		player_inventory[5]->item_name = "Iron_ore";
+		player_inventory[5]->count = 999;
+		player_inventory[5]->_item = DATABASE->GetItem("ironOreDrop");
 
-		player_inventory[6]->count += 10;
-		player_inventory[6]->Kinds = ITEM_MATERIAL;
-		player_inventory[6]->img_name = "±«Ã¶";
-		player_inventory[6]->item_name = "±«Ã¶";
+		player_inventory[6]->count = 999;
+		player_inventory[6]->_item = DATABASE->GetItem("ironBarDrop");
 
-		player_inventory[7]->count += 10;
-		player_inventory[7]->Kinds = ITEM_MATERIAL;
-		player_inventory[7]->img_name = "±Ý±«";
-		player_inventory[7]->item_name = "±Ý±«";
+		player_inventory[7]->count = 999;
+		player_inventory[7]->_item = DATABASE->GetItem("goldBarDrop");
 
 		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 10);
 	}
@@ -114,11 +95,12 @@ void inventory::render(HDC hdc)
 	IMAGEMANAGER->render("Q",hdc, 320, 70);
 	IMAGEMANAGER->render("E",hdc, 890, 70);
 	IMAGEMANAGER->render("img_item_icon",hdc, 502, 30);
+
 	for (int i = 0; i < player_inventory.size(); i++) {
 		//Rectangle(getMemDC(), player_inventory[i]->_rc);
 		IMAGEMANAGER->render("item_slot",hdc, player_inventory[i]->_rc.left, player_inventory[i]->_rc.top);
-		if (player_inventory[i]->img_name != "") {
-			IMAGEMANAGER->render(player_inventory[i]->img_name,hdc, player_inventory[i]->_rc.left + 15, player_inventory[i]->_rc.top + 15);
+		if (player_inventory[i]->_item.itemKey != "") {
+			IMAGEMANAGER->render(player_inventory[i]->_item.slotImgKey, hdc, player_inventory[i]->_rc.left + 15, player_inventory[i]->_rc.top + 15);
 		}
 		int item_count = player_inventory[i]->count;
 		int c = 0;
@@ -187,16 +169,10 @@ void inventory::mouse_targetBox()
 void inventory::food_eat()
 {
 	for (int i = 0; i < player_inventory.size(); i++) {
-		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->Kinds == ITEM_FOOD && INPUT->GetKeyDown(VK_LBUTTON)) {
+		if (PtInRect(&player_inventory[i]->_rc, _ptMouse) && player_inventory[i]->_item.itemType == ItemType::CONSUMABLE && INPUT->GetKeyDown(VK_LBUTTON)) {
 			SOUNDMANAGER->play("°Ç¼³ÅÇÅ¬¸¯");
 			player_inventory[i]->count--;
 			STATMANAGER->setRight(-5);
-			//IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->setWidth(-5);
-			//
-			//if (IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->getWidth() >= StaminaMax) {
-			//	IMAGEMANAGER->findImage("½ºÅ×¹Ì³ª")->settingWidth(StaminaMax);
-			//}
-
 			ITEMMANAGER->vItem_count_zoro();
 		}
 	}
@@ -206,7 +182,7 @@ void inventory::item_info_print(HDC hdc)
 {
 	for (int i = 0; i < player_inventory.size(); i++) {
 		if (PtInRect(&player_inventory[i]->_rc, _ptMouse)) {
-			_item_info->render(hdc, player_inventory[i]->img_name);
+			_tooltip.render(hdc, player_inventory[i]->_item.slotImgKey);
 		}
 	}
 }

@@ -13,8 +13,7 @@ private:
 	bool isItemCheck(string key);
 	int itemempty();
 	int itemfind(string key);
-	ItemKinds itemKind(string key);
-	
+
 	void inventorysection();
 public:
 	void setvInventory_info(vector<inventory_slot*> inven) {

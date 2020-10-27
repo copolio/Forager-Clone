@@ -1,24 +1,12 @@
 #pragma once
-enum ItemKinds
-{
-	ITEM_NULL,
-	ITEM_FOOD,
-	ITEM_EQUIP,
-	ITEM_MATERIAL,
-
-};
+#include "item.h"
 
 class inventory_slot
 {
 public:
 	float x, y;
 	RECT _rc;
+	tagItem	_item;
 	bool isCheck;
 	int count;
-	string img_name;
-	ItemKinds Kinds;
-	string item_name;
-	string item_Info;
-private:
-
 };

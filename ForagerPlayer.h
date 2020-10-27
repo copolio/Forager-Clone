@@ -11,6 +11,7 @@
 class inventory;
 class earth;
 class cursor;
+
 enum STATE
 {
 	IDLE,
@@ -20,12 +21,7 @@ enum STATE
 	DAMAGE
 };
 
-enum EQUIPWEAPON {
-	PICKAXE,
-	BOW,
-	SWORD,
-	FOOD
-};
+
 class quick_slot;
 class ForagerPlayer : public unit
 {
@@ -41,7 +37,7 @@ private:
 	int _playerTilePos;			// 플레이어 타일 좌표
 	float _angle;				// 마우스와 플레이어 사이의 각도
 	float _bowPowerGauge;		// 파워 게이지
-	EQUIPWEAPON _equipWeapon;	// 무기 타입 (곡괭이류, 원거리류)
+	tagItem _handleItem;		// 손에 들고 있는 아이템
 	quick_slot* _quick;			// 무기를 먹었을 때 퀵슬롯 추가
 
 	//망치 영역
@@ -132,6 +128,8 @@ public:
 	void setPMLink(earth* map) { _map = map; };
 	void setCursorLink(cursor* cursor) { _cursor = cursor; };
 	void setInvenLink(inventory* inven) { _theInven = inven; };
+	void setBalloon(bool p_flag) { _startBalloon = p_flag; };
+
 
 	void getquick_slotInfo(quick_slot* _q) {
 		_quick = _q;
@@ -145,7 +143,7 @@ public:
 
 public:
 	int GetPlayerTilePos() { return _playerTilePos; };
-	bool IsBow() { return _equipWeapon == EQUIPWEAPON::BOW; };
+	bool IsBow() { return  _handleItem.weaponType == WeaponType::BOW; };
 	POINT GetBowXY();
 	void hurt(int damage) override;
 	void SetIsMoveRotate() { _isMoveRotate = false; };

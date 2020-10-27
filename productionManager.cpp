@@ -38,8 +38,8 @@ void productionManager::render(HDC hdc)
 			}
 			
 			
-			if (_production[i]->image_name == "Bow") {
-				IMAGEMANAGER->alphaRender("slot_Bow", hdc, pos.x-25, pos.y-5, _production[i]->alpha);
+			if (_production[i]->image_name == "bowDrop") {
+				IMAGEMANAGER->alphaRender("bowDrop", hdc, pos.x-25, pos.y-5, _production[i]->alpha);
 			}
 			else {
 				IMAGEMANAGER->alphaRender(_production[i]->image_name, hdc, pos.x - 15, pos.y, _production[i]->alpha);
@@ -50,7 +50,7 @@ void productionManager::render(HDC hdc)
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
 			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2);
 			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2);
-			if (_production[i]->image_name != "Bow" && _production[i]->image_name != "sword"&& _production[i]->image_name != "img_game_money_icon") {
+			if (_production[i]->image_name != "bowDrop" && _production[i]->image_name != "swordDrop" && _production[i]->image_name != "img_game_money_icon") {
 				IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x - 15, pos.y - 85, img_alpha[i], CAMERA->GetZoom());
 			}
 		}
@@ -72,9 +72,6 @@ void productionManager::count_increase()
 						POINT pos;
 						pos.x =	(_production[i]->rc.left + _production[i]->rc.right) / 2;
 						pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2+80;
-						if (_production[i]->image_name == "Bow") {
-							_production[i]->image_name = "slot_Bow";
-						}
 						UNITMANAGER->AddProduction(_production[i]->image_name, pos);
 						SOUNDMANAGER->play("생산완료");
 					}
