@@ -3,28 +3,37 @@
 #include "productionManager.h"
 void UnitManager::init()
 {
-	//자원 1 (나무, 돌, 열매)
+	// 필드 자원
 	IMAGEMANAGER->addFrameImage("berry", "Images/이미지/오브젝트/resource/img_object_berry.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("rock", "Images/이미지/오브젝트/resource/img_object_rock.bmp", 112, 56, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("tree", "Images/이미지/오브젝트/resource/img_object_tree.bmp", 280, 168, 5, 1, true, RGB(255, 0, 255));
 
+
+	// 필드 드롭 아이템 (소비)
 	IMAGEMANAGER->addImage("berryDrop", "Images/이미지/아이템/berry.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("carry_berry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("fishDrop", "Images/이미지/아이템/물고기.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("milkDrop", "Images/이미지/아이템/milk.bmp", 56, 56, true, RGB(255, 0, 255));
+
+	// 필드 드롭 아이템 (재료)
 	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("fish", "Images/이미지/아이템/물고기.bmp", 56, 56, true, RGB(255, 0, 255));
-
-
-	
-	//자원 2 ('해골, 소'의 드랍아이템)
-	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("milkDrop", "Images/이미지/아이템/milk.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("carry_milk", "Images/이미지/아이템/milk.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("ironOreDrop", "Images/이미지/아이템/Iron_ore.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("coalDrop", "Images/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("ironBarDrop", "Images/이미지/아이템/괴철.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goldBarDrop", "Images/이미지/아이템/금괴.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goldOreDrop", "Images/이미지/아이템/금광석.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("brickDrop", "Images/이미지/아이템/brick.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pooDrop", "Images/이미지/아이템/poo.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("leatherDrop", "Images/이미지/아이템/leather.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
 
+	// 필드 드롭 아이템 (장비)
+	IMAGEMANAGER->addImage("bowDrop", "Images/이미지/아이템/slot_Bow.bmp", 63, 63, true, RGB(255, 0, 255));
 
-	
+	// 플레이어 핸들 아이템
+	IMAGEMANAGER->addImage("carryBerry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("carryMilk", "Images/이미지/아이템/milk.bmp", 30, 30, true, RGB(255, 0, 255));
+
 
 	//에너미 - 해골
 	IMAGEMANAGER->addFrameImage("skull", "Images/이미지/NPC/해골idle2.bmp", 280, 112, 5, 2, true, RGB(255, 0, 255));
@@ -32,6 +41,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("skullAttack", "Images/이미지/NPC/해골attack.bmp", 393, 112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullIdle", "Images/이미지/NPC/해골stay.bmp",224 ,112 , 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("skullappa", "Images/이미지/NPC/skullitai.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
+
 	//에너미 - 황소
 	IMAGEMANAGER->addFrameImage("cow", "Images/이미지/NPC/황소IDLE.bmp", 400, 100, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("cowWalk", "Images/이미지/NPC/황소WALK.bmp", 560, 100, 7, 2, true, RGB(255, 0, 255));
@@ -362,14 +372,14 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 		if (RANDOM->range(3, 10) > 5) {
 			for (int i = 0; i < RANDOM->range(2) + 1; i++) {
 				fieldItem* t_fieldItem = new fieldItem;
-				t_fieldItem->setFieldItem(p_pos, "Iron_ore");
+				t_fieldItem->setFieldItem(p_pos, "ironOreDrop");
 				_vUnits.push_back(t_fieldItem);
 			}
 		}
 		if (RANDOM->range(0, 5) < 3) {
 			for (int i = 0; i < RANDOM->range(2) + 1; i++) {
 				fieldItem* t_fieldItem = new fieldItem;
-				t_fieldItem->setFieldItem(p_pos, "금광석");
+				t_fieldItem->setFieldItem(p_pos, "goldOreDrop");
 				_vUnits.push_back(t_fieldItem);
 			}
 		}

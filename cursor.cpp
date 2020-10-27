@@ -129,7 +129,7 @@ void cursor::itemPush()
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "slot_Bow") {
+				if (t_vUnit[i]->dropItem.itemKey == "sword" || t_vUnit[i]->dropItem.itemKey == "bowDrop") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
 					_quick->quick_slot_update();
 				}

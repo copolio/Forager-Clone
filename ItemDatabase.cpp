@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "ItemDatabase.h"
 
-#define ITEM_MAX 15
+#define ITEM_MAX 16
+
+
 
 void ItemDatabase::init()
 {
@@ -9,25 +11,39 @@ void ItemDatabase::init()
 
 	// 임시로 10개
 	tagItem items[ITEM_MAX];
-	items[0] = tagItem("berryDrop", "열매", CONSUMABLE, 1, 5);
-	items[1] = tagItem("fish", "물고기", CONSUMABLE, 1, 5);
-	items[2] = tagItem("milkDrop", "우유", CONSUMABLE, 3, 5);
-	items[3] = tagItem("rockDrop", "돌", INGREDIANT, 1, 0);
-	items[4] = tagItem("treeDrop", "목재", INGREDIANT, 1, 0);
-	items[5] = tagItem("금괴", "금괴", INGREDIANT, 1, 0);
-	items[6] = tagItem("괴철", "괴철", INGREDIANT, 1, 0);
-	items[7] = tagItem("금광석", "금광석", INGREDIANT, 1, 0);
-	items[8] = tagItem("Iron_ore", "철광석", INGREDIANT, 1, 0);
-	items[9] = tagItem("coal", "석탄", INGREDIANT, 1, 0);
-	items[10] = tagItem("skullHeadDrop", "스컬머리", INGREDIANT, 1, 0);
-	items[11] = tagItem("leatherDrop", "가죽", INGREDIANT, 1, 0);
-	items[12] = tagItem("slot_Bow", "활", EQUIPMENT, 1, 0);
-	items[13] = tagItem("sword", "칼", EQUIPMENT, 1, 0);
-	items[14] = tagItem("brick", "벽돌", INGREDIANT, 3, 0);
+	int t_cnt = 0;
+	
 
+
+	// 소비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	items[t_cnt++] = tagItem("berryDrop", "berryDrop", "열매", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5, 0);
+	items[t_cnt++] = tagItem("fishDrop", "fishDrop", "물고기", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5);
+	items[t_cnt++] = tagItem("milkDrop", "milkDrop", "우유", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 3, 5);
+	
+	// 재료템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	items[t_cnt++] = tagItem("rockDrop", "rockDrop", "돌", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("treeDrop", "treeDrop", "목재", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("goldBarDrop", "goldBarDrop", "금괴", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("ironBarDrop", "ironBarDrop", "괴철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("goldOreDrop", "goldOreDrop", "금광석", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("ironOreDrop", "ironOreDrop", "철광석", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("coalDrop", "coalDrop", "석탄", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("brickDrop", "brickDrop", "벽돌", " ", INGREDIANT, WeaponType::NONE2, 3, 0);
+	items[t_cnt++] = tagItem("skullHeadDrop", "skullHeadDrop", "스컬머리", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("leatherDrop", "leatherDrop", "가죽", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	
+	// 장비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	items[t_cnt++] = tagItem("bowDrop", "bowDrop", "활", " ", EQUIPMENT, BOW, 1, 0);
+	items[t_cnt++] = tagItem("swordDrop", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 0);
+	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 0);
+	
 	for (int i = 0; i < ITEM_MAX; i++) {
 		_itemDictionary.insert(make_pair(items[i].itemKey, items[i]));
 	}
 
+	// 강화에 따른 데미지 증폭율
+	_enhancingRatio[0] = 1.0f;
+	_enhancingRatio[1] = 1.5f;
+	_enhancingRatio[2] = 2.0f;
 
 }

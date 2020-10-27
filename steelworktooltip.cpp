@@ -21,11 +21,11 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 1:
-		IMAGEMANAGER->render("coal", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
+		IMAGEMANAGER->render("coalDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
 		IMAGEMANAGER->render("stone", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coal")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coalDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
@@ -40,11 +40,11 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 2:
-		IMAGEMANAGER->render("coal", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		IMAGEMANAGER->render("Iron_ore", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
+		IMAGEMANAGER->render("coalDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
+		IMAGEMANAGER->render("ironOreDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coal")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coalDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
@@ -59,11 +59,11 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 3:
-		IMAGEMANAGER->render("coal", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		IMAGEMANAGER->render("±Ý±¤¼®", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
+		IMAGEMANAGER->render("coalDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
+		IMAGEMANAGER->render("goldOreDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coal")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coalDrop")), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
@@ -118,33 +118,33 @@ void steelworktooltip::click_item_event(int num)
 	switch (num)
 	{
 	case 0:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("coal")) {
+		if (PRODUCTIONMANAGER->is_Item_Cilck("coalDrop")) {
 
 
 			if (ITEMMANAGER->Item_count_Minus("treeDrop", 1)) {
-				PRODUCTIONMANAGER->isCount("coal");
+				PRODUCTIONMANAGER->isCount("coalDrop");
 			}
 		}
 
 		break;
 	case 1:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("brick")) {
-			if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "coal", 2)) {
-				PRODUCTIONMANAGER->isCount("brick");
+		if (PRODUCTIONMANAGER->is_Item_Cilck("brickDrop")) {
+			if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "coalDrop", 2)) {
+				PRODUCTIONMANAGER->isCount("brickDrop");
 			}
 		}
 		break;
 	case 2:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("±«Ã¶")) {
-			if (ITEMMANAGER->Item_count_Minus("Iron_ore", 2, "coal", 1)) {
-				PRODUCTIONMANAGER->isCount("±«Ã¶");
+		if (PRODUCTIONMANAGER->is_Item_Cilck("ironBarDrop")) {
+			if (ITEMMANAGER->Item_count_Minus("Iron_ore", 2, "coalDrop", 1)) {
+				PRODUCTIONMANAGER->isCount("ironBarDrop");
 			}
 		}
 		break;
 	case 3:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("±Ý±«")) {
-			if (ITEMMANAGER->Item_count_Minus("±Ý±¤¼®", 2, "coal", 1)) {
-				PRODUCTIONMANAGER->isCount("±Ý±«");
+		if (PRODUCTIONMANAGER->is_Item_Cilck("goldBarDrop")) {
+			if (ITEMMANAGER->Item_count_Minus("goldOreDrop", 2, "coalDrop", 1)) {
+				PRODUCTIONMANAGER->isCount("goldBarDrop");
 			}
 		}
 		break;

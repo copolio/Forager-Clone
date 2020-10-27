@@ -5,16 +5,18 @@
 
 void anviltooltip::render(HDC hdc, int num, RECT rc)
 {
-	IMAGEMANAGER->render("img_UI_construction_Tooltip", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth(), rc.top);
+	int t_width = IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth();
+
+	IMAGEMANAGER->render("img_UI_construction_Tooltip", hdc, rc.left - t_width, rc.top);
 	switch (num)
 	{
 	case 0:
-		IMAGEMANAGER->render("±Ý±«", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
+		IMAGEMANAGER->render("goldBarDrop", hdc, rc.left - t_width + 20, rc.top + 10);
 		POINT pos;
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("goldBarDrop")), pos, 20, 0);
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
 		if (cilck()) {
@@ -22,11 +24,11 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 1:
-		IMAGEMANAGER->render("±Ý±«", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		IMAGEMANAGER->render("goldBarDrop", hdc, rc.left - t_width + 20, rc.top + 10);
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("goldBarDrop")), pos, 20, 0);
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
 		if (cilck()) {
@@ -34,36 +36,36 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 2:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
-
 		break;
+
 	case 3:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 4:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 5:
-		IMAGEMANAGER->render("±Ý±«", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		IMAGEMANAGER->render("stone", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		IMAGEMANAGER->render("goldBarDrop", hdc, rc.left - t_width + 20, rc.top + 10);
+		IMAGEMANAGER->render("stone", hdc, rc.left - t_width + 20, rc.top + 50);
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±Ý±«")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("goldBarDrop")), pos, 20, 0);
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 60;
 		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 60;
 		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 		if (cilck()) {
@@ -71,18 +73,18 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 6:
-		IMAGEMANAGER->render("±«Ã¶", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
-		IMAGEMANAGER->render("stone", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		IMAGEMANAGER->render("ironBarDrop", hdc, rc.left - t_width + 20, rc.top + 10);
+		IMAGEMANAGER->render("stone", hdc, rc.left - t_width + 20, rc.top + 50);
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("±«Ã¶")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("ironBarDrop")), pos, 20, 0);
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 60;
 		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		pos.x = rc.left - t_width + 140;
 		pos.y = rc.top + 60;
 		TEXTMANAGER->ShowText(hdc, false, "/  5", pos, 20, 0);
 		if (cilck()) {
@@ -90,13 +92,13 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 7:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
 		break;
 	case 8:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.x = rc.left - t_width + 100;
 		pos.y = rc.top + 40;
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 
@@ -114,7 +116,7 @@ void anviltooltip::click_item_event(int num)
 		if (PRODUCTIONMANAGER->is_Item_Cilck("img_game_money_icon")) {
 
 
-			if (ITEMMANAGER->Item_count_Minus("±Ý±«", 1)) {
+			if (ITEMMANAGER->Item_count_Minus("goldBarDrop", 1)) {
 				PRODUCTIONMANAGER->isCount("img_game_money_icon");
 			}
 		}
@@ -134,7 +136,7 @@ void anviltooltip::click_item_event(int num)
 	case 5:
 		if (PRODUCTIONMANAGER->is_Item_Cilck("sword")) {
 
-			if (ITEMMANAGER->Item_count_Minus("±Ý±«", 2, "rockDrop",5)) {
+			if (ITEMMANAGER->Item_count_Minus("goldBarDrop", 2, "rockDrop",5)) {
 				
 				PRODUCTIONMANAGER->isCount("sword");
 			}
@@ -142,11 +144,9 @@ void anviltooltip::click_item_event(int num)
 		//°Ë
 		break;
 	case 6:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("Bow")) {
-
-
-			if (ITEMMANAGER->Item_count_Minus("±«Ã¶", 2, "rockDrop", 5)) {
-				PRODUCTIONMANAGER->isCount("Bow");
+		if (PRODUCTIONMANAGER->is_Item_Cilck("bowDrop")) {
+			if (ITEMMANAGER->Item_count_Minus("ironBarDrop", 2, "rockDrop", 5)) {
+				PRODUCTIONMANAGER->isCount("bowDrop");
 			}
 		}
 		//È°

@@ -261,9 +261,6 @@
     <ClCompile Include="Agriculture.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
     </ClCompile>
-    <ClCompile Include="item_info.cpp">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
-    </ClCompile>
     <ClCompile Include="quick_slot.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClCompile>
@@ -347,6 +344,12 @@
     </ClCompile>
     <ClCompile Include="muBoss.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
+    </ClCompile>
+    <ClCompile Include="tooltip.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,9 +488,6 @@
     <ClInclude Include="Agriculture.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\construction</Filter>
     </ClInclude>
-    <ClInclude Include="item_info.h">
-      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
-    </ClInclude>
     <ClInclude Include="quick_slot.h">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\quick_slot</Filter>
     </ClInclude>
@@ -565,6 +565,12 @@
     </ClInclude>
     <ClInclude Include="muBoss.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>GameFramework\MainGame\Forager\ItemDatabase</Filter>
+    </ClInclude>
+    <ClInclude Include="tooltip.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

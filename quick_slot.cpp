@@ -29,14 +29,12 @@ void quick_slot::render(HDC hdc)
 	for (int i = 0; i < _quick.size(); i++) {
 
 		IMAGEMANAGER->alphaRender("quick_slot_background", hdc, _quick[i]->_rc.left, _quick[i]->_rc.top,180);
-		if (_quick[i]->img_name == "Bow") {
-			IMAGEMANAGER->frameRender(_quick[i]->img_name, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top, 0, 2);
-		}else {
-			IMAGEMANAGER->render(_quick[i]->img_name, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top);
-		}
+
+		IMAGEMANAGER->render(_quick[i]->_item.slotImgKey, hdc, _quick[i]->_rc.left, _quick[i]->_rc.top);
+		
 	}
 	for (int i = 0; i < _quick.size(); i++) {
-		if (_quick[i]->Kinds == ITEM_FOOD) {
+		if (_quick[i]->_item.itemType == ItemType::CONSUMABLE) {
 			int item_count = _quick[i]->count;
 			int c = 0;
 			
@@ -91,27 +89,25 @@ void quick_slot::quick_slot_update()
 	int j = 0;
 	for (int i = 0; i < ITEMMANAGER->get_equip_info().size(); i++) {
 
-		if (ITEMMANAGER->get_equip_info()[i]->Kinds == ITEM_EQUIP ) {
+		if (ITEMMANAGER->get_equip_info()[i]->_item.itemType == ItemType::EQUIPMENT) {
 			inventory_slot* inven = new inventory_slot;
 			inven->isCheck = false;
-			inven->Kinds = ITEMMANAGER->get_equip_info()[i]->Kinds;
 			inven->x = (WINSIZEX /2)-(ITEMMANAGER->equip_count()*20) +((j++) *58);
 			inven->y = WINSIZEY - 70;
 			inven->count = 0;
-			inven->img_name = ITEMMANAGER->get_equip_info()[i]->img_name;
+			inven->_item = DATABASE->GetItem(ITEMMANAGER->get_equip_info()[i]->_item.itemKey);
 			inven->_rc = RectMake(inven->x, inven->y, 56, 56);
 			_quick.push_back(inven);
 		}
 	}
 	for (int i = 0; i < ITEMMANAGER->getvInventory_info().size(); i++) {
-		if (ITEMMANAGER->getvInventory_info()[i]->Kinds == ITEM_FOOD) {
+		if (ITEMMANAGER->getvInventory_info()[i]->_item.itemType == ItemType::CONSUMABLE) {
 			inventory_slot* inven = new inventory_slot;
 			inven->isCheck = false;
-			inven->Kinds = ITEMMANAGER->getvInventory_info()[i]->Kinds;
 			inven->x = (WINSIZEX / 2) - (ITEMMANAGER->equip_count() * 20) + ((j++) * 58);
 			inven->y = WINSIZEY - 70;
 			inven->count = ITEMMANAGER->getvInventory_info()[i]->count;
-			inven->img_name = ITEMMANAGER->getvInventory_info()[i]->img_name;
+			inven->_item = DATABASE->GetItem(ITEMMANAGER->getvInventory_info()[i]->_item.itemKey);
 			inven->_rc = RectMake(inven->x, inven->y, 56, 56);
 			_quick.push_back(inven);
 		}
@@ -153,11 +149,11 @@ void quick_slot::quick_slot_target_Move()
 void quick_slot::Item_Minus(string key, int count)
 {
 	for (int i = 0; i < _quick.size(); i++) {
-		if (_quick[i]->img_name == key && _quick[i]->count >= count) {
+		if (_quick[i]->_item.itemKey == key && _quick[i]->count >= count) {
 			_quick[i]->count -= count;
 			
 		}
-		if (_quick[i]->Kinds == ITEM_FOOD && _quick[i]->count == 0) {
+		if (_quick[i]->_item.itemType == ItemType::CONSUMABLE&& _quick[i]->count == 0) {
 			this->settargetNum(0);
 			this->target(0);
 			quick_slot_update();

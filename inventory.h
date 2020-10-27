@@ -1,6 +1,6 @@
 #pragma once
 #include "inventory_slot.h"
-#include "item_info.h"
+#include "tooltip.h"
 
 class inventory 
 {
@@ -9,8 +9,8 @@ private:
 	bool isCheck;									//		
 	string item_count[9];							//숫자 이미지 이름
 	int StaminaMax;									//스테미너 최대값
+	tooltip _tooltip;
 	targetingBox* _targetBox;
-	item_info* _item_info;
 	int *money;
 public:
 	HRESULT init();
@@ -25,6 +25,7 @@ public:
 	void setIsCheck(bool check) {
 		isCheck = check;
 	}
+
 	vector<inventory_slot*> get_inven() { return player_inventory; };
 };
 

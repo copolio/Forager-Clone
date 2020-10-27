@@ -6,16 +6,15 @@ HRESULT equipMent::init()
 	for (int i = 0; i < 7; i++) {
 		inventory_slot* inven = new inventory_slot;
 		inven->isCheck = false;
-		inven->Kinds = ITEM_NULL;
+		inven->_item = tagItem();
 		inven->x = 364 + i * 80;
 		inven->y = WINSIZEY / 2 + 15;
 		inven->count = 0;
-		inven->img_name = "";
 		inven->_rc = RectMake(inven->x, inven->y, 72, 72);
 		player_equip.push_back(inven);
 	}
-	player_equip[0]->Kinds = ITEM_EQUIP;
-	player_equip[0]->img_name = "pick";
+	player_equip[0]->_item = DATABASE->GetItem("pickaxeDrop");
+	player_equip[1]->_item = DATABASE->GetItem("bowDrop");
 
 	_targetBox = new targetingBox;
 	_targetBox->init();
@@ -45,9 +44,9 @@ void equipMent::render(HDC hdc)
 	IMAGEMANAGER->render("img_equip_slot", hdc, WINSIZEX / 2 - (IMAGEMANAGER->findImage("img_equip_slot")->getWidth() / 2), WINSIZEY / 2);
 
 	for (int i = 0; i < player_equip.size(); i++) {
-		if (player_equip[i]->Kinds == ITEM_NULL)continue;
+		if (player_equip[i]->_item.itemType == ItemType::NONE)continue;
 		IMAGEMANAGER->render("Img_UI_EquipmentSlotFilled", hdc, player_equip[i]->_rc.left, player_equip[i]->_rc.top);
-		IMAGEMANAGER->render(player_equip[i]->img_name, hdc, player_equip[i]->_rc.left + 15, player_equip[i]->_rc.top);
+		IMAGEMANAGER->render(player_equip[i]->_item.slotImgKey, hdc, player_equip[i]->_rc.left + 15, player_equip[i]->_rc.top);
 	}
 	if (isCheck) {
 		_targetBox->render(hdc);
