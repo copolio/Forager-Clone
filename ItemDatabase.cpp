@@ -12,8 +12,6 @@ void ItemDatabase::init()
 	// 임시로 10개
 	tagItem items[ITEM_MAX];
 	int t_cnt = 0;
-	
-
 
 	// 소비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
 	items[t_cnt++] = tagItem("berryDrop", "berryDrop", "열매", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5, 0);
@@ -41,9 +39,6 @@ void ItemDatabase::init()
 		_itemDictionary.insert(make_pair(items[i].itemKey, items[i]));
 	}
 
-	// 강화에 따른 데미지 증폭율
-	_enhancingRatio[0] = 1.0f;
-	_enhancingRatio[1] = 1.5f;
-	_enhancingRatio[2] = 2.0f;
+
 
 }

@@ -40,8 +40,10 @@ HRESULT ForagerPlayer::init()
 	_cntBalloonMax = 1200;			// 말풍선 출력 카운트
 	_cntBalloon = 0;				// 말풍선 카운트
 
-	
-	
+	_cntBowDelay = 0;			// 현재 화살 연사 딜레이 수치
+	_bowDelay = 50;				// 약 0.5초
+	_canBowFire = true;
+
 	_state = STATE::IDLE;
 	_priorState = _state;
 	_angle = 0.0f;
@@ -148,8 +150,14 @@ void ForagerPlayer::release()
 
 void ForagerPlayer::update()
 {
-
-
+	// 화살 연사 체크
+	if (!_canBowFire) {
+		if (_cntBowDelay++ >= _bowDelay) {
+			_cntBowDelay = 0;
+			_canBowFire = true;
+		}
+	}
+	
 	weaponCheck();
 
 	animation();
@@ -530,6 +538,25 @@ void ForagerPlayer::bowAnimation()
 
 void ForagerPlayer::PlayerControll()
 {
+	// 강화 테스트
+	if(INPUT->GetKeyDown('U')) {
+		
+		switch (_handleItem.weaponType)
+		{
+		case WeaponType::PICKAXE:
+			STATMANAGER->SetHammerUpgradeCount(STATMANAGER->GetHammerUpgradeCount() + 1);
+			break;
+		case WeaponType::SWORD:
+			STATMANAGER->SetSwordUpgradeCount(STATMANAGER->GetSwordUpgradeCount() + 1);
+			break;
+		case WeaponType::BOW:
+			STATMANAGER->SetBowUpgradeCount(STATMANAGER->GetBowUpgradeCount() + 1);
+			break;
+		}
+	}
+
+
+
 	if (_state != ROTATE) {
 		if (!INPUT->GetKey(VK_LEFT) || !INPUT->GetKey(VK_RIGHT))
 		{
@@ -601,7 +628,9 @@ void ForagerPlayer::PlayerControll()
 				MeleeWeaponClick();
 			}
 			else if (_handleItem.weaponType == WeaponType::BOW) {
-				BowClick();
+				
+				if(_canBowFire)
+					BowClick();
 			}
 		}
 
@@ -658,7 +687,7 @@ void ForagerPlayer::MeleeWeaponClick()
 				//SOUNDMANAGER->play("근접무기");
 				// 타겟과의 거리와 가까우면
 				int tarWidth = targetUnit->rc.left + (targetUnit->rc.right - targetUnit->rc.left) / 2;
-				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE)
+				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE + tarWidth)
 				{
 					// 타겟 공격
 					if (_handleItem.weaponType == WeaponType::PICKAXE) {
@@ -721,11 +750,25 @@ void ForagerPlayer::ArrowFire()
 {
 	SOUNDMANAGER->play("원거리무기");
 	if (_isBowPulling) {
+		_canBowFire = false;
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
-		int arrowDamage = (Atk * 2) * _bowPowerGauge;
+		int arrowDamage = Atk * _bowPowerGauge;
 		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
-		UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f,20, false, false);
+		
+		int t_bowUpgrade = STATMANAGER->GetBowUpgradeCount();
+		if(t_bowUpgrade == 0)
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
+		else if (t_bowUpgrade == 1) {
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
+		}
+		else if (t_bowUpgrade == 2) {
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 25.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 25.0f, 7.0f, 20, false, false);
+		}
+
 		_bowPowerGauge = .1f;
 		
 	}

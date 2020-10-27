@@ -37,6 +37,9 @@ private:
 	int _playerTilePos;			// 플레이어 타일 좌표
 	float _angle;				// 마우스와 플레이어 사이의 각도
 	float _bowPowerGauge;		// 파워 게이지
+	int _cntBowDelay;			// 현재 화살 연사 딜레이 수치
+	int _bowDelay;				// 화살 연사 가능 딜레이 수치
+	bool _canBowFire;			// 화살 발사 가능.
 	tagItem _handleItem;		// 손에 들고 있는 아이템
 	quick_slot* _quick;			// 무기를 먹었을 때 퀵슬롯 추가
 
