@@ -34,8 +34,8 @@ void ItemDatabase::init()
 	
 	// 장비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
 	items[t_cnt++] = tagItem("bowDrop", "bowDrop", "활", " ", EQUIPMENT, BOW, 1, 0);
-	items[t_cnt++] = tagItem("swordDrop", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 0);
-	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 0);
+	items[t_cnt++] = tagItem("swordDrop", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 30);
+	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 15);
 	
 	for (int i = 0; i < ITEM_MAX; i++) {
 		_itemDictionary.insert(make_pair(items[i].itemKey, items[i]));

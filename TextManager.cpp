@@ -255,7 +255,7 @@ void TextManager::AppearItemText(string pImgKey)
 	itemText.count = 0;
 	itemText.num = 1;
 	itemText.imgKey = pImgKey;
-	itemText.itemName = DATABASE->_itemDictionary[pImgKey].itemName;
+	itemText.itemName = DATABASE->GetItem(pImgKey).itemName;
 	_vFieldItemText.push_back(itemText);
 }
 

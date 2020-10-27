@@ -14,6 +14,7 @@ enum WeaponType {
 	SWORD,
 };
 
+
 struct tagItem {
 	string itemKey;
 	string slotImgKey;
