@@ -26,7 +26,7 @@ void Astar::init(vector<tile> vTile, bool checkwall)
 			_totalNode[x][y] = new node(x, y);
 			_totalNode[x][y]->rc = _vTiles[y*MAPTILEY + x].rc;
 			if (checkwall) {
-				if (_vTiles[y*MAPTILEY + x].hasUnit || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
+				if (_vTiles[y*MAPTILEY + x].canPass || _vTiles[y*MAPTILEY + x].terrKey == "watertile") {
 					_totalNode[x][y]->nodeState = NODE_WALL;
 				}
 			}

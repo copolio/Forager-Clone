@@ -115,7 +115,7 @@ void cow::cowMove()
 			{
 				if (isattacking) 
 				{
-					auto path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, false);
+					auto path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, true);
 					//_vDestTileIndex = path;
 					if (path.size() > 0) {
 						_vDestTileIndex.push_back(path[0]);
