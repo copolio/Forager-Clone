@@ -81,6 +81,14 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 200;
 	}
 
+	else if (objKey == "slime")
+	{
+		rc = RectMakeCenter(x, y, 56, 56);
+		maxHp = 100;
+		currentHp = 100;
+		
+	}
+
 
 	
 	

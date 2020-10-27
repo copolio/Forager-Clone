@@ -351,6 +351,9 @@
     <ClCompile Include="tooltip.cpp">
       <Filter>GameFramework\MainGame\Forager\inGameMenu\inventory\item_info_render</Filter>
     </ClCompile>
+    <ClCompile Include="slime.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -574,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="CheckLeak.h">
       <Filter>GameFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="slime.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

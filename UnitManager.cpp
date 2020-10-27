@@ -60,6 +60,9 @@ void UnitManager::init()
 	//에너미 - 무보스
 	IMAGEMANAGER->addFrameImage("muBoss", "Images/이미지/NPC/muboss_IDLE.bmp", 2898, 406, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("muBossCry", "Images/이미지/NPC/muBossCry.bmp", 1848, 406, 6, 1, true, RGB(255, 0, 255));
+
+	//에너미 - 슬라임
+	//IMAGEMANAGER->addFrameImage("slime","")
 	
 	
 	// NPC
@@ -286,6 +289,11 @@ void UnitManager::AddUnits(muBoss * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(slime * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
@@ -346,6 +354,17 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_muBoss->init();
 			_vUnits.push_back(_muBoss);
 			_vEnemy.push_back(_muBoss);
+		}
+		
+		//슬라임
+		if (p_unitName == "slime")
+		{
+			slime* _slime = new slime;
+			_slime->setLinkMap(_map);
+			_slime->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_slime->init();
+			_vUnits.push_back(_slime);
+			_vEnemy.push_back(_slime);
 		}
 	}
 	

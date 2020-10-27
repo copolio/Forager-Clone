@@ -22,7 +22,7 @@ HRESULT ForagerPlayer::init()
 	maxHp = 1;
 	currentHp = 1;
 	exp = 0;
-	Atk = 15;
+	Atk = 0;
 	_bowPowerGauge = 0.1f;
 
 	//플레이어 상태 불값 초기화 
@@ -661,14 +661,9 @@ void ForagerPlayer::MeleeWeaponClick()
 				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE)
 				{
 					// 타겟 공격
-					if (_handleItem.weaponType == WeaponType::PICKAXE) {
-						Atk = 15;
-					}
-					else if(_handleItem.weaponType == WeaponType::SWORD) {
-						Atk = 25;
-					}
-					targetUnit->hurt(Atk);
-
+					if (_handleItem.itemType == ItemType::EQUIPMENT)
+						targetUnit->hurt(Atk);
+					
 					// 유닛이 파괴되면
 					if (targetUnit->isDead() )
 					{
@@ -804,6 +799,7 @@ void ForagerPlayer::weaponCheck()
 {
 	string t_imgKey = _quick->GetQuickSlotNumber()->_item.itemKey;
 	_handleItem = DATABASE->GetItem(t_imgKey);
+	Atk = _handleItem.option;
 }
 
 void ForagerPlayer::hungryBalloon()

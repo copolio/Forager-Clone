@@ -19,6 +19,7 @@
 #include "fishTrap.h"
 #include "muBoss.h"
 #include "treasureBox.h"
+#include "slime.h"
 
 
 #define MAXENEMYUNIT 40
@@ -55,7 +56,8 @@ public:
 	void AddUnits(cow* p_unit, bool test);
 	void AddUnits(demon* p_unit, bool test);
 	void AddUnits(muBoss* p_unit, bool test);
-	void AddUnits(tile* p_tile);
+	void AddUnits(slime* p_unit, bool test);
+	//void AddUnits(tile* p_tile);
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);
 

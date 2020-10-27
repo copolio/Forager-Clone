@@ -127,28 +127,37 @@ void cow::cowMove()
 						vector<int> vPossibleDestination;
 						//µ¿
 						if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 &&
-							!_map->GetTile(_enemyTilePos + 1).hasUnit &&
-							_map->GetTile(_enemyTilePos + 1).terrKey == "plaintile") {
+							_map->GetTile(_enemyTilePos + 1).canPass) {
 							vPossibleDestination.push_back(_enemyTilePos + 1);
 						}
 						//¼­
 						if (_map->GetTileX(_enemyTilePos) > 0 &&
-							!_map->GetTile(_enemyTilePos - 1).hasUnit &&
-							_map->GetTile(_enemyTilePos - 1).terrKey == "plaintile") {
+							_map->GetTile(_enemyTilePos - 1).canPass) {
 							vPossibleDestination.push_back(_enemyTilePos - 1);
 						}
 						//³²
 						if (_map->GetTileY(_enemyTilePos) < MAPTILEY - 1 &&
-							!_map->GetTile(_enemyTilePos + MAPTILEX).hasUnit &&
-							_map->GetTile(_enemyTilePos + MAPTILEX).terrKey == "plaintile") {
+							_map->GetTile(_enemyTilePos + MAPTILEX).canPass) {
 							vPossibleDestination.push_back(_enemyTilePos + MAPTILEX);
 						}
 						//ºÏ
 						if (_map->GetTileX(_enemyTilePos) > 0 &&
-							!_map->GetTile(_enemyTilePos - MAPTILEX).hasUnit &&
-							_map->GetTile(_enemyTilePos - MAPTILEX).terrKey == "plaintile") {
+							_map->GetTile(_enemyTilePos - MAPTILEX).canPass) {
 							vPossibleDestination.push_back(_enemyTilePos - MAPTILEX);
 						}
+						//ÁÂ»ó
+						if (_map->GetTileX(_enemyTilePos) > 0 && _map->GetTileY(_enemyTilePos) > 0 && _map->GetTile(_enemyTilePos - MAPTILEX - 1).canPass)
+							vPossibleDestination.push_back(_enemyTilePos - MAPTILEX - 1);
+						//¿ì»ó
+						if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 && _map->GetTileY(_enemyTilePos) > 0 && _map->GetTile(_enemyTilePos - MAPTILEX + 1).canPass)
+							vPossibleDestination.push_back(_enemyTilePos - MAPTILEX + 1);
+						//ÁÂÇÏ
+						if (_map->GetTileX(_enemyTilePos) > 0 && _map->GetTileY(_enemyTilePos) < MAPTILEY - 1 && _map->GetTile(_enemyTilePos + MAPTILEX - 1).canPass)
+							vPossibleDestination.push_back(_enemyTilePos + MAPTILEX - 1);
+						//¿ìÇÏ
+						if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 && _map->GetTileY(_enemyTilePos) < MAPTILEY - 1 && _map->GetTile(_enemyTilePos + MAPTILEX + 1).canPass)
+							vPossibleDestination.push_back(_enemyTilePos + MAPTILEX + 1);
+
 						if (vPossibleDestination.size() > 0) {
 							int randDestInd = RANDOM->range(int(vPossibleDestination.size()));
 							if (vPossibleDestination[randDestInd] > _enemyTilePos) {
@@ -169,28 +178,36 @@ void cow::cowMove()
 					vector<int> vPossibleDestination;
 					//µ¿
 					if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 &&
-						!_map->GetTile(_enemyTilePos + 1).hasUnit &&
-						_map->GetTile(_enemyTilePos + 1).terrKey == "plaintile") {
+						_map->GetTile(_enemyTilePos + 1).canPass) {
 						vPossibleDestination.push_back(_enemyTilePos + 1);
 					}
 					//¼­
 					if (_map->GetTileX(_enemyTilePos) > 0 &&
-						!_map->GetTile(_enemyTilePos - 1).hasUnit &&
-						_map->GetTile(_enemyTilePos - 1).terrKey == "plaintile") {
+						_map->GetTile(_enemyTilePos - 1).canPass) {
 						vPossibleDestination.push_back(_enemyTilePos - 1);
 					}
 					//³²
 					if (_map->GetTileY(_enemyTilePos) < MAPTILEY - 1 &&
-						!_map->GetTile(_enemyTilePos + MAPTILEX).hasUnit &&
-						_map->GetTile(_enemyTilePos + MAPTILEX).terrKey == "plaintile") {
+						_map->GetTile(_enemyTilePos + MAPTILEX).canPass) {
 						vPossibleDestination.push_back(_enemyTilePos + MAPTILEX);
 					}
 					//ºÏ
-					if (_map->GetTileX(_enemyTilePos) > 0 &&
-						!_map->GetTile(_enemyTilePos - MAPTILEX).hasUnit &&
-						_map->GetTile(_enemyTilePos - MAPTILEX).terrKey == "plaintile") {
+					if (_map->GetTileY(_enemyTilePos) > 0 &&
+						_map->GetTile(_enemyTilePos - MAPTILEX).canPass) {
 						vPossibleDestination.push_back(_enemyTilePos - MAPTILEX);
 					}
+					//ÁÂ»ó
+					if (_map->GetTileX(_enemyTilePos) > 0 && _map->GetTileY(_enemyTilePos) > 0 && _map->GetTile(_enemyTilePos - MAPTILEX - 1).canPass)
+						vPossibleDestination.push_back(_enemyTilePos - MAPTILEX - 1);
+					//¿ì»ó
+					if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1  && _map->GetTileY(_enemyTilePos) > 0 && _map->GetTile(_enemyTilePos - MAPTILEX + 1).canPass)
+						vPossibleDestination.push_back(_enemyTilePos - MAPTILEX + 1);
+					//ÁÂÇÏ
+					if (_map->GetTileX(_enemyTilePos) > 0 && _map->GetTileY(_enemyTilePos) < MAPTILEY - 1 && _map->GetTile(_enemyTilePos + MAPTILEX - 1).canPass)
+						vPossibleDestination.push_back(_enemyTilePos + MAPTILEX - 1);
+					//¿ìÇÏ
+					if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 && _map->GetTileY(_enemyTilePos) < MAPTILEY - 1 && _map->GetTile(_enemyTilePos + MAPTILEX + 1).canPass)
+						vPossibleDestination.push_back(_enemyTilePos + MAPTILEX + 1);
 					if (vPossibleDestination.size() > 0) {
 						int randDestInd = RANDOM->range(int(vPossibleDestination.size()));
 						if (vPossibleDestination[randDestInd] > _enemyTilePos) {
