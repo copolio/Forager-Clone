@@ -231,6 +231,8 @@ void earth::setIsland(int x, int y)
 			}
 		}
 	}
+
+	//UNITMANAGER->AddBuilding(building, tiles, _tileIndex);
 }
 
 int earth::GetIslandX(int index)

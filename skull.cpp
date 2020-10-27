@@ -79,7 +79,7 @@ void skull::skullMove()
 			if (searchCount > 1)
 			{
 				if (isattacking) {
-					vector<int> path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, false);
+					vector<int> path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, true);
 					//_vDestTileIndex = path;
 					if (path.size() > 0) {
 						_vDestTileIndex.push_back(path[0]);

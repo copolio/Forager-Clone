@@ -924,6 +924,11 @@ int ForagerPlayer::FindPlayerTilePos()
 // 플레이어 움직임 가능 체크
 bool ForagerPlayer::CanCheckMove(int index)
 {
+	if (_map->GetTileY(_playerTilePos) == 0 && index < 0) return true;
+	if (_map->GetTileY(_playerTilePos) == 83 && index > 0) return true;
+	if (_map->GetTileX(_playerTilePos) == 0 && index < 0) return true;
+	if (_map->GetTileX(_playerTilePos) == 83 && index > 0) return true;
+
 	tile _tile = _map->GetTile(_playerTilePos + index);
 
 	// 지나갈 수 있는 타일이면 움직임 가능
@@ -953,23 +958,23 @@ void ForagerPlayer::CheckPlayerTile()
 
 
 	// 플레이어 좌표 기준 상하좌우 타일 충돌 체크
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + 1), ptPlayerPos))
+	else if (_playerTilePos < _map->GetTiles().size() && PtInRect(&_map->GetTileRc(_playerTilePos + 1), ptPlayerPos))
 		_playerTilePos += 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - 1), ptPlayerPos))
+	else if (_playerTilePos >= 1 && PtInRect(&_map->GetTileRc(_playerTilePos - 1), ptPlayerPos))
 		_playerTilePos -= 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX), ptPlayerPos))
+	else if (_playerTilePos <= _map->GetTiles().size() - MAPTILEX && PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX), ptPlayerPos))
 		_playerTilePos += MAPTILEX;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX), ptPlayerPos))
+	else if (_playerTilePos >= MAPTILEX && PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX), ptPlayerPos))
 		_playerTilePos -= MAPTILEX;
 
 	// 플레이어 좌표 기준 대각선 타일 충돌 체크
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX + 1), ptPlayerPos))
+	else if (_playerTilePos >= MAPTILEX - 1 && PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX + 1), ptPlayerPos))
 		_playerTilePos += MAPTILEX + 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX - 1), ptPlayerPos))
+	else if (_playerTilePos >= MAPTILEX + 1 && PtInRect(&_map->GetTileRc(_playerTilePos - MAPTILEX - 1), ptPlayerPos))
 		_playerTilePos -= MAPTILEX - 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX + 1), ptPlayerPos))
+	else if (_playerTilePos < _map->GetTiles().size() - MAPTILEX - 1 && PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX + 1), ptPlayerPos))
 		_playerTilePos += MAPTILEX + 1;
-	else if (PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX - 1), ptPlayerPos))
+	else if (_playerTilePos < _map->GetTiles().size() - MAPTILEX + 1 && PtInRect(&_map->GetTileRc(_playerTilePos + MAPTILEX - 1), ptPlayerPos))
 		_playerTilePos -= MAPTILEX - 1;
 
 	// 플레이어의 좌표가 어긋날 경우 다시 받아옴.
