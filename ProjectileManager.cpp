@@ -35,7 +35,6 @@ void ProjectileManager::update()
 				_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 				if (_projectiles[i].isStretch)
 				{
-
 					if (_projectiles[i].count++ % 10 == 0)
 					{
 						_projectiles[i].frameX++;
