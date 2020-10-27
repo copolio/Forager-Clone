@@ -55,28 +55,28 @@ void inventory::release()
 void inventory::update()
 {
 	if (INPUT->GetKeyDown(VK_F5)) {
-		player_inventory[0]->count = 999;
+		player_inventory[0]->count = 10;
 		player_inventory[0]->_item = DATABASE->GetItem("rockDrop");
 
-		player_inventory[1]->count = 999;
+		player_inventory[1]->count = 10;
 		player_inventory[1]->_item = DATABASE->GetItem("treeDrop");
 
-		player_inventory[2]->count = 999;
+		player_inventory[2]->count = 10;
 		player_inventory[2]->_item = DATABASE->GetItem("berryDrop");
 
-		player_inventory[3]->count = 999;
+		player_inventory[3]->count = 10;
 		player_inventory[3]->_item = DATABASE->GetItem("goldOreDrop");
 
-		player_inventory[4]->count = 999;
+		player_inventory[4]->count = 10;
 		player_inventory[4]->_item = DATABASE->GetItem("coalDrop");
 
-		player_inventory[5]->count = 999;
+		player_inventory[5]->count = 10;
 		player_inventory[5]->_item = DATABASE->GetItem("ironOreDrop");
 
-		player_inventory[6]->count = 999;
+		player_inventory[6]->count = 10;
 		player_inventory[6]->_item = DATABASE->GetItem("ironBarDrop");
 
-		player_inventory[7]->count = 999;
+		player_inventory[7]->count = 10;
 		player_inventory[7]->_item = DATABASE->GetItem("goldBarDrop");
 
 		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 10);
