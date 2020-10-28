@@ -18,7 +18,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("rockDrop", "Images/이미지/아이템/돌.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("treeDrop", "Images/이미지/아이템/wood.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ironOreDrop", "Images/이미지/아이템/Iron_ore.bmp", 40, 40, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("coalDrop", "Imageㄹs/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("coalDrop", "Images/이미지/아이템/coal.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ironBarDrop", "Images/이미지/아이템/괴철.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("goldBarDrop", "Images/이미지/아이템/금괴.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("goldOreDrop", "Images/이미지/아이템/금광석.bmp", 40, 40, true, RGB(255, 0, 255));
