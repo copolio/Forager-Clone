@@ -12,8 +12,28 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 2000, 1300);
 	_count = wavetick = _frameCount = 0;
 	waveUp = true;
+
+
+	//특수 건물 이미지
+	IMAGEMANAGER->addFrameImage("goddess", "Images/이미지/오브젝트/img_object_goddess.bmp", 56 * 2*7, 56 * 3, 7, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goddessdesign", "Images/이미지/오브젝트/img_object_goddess_design.bmp", 56*2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("goddesswell", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goddesswelldesign", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("elventree", "Images/이미지/오브젝트/img_object_elventree.bmp", 56 * 4, 56 * 6, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("elventreedesign", "Images/이미지/오브젝트/img_object_elventree.bmp", 56 * 4, 56 * 6, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("elvenstatue", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("elvenstatuedesign", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
+	hasDestiny = false;
 
 	UNITMANAGER->init();				//유닛매니저 초기화
 
@@ -30,6 +50,10 @@ void earth::release()
 
 void earth::update()
 {
+	if (!hasDestiny) {
+		hasDestiny = true;
+		this->SetDestiny();
+	}
 	if (CAMERA->movelimit) {
 		_count++;
 		if (_count % RESGENTIME == 0) {
@@ -164,11 +188,11 @@ float earth::getResRatio()
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			if (_vTile[i*MAPTILEY + j].terrKey == "plaintile" &&
-				!_vTile[i*MAPTILEY + j].hasUnit) {
+				_vTile[i*MAPTILEY + j].canPass) {
 				nPlainTile++;
 			}
 			else if (_vTile[i*MAPTILEY + j].terrKey == "plaintile" &&
-				_vTile[i*MAPTILEY + j].hasUnit) {
+				!_vTile[i*MAPTILEY + j].canPass) {
 				nResTile++;
 			}
 		}
@@ -209,15 +233,6 @@ void earth::setIsland(int x, int y)
 			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit) {
 				continue;
 			}
-			if (GetIslandCount() > 1 && i == 5 && j == 5) {
-				int bossSpawnProabability = RANDOM->range(2);
-				if (GetIslandCount() == 2) {
-					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-				else if (bossSpawnProabability == 0) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-			}
 			if (j == 0 || j == TILEX - 1 || i == 0 || i == TILEY -1 ) {
 				switch (RANDOM->range(2)) {
 				case 0:
@@ -236,8 +251,18 @@ void earth::setIsland(int x, int y)
 			}
 		}
 	}
-
-	//UNITMANAGER->AddBuilding(building, tiles, _tileIndex);
+	if (x == 2 && y == 2) {
+		SetGoddessWell(x, y);
+	}
+	else if (x == 2 && y == 3) {
+		SetElfTree(x, y);
+	}
+	else if (x == 4 && y == 4) {
+		SetTomb(x, y);
+	}
+	else if (GetIslandCount() > 5) {
+		SetMonster(x, y);
+	}
 }
 
 int earth::GetIslandX(int index)
@@ -307,6 +332,149 @@ int earth::GetTileIndex(POINT pt)
 			return i;
 		}
 	}
+}
+
+void earth::SetGoddessWell(int x, int y)
+{
+	vector<tile*> vWellTiles;
+	vector<tile*> vStoneTiles;
+	int wellTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 4;
+	int stoneTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 8;
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 3 && j < 8 && i > 2 && i < 9) {
+				vWellTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 10 && i > 5 && i < 9) {
+				vStoneTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("goddesswell", vWellTiles, wellTileIndex);
+	UNITMANAGER->AddSpecialBuilding("goddess", vStoneTiles, stoneTileIndex);
+}
+
+void earth::SetElfTree(int x, int y)
+{
+	vector<tile*> vTreeTiles;
+	vector<tile*> vStoneTiles;
+	int treeTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 4;
+	int stoneTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 8;
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 3 && j < 8 && i > 2 && i < 9) {
+				vTreeTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 10 && i > 5 && i < 9) {
+				vStoneTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("elventree", vTreeTiles, treeTileIndex);
+	UNITMANAGER->AddSpecialBuilding("elvenstatue", vStoneTiles, stoneTileIndex);
+}
+
+void earth::SetTomb(int x, int y)
+{
+	vector<tile*> vTombLeft;
+	vector<tile*> vTombRight;
+	vector<tile*> vTombCenter;
+
+	int tombLeftTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 2;
+	int tombRightTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 8;
+	int tombCenterTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 5;
+
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 1 && j < 4 && i > 2 && i < 5) {
+				vTombLeft.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 10 && i > 2 && i < 5) {
+				vTombRight.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 4 && j < 7 && i > 4 && i < 8) {
+				vTombCenter.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("tombCenter", vTombCenter, tombCenterTileIndex);
+	UNITMANAGER->AddSpecialBuilding("tombLeft", vTombLeft, tombLeftTileIndex);
+	UNITMANAGER->AddSpecialBuilding("tombRight", vTombRight, tombRightTileIndex);
+}
+
+void earth::SetMonster(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (GetIslandCount() > 1 && i == 5 && j == 5) {
+				int bossSpawnProabability = RANDOM->range(6);
+				if (bossSpawnProabability == 0) {
+					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 1) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 2) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 3) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 4) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else {
+
+				}
+			}
+		}
+	}
+}
+
+void earth::SetEmpty(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+		}
+	}
+}
+
+void earth::SetDestiny()
+{
+	int first = RANDOM->range(1, 5);
+	int second = RANDOM->range(1, 5);
+	int third = RANDOM->range(1, 5);
+	int fourth = RANDOM->range(1, 5);
+	setIsland(0, first);
+	SetEmpty(0, first);
+	setIsland(6, second);
+	SetEmpty(6, second);
+	setIsland(third, 0);
+	SetEmpty(third, 0);
+	setIsland(fourth, 6);
+	SetEmpty(fourth, 6);
 }
 
 tile* earth::tileMouseTarget()
