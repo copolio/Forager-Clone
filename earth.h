@@ -36,7 +36,7 @@ public:
 	int GetTileIndex(POINT pt);
 	void SetGoddessWell(int x, int y);
 	void SetElfTree(int x, int y);
-	//void SetTomb(int x, int y);
+	void SetTomb(int x, int y);
 public:
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();

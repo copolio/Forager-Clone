@@ -24,6 +24,13 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("elventreedesign", "Images/이미지/오브젝트/img_object_elventree.bmp", 56 * 4, 56 * 6, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("elvenstatue", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("elvenstatuedesign", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
 
@@ -245,7 +252,8 @@ void earth::setIsland(int x, int y)
 	}
 	if (x == 2 && y == 2) {
 		//SetGoddessWell(x, y);
-		SetElfTree(x, y);
+		//SetElfTree(x, y);
+		SetTomb(x, y);
 	}
 }
 
@@ -370,6 +378,36 @@ void earth::SetElfTree(int x, int y)
 
 void earth::SetTomb(int x, int y)
 {
+	vector<tile*> vTombLeft;
+	vector<tile*> vTombRight;
+	vector<tile*> vTombCenter;
+
+	int tombLeftTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 2;
+	int tombRightTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 8;
+	int tombCenterTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 5;
+
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 1 && j < 4 && i > 2 && i < 4) {
+				vTombLeft.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 9 && i > 2 && i < 4) {
+				vTombRight.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 4 && j < 7 && i > 4 && i < 8) {
+				vTombCenter.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("tombCenter", vTombCenter, tombCenterTileIndex);
+	UNITMANAGER->AddSpecialBuilding("tombLeft", vTombLeft, tombLeftTileIndex);
+	UNITMANAGER->AddSpecialBuilding("tombRight", vTombRight, tombRightTileIndex);
 }
 
 tile* earth::tileMouseTarget()
