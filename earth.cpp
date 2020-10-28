@@ -17,8 +17,13 @@ HRESULT earth::init()
 	//특수 건물 이미지
 	IMAGEMANAGER->addFrameImage("goddess", "Images/이미지/오브젝트/img_object_goddess.bmp", 56 * 2*7, 56 * 3, 7, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("goddessdesign", "Images/이미지/오브젝트/img_object_goddess_design.bmp", 56*2, 56 * 3, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("goddesswell", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("goddesswell", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("goddesswelldesign", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("elventree", "Images/이미지/오브젝트/img_object_elventree.bmp", 56 * 4, 56 * 6, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("elventreedesign", "Images/이미지/오브젝트/img_object_elventree.bmp", 56 * 4, 56 * 6, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("elvenstatue", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("elvenstatuedesign", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
 
@@ -239,7 +244,8 @@ void earth::setIsland(int x, int y)
 		}
 	}
 	if (x == 2 && y == 2) {
-		SetGoddessWell(x, y);
+		//SetGoddessWell(x, y);
+		SetElfTree(x, y);
 	}
 }
 
@@ -359,7 +365,11 @@ void earth::SetElfTree(int x, int y)
 		}
 	}
 	UNITMANAGER->AddSpecialBuilding("elventree", vTreeTiles, treeTileIndex);
-	UNITMANAGER->AddSpecialBuilding("elevenstatue", vStoneTiles, stoneTileIndex);
+	UNITMANAGER->AddSpecialBuilding("elvenstatue", vStoneTiles, stoneTileIndex);
+}
+
+void earth::SetTomb(int x, int y)
+{
 }
 
 tile* earth::tileMouseTarget()

@@ -15,7 +15,6 @@ void building::render(HDC hdc)
 	else {
 		IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), objFrameX, objFrameY, CAMERA->GetZoom());
 		if (objKey == "goddesswell") {
-			IMAGEMANAGER->render(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()), CAMERA->GetZoom());
 			if (CAMERA->GetZoom() >= 0.7f) {
 				TEXTMANAGER->ShowText(hdc, true, "여신의 우물 Lv."+to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
 			}
