@@ -83,7 +83,7 @@ HRESULT ForagerPlayer::init()
 
 	_hammer = IMAGEMANAGER->findImage("Hammer");
 	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
-	_bow = IMAGEMANAGER->findImage("bowDrop");
+	_bow = IMAGEMANAGER->findImage("bowDrop1");
 
 	//플레이어 회전 이미지 찍어내기
 	for(int i = 1 ; i < 12; i++)
@@ -725,11 +725,11 @@ void ForagerPlayer::weaponCheck()
 
 	if (_handleItem.weaponType == WeaponType::BOW) {
 		if (STATMANAGER->GetBowUpgradeCount() == 0)
-			_bow = IMAGEMANAGER->findImage("bow1Drop");
+			_bow = IMAGEMANAGER->findImage("bowDrop1");
 		else if (STATMANAGER->GetBowUpgradeCount() == 1)
-			_bow = IMAGEMANAGER->findImage("bow2Drop");
+			_bow = IMAGEMANAGER->findImage("bowDrop2");
 		else if (STATMANAGER->GetBowUpgradeCount() == 2)
-			_bow = IMAGEMANAGER->findImage("bow3Drop");
+			_bow = IMAGEMANAGER->findImage("bowDrop3");
 	}
 
 
@@ -928,7 +928,8 @@ void ForagerPlayer::CheckCollision()
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				if (t_vUnit[i]->dropItem.itemKey == "swordDrop" || t_vUnit[i]->dropItem.itemKey == "bow1Drop") {
+				tagItem item = DATABASE->GetItem(t_vUnit[i]->dropItem.itemKey);
+				if (item.itemType == ItemType::EQUIPMENT) {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
 					_quick->quick_slot_update();
 				}

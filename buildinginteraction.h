@@ -7,6 +7,7 @@
 struct targetMenu {
 	RECT rc;
 	bool intouch;
+	string item_name;
 };
 
 class buildinginteraction

@@ -55,5 +55,8 @@ public:
 	void _Item_industry_decrease(string key);
 	bool Item_count_Minus(string key, int count);
 	bool Item_count_Minus(string key, int count, string key2, int count2);
+	bool Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3);
+	bool Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3, string key4, int count4);
+
 };
 

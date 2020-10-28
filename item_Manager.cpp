@@ -184,6 +184,33 @@ bool item_Manager::Item_count_Minus(string key, int count, string key2, int coun
 	}
 	return false;
 }
+bool item_Manager::Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3)
+{
+	if (isItemCheck(key) && _item_push[itemfind(key)]->count >= count &&
+		isItemCheck(key2) && _item_push[itemfind(key2)]->count >= count2
+		&& isItemCheck(key3) && _item_push[itemfind(key3)]->count >= count3) {
+		_item_push[itemfind(key)]->count -= count;
+		_item_push[itemfind(key2)]->count -= count2;
+		_item_push[itemfind(key3)]->count -= count3;
+
+		return true;
+	}
+	return false;
+}
+bool item_Manager::Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3, string key4, int count4)
+{
+	if (isItemCheck(key) && _item_push[itemfind(key)]->count >= count &&
+		isItemCheck(key2) && _item_push[itemfind(key2)]->count >= count2
+		&& isItemCheck(key3) && _item_push[itemfind(key3)]->count >= count3
+		&& isItemCheck(key4) && _item_push[itemfind(key4)]->count >= count4) {
+		_item_push[itemfind(key)]->count -= count;
+		_item_push[itemfind(key2)]->count -= count2;
+		_item_push[itemfind(key3)]->count -= count3;
+		_item_push[itemfind(key4)]->count -= count4;
+		return true;
+	}
+	return false;
+}
 //키값을 찾아서 재료 감소
 
 bool item_Manager::isItemCheck(string key)

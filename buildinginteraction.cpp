@@ -8,18 +8,108 @@ HRESULT buildinginteraction::init()
 		targetMenu *_tar = new targetMenu;
 		_tar->intouch = false;
 		_tar->rc = RectMake(464, (WINSIZEY / 2 - 173) + i * 55, 315, 47);
+		switch (i)
+		{
+		case 0:
+			_tar->item_name = "img_game_money_icon";
+			break;
+		case 1:
+			_tar->item_name = "";
+			break;
+		case 2:
+			_tar->item_name = "arrowDrop";
+			break;
+		case 3:
+			_tar->item_name = "pickax" + to_string(1);
+			break;
+		case 4:
+			_tar->item_name = "";
+			break;
+		case 5:
+			_tar->item_name = "swordDrop" + to_string(1);
+			break;
+		case 6:
+			_tar->item_name = "bowDrop" + to_string(1);
+			break;
+		case 7:
+			_tar->item_name = "";
+			break;
+		case 8:
+			_tar->item_name = "";
+			break;
+		}
+
 		_anvil_menu.push_back(_tar);
 	}
+
+
 	for (int i = 0; i < 7; i++) {
 		targetMenu *_tar = new targetMenu;
 		_tar->intouch = false;
 		_tar->rc = RectMake(464, (WINSIZEY / 2 - 173) + i * 55, 315, 47);
+		switch (i)
+		{
+		case 0:
+			_tar->item_name = "threadDrop";
+			break;
+		case 1:
+			_tar->item_name = "";
+			break;
+		case 2:
+			_tar->item_name = "";
+			break;
+		case 3:
+			_tar->item_name = "" ;
+			break;
+		case 4:
+			_tar->item_name = "";
+			break;
+		case 5:
+			_tar->item_name = "";
+			break;
+		case 6:
+			_tar->item_name = "Flag" + to_string(1);
+			break;
+		}
 		sewingmachine_menu.push_back(_tar);
 	}
 	for (int i = 0; i < 10; i++) {
 		targetMenu *_tar = new targetMenu;
 		_tar->intouch = false;
 		_tar->rc = RectMake(464, (WINSIZEY / 2 - 227) + i * 55, 315, 47);
+		switch (i)
+		{
+		case 0:
+			_tar->item_name = "coalDrop";
+			break;
+		case 1:
+			_tar->item_name = "brickDrop";
+			break;
+		case 2:
+			_tar->item_name = "ironBarDrop";
+			break;
+		case 3:
+			_tar->item_name = "goldBarDrop";
+			break;
+		case 4:
+			_tar->item_name = "SteelhDrop";
+			break;
+		case 5:
+			_tar->item_name = "high_class_SteelDrop";
+			break;
+		case 6:
+			_tar->item_name = "";
+			break;
+		case 7:
+			_tar->item_name = "";
+			break;
+		case 8:
+			_tar->item_name = "roast_fishDrop";
+			break;
+		case 9:
+			_tar->item_name = "";
+			break;
+		}
 		steelwork_menu.push_back(_tar);
 	}
 	
@@ -42,6 +132,10 @@ void buildinginteraction::release()
 		SAFE_DELETE(_anvil_menu[i]);
 		_anvil_menu[i] = NULL;
 	}
+	steelwork_menu.clear();
+	sewingmachine_menu.clear();
+	_anvil_menu.clear();
+
 
 }
 
@@ -63,7 +157,7 @@ void buildinginteraction::targertrender(HDC hdc, string key)
 					}
 				}
 				steelwork_menu[i]->intouch = true;
-				_steelworktooltip.render(hdc, i, steelwork_menu[i]->rc);
+				_steelworktooltip.render(hdc, i, steelwork_menu[i]->rc, steelwork_menu[i]->item_name);
 				IMAGEMANAGER->render("targetMenu", hdc, steelwork_menu[i]->rc.left, steelwork_menu[i]->rc.top);
 			}
 			else {
@@ -85,7 +179,7 @@ void buildinginteraction::targertrender(HDC hdc, string key)
 					}
 				}
 				sewingmachine_menu[i]->intouch = true;
-				_sewingmachinetooltip.render(hdc, i, sewingmachine_menu[i]->rc);
+				_sewingmachinetooltip.render(hdc, i, sewingmachine_menu[i]->rc, sewingmachine_menu[i]->item_name);
 				IMAGEMANAGER->render("targetMenu", hdc, sewingmachine_menu[i]->rc.left, sewingmachine_menu[i]->rc.top);
 			}
 			else {
@@ -106,7 +200,7 @@ void buildinginteraction::targertrender(HDC hdc, string key)
 					}
 				}
 				_anvil_menu[i]->intouch = true;
-				_anviltooltip.render(hdc, i, _anvil_menu[i]->rc);
+				_anviltooltip.render(hdc, i, _anvil_menu[i]->rc, _anvil_menu[i]->item_name);
 				IMAGEMANAGER->render("targetMenu", hdc, _anvil_menu[i]->rc.left, _anvil_menu[i]->rc.top);
 			}
 			else {

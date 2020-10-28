@@ -2,23 +2,23 @@
 #include "sewingmachinetooltip.h"
 
 
-void sewingmachinetooltip::render(HDC hdc, int num, RECT rc)
+void sewingmachinetooltip::render(HDC hdc, int num, RECT rc,string item_name)
 {
+	_item = DATABASE->GetItem_Make(item_name);
+
 	IMAGEMANAGER->render("img_UI_construction_Tooltip", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth(), rc.top);
 	switch (num)
 	{
 	case 0:
-		IMAGEMANAGER->render("wood", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
+		IMAGEMANAGER->render(_item.materials_one, hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 10);
 		POINT pos;
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count(_item.materials_one)), pos, 20, 0);
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
-		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
-		if (cilck()) {
-			click_item_event(num);
-		}
+		TEXTMANAGER->ShowText(hdc, false, "/  " + to_string(_item.one), pos, 20, 0);
+		
 		break;
 	case 1:
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
@@ -46,48 +46,79 @@ void sewingmachinetooltip::render(HDC hdc, int num, RECT rc)
 		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
 		break;
 	case 6:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
-		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
+		IMAGEMANAGER->render(_item.materials_one, hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() , rc.top - 5);
+		IMAGEMANAGER->render(_item.materials_two, hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 10, rc.top + 45);
+		IMAGEMANAGER->render(_item.materials_Three, hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100, rc.top - 10);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth()+60;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count(_item.materials_one)), pos, 20, 0);
+
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 90;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, "/ " + to_string(_item.one), pos, 20, 0);
+
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 60;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count(_item.materials_two)), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 90;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, "/ " + to_string(_item.two), pos, 20, 0);
+
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 160;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count(_item.materials_Three)), pos, 20, 0);
+
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 180;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, "/ " + to_string(_item.three), pos, 20, 0);
+
+	
+
+
 		break;
 	}
-
+	if (cilck()) {
+		click_item_event(item_name);
+	}
 
 }
 
 
-void sewingmachinetooltip::click_item_event(int num)
+void sewingmachinetooltip::click_item_event(string item_key)
 {
-	switch (num)
+	tagItemInfo _item = DATABASE->GetItem_Make(item_key);
+	switch (_item.materials_count)
 	{
-	case 0:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("threadDrop")) {
+	case 1:
+		if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
 
 
-			if (ITEMMANAGER->Item_count_Minus("treeDrop", 3)) {
-				PRODUCTIONMANAGER->isCount("threadDrop");
+			if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one)) {
+				PRODUCTIONMANAGER->isCount(_item.itemKey);
 			}
 		}
-
-		break;
-	case 1:
-
 		break;
 	case 2:
-
+		if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
+			if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two)) {
+				PRODUCTIONMANAGER->isCount(_item.itemKey);
+			}
+		}
 		break;
 	case 3:
-
+		if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
+			if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two, _item.materials_Three, _item.three)) {
+				PRODUCTIONMANAGER->isCount(_item.itemKey);
+			}
+		}
 		break;
 	case 4:
-
+		if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
+			if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two, _item.materials_Three, _item.three, _item.materials_Four, _item.four)) {
+				PRODUCTIONMANAGER->isCount(_item.itemKey);
+			}
+		}
 		break;
-	case 5:
-
-		break;
-	case 6:
-		break;
-
 	}
 
 }
