@@ -93,15 +93,12 @@ void ProjectileManager::render(HDC hdc)
 
 
 		if (_projectiles[i].isAppear) {
+
 			if (_projectiles[i].imgKey == _strDamageBoundary)
 				continue;
 			// ÀÏ¹Ý ·»´õ
 			if(!_projectiles[i].isFrame)
 				IMAGEMANAGER->findImage(_projectiles[i].imgKey)->rotateRender(hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].angle * PI / 180.0f);
-			// ½ºÆ®·¹Ä¡ ·»´õ
-			else if(!_projectiles[i].isStretch)
-				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, 
-									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
 			// ÇÁ·¹ÀÓ ·»´õ
 			else {
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
