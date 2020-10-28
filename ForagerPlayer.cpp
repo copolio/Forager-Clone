@@ -719,8 +719,20 @@ void ForagerPlayer::playerLookingDirection()
 void ForagerPlayer::weaponCheck()
 {
 	string t_imgKey = _quick->GetQuickSlotNumber()->_item.itemKey;
+	
 	_handleItem = DATABASE->GetItem(t_imgKey);
 	Atk = _handleItem.option;
+
+	if (_handleItem.weaponType == WeaponType::BOW) {
+		if (STATMANAGER->GetBowUpgradeCount() == 0)
+			_bow = IMAGEMANAGER->findImage("bow1Drop");
+		else if (STATMANAGER->GetBowUpgradeCount() == 1)
+			_bow = IMAGEMANAGER->findImage("bow2Drop");
+		else if (STATMANAGER->GetBowUpgradeCount() == 2)
+			_bow = IMAGEMANAGER->findImage("bow3Drop");
+	}
+
+
 }
 
 void ForagerPlayer::hungryBalloon()
@@ -916,7 +928,7 @@ void ForagerPlayer::CheckCollision()
 				t_vUnit[i]->collision();
 				TEXTMANAGER->AppearItemText(t_vUnit[i]->dropItem.itemKey);
 				// 인벤토리에 아이템 추가 (키값ex : treeDrop, berryDrop)
-				if (t_vUnit[i]->dropItem.itemKey == "swordDrop" || t_vUnit[i]->dropItem.itemKey == "bowDrop") {
+				if (t_vUnit[i]->dropItem.itemKey == "swordDrop" || t_vUnit[i]->dropItem.itemKey == "bow1Drop") {
 					ITEMMANAGER->vequip_push(t_vUnit[i]->dropItem.itemKey);
 					_quick->quick_slot_update();
 				}

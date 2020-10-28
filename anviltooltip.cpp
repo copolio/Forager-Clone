@@ -164,9 +164,9 @@ void anviltooltip::click_item_event(int num)
 		//°Ë
 		break;
 	case 6:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("bowDrop")) {
+		if (PRODUCTIONMANAGER->is_Item_Cilck("bow1Drop")) {
 			if (ITEMMANAGER->Item_count_Minus("ironBarDrop", 2, "rockDrop", 5)) {
-				PRODUCTIONMANAGER->isCount("bowDrop");
+				PRODUCTIONMANAGER->isCount("bow1Drop");
 			}
 		}
 		//È°

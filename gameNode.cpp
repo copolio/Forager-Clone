@@ -17,7 +17,6 @@ HRESULT gameNode::init()
 	TEXTMANAGER->init();				//텍스트매니저 초기화
 	EFFECTMANAGER->init();				//이펙트매니저 초기화
 	TIME->init();						//타임매니져 초기화
-	UNITMANAGER->init();				//유닛매니저 초기화
 	DATABASE->init();					//아이템 데이터베이스 초기화
 	return S_OK;
 }
@@ -58,9 +57,6 @@ void gameNode::release()
 	//타임매니져 해제
 	TIME->release();
 	TIME->releaseSingleton();
-	// 유닛매니저 해제
-	UNITMANAGER->release();
-	UNITMANAGER->releaseSingleton();
 
 	ITEMMANAGER->releaseSingleton();
 	STATMANAGER->release();

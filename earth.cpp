@@ -15,11 +15,16 @@ HRESULT earth::init()
 	//월드맵 초기화
 	this->mapSetup();
 
+	UNITMANAGER->init();				//유닛매니저 초기화
+
 	return S_OK;
 }
 
 void earth::release()
 {
+	// 유닛매니저 해제
+	UNITMANAGER->release();
+	UNITMANAGER->releaseSingleton();
 }
 
 

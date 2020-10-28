@@ -34,6 +34,7 @@ private:
 public:
 	
 	void init();
+	void release();
 	void update();
 	void render(HDC hdc);
 	void CreateProjectile(string imgKey, int x, int y, int damage = 10, float angle = 0.0f,

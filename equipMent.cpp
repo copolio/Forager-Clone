@@ -14,7 +14,7 @@ HRESULT equipMent::init()
 		player_equip.push_back(inven);
 	}
 	player_equip[0]->_item = DATABASE->GetItem("pickaxeDrop");
-	//player_equip[1]->_item = DATABASE->GetItem("bowDrop");
+	//player_equip[1]->_item = DATABASE->GetItem("bow1Drop");
 
 	_targetBox = new targetingBox;
 	_targetBox->init();

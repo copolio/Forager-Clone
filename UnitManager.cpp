@@ -34,8 +34,12 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("threadDrop", "Images/이미지/아이템/실.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	// 필드 드롭 아이템 (장비)
-	IMAGEMANAGER->addImage("bowDrop", "Images/이미지/아이템/bow.bmp", 63, 63, true, RGB(255, 0, 255));
-	IMAGEMANAGER->findImage("bowDrop")->initForRotateImage(false);
+	IMAGEMANAGER->addImage("bow1Drop", "Images/이미지/아이템/bow_first.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("bow1Drop")->initForRotateImage(false);
+	IMAGEMANAGER->addImage("bow2Drop", "Images/이미지/아이템/bow_second.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("bow2Drop")->initForRotateImage(false);
+	IMAGEMANAGER->addImage("bow3Drop", "Images/이미지/아이템/bow_third.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("bow3Drop")->initForRotateImage(false);
 
 	// 플레이어 핸들 아이템
 	IMAGEMANAGER->addImage("carryBerry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -101,6 +105,7 @@ void UnitManager::release()
 	_vUnits.clear();
 	_vEnemy.clear();
 	_vNpc.clear();
+	_projectileManager->release();
 	SAFE_DELETE(_projectileManager);
 }
 
@@ -129,7 +134,8 @@ void UnitManager::update()
 
 	//_spawnManager->update();
 	SPAWNMANAGER->update();
-	_projectileManager->update();
+	if(_projectileManager)
+		_projectileManager->update();
 }
 
 void UnitManager::checkCollision(unit * p_unit)
@@ -215,7 +221,8 @@ void UnitManager::render(HDC hdc)
 		}
 	}
 
-	_projectileManager->render(hdc);
+	if(_projectileManager)
+		_projectileManager->render(hdc);
 }
 
 

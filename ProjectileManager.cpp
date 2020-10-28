@@ -27,6 +27,13 @@ void ProjectileManager::init()
 	}
 }
 
+void ProjectileManager::release()
+{
+	for (int i = 0; i < PROJECTILE_MAX; i++) {
+		_projectiles[i].isAppear = false;
+	}
+}
+
 void ProjectileManager::update()
 {
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
