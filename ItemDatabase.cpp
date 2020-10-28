@@ -43,7 +43,10 @@ void ItemDatabase::init()
 
 	
 	// 장비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
-	items[t_cnt++] = tagItem("bowDrop", "bowDrop", "활", " ", EQUIPMENT, BOW, 1, 45);
+	items[t_cnt++] = tagItem("bow1Drop", "bow1Drop", "활", " ", EQUIPMENT, BOW, 1, 10);
+	items[t_cnt++] = tagItem("bow2Drop", "bow2Drop", "강철 활", " ", EQUIPMENT, BOW, 1, 10);
+	items[t_cnt++] = tagItem("bow3Drop", "bow3Drop", "합금 활", " ", EQUIPMENT, BOW, 1, 10);
+
 	items[t_cnt++] = tagItem("swordDrop", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 30);
 	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 15);
 	
