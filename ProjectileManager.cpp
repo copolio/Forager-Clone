@@ -47,8 +47,8 @@ void ProjectileManager::update()
 					_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 					_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 
-					// 스트레치가 필요한 투사체의 경우-
-					if (_projectiles[i].isStretch)
+					// 프레임 투사체의 경우-
+					if (_projectiles[i].isFrame)
 					{
 						if (_projectiles[i].count++ % 10 == 0)
 						{
@@ -99,8 +99,7 @@ void ProjectileManager::render(HDC hdc)
 			// 일반 렌더
 			if(!_projectiles[i].isFrame)
 				IMAGEMANAGER->findImage(_projectiles[i].imgKey)->rotateRender(hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].angle * PI / 180.0f);
-			// 스트레치 렌더
-			
+			// 프레임 렌더
 			else {
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
 			}
