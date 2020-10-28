@@ -34,7 +34,8 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("threadDrop", "Images/이미지/아이템/실.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	// 필드 드롭 아이템 (장비)
-	IMAGEMANAGER->addImage("bowDrop", "Images/이미지/아이템/slot_Bow.bmp", 63, 63, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("bowDrop", "Images/이미지/아이템/bow.bmp", 63, 63, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("bowDrop")->initForRotateImage(false);
 
 	// 플레이어 핸들 아이템
 	IMAGEMANAGER->addImage("carryBerry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));

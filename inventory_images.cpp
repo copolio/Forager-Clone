@@ -61,7 +61,6 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("bag", "Images/이미지/GUI/bag_image.bmp", 112, 120, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("bow", "Images/이미지/아이템/Bow.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pickaxe", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("sword", "Images/이미지/아이템/sword.bmp", 56, 56, true, RGB(255, 0, 255));
 
