@@ -187,30 +187,39 @@ void cameraManager::render(HDC hdc)
 
 void cameraManager::update()
 {
+	// ∞≠¡¶ ¡‹ Ω√¿€
 	if (_isZoomForce) {
+		// ¡‹ Ω∫««µÂ ¡∂¿˝
 		if (zoomCount++ % 1 == 0) {
+			// ¡‹ Ω««‡ ¡ﬂ¿Ã∂Û∏È
 			if (!_zoomRecoilBack) {
+				
+				// ¡‹ Ω««‡
 				_currentZoomForce += _zoomSpeed;
 
+				// ¡‹ πÊ«‚ <-
 				if (_zoomForce >= 0) {
 					if (_currentZoomForce >= _zoomForce) {
 						_currentZoomForce = _zoomForce;
+						// ¡‹ ∫π±Õ or ±◊¥Î∑Œ ∞Ì¡§
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else
 							_isZoomForce = false;
 					}
 				}
+				// ¡‹ πÊ«‚ ->
 				else {
+					// ¡‹ ≥°≥µ¿∏∏È 
 					if (_currentZoomForce <= _zoomForce) {
 						_currentZoomForce = _zoomForce;
+						// ¡‹ ∫π±Õ or ±◊¥Î∑Œ ∞Ì¡§
 						if (_isAutoBack)
 							_zoomRecoilBack = true;
 						else
 							_isZoomForce = false;
 					}
 				}
-
 			}
 			else {
 				_currentZoomForce -= _zoomSpeed;
@@ -220,10 +229,7 @@ void cameraManager::update()
 					_zoomRecoilBack = false;
 				}
 			}
-
-
 		}
-
 	}
 }
 

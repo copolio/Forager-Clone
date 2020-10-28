@@ -172,11 +172,6 @@ void UnitManager::checkCollision(unit * p_unit)
 							STATMANAGER->IncreaseExp(t_exp);
 
 						}
-						// 타격 줌인 연출
-						CAMERA->forceZoomIn(0.04f, 0.008f);
-					}
-					else {
-						CAMERA->forceZoomIn(0.008f, 0.002f);
 					}
 				}
 				
