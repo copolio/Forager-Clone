@@ -8,11 +8,12 @@ HRESULT wraith::init()
 	searchCount = 0;
 	wraithShootCount = 0;
 	skillFireCount = 0;
-	wraithAttackRange = 200;
+	skill1coolTime = 0;
+	wraithAttackRange = 400;
 
 	Atk = 5;
 	tryAttack = false;
-
+	skillAngle = 0.0f;
 	_state3 = FLY;
 	return S_OK;
 }
@@ -145,7 +146,6 @@ void wraith::wraithAttack()
 		if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
 		{
 			tryAttack = true;
-	
 		}
 		else
 			_state3 = FLY;
@@ -156,20 +156,23 @@ void wraith::wraithAttack()
 		wraithWaitCount++;
 		if (wraithWaitCount > 20)
 		{
-			
-			if (wraithHitCount == 23) {
+			if (wraithHitCount == 23) 
+			{
 				if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
 				{
-					_target->hurt(Atk);
+					//_target->hurt(Atk);
+					//skill1coolTime++;
+					//if (skill1coolTime > 240)
+					//	skill1coolTime = 0;
 				}
 			}
 			_state3 = SHOOT;
 			wraithFire();
 		}
-		else
-		{
-			_state3 = SHOOT;
-		}
+		//else
+		//{
+		//	_state3 = SHOOT;
+		//}
 	}
 }
 
@@ -218,33 +221,58 @@ void wraith::wraithLookDirection()
 void wraith::wraithFire()
 {
 	skillFireCount++;
-	if (skillFireCount % 120 == 0) {
-		int randomSkillNum = RANDOM->range(0, 2);
+	if (skillFireCount % 120 == 0) 
+	{
+		//int randomSkillNum = RANDOM->range(1, 2);
+		int randomSkillNum = 1;
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
-		if (randomSkillNum == 0)
+		if (randomSkillNum == 1)
 		{
 			for (int i = 0; i < 8; i++)
 			{
-				float t_angle = (45.0f * i);
+				float t_angle = skillAngle + (45.0f * i);
 				UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, t_angle, 5,50, true, true);
 			}
+			skillAngle += 20.0f;
 			skillFireCount = 0;
 		}
-		else if(randomSkillNum == 1)
-		{
-			int x = _target->rc.left - rc.left;
-			int y = _target->rc.top - rc.top;
-			_angle = atan2f(-y, x);
-			_angle = _angle * 180 / PI;
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, 50, true, true);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, 50, true, true);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, 50, true, true);
-			skillFireCount = 0;
-		}
+		//else if(randomSkillNum == 1)
+		//{
+		//	int x = _target->rc.left - rc.left;
+		//	int y = _target->rc.top - rc.top;
+		//	_angle = atan2f(-y, x);
+		//	_angle = _angle * 180 / PI;
+		//	UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle-20, 3, 50, true, true);
+		//	UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, 50, true, true);
+		//	UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, 50, true, true);
+		//	skillFireCount = 0;
+		//}
 	}
 	
 	
 	
 }
+
+float wraith::shootToTarget()
+{
+	int l = rc.left;
+	int r = rc.right;
+	int t = rc.top;
+	int b = rc.bottom;
+
+	int cX = l + (r - l) / 2;
+	int cY = t + (b - t) / 2;
+
+	int pL = _target->rc.left;
+	int pR = _target->rc.right;
+	int pT = _target->rc.top;
+	int pB = _target->rc.bottom;
+
+	int cPx = pL + (pR - pL) / 2;
+	int cPy = pT + (pB - pT) / 2;
+
+	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
+}
+
 
 

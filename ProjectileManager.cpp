@@ -47,8 +47,8 @@ void ProjectileManager::update()
 					_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 					_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
 
-					// 스트레치가 필요한 투사체의 경우-
-					if (_projectiles[i].isStretch)
+					// 프레임이 필요한 투사체의 경우-
+					if (_projectiles[i].isFrame)
 					{
 						if (_projectiles[i].count++ % 10 == 0)
 						{

@@ -23,16 +23,23 @@ void slime::jumpStop()
 	jumpWaitTime = 0;
 	originPos = destPos;
 	UNITMANAGER->GetProjectileMG()->CreateProjectile(x, y, 20, 70, 70);
-	slimeFire();
+	
+	//if(abs(_target->GetCenterX() - x) < MOVEMAX*1.5f && abs(_target->GetCenterY() - y) < MOVEMAX*1.5f)
+
+	
+		
+
+		
 }
 
 HRESULT slime::init()
 {
 	currentJumpSpeed = 0;
 	lerpRatio = 0.03f;
-	jumpTime = 180;
+	jumpTime = 300;
 	jumpWaitTime = 0;
 	slimeFireCount = 0;
+	shootDelayTime = 0;
 	_isJump = false;
 	_canJump = false;
 	originPos = { GetCenterX(), GetCenterY() };
@@ -51,11 +58,22 @@ void slime::update()
 			targetDest();
 			jumpWaitTime = 0;
 		}
+
+
+		if (jumpWaitTime == 180)
+		{
+			if(abs(_target->GetCenterX() - x) < MOVEMAX * 2.0f && abs(_target->GetCenterY() - y) < MOVEMAX * 2.0f)
+			slimeFire();
+		}
+			
+
 	}
 		
 	currentPos = { GetCenterX(), GetCenterY() };
 	slimeJump();
 	slimeAnimation();
+
+
 	
 }
 
@@ -132,7 +150,7 @@ void slime::targetDest()
 
 void slime::slimeFire()
 {
-	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeMissile", x,y, 10, shootToTarget(), 5, 50, true, false);
+	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeMissile", x,y, 10, shootToTarget(), 2, 30, true, false);
 }
 
 float slime::shootToTarget()
@@ -154,7 +172,6 @@ float slime::shootToTarget()
 	int cPy = pT + (pB - pT) / 2;
 
 	return atan2(-(cPy - cY), (cPx - cX))/PI*180;
-	
 }
 
 

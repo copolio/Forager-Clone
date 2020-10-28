@@ -37,6 +37,7 @@ private:
 	float currentJumpSpeed;
 	int jumpWaitTime;			//점프 대기(delay)
 	int jumpTime;				//점프 타임
+	int shootDelayTime;
 	float lerpRatio;
 	bool _isJump;
 	bool _canJump;

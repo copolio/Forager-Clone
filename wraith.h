@@ -19,7 +19,8 @@ private:
 	int searchCount;
 	int wraithAttackRange;
 	int skillFireCount;
-
+	int skill1coolTime;
+	int skillAngle;
 	bool tryAttack;
 
 	int Atk;
@@ -34,5 +35,6 @@ public:
 	void wraithLookDirection();
 	void wraithFire();
 	
+	float shootToTarget();
 };
 

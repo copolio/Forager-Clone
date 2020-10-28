@@ -150,7 +150,7 @@ void UnitManager::checkCollision(unit * p_unit)
 					//IMAGEMANAGER->findImage("스테미나")->setWidth(5);
 					_player->hurt(_pProjectiles[k].damage);
 				}
-				if (p_unit->tag != TAG::ENEMY && p_unit->tag != TAG::OBJECT) {
+				if (p_unit->tag != TAG::ENEMY) {
 					if(!_pProjectiles[k].isBrassing)
 						_pProjectiles[k].isAppear = false;
 				}

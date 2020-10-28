@@ -16,7 +16,6 @@ HRESULT loadingScene::init()
 
 void loadingScene::release()
 {
-
 	_loading->release();
 	SAFE_DELETE(_loading);
 }
