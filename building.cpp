@@ -10,10 +10,16 @@ void building::render(HDC hdc)
 
 	RECT temp = { CAMERA->GetRelativeX(this->rc.left), CAMERA->GetRelativeY(this->rc.top) , CAMERA->GetRelativeX(this->rc.right) , CAMERA->GetRelativeY(this->rc.bottom) };
 	if (PtInRect(&temp, UNITMANAGER->GetPlayerFootPt()) && CAMERA->movelimit) {
-		IMAGEMANAGER->alphaRender(objKey + "design", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), 150, CAMERA->GetZoom());
+		IMAGEMANAGER->alphaRender(objKey + "design", hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()), 150, CAMERA->GetZoom());
 	}
 	else {
 		IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), objFrameX, objFrameY, CAMERA->GetZoom());
+		if (objKey == "goddesswell") {
+			IMAGEMANAGER->render(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()), CAMERA->GetZoom());
+			if (CAMERA->GetZoom() >= 0.7f) {
+				TEXTMANAGER->ShowText(hdc, true, "여신의 우물 Lv."+to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
+			}
+		}
 	}
 }
 
@@ -48,7 +54,7 @@ void building::setBuilding(string buildingName, tile* _tile, int tileindex)
 void building::setBuilding(string buildingName, vector<tile*> tiles, int tileindex)
 {
 	_tiles = tiles;
-	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[3]->rc.right, _tiles[3]->rc.bottom };
+	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[tiles.size()-1]->rc.right, _tiles[tiles.size() - 1]->rc.bottom };
 	this->rc = temp;
 	this->layer = LAYER::OBJECT;
 	this->tag = TAG::BUILDING;
@@ -64,6 +70,30 @@ void building::setBuilding(string buildingName, vector<tile*> tiles, int tileind
 	this->exp = 0;
 	this->tileIndex = tileindex;
 	currentHp = maxHp;
+
+	_hpBar.init("hpBar", "hpBarBG");
+}
+
+void building::setSpecialBuilding(string buildingName, vector<tile*> tiles, int tileindex)
+{
+	_tiles = tiles;
+	RECT temp = { _tiles[0]->rc.left, _tiles[0]->rc.top, _tiles[tiles.size() - 1]->rc.right, _tiles[tiles.size() - 1]->rc.bottom };
+	this->rc = temp;
+	this->layer = LAYER::OBJECT;
+	this->tag = TAG::BUILDING;
+	this->objFrameX = 0;
+	this->objFrameY = 0;
+	this->objMaxFrameX = 2;
+	this->objMaxFrameY = 0;
+	this->currentCount = 0;
+	this->nextCount = 2;
+	this->objKey = buildingName;
+	this->dropItem.itemKey = "treeDrop";
+	this->maxHp = BUILDINGHP;
+	this->exp = 0;
+	this->tileIndex = tileindex;
+	currentHp = 9999;
+	level = 1;
 
 	_hpBar.init("hpBar", "hpBarBG");
 }

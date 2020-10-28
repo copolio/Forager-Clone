@@ -259,6 +259,7 @@ void UnitManager::AddUnits(ForagerPlayer* p_unit)
 	// NPC ¼¼ÆÃ
 	AddUnits("David", { WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }, false);
 	_map->setTileHasUnit(_map->GetTileIndex({ WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }));
+	_map->GetTileP(_map->GetTileIndex({ WINSIZEX / 2 + 100, WINSIZEY / 2 + 100 }))->canPass = false;
 }
 
 void UnitManager::AddUnits(skull* p_unit, bool test)
@@ -455,7 +456,14 @@ void UnitManager::AddBuilding(string buildkey, vector<tile*> tiles, int tileinde
 	_building->setBuilding(buildkey, tiles, tileindex);
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
-	//_production->settion(_building->rc);¤¸
+}
+
+void UnitManager::AddSpecialBuilding(string buildkey, vector<tile*> tiles, int tileindex)
+{
+	building* _building = new building;
+	_building->setSpecialBuilding(buildkey, tiles, tileindex);
+	_vUnits.push_back(_building);
+	PRODUCTIONMANAGER->settion(_building->rc);
 }
 
 void UnitManager::AddResource(tile* p_tile, int p_tileIndex)

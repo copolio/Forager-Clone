@@ -12,6 +12,13 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("TitleBG", "Images/이미지/img_Background.bmp", 2000, 1300);
 	_count = wavetick = _frameCount = 0;
 	waveUp = true;
+
+
+	//특수 건물 이미지
+	IMAGEMANAGER->addFrameImage("goddess", "Images/이미지/오브젝트/img_object_goddess.bmp", 56 * 2*7, 56 * 3, 7, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goddessdesign", "Images/이미지/오브젝트/img_object_goddess_design.bmp", 56*2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goddesswell", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("goddesswelldesign", "Images/이미지/오브젝트/img_object_goddesswell.bmp", 56 * 4, 56 * 7, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
 
@@ -159,11 +166,11 @@ float earth::getResRatio()
 	for (int i = 0; i < MAPTILEY; i++) {
 		for (int j = 0; j < MAPTILEX; j++) {
 			if (_vTile[i*MAPTILEY + j].terrKey == "plaintile" &&
-				!_vTile[i*MAPTILEY + j].hasUnit) {
+				_vTile[i*MAPTILEY + j].canPass) {
 				nPlainTile++;
 			}
 			else if (_vTile[i*MAPTILEY + j].terrKey == "plaintile" &&
-				_vTile[i*MAPTILEY + j].hasUnit) {
+				!_vTile[i*MAPTILEY + j].canPass) {
 				nResTile++;
 			}
 		}
@@ -204,15 +211,6 @@ void earth::setIsland(int x, int y)
 			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit) {
 				continue;
 			}
-			if (GetIslandCount() > 1 && i == 5 && j == 5) {
-				int bossSpawnProabability = RANDOM->range(2);
-				if (GetIslandCount() == 2) {
-					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-				else if (bossSpawnProabability == 0) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-			}
 			if (j == 0 || j == TILEX - 1 || i == 0 || i == TILEY -1 ) {
 				switch (RANDOM->range(2)) {
 				case 0:
@@ -229,10 +227,20 @@ void earth::setIsland(int x, int y)
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrainFrameX = RANDOM->range(4);
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = true;
 			}
+			if (GetIslandCount() > 1 && i == 5 && j == 5) {
+				/*int bossSpawnProabability = RANDOM->range(2);
+				if (GetIslandCount() == 2) {
+					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 0) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}*/
+			}
 		}
 	}
-
-	//UNITMANAGER->AddBuilding(building, tiles, _tileIndex);
+	if (x == 2 && y == 2) {
+		SetGoddessWell(x, y);
+	}
 }
 
 int earth::GetIslandX(int index)
@@ -302,6 +310,56 @@ int earth::GetTileIndex(POINT pt)
 			return i;
 		}
 	}
+}
+
+void earth::SetGoddessWell(int x, int y)
+{
+	vector<tile*> vWellTiles;
+	vector<tile*> vStoneTiles;
+	int wellTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 4;
+	int stoneTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 8;
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 3 && j < 8 && i > 2 && i < 9) {
+				vWellTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 10 && i > 5 && i < 9) {
+				vStoneTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("goddesswell", vWellTiles, wellTileIndex);
+	UNITMANAGER->AddSpecialBuilding("goddess", vStoneTiles, stoneTileIndex);
+}
+
+void earth::SetElfTree(int x, int y)
+{
+	vector<tile*> vTreeTiles;
+	vector<tile*> vStoneTiles;
+	int treeTileIndex = (y * MAPTILEY*TILEY + 3 * MAPTILEY) + x * TILEX + 4;
+	int stoneTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 8;
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (j > 3 && j < 8 && i > 2 && i < 9) {
+				vTreeTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+			if (j > 7 && j < 10 && i > 5 && i < 9) {
+				vStoneTiles.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
+	UNITMANAGER->AddSpecialBuilding("elventree", vTreeTiles, treeTileIndex);
+	UNITMANAGER->AddSpecialBuilding("elevenstatue", vStoneTiles, stoneTileIndex);
 }
 
 tile* earth::tileMouseTarget()
