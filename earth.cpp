@@ -251,8 +251,12 @@ void earth::setIsland(int x, int y)
 		}
 	}
 	if (x == 2 && y == 2) {
-		//SetGoddessWell(x, y);
-		//SetElfTree(x, y);
+		SetGoddessWell(x, y);
+	}
+	if (x == 2 && y == 3) {
+		SetElfTree(x, y);
+	}
+	if (x == 4 && y == 4) {
 		SetTomb(x, y);
 	}
 }
