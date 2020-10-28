@@ -28,6 +28,7 @@ void productionManager::render(HDC hdc)
 			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2) * CAMERA->GetZoom();
 			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2) * CAMERA->GetZoom();
 
+			
 			img_alpha[i]+=3;
 			if (img_alpha[i] > 255) {
 				img_alpha[i] = 0;
@@ -45,14 +46,14 @@ void productionManager::render(HDC hdc)
 				IMAGEMANAGER->alphaRender(_production[i]->image_name, hdc, pos.x - 15, pos.y, _production[i]->alpha);
 			}
 			
-			pos.x += 15 * CAMERA->GetZoom();
+			pos.x += 30 * CAMERA->GetZoom();
 			pos.y += 15 * CAMERA->GetZoom();
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
 			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2);
 			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2);
-			if (_production[i]->image_name != "bowDrop" && _production[i]->image_name != "swordDrop" && _production[i]->image_name != "img_game_money_icon") {
+			
 				IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x - 15, pos.y - 85, img_alpha[i], CAMERA->GetZoom());
-			}
+			
 		}
 	}
 }

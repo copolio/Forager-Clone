@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ItemDatabase.h"
 
-#define ITEM_MAX 16
+#define ITEM_MAX 22
 
 
 
@@ -17,9 +17,9 @@ void ItemDatabase::init()
 	items[t_cnt++] = tagItem("berryDrop", "berryDrop", "열매", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5, 0);
 	items[t_cnt++] = tagItem("fishDrop", "fishDrop", "물고기", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5);
 	items[t_cnt++] = tagItem("milkDrop", "milkDrop", "우유", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 3, 5);
-	
+	items[t_cnt++] = tagItem("roast_fishDrop", "roast_fishDrop", "구운 고기", " ", CONSUMABLE, WeaponType::NONE2, 1, 10);
 	// 재료템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
-	items[t_cnt++] = tagItem("rockDrop", "rockDrop", "돌", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("rockDrop", "rockDrop", "돌", " ", INGREDIANT, WeaponType::NONE2, 1, 0, 0);
 	items[t_cnt++] = tagItem("treeDrop", "treeDrop", "목재", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("goldBarDrop", "goldBarDrop", "금괴", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("ironBarDrop", "ironBarDrop", "괴철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
@@ -29,6 +29,13 @@ void ItemDatabase::init()
 	items[t_cnt++] = tagItem("brickDrop", "brickDrop", "벽돌", " ", INGREDIANT, WeaponType::NONE2, 3, 0);
 	items[t_cnt++] = tagItem("skullHeadDrop", "skullHeadDrop", "스컬머리", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("leatherDrop", "leatherDrop", "가죽", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("threadDrop", "threadDrop", "실", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+
+	items[t_cnt++] = tagItem("high_class_cloth", "high_class_cloth", "고급 옷감", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("high_class_SteelDrop", "high_class_SteelDrop", "고급 강철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("SteelhDrop", "SteelhDrop", "강철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+	items[t_cnt++] = tagItem("arrowDrop", "arrowDrop", "화살", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
+
 	
 	// 장비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
 	items[t_cnt++] = tagItem("bowDrop", "bowDrop", "활", " ", EQUIPMENT, BOW, 1, 0);

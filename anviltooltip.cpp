@@ -36,9 +36,23 @@ void anviltooltip::render(HDC hdc, int num, RECT rc)
 		}
 		break;
 	case 2:
-		pos.x = rc.left - t_width + 100;
-		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
+		IMAGEMANAGER->render("wood", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 10, rc.top );
+		IMAGEMANAGER->render("stone", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("treeDrop")), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
+		if (cilck()) {
+			click_item_event(num);
+		}
 		break;
 
 	case 3:
@@ -126,7 +140,13 @@ void anviltooltip::click_item_event(int num)
 
 		break;
 	case 2:
+		if (PRODUCTIONMANAGER->is_Item_Cilck("arrowDrop")) {
 
+			if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "rockDrop", 2)) {
+
+				PRODUCTIONMANAGER->isCount("arrowDrop");
+			}
+		}
 		break;
 	case 3:
 

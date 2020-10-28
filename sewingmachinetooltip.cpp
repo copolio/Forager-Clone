@@ -16,6 +16,9 @@ void sewingmachinetooltip::render(HDC hdc, int num, RECT rc)
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 140;
 		pos.y = rc.top + 20;
 		TEXTMANAGER->ShowText(hdc, false, "/  3", pos, 20, 0);
+		if (cilck()) {
+			click_item_event(num);
+		}
 		break;
 	case 1:
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
@@ -50,4 +53,51 @@ void sewingmachinetooltip::render(HDC hdc, int num, RECT rc)
 	}
 
 
+}
+
+
+void sewingmachinetooltip::click_item_event(int num)
+{
+	switch (num)
+	{
+	case 0:
+		if (PRODUCTIONMANAGER->is_Item_Cilck("threadDrop")) {
+
+
+			if (ITEMMANAGER->Item_count_Minus("treeDrop", 3)) {
+				PRODUCTIONMANAGER->isCount("threadDrop");
+			}
+		}
+
+		break;
+	case 1:
+
+		break;
+	case 2:
+
+		break;
+	case 3:
+
+		break;
+	case 4:
+
+		break;
+	case 5:
+
+		break;
+	case 6:
+		break;
+
+	}
+
+}
+
+
+bool sewingmachinetooltip::cilck()
+{
+	if (INPUT->GetKeyDown(VK_LBUTTON)) {
+		SOUNDMANAGER->play("생산시작");
+		return true;
+	}
+	return false;
 }

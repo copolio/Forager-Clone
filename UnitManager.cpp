@@ -26,6 +26,12 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("pooDrop", "Images/이미지/아이템/poo.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("leatherDrop", "Images/이미지/아이템/leather.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("arrowDrop", "Images/이미지/아이템/arrow.bmp", 62, 63, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("roast_fishDrop", "Images/이미지/아이템/roast_fish.bmp", 68, 69, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("SteelhDrop", "Images/이미지/아이템/Steel.bmp", 68, 69, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("high_class_SteelDrop", "Images/이미지/아이템/high_class_Steel.bmp", 68, 69, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("high_class_clothDrop", "Images/이미지/아이템/high_class_cloth.bmp", 64, 65, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("threadDrop", "Images/이미지/아이템/실.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	// 필드 드롭 아이템 (장비)
 	IMAGEMANAGER->addImage("bowDrop", "Images/이미지/아이템/slot_Bow.bmp", 63, 63, true, RGB(255, 0, 255));
