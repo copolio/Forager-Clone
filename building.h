@@ -13,7 +13,7 @@ public:
 	void setBuilding(string buildingName, tile* _tile, int tileindex);
 	void setBuilding(string buildingName, vector<tile*> tiles, int tileindex);
 	void dead() override;
-	void hurt(int damage) override;
+	void hurt(int damage, bool onlyEffect = false) override;
 	void render(HDC hdc) override;
 };
 

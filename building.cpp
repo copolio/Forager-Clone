@@ -79,14 +79,14 @@ void building::dead()
 	}
 }
 
-void building::hurt(int damage)
+void building::hurt(int damage, bool onlyEffect)
 {
+	SOUNDMANAGER->play("바위타격");
+	isHit = true;
+	if (onlyEffect)
+		return;
+	
 	currentHp -= damage;
-
 	if (currentHp <= 0)
 		dead();
-
-	else
-		isHit = true;
-	SOUNDMANAGER->play("바위타격");
 }

@@ -19,6 +19,6 @@ public:
 	void dead() override;
 	void render(HDC hdc) override;
 
-	void hurt(int damage) override;
+	void hurt(int damage,bool onlyEffect = false) override;
 };
 

@@ -15,16 +15,15 @@ void enemy::update()
 
 }
 
-void enemy::hurt(int damage)
+void enemy::hurt(int damage, bool onlyEffect)
 {
+	SOUNDMANAGER->play("나무타격");
+	isHit = true;
+	if (onlyEffect)
+		return;
 	currentHp -= damage;
-
 	if (currentHp <= 0)
 		dead();
-
-	else
-		isHit = true;
-	SOUNDMANAGER->play("나무타격");
 }
 
 void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)

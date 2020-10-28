@@ -941,8 +941,11 @@ void ForagerPlayer::CheckCollision()
 }
 
 
-void ForagerPlayer::hurt(int damage)
+void ForagerPlayer::hurt(int damage, bool onlyEffect)
 {
+	if (onlyEffect)
+		return;
+	
 	if (_powerOverwhelmingTime >= 10) {
 		
 		_powerOverwhelmingTime = 0;

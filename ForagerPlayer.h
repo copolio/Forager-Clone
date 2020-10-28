@@ -150,7 +150,7 @@ public:
 	int GetPlayerTilePos() { return _playerTilePos; };
 	bool IsBow() { return  _handleItem.weaponType == WeaponType::BOW; };
 	POINT GetBowXY();
-	void hurt(int damage) override;
+	void hurt(int damage, bool onlyEffect = false) override;
 	void SetIsMoveRotate() { _isMoveRotate = false; };
 	void Init_PowerOverwhelmingTime() {
 		_powerOverwhelmingTime = 0;

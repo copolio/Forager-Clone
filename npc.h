@@ -23,7 +23,7 @@ public:
 	void setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer);
 	void update() override;
 	void render(HDC hdc) override;
-	void hurt(int damage) override;
+	void hurt(int damage,bool onlyEffect = false) override;
 
 	bool get_isQuestReceive() {
 		return _isQuestReceive;

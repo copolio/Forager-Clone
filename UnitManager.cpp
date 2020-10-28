@@ -153,7 +153,10 @@ void UnitManager::checkCollision(unit * p_unit)
 				}
 				if (p_unit->tag != TAG::ENEMY) {
 					if(!_pProjectiles[k].isBrassing)
+					{
 						_pProjectiles[k].isAppear = false;
+						p_unit->hurt(_pProjectiles[k].damage, true);
+					}
 				}
 
 			}

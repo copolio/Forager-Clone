@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "unit.h"
 
-void unit::hurt(int damage)
+void unit::hurt(int damage, bool onlyEffect)
 {
 	
 	currentHp -= damage;

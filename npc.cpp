@@ -76,7 +76,7 @@ void npc::render(HDC hdc)
 	}
 }
 
-void npc::hurt(int damage)
+void npc::hurt(int damage, bool onlyEffect)
 {
 	vector<string> str;
 	str.push_back("¾Æ... ¾ÆÆÄ...");

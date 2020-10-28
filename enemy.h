@@ -48,7 +48,7 @@ public:
 	 void setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos);
 	 void render(HDC hdc) override ;
 	 void update() override;
-	 void hurt(int damage) override;
+	 void hurt(int damage, bool onlyEffect = false) override;
 	 void dead() override;
 	
 	//virtual void move(vector<int> vDestTileIndex);

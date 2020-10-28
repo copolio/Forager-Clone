@@ -17,7 +17,7 @@ public:
 	void render(HDC hdc) override;
 	
 	void muuAnimation();
-	void hurt(int damage) override;
+	void hurt(int damage, bool onlyEffect = false) override;
 	void dead() override;
 };
 

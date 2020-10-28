@@ -120,16 +120,8 @@ void inGameResource::render(HDC hdc)
 		objFrameX, objFrameY, CAMERA->GetZoom());
 }
 
-void inGameResource::hurt(int damage)
+void inGameResource::hurt(int damage, bool onlyEffect)
 {
-	currentHp -= damage;
-
-	if (currentHp <= 0)
-		dead();
-
-	else
-		isHit = true;
-
 	if (this->objKey == "berry") {
 		SOUNDMANAGER->play("과일타격");
 	}
@@ -139,6 +131,13 @@ void inGameResource::hurt(int damage)
 	if (this->objKey == "rock") {
 		SOUNDMANAGER->play("바위타격");
 	}
+	isHit = true;
+
+	if (onlyEffect)
+		return;
+	currentHp -= damage;
+	if (currentHp <= 0)
+		dead();
 }
 
 

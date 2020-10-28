@@ -70,7 +70,7 @@ void muBoss::muuAnimation()
 	
 }
 
-void muBoss::hurt(int damage)
+void muBoss::hurt(int damage, bool onlyEffect)
 {
 	SOUNDMANAGER->play("무맞을때소리");
 	_index = 0;
@@ -87,7 +87,10 @@ void muBoss::hurt(int damage)
 		t_vStr.push_back("내, 내가 뭘 잘못한 거니...?!");
 
 	DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
+	if (onlyEffect)
+		return;
 
+	
 	unit::hurt(damage);
 
 }

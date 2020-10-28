@@ -60,12 +60,10 @@ void wraith::render(HDC hdc)
 	switch (_state3)
 	{
 	case FLY:
-		//Rectangle(hdc, rc);
 		IMAGEMANAGER->frameRender("wraithIdle", hdc, CAMERA->GetRelativeX(rc.left - 235),
 			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
 	case SHOOT:
-		//Rectangle(hdc, rc);
 		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 235),
 			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
@@ -143,36 +141,25 @@ void wraith::wraithAttack()
 {
 	if (!tryAttack)	//플레이어가 레이스 공격 범위에 들기 전, 
 	{
-		if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
+		skill1coolTime++;
+		if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange && skill1coolTime > 480)
 		{
 			tryAttack = true;
 		}
 		else
 			_state3 = FLY;
 	}
-	//플레이어가 공격 범위 안에 들고 나서, 
+	// 공격 가능 상태가 되면 탄환 발사. 
 	else
 	{
 		wraithWaitCount++;
 		if (wraithWaitCount > 20)
 		{
-			if (wraithHitCount == 23) 
-			{
-				if (abs(_target->rc.left - rc.left) <= wraithAttackRange && abs(_target->rc.top - rc.top) <= wraithAttackRange)
-				{
-					//_target->hurt(Atk);
-					//skill1coolTime++;
-					//if (skill1coolTime > 240)
-					//	skill1coolTime = 0;
-				}
-			}
 			_state3 = SHOOT;
 			wraithFire();
 		}
-		//else
-		//{
-		//	_state3 = SHOOT;
-		//}
+
+		
 	}
 }
 
@@ -200,6 +187,7 @@ void wraith::wraithAnimation()
 				wraithHitCount = 1;
 				_attackIndex = 0;
 				wraithWaitCount = 0;
+				skill1coolTime = 0;
 				tryAttack = false;
 			}
 		}
@@ -248,9 +236,6 @@ void wraith::wraithFire()
 		//	skillFireCount = 0;
 		//}
 	}
-	
-	
-	
 }
 
 float wraith::shootToTarget()

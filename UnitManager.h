@@ -10,7 +10,6 @@
 #include "cow.h"
 #include "tile.h"
 #include "earth.h"
-//#include "SpawnManager.h"
 #include "ForagerPlayer.h"
 #include "ProjectileManager.h"
 #include "wraith.h"
@@ -35,7 +34,6 @@ private:
 
 	tagProjectile* _pProjectiles;
 	earth *_map;
-	//SpawnManager *_spawnManager;
 	ProjectileManager *_projectileManager;
 
 private:
