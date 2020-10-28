@@ -535,11 +535,6 @@ void ForagerPlayer::PlayerControll()
 			}
 		}
 	}
-	else {
-
-		_isGotDamage = false;
-		_powerOverwhelmingTime = 100;
-	}
 }
 
 void ForagerPlayer::MeleeWeaponClick()
@@ -766,7 +761,7 @@ void ForagerPlayer::hungryBalloon()
 void ForagerPlayer::BlinkProcess()
 {
 	if (_isGotDamage) {
-		if (_powerOverwhelmingTime++ >= 10) {
+		if (_powerOverwhelmingTime++ >= 100) {
 			_isGotDamage = false;
 			_powerOverwhelmingTime = 100;
 		}
