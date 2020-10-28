@@ -33,7 +33,7 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
-
+	hasDestiny = false;
 	return S_OK;
 }
 
@@ -44,6 +44,10 @@ void earth::release()
 
 void earth::update()
 {
+	if (!hasDestiny) {
+		hasDestiny = true;
+		this->SetDestiny();
+	}
 	if (CAMERA->movelimit) {
 		_count++;
 		if (_count % RESGENTIME == 0) {
@@ -250,7 +254,7 @@ void earth::setIsland(int x, int y)
 	else if (x == 4 && y == 4) {
 		SetTomb(x, y);
 	}
-	else if (GetIslandCount() > 1) {
+	else if (GetIslandCount() > 5) {
 		SetMonster(x, y);
 	}
 }
@@ -438,6 +442,33 @@ void earth::SetMonster(int x, int y)
 			}
 		}
 	}
+}
+
+void earth::SetEmpty(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+		}
+	}
+}
+
+void earth::SetDestiny()
+{
+	int first = RANDOM->range(1, 5);
+	int second = RANDOM->range(1, 5);
+	int third = RANDOM->range(1, 5);
+	int fourth = RANDOM->range(1, 5);
+	setIsland(0, first);
+	SetEmpty(0, first);
+	setIsland(6, second);
+	SetEmpty(6, second);
+	setIsland(third, 0);
+	SetEmpty(third, 0);
+	setIsland(fourth, 6);
+	SetEmpty(fourth, 6);
 }
 
 tile* earth::tileMouseTarget()
