@@ -54,6 +54,10 @@ HRESULT gameScene::init()
 
 	
 
+
+
+	UNITMANAGER->AddUnits("slime", { 300, 56 }, true);
+
 	return S_OK;
 }
 

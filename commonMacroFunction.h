@@ -32,6 +32,8 @@ inline RECT RectMakeCenter(int x, int y, int width, int height)
 	return rc;
 }
 
+
+
 //Rectangle 함수 이용해서 사각형 그리기
 inline void RectangleMake(HDC hdc, int x, int y, int width, int height)
 {

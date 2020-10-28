@@ -62,7 +62,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addFrameImage("muBossCry", "Images/이미지/NPC/muBossCry.bmp", 1848, 406, 6, 1, true, RGB(255, 0, 255));
 
 	//에너미 - 슬라임
-	//IMAGEMANAGER->addFrameImage("slime","")
+	IMAGEMANAGER->addFrameImage("slime", "Images/이미지/NPC/slime_Idle2.bmp", 280, 70, 5, 1, true, RGB(255, 0, 255));
 	
 	
 	// NPC
@@ -84,6 +84,7 @@ void UnitManager::init()
 	//_spawnManager = new SpawnManager;
 	//_spawnManager->init();
 	SPAWNMANAGER->init();
+
 }
 
 void UnitManager::release()

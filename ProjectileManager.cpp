@@ -6,6 +6,8 @@ void ProjectileManager::init()
 	IMAGEMANAGER->addFrameImage("BowArrow", "Images/이미지/아이템/img_UI_bowArrow.bmp", 448, 56, 8, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("wratihMissile", "Images/이미지/NPC/wratihMissile.bmp", 990, 90, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("demonBrass", "Images/이미지/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("slimeMissile", "Images/이미지/NPC/slime_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
+
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		_projectiles[i].imgKey = "temp";
 		_projectiles[i].x = 0;
@@ -29,34 +31,51 @@ void ProjectileManager::update()
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		if (_projectiles[i].isAppear) 
 		{
-			if (!_projectiles[i].isBrassing)
-			{
-				_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
-				_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
-				if (_projectiles[i].isStretch)
+			// 이미지 출력 안 하는, 투사체겸 장판 데미지용
+			if (_projectiles[i].imgKey == _strDamageBoundary) {
+				if (_projectiles[i].count++ > 3) {
+					_projectiles[i].isAppear = false;
+				}
+			}
+			// 이미지 출력하는 일반 투사체
+			else {
+
+				// 일반 화살같은
+				if (!_projectiles[i].isBrassing)
 				{
-					if (_projectiles[i].count++ % 10 == 0)
+					_projectiles[i].x += cosf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
+					_projectiles[i].y -= sinf(_projectiles[i].angle * PI / 180.0f) * _projectiles[i].speed;
+
+					// 스트레치가 필요한 투사체의 경우-
+					if (_projectiles[i].isStretch)
 					{
-						_projectiles[i].frameX++;
-						if (_projectiles[i].frameX > 10)
+						if (_projectiles[i].count++ % 10 == 0)
 						{
-							_projectiles[i].frameX = 11;
-							_projectiles[i].frameY = 0;
+							_projectiles[i].frameX++;
+							if (_projectiles[i].frameX > 10)
+							{
+								_projectiles[i].frameX = 11;
+								_projectiles[i].frameY = 0;
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				if (_projectiles[i].count++ % 12 == 0)
+
+				// 브레스같은
+				else
 				{
-					_projectiles[i].frameX += _projectiles[i].isPingPong ? 1 : -1;
-					if (_projectiles[i].frameX > 8)
-						_projectiles[i].isPingPong = false;
-					if (_projectiles[i].isPingPong == false && _projectiles[i].frameX == 0)
-						_projectiles[i].isAppear = false;
+					if (_projectiles[i].count++ % 12 == 0)
+					{
+						_projectiles[i].frameX += _projectiles[i].isPingPong ? 1 : -1;
+						if (_projectiles[i].frameX > 8)
+							_projectiles[i].isPingPong = false;
+						if (_projectiles[i].isPingPong == false && _projectiles[i].frameX == 0)
+							_projectiles[i].isAppear = false;
+					}
 				}
 			}
+
+			
 			
 			// 카메라 바깥으로 나가면 삭제
 			RECT temp;
@@ -70,7 +89,9 @@ void ProjectileManager::render(HDC hdc)
 {
 	for (int i = 0; i < PROJECTILE_MAX; i++) 
 	{
-		
+		if (_projectiles[i].imgKey == _strDamageBoundary)
+			continue;
+
 		if (_projectiles[i].isAppear) {
 			//RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20);
 			if(!_projectiles[i].isStretch)
@@ -80,6 +101,9 @@ void ProjectileManager::render(HDC hdc)
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc,
 									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
 		}
+
+		//if (_projectiles[i].imgKey == "slimeMissile")
+		//	IMAGEMANAGER->render("slimeMissile", hdc, _projectiles[i].x, _projectiles[i].y);
 	}
 }
 
@@ -158,5 +182,32 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			break;
 		}
 	}
+
+}
+
+void ProjectileManager::CreateProjectile(int x, int y, int damage, int width, int height)
+{
+	for (int i = 0; i < PROJECTILE_MAX; i++)
+	{
+		if (!_projectiles[i].isAppear) {
+			_projectiles[i].imgKey = _strDamageBoundary;
+			_projectiles[i].x = x;
+			_projectiles[i].y = y;
+			_projectiles[i].damage = damage;
+			_projectiles[i].width = width;
+			_projectiles[i].height = height;
+			_projectiles[i].isStretch = false;
+			_projectiles[i].isEnemyProjectTile = true;
+			_projectiles[i].speed = 0;
+			_projectiles[i].count = 0;
+			_projectiles[i].angle = 0.0f;
+			_projectiles[i].isBrassing = false;
+			_projectiles[i].brassCount = 0;
+			_projectiles[i].isPingPong = false;
+			_projectiles[i].isAppear = true;
+			break;
+		}
+	}
+	
 
 }

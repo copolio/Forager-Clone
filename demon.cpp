@@ -223,7 +223,6 @@ void demon::demonAttack()
 		{
 			_state4 = DYELL;
 			demonBrassFire();
-			
 		}
 		else
 			_state4 = DIDLE;
@@ -263,11 +262,8 @@ void demon::demonAnimation()
 				_index = 0;
 				demonWaitCount = 0;
 				demonHitCount = 1;
-				tryAttack = false;
-				
-					
+				tryAttack = false;	
 			}
-
 		}
 		break;
 	}
