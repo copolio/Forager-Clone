@@ -986,6 +986,8 @@ void image::rotateRender(HDC hdc, float destX, float destY, float angle)
 	baseAngle[1] = atanf(((float)_imageInfo->height / 2) / ((float)_imageInfo->width / 2));
 	baseAngle[2] = PI + atanf(((float)_imageInfo->height / 2) / ((float)_imageInfo->width / 2));
 
+	int zoomRate = CAMERA->GetZoom();
+
 	for (int i = 0; i < 3; ++i)
 	{
 		rPoint[i].x = (_rotateImage->width / 2 + cosf(baseAngle[i] + angle) * dist);

@@ -70,6 +70,8 @@ private:
 	image* _foragerHpBarFront[3];
 	image* _foragerHpBarBack[3];
 	
+	float _spinAngle;	// 플레이어 구르기 각도;
+
 	// 애니메이션 스피드
 	int _hitDelayCount;
 	int _count;
@@ -108,12 +110,12 @@ public:
 	void update();
 	void render(HDC hdc) override;
 
-
 private:
-
+	void renderPlayer(HDC hdc);
 	void PlayerControll();
-
+	
 	void MeleeWeaponClick();
+	void CalcBowDelay();
 	void BowClick();
 	void ArrowFire();
 	void bowAnimation();
@@ -122,7 +124,7 @@ private:
 	void playerLookingDirection();
 	void weaponCheck();
 	void hungryBalloon();
-
+	void BlinkProcess();
 public:
 	float getPlayerMaxHp() { return maxHp; }
 	float getPlayerCurrentHp(){ return currentHp; }

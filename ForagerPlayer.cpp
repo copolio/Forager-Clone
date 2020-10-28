@@ -43,7 +43,7 @@ HRESULT ForagerPlayer::init()
 	_cntBowDelay = 0;			// 현재 화살 연사 딜레이 수치
 	_bowDelay = 50;				// 약 0.5초
 	_canBowFire = true;
-
+	_spinAngle = 0.0f;
 	_state = STATE::IDLE;
 	_priorState = _state;
 	_angle = 0.0f;
@@ -53,6 +53,7 @@ HRESULT ForagerPlayer::init()
 	//기본 플레이어 이미지
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("playerRUN")->initForRotateImage(true);
 	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerWork", "Images/이미지/플레이어/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
@@ -62,15 +63,15 @@ HRESULT ForagerPlayer::init()
 	
 	//곡괭이 이미지
 	IMAGEMANAGER->addImage("Hammer", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("Hammer")->initForRotateImage(false);
 	IMAGEMANAGER->addImage("HammerLeft", "Images/이미지/아이템/곡괭이왼쪽.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("HammerLeft")->initForRotateImage(false);
 	// 곡괭이질 이미지 3x1
 	IMAGEMANAGER->addFrameImage("playerHammering", "Images/이미지/아이템/곡괭이질하기3.bmp",255,140, 3, 2, true, RGB(255, 0, 255));
 	//곡괭이 회전 이미지 12x1
 	IMAGEMANAGER->addFrameImage("HammerImg", "Images/이미지/아이템/곡괭이right.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("HammerImgLeft", "Images/이미지/아이템/곡괭이left.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
 
-	// 활 프레임 이미지
-	IMAGEMANAGER->addFrameImage("Bow", "Images/이미지/아이템/img_equip_bow.bmp", 250, 250, 4, 4, true, RGB(255, 0, 255));
 
 	// 이미지 파싱
 	_foragerIdle = IMAGEMANAGER->findImage("playerStop");
@@ -82,7 +83,7 @@ HRESULT ForagerPlayer::init()
 
 	_hammer = IMAGEMANAGER->findImage("Hammer");
 	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
-	_bow = IMAGEMANAGER->findImage("Bow");
+	_bow = IMAGEMANAGER->findImage("bowDrop");
 
 	//플레이어 회전 이미지 찍어내기
 	for(int i = 1 ; i < 12; i++)
@@ -150,19 +151,20 @@ void ForagerPlayer::release()
 
 void ForagerPlayer::update()
 {
-	// 화살 연사 체크
-	if (!_canBowFire) {
-		if (_cntBowDelay++ >= _bowDelay) {
-			_cntBowDelay = 0;
-			_canBowFire = true;
-		}
-	}
-	
-	weaponCheck();
-
-	animation();
+	BlinkProcess();		// 무적 깜빡이 딜레이 계산
+	animation();		// 애니메이션 활성화
 	if (_handleItem.weaponType == WeaponType::BOW && !inven_open) bowAnimation();
+	_rcHammer = RectMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2 - 28, 56, 56); // 위치 파싱
 
+
+	CalcBowDelay();		// 화살 연사 체크
+	weaponCheck();		// 현재 무기 체크
+	hungryBalloon();	// 배고픔 수치
+	CAMERA->targetFollow(rc.left, rc.top); // 카메라 추적
+	STATMANAGER->update();				   // 스테이터스 업데이트
+	STATMANAGER->setinvenopen(inven_open); // 인벤토리 체크
+
+	// 플레이어 움직임 & 충돌 처리
 	if (!inven_open) {
 		PlayerControll();
 		playerMove();
@@ -170,21 +172,8 @@ void ForagerPlayer::update()
 		CheckPlayerTile();
 		CheckCollision();
 	}
-	
-	_rcHammer = RectMake((rc.left + rc.right) / 2 , (rc.top + rc.bottom) / 2 - 28, 56, 56);
-	CAMERA->targetFollow(rc.left, rc.top);
-	STATMANAGER->update();
-	STATMANAGER->setinvenopen(inven_open);
 
-	if (_isGotDamage) {
-		_powerOverwhelmingTime++;
-	}
-	else {
-		_powerOverwhelmingTime = 10;
-	}
-
-	hungryBalloon();
-	
+	// 상태 변화 체크
 	if (_priorState != _state) {
 		_count = 0;
 		_index = 0;
@@ -195,178 +184,103 @@ void ForagerPlayer::update()
 
 void ForagerPlayer::render(HDC hdc)
 {
+	if (_isGotDamage) {
+		if (_count % 5 == 0) 
+			renderPlayer(hdc);
+	}
+	else 
+		renderPlayer(hdc);
+}
+
+
+void ForagerPlayer::renderPlayer(HDC hdc)
+{
 	int relX = CAMERA->GetRelativeX(rc.left);
 	int relY = CAMERA->GetRelativeY(rc.top);
 	int relWeaponX = CAMERA->GetRelativeX(_rcHammer.left);
 	int relWeaponY = CAMERA->GetRelativeY(_rcHammer.top);
+	float zoomRate = CAMERA->GetZoom();
 
-	if (_isGotDamage) {
-		if (_count % 5 == 0) {
-			switch (_state)
-			{
-			case IDLE:
-				IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
-				break;
-			case RUN:
-				IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
-				break;
-
-			case ROTATE:
-				if (_isLeft)
-				{
-					IMAGEMANAGER->frameRender("playerRotateLeft", hdc, relX, relY, CAMERA->GetZoom());
-					if (_handleItem.weaponType == PICKAXE)
-						IMAGEMANAGER->frameRender("HammerImgLeft", hdc, relX, relY, CAMERA->GetZoom());
-				}
-				else
-				{
-					IMAGEMANAGER->frameRender("playerRotate", hdc, relX, relY, CAMERA->GetZoom());
-					if (_handleItem.weaponType == PICKAXE)
-						IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
-				}
-				break;
-
-
-			case HAMMERING:
-				IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
-				if (_handleItem.weaponType == PICKAXE) {
-					_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), CAMERA->GetZoom());
-				}
-				if (_handleItem.weaponType == SWORD) {
-					_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), CAMERA->GetZoom());
-				}
-				break;
-			}
-			if (_state != ROTATE && _state != HAMMERING)
-			{
-				// 곡괭이 일반 상태
-				if (_handleItem.weaponType == PICKAXE) {
-					if (_isLeft)
-						IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
-					else
-						IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
-				}
-				// 보우 일반 상태
-				else if (_handleItem.weaponType == BOW)
-				{
-					if (_isLeft)
-						_bow->frameRender(hdc, relWeaponX - 35, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
-					else
-						_bow->frameRender(hdc, relWeaponX - 15, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
-				}
-				else if (_handleItem.weaponType == SWORD) {
-					if (_isLeft)
-						IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
-					else
-						IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
-				}
-				else if (_handleItem.itemType == ItemType::CONSUMABLE) {
-
-					if (_handleItem.itemKey == "milkDrop") {
-						if (_isLeft) {
-							IMAGEMANAGER->render("carryMilk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
-						}
-						else {
-							IMAGEMANAGER->render("carryMilk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
-						}
-
-					}if (_handleItem.itemKey == "berryDrop") {
-						if (_isLeft) {
-							IMAGEMANAGER->render("carryBerry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
-						}
-						else {
-							IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
-						}
-					}
-
-				}
-			}
-		}
-	}
-	else {
-		switch (_state)
-		{
+	switch (_state)
+	{
 		case IDLE:
-			IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, zoomRate);
 			break;
 		case RUN:
-			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, zoomRate);
 			break;
 
 		case ROTATE:
+			IMAGEMANAGER->findImage("playerRUN")->rotateFrameRender(hdc, relX + 20, relY + 20, IMAGEMANAGER->findImage("playerRUN")->getFrameX(), IMAGEMANAGER->findImage("playerRUN")->getFrameY(), _spinAngle * PI / 180.0f);
+
 			if (_isLeft)
 			{
-				IMAGEMANAGER->frameRender("playerRotateLeft", hdc, relX, relY, CAMERA->GetZoom());
-				if (_handleItem.weaponType == WeaponType::PICKAXE)
-					IMAGEMANAGER->frameRender("HammerImgLeft", hdc, relX, relY, CAMERA->GetZoom());
+				if (_handleItem.weaponType == WeaponType::PICKAXE) {
+					IMAGEMANAGER->findImage("HammerLeft")->rotateRender(hdc, relWeaponX, relWeaponY + 20, _spinAngle * PI / 180.0f);
+				}
 			}
 			else
 			{
-				IMAGEMANAGER->frameRender("playerRotate", hdc, relX, relY, CAMERA->GetZoom());
 				if (_handleItem.weaponType == WeaponType::PICKAXE)
-					IMAGEMANAGER->frameRender("HammerImg", hdc, relX, relY, CAMERA->GetZoom());
+					IMAGEMANAGER->findImage("Hammer")->rotateRender(hdc, relWeaponX, relWeaponY + 20, _spinAngle * PI / 180.0f);
 			}
 			break;
 
 
 		case HAMMERING:
-			IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, CAMERA->GetZoom());
-			if (_handleItem.weaponType == WeaponType::PICKAXE) {
-				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), CAMERA->GetZoom());
+			IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, zoomRate);
+			if (_handleItem.weaponType == PICKAXE) {
+				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), zoomRate);
 			}
-			if (_handleItem.weaponType == WeaponType::SWORD) {
-				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), CAMERA->GetZoom());
+			if (_handleItem.weaponType == SWORD) {
+				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), zoomRate);
 			}
 			break;
+	}
+
+	if (_state != ROTATE && _state != HAMMERING)
+	{
+		// 곡괭이 일반 상태
+		if (_handleItem.weaponType == PICKAXE) {
+			if (_isLeft)
+				IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, zoomRate);
+			else
+				IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, zoomRate);
 		}
-		if (_state != ROTATE && _state != HAMMERING)
+		// 보우 일반 상태
+		else if (_handleItem.weaponType == BOW)
 		{
-			// 곡괭이 일반 상태
-			if (_handleItem.weaponType == WeaponType::PICKAXE) {
-				if (_isLeft)
-					IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
-				else
-					IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
-			}
-			// 보우 일반 상태
-			else if (_handleItem.weaponType == WeaponType::BOW)
-			{
-				if (_isLeft)
-					_bow->frameRender(hdc, relWeaponX - 35, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
-				else
-					_bow->frameRender(hdc, relWeaponX - 15, relWeaponY + 15, _bow->getFrameX(), _bow->getFrameY(), CAMERA->GetZoom());
-			}
-			else if (_handleItem.weaponType == WeaponType::SWORD) {
-				if (_isLeft)
-					IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, CAMERA->GetZoom());
-				else
-					IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, CAMERA->GetZoom());
-			}
-			else if (_handleItem.itemType == ItemType::CONSUMABLE) {
+			_bow->rotateRender(hdc, relWeaponX * zoomRate, (relWeaponY + 35) * zoomRate, _angle * PI / 180.0f);
+		}
+		else if (_handleItem.weaponType == SWORD) {
+			if (_isLeft)
+				IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, zoomRate);
+			else
+				IMAGEMANAGER->render("sword_right", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, zoomRate);
+		}
+		else if (_handleItem.itemType == ItemType::CONSUMABLE) {
 
-				if (_handleItem.itemKey == "milkDrop") {
-					if (_isLeft) {
-						IMAGEMANAGER->render("carryMilk", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
-					}
-					else {
-						IMAGEMANAGER->render("carryMilk", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
-					}
-
-				}if (_handleItem.itemKey == "berryDrop") {
-					if (_isLeft) {
-						IMAGEMANAGER->render("carryBerry", hdc, relWeaponX - 30, relWeaponY + 30, CAMERA->GetZoom());
-					}
-					else {
-						IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, CAMERA->GetZoom());
-					}
-
+			if (_handleItem.itemKey == "milkDrop") {
+				if (_isLeft) {
+					IMAGEMANAGER->render("carryMilk", hdc, relWeaponX - 30, relWeaponY + 30, zoomRate);
+				}
+				else {
+					IMAGEMANAGER->render("carryMilk", hdc, relWeaponX + 10, relWeaponY + 30, zoomRate);
 				}
 
+			}if (_handleItem.itemKey == "berryDrop") {
+				if (_isLeft) {
+					IMAGEMANAGER->render("carryBerry", hdc, relWeaponX - 30, relWeaponY + 30, zoomRate);
+				}
+				else {
+					IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, zoomRate);
+				}
 			}
+
 		}
 	}
-	
 }
+
 
 
 void ForagerPlayer::animation()
@@ -396,33 +310,15 @@ void ForagerPlayer::animation()
 
 		case ROTATE:
 			if (_isLeft)
-			{
-				if (_count++ % 3 == 0)
-				{
-					if (_index++ > 11)
-					{
-						_index = 0;
-						_state = STATE::IDLE;
-						_isMoveRotate = false;
-					}
-					IMAGEMANAGER->findImage("playerRotateLeft")->setFrameX(_index);
-					IMAGEMANAGER->findImage("HammerImgLeft")->setFrameX(_index);
-				}
-			}
+				_spinAngle += 10.0f;
 			else
-			{
-				_foragerRotate->setFrameY(0);
-				_foragerRotate->setFrameX(_index);
-				if (_count++ % 3 == 0)
-				{
-					if (_index++ > 11)
-					{
-						_index = 0;
-						_state = STATE::IDLE;
-						_isMoveRotate = false;
-					}
-					IMAGEMANAGER->findImage("HammerImg")->setFrameX(_index);
-				}
+				_spinAngle -= 10.0f;
+
+			if (abs(_spinAngle) >= 360.0f) {
+				_spinAngle = .0f;
+				_index = 0;
+				_state = STATE::IDLE;
+				_isMoveRotate = false;
 			}
 			break;
 		case HAMMERING:
@@ -470,30 +366,7 @@ void ForagerPlayer::animation()
 					_playerGotHurt->setFrameY(0);
 			}
 		}
-		switch (_state)
-		{
-		case HAMMERING:
-			if (_handleItem.weaponType == WeaponType::PICKAXE) {
-				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
-			}
-			else {
-				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
-			}
-			
-			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
-			_foragerHammering->setFrameX(_index);
-			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
-			_playerHammering->setFrameX(_index);
-			if (_hitDelayCount++ % 10 == 0)
-			{
-				if (_index++ > 3)
-				{
-					_hitDelayCount = 1;
-					_index = 0;
-				}
-			}
-			break;
-		}
+		
 	}
 }
 
@@ -511,28 +384,28 @@ void ForagerPlayer::bowAnimation()
 	if (_angle < 0)
 		_angle = 180.0f + (180.0f - (_angle * -1));
 	
-	int t_angle = _angle;
-	// 이미지 프레임 오프셋 보정(45도부터 0도로 계산해서 프레임 이미지의 각도와 일치시킴)
-	t_angle += 45.0f;
-	if (t_angle > 360.0f) {
-		t_angle = t_angle - 360.0f;
-	}
+	//int t_angle = _angle;
+	//// 이미지 프레임 오프셋 보정(45도부터 0도로 계산해서 프레임 이미지의 각도와 일치시킴)
+	//t_angle += 45.0f;
+	//if (t_angle > 360.0f) {
+	//	t_angle = t_angle - 360.0f;
+	//}
 
-	// 22.5도 단위로 이미지 프레임값 바꾸기.
-	float minAngle = -11.25f;
-	float maxAngle = 11.25f;
-	float addAngle = 22.5f;
-	int count = 0;
-	for (int y = 0; y < 4; y++) {
-		for (int x = 0; x < 4; x++) {
-			if (minAngle + (count * addAngle) <= t_angle && t_angle <= maxAngle + (count * addAngle)) {
-				_bow->setFrameX(x);
-				_bow->setFrameY(y);
-				return;
-			}
-			count++;
-		}
-	}
+	//// 22.5도 단위로 이미지 프레임값 바꾸기.
+	//float minAngle = -11.25f;
+	//float maxAngle = 11.25f;
+	//float addAngle = 22.5f;
+	//int count = 0;
+	//for (int y = 0; y < 4; y++) {
+	//	for (int x = 0; x < 4; x++) {
+	//		if (minAngle + (count * addAngle) <= t_angle && t_angle <= maxAngle + (count * addAngle)) {
+	//			_bow->setFrameX(x);
+	//			_bow->setFrameY(y);
+	//			return;
+	//		}
+	//		count++;
+	//	}
+	//}
 }
 
 
@@ -727,6 +600,16 @@ void ForagerPlayer::MeleeWeaponClick()
 	_state = HAMMERING;
 }
 
+void ForagerPlayer::CalcBowDelay()
+{
+	if (!_canBowFire) {
+		if (_cntBowDelay++ >= _bowDelay) {
+			_cntBowDelay = 0;
+			_canBowFire = true;
+		}
+	}
+}
+
 void ForagerPlayer::BowClick()
 {
 	if (!_isBowPulling) {
@@ -878,6 +761,19 @@ void ForagerPlayer::hungryBalloon()
 
 
 
+}
+
+void ForagerPlayer::BlinkProcess()
+{
+	if (_isGotDamage) {
+		if (_powerOverwhelmingTime++ >= 10) {
+			_isGotDamage = false;
+			_powerOverwhelmingTime = 100;
+		}
+	}
+	else {
+		_powerOverwhelmingTime = 10;
+	}
 }
 
 POINT ForagerPlayer::GetBowXY()
