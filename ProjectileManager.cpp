@@ -3,7 +3,8 @@
 
 void ProjectileManager::init()
 {
-	IMAGEMANAGER->addFrameImage("BowArrow", "Images/이미지/아이템/img_UI_bowArrow.bmp", 448, 56, 8, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("BowArrow", "Images/이미지/아이템/img_UI_bowArrow.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("BowArrow")->initForRotateImage(false);
 	IMAGEMANAGER->addFrameImage("wratihMissile", "Images/이미지/NPC/wratihMissile.bmp", 990, 90, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("demonBrass", "Images/이미지/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("slimeMissile", "Images/이미지/NPC/slime_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
@@ -89,25 +90,27 @@ void ProjectileManager::render(HDC hdc)
 {
 	for (int i = 0; i < PROJECTILE_MAX; i++) 
 	{
-		if (_projectiles[i].imgKey == _strDamageBoundary)
-			continue;
+
 
 		if (_projectiles[i].isAppear) {
-			//RectMakeCenter(_projectiles[i].x, _projectiles[i].y, 20, 20);
-			if(!_projectiles[i].isStretch)
+			if (_projectiles[i].imgKey == _strDamageBoundary)
+				continue;
+			// 일반 렌더
+			if(!_projectiles[i].isFrame)
+				IMAGEMANAGER->findImage(_projectiles[i].imgKey)->rotateRender(hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].angle * PI / 180.0f);
+			// 스트레치 렌더
+			else if(!_projectiles[i].isStretch)
 				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, 
 									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
-			else
-				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc,
-									 CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
+			// 프레임 렌더
+			else {
+				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
+			}
 		}
-
-		//if (_projectiles[i].imgKey == "slimeMissile")
-		//	IMAGEMANAGER->render("slimeMissile", hdc, _projectiles[i].x, _projectiles[i].y);
 	}
 }
 
-void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage, float angle, float speed, int size, bool isEnemy, bool isStretch)
+void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage, float angle, float speed, int size, bool isEnemy, bool isFrame, bool isStretch)
 {
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		if (!_projectiles[i].isAppear) {
@@ -123,33 +126,13 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			_projectiles[i].isAppear = true;
 			_projectiles[i].width = size;
 			_projectiles[i].height = size;
+			_projectiles[i].isFrame = isFrame;
+			_projectiles[i].frameX = 0;
+			_projectiles[i].frameY = 0;
 
 			_projectiles[i].isBrassing = false;
 			_projectiles[i].brassCount = 0;
 			_projectiles[i].isPingPong = false;
-
-			//cout << angle << endl;
-			if (isStretch == false)
-			{
-				float minAngle = -22.5f;
-				float maxAngle = 22.5f;
-				float addAngle = 45.0f;
-				int count = 0;
-				for (int x = 0; x < 8; x++)
-				{
-					if (minAngle + (count * addAngle) <= angle && angle <= maxAngle + (count * addAngle)) {
-						_projectiles[i].frameX = x % 8;
-						_projectiles[i].frameY = 0;
-						break;
-					}
-					count++;
-				}
-			}
-			else
-			{
-				_projectiles[i].frameX = 0;
-				_projectiles[i].frameY = 0;
-			}
 			break;
 		}
 	}
@@ -171,6 +154,7 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			_projectiles[i].isAppear = true;
 			_projectiles[i].width = width;
 			_projectiles[i].height = height;
+			_projectiles[i].isFrame = true;
 
 			_projectiles[i].isBrassing = true;
 			_projectiles[i].brassCount = 0;

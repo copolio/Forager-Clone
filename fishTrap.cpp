@@ -58,7 +58,7 @@ void fishTrap::fish()
 			if (INPUT->GetKeyDown('E')) {
 				unit* t_target = _cursor->GetTargetUnit();
 				_isCatch = false;
-				UNITMANAGER->AddUnits("fish", CAMERA->GetMouseRelativePos(_ptMouse));
+				UNITMANAGER->AddUnits("fishDrop", CAMERA->GetMouseRelativePos(_ptMouse));
 			}
 		}
 	}

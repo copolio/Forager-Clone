@@ -1,6 +1,8 @@
 #pragma once
 #include "singletonBase.h"
 
+#define UPGRADE_MAX 3
+
 struct tagForagerHp
 {
 	RECT ForagerHpRc;
@@ -38,15 +40,23 @@ private:
 
 	tagStamina* _foragerStamina;
 	ForagerPlayer* _player;
+
+	// 레밸업 관련
 	tagExp* _foragerExp;
 	int needExp[65];
 	int currentExp;
 	int level;
+	bool levelUp;
+
 	float _expImgSizeMax;
 	
+	// 강화 관련
+	int _hammerUpgradeCount;
+	int _swordUpgradeCount;
+	int _bowUpgradeCount;
+	int _staffUpgradeCount;
+	float _enhancingRatio[UPGRADE_MAX];	// 강화 데미지 증폭 비율
 
-	bool levelUp;
-	
 
 	
 	image* _levelNum[10];
@@ -92,5 +102,17 @@ public :
 	void SetStamina(int stam) { _staminSizeCurrent = stam; };
 	void SetStaminaMax(int stamBack) { _staminaImgSizeMax = stamBack; };
 	bool GetSuperMode() {return superMode;	};
+
+	// 강화 get set
+	float GetEnhanceRatio(int p_num) { return _enhancingRatio[p_num]; };
+	int GetHammerUpgradeCount() { return _hammerUpgradeCount; };
+	int GetSwordUpgradeCount() { return _swordUpgradeCount; };
+	int GetBowUpgradeCount() { return _bowUpgradeCount; };
+	int GetStaffUpgradeCount() { return _staffUpgradeCount; };
+
+	void SetHammerUpgradeCount(int p_num) { _hammerUpgradeCount = p_num; };
+	void SetSwordUpgradeCount(int p_num) { _swordUpgradeCount = p_num; };
+	void SetBowUpgradeCount(int p_num) { _bowUpgradeCount = p_num; };
+	void SetStaffUpgradeCount(int p_num) { _staffUpgradeCount = p_num; };
 };
 

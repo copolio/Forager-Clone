@@ -15,6 +15,7 @@ struct tagProjectile {
 		int damage;
 		int count;
 		int brassCount;
+		bool isFrame;
 		bool isStretch;
 		bool isEnemyProjectTile;
 		bool isAppear;
@@ -36,7 +37,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	void CreateProjectile(string imgKey, int x, int y, int damage = 10, float angle = 0.0f,
-		float speed = 0.5f, int size = 20, bool isEnemy = false, bool isStretch = false);
+		float speed = 0.5f, int size = 20, bool isEnemy = false, bool isFrame = false, bool isStretch = false);
 
 	void CreateProjectile(string imgKey, int x, int y, int damage = 1, int width = 100, int height = 20, bool isLeft = false);
 

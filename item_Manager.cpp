@@ -177,7 +177,7 @@ bool item_Manager::Item_count_Minus(string key, int count)
 }
 bool item_Manager::Item_count_Minus(string key, int count, string key2, int count2)
 {
-	if (isItemCheck(key) && isItemCheck(key2)) {
+	if (isItemCheck(key) && _item_push[itemfind(key)]->count >= count &&isItemCheck(key2) && _item_push[itemfind(key2)]->count >= count2) {
 		_item_push[itemfind(key)]->count -= count;
 		_item_push[itemfind(key2)]->count -= count2;
 		return true;
