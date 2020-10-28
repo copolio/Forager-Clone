@@ -239,25 +239,19 @@ void earth::setIsland(int x, int y)
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrainFrameX = RANDOM->range(4);
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = true;
 			}
-			if (GetIslandCount() > 1 && i == 5 && j == 5) {
-				/*int bossSpawnProabability = RANDOM->range(2);
-				if (GetIslandCount() == 2) {
-					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-				else if (bossSpawnProabability == 0) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}*/
-			}
 		}
 	}
 	if (x == 2 && y == 2) {
 		SetGoddessWell(x, y);
 	}
-	if (x == 2 && y == 3) {
+	else if (x == 2 && y == 3) {
 		SetElfTree(x, y);
 	}
-	if (x == 4 && y == 4) {
+	else if (x == 4 && y == 4) {
 		SetTomb(x, y);
+	}
+	else if (GetIslandCount() > 1) {
+		SetMonster(x, y);
 	}
 }
 
@@ -395,11 +389,11 @@ void earth::SetTomb(int x, int y)
 			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
 			}
-			if (j > 1 && j < 4 && i > 2 && i < 4) {
+			if (j > 1 && j < 4 && i > 2 && i < 5) {
 				vTombLeft.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
 			}
-			if (j > 7 && j < 9 && i > 2 && i < 4) {
+			if (j > 7 && j < 10 && i > 2 && i < 5) {
 				vTombRight.push_back(&_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j]);
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
 			}
@@ -412,6 +406,38 @@ void earth::SetTomb(int x, int y)
 	UNITMANAGER->AddSpecialBuilding("tombCenter", vTombCenter, tombCenterTileIndex);
 	UNITMANAGER->AddSpecialBuilding("tombLeft", vTombLeft, tombLeftTileIndex);
 	UNITMANAGER->AddSpecialBuilding("tombRight", vTombRight, tombRightTileIndex);
+}
+
+void earth::SetMonster(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (GetIslandCount() > 1 && i == 5 && j == 5) {
+				int bossSpawnProabability = RANDOM->range(6);
+				if (bossSpawnProabability == 0) {
+					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 1) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 2) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 3) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else if (bossSpawnProabability == 4) {
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+				}
+				else {
+
+				}
+			}
+		}
+	}
 }
 
 tile* earth::tileMouseTarget()

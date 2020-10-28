@@ -14,10 +14,20 @@ void building::render(HDC hdc)
 	}
 	else {
 		IMAGEMANAGER->frameRender(objKey, hdc, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()), objFrameX, objFrameY, CAMERA->GetZoom());
-		if (objKey == "goddesswell") {
-			if (CAMERA->GetZoom() >= 0.7f) {
-				TEXTMANAGER->ShowText(hdc, true, "여신의 우물 Lv."+to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
-			}
+	}
+	if (objKey == "goddesswell") {
+		if (CAMERA->GetZoom() >= 0.7f) {
+			TEXTMANAGER->ShowText(hdc, true, "여신의 우물 Lv." + to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
+		}
+	}
+	if (objKey == "elventree") {
+		if (CAMERA->GetZoom() >= 0.7f) {
+			TEXTMANAGER->ShowText(hdc, true, "요정의 나무 Lv." + to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
+		}
+	}
+	if (objKey == "tombCenter") {
+		if (CAMERA->GetZoom() >= 0.7f) {
+			TEXTMANAGER->ShowText(hdc, true, "산신령의 묘석 Lv." + to_string(level), { (rc.left + 15), (rc.bottom - IMAGEMANAGER->findImage(objKey)->getHeight()) }, 30, 0, RGB(255, 255, 255), true);
 		}
 	}
 }

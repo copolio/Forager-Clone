@@ -37,6 +37,7 @@ public:
 	void SetGoddessWell(int x, int y);
 	void SetElfTree(int x, int y);
 	void SetTomb(int x, int y);
+	void SetMonster(int x, int y);
 public:
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();
