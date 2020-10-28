@@ -294,16 +294,16 @@ void ForagerPlayer::animation()
 			_foragerIdle->setFrameX(_index);
 			if (_count++ % 10 == 0)
 			{
-				if (_index++ > 3)
+				if (_index++ > 2)
 					_index = 0;
 			}
 			break;
 		case RUN:
 			_foragerRun->setFrameY( (_isLeft) ? 1 : 0);
 			_foragerRun->setFrameX(_index);
-			if (_count++ % 5 == 0)
+			if (_count++ % 10 == 0)
 			{
-				if (_index++ > 4)
+				if (_index++ > 3)
 					_index = 0;
 			}
 			break;
