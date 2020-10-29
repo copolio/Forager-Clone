@@ -238,26 +238,6 @@ void wraith::wraithFire()
 	}
 }
 
-float wraith::shootToTarget()
-{
-	int l = rc.left;
-	int r = rc.right;
-	int t = rc.top;
-	int b = rc.bottom;
-
-	int cX = l + (r - l) / 2;
-	int cY = t + (b - t) / 2;
-
-	int pL = _target->rc.left;
-	int pR = _target->rc.right;
-	int pT = _target->rc.top;
-	int pB = _target->rc.bottom;
-
-	int cPx = pL + (pR - pL) / 2;
-	int cPy = pT + (pB - pT) / 2;
-
-	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
-}
 
 
 

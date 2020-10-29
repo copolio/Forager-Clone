@@ -50,6 +50,8 @@ public:
 	 void update() override;
 	 void hurt(int damage, bool onlyEffect = false) override;
 	 void dead() override;
+
+	 float shootToTarget();
 	
 	//virtual void move(vector<int> vDestTileIndex);
 };

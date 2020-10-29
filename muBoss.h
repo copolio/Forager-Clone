@@ -19,5 +19,8 @@ public:
 	void muuAnimation();
 	void hurt(int damage, bool onlyEffect = false) override;
 	void dead() override;
+
+
+	
 };
 

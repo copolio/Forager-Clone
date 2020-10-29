@@ -35,13 +35,6 @@ void muBoss::render(HDC hdc)
 
 void muBoss::muuAnimation()
 {
-	//objFrameY = (isLeft) ? 1 : 0;
-	//objFrameX = _index;
-	//if (_count++ % 10 == 0)
-	//{
-	//	if (_index++ > 9)
-	//		_index = 0;
-	//}
 	switch (_state5)
 	{
 	case MIDLE:
@@ -63,7 +56,6 @@ void muBoss::muuAnimation()
 				_index = 0;
 				_state5 = MIDLE;
 			}
-				
 		}
 		break;
 	}
@@ -90,9 +82,7 @@ void muBoss::hurt(int damage, bool onlyEffect)
 	if (onlyEffect)
 		return;
 
-	
 	unit::hurt(damage);
-
 }
 
 void muBoss::dead()

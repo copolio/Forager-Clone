@@ -56,7 +56,8 @@ HRESULT gameScene::init()
 
 
 
-	UNITMANAGER->AddUnits("wraithIdle", { 300, 56 }, true);
+	//UNITMANAGER->AddUnits("wraithIdle", { 300, 56 }, true);
+	UNITMANAGER->AddUnits("slimeBoss", { 300, 300 }, true);
 
 	return S_OK;
 }
