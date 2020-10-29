@@ -52,12 +52,6 @@ HRESULT gameScene::init()
 	}
 	SOUNDMANAGER->play("¹è°æÀ½¾Ç", true);
 
-	
-
-
-
-	UNITMANAGER->AddUnits("wraithIdle", { 300, 56 }, true);
-
 	return S_OK;
 }
 

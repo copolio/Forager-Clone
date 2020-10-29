@@ -434,7 +434,10 @@ void earth::SetMonster(int x, int y)
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
 				else if (bossSpawnProabability == 2) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10);
 				}
 				else if (bossSpawnProabability == 3) {
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
