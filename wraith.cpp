@@ -259,5 +259,15 @@ float wraith::shootToTarget()
 	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
 }
 
+void wraith::dead()
+{
+	EFFECTMANAGER->ShowEffectFrame(EFFECTMANAGER->smokeEff, GetCenterPoint(), 4, true);
+
+	UNITMANAGER->AddUnits(dropItem.itemKey, { GetCenterX(),GetCenterY() });
+
+	tileIndex = _map->GetTileIndex({ GetCenterX(), GetCenterY() });
+	_map->SetConquer(_map->GetIslandX(this->tileIndex), _map->GetIslandY(this->tileIndex));
+}
+
 
 

@@ -98,5 +98,7 @@ void muBoss::hurt(int damage, bool onlyEffect)
 void muBoss::dead()
 {
 	UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { GetCenterX(), GetCenterY() });
+	tileIndex = _map->GetTileIndex({ GetCenterX(), GetCenterY() });
+	_map->SetConquer(_map->GetIslandX(this->tileIndex), _map->GetIslandY(this->tileIndex));
 }
 	

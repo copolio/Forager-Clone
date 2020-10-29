@@ -41,6 +41,7 @@ public:
 	void SetMonster(int x, int y);
 	void SetEmpty(int x, int y);
 	void SetDestiny();
+	void SetConquer(int x, int y);
 public:
 	tile* tileMouseTarget();
 	int tileMouseTargetIndex();
