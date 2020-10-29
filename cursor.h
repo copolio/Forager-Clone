@@ -14,7 +14,6 @@ class cursor
 
 private:
 	quick_slot* _quick;
-	buildinginteraction* _buildinginteraction;
 	earth* _map;
 	unit* _unit;
 	targetingBox _targetingBox;

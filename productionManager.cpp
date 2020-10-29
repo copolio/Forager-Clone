@@ -51,8 +51,10 @@ void productionManager::render(HDC hdc)
 			TEXTMANAGER->ShowText(hdc, false, to_string(_production[i]->count), pos, 20);
 			pos.x = CAMERA->GetRelativeX((_production[i]->rc.left + _production[i]->rc.right) / 2);
 			pos.y = CAMERA->GetRelativeY((_production[i]->rc.top + _production[i]->rc.bottom) / 2);
-			
+			tagItemInfo _itme_info = DATABASE->GetItem_Make(_production[i]->image_name);
+			if (_itme_info.type == MaterialsType::STEELWORK) {
 				IMAGEMANAGER->alphaRender("steelwork_yellow", hdc, pos.x - 15, pos.y - 85, img_alpha[i], CAMERA->GetZoom());
+			}
 			
 		}
 	}

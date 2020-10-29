@@ -11,8 +11,7 @@ HRESULT inGameMenu::init()
 	_construction = new construction;
 	_purchaese = new purchase_land;
 	_game_setting = new gamesetting;
-	_buildinginteraction = new buildinginteraction;
-	_buildinginteraction->init();
+	UPGRADEMANAGER->init();
 	inven_imgs->init();
 	for (int i = 0; i < 5; i++) {
 		MOUSEMENU *menu = new MOUSEMENU;

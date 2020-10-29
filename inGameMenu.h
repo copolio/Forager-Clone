@@ -5,7 +5,6 @@
 #include "construction.h"
 #include "purchase_land.h"
 #include "gamesetting.h"
-#include "buildinginteraction.h"
 enum INVENKINDS
 {
 	INVENTORY,				//인벤토리
@@ -32,8 +31,6 @@ private:
 	construction *_construction;
 	purchase_land *_purchaese;
 	gamesetting *_game_setting;
-
-	buildinginteraction* _buildinginteraction;
 
 
 	

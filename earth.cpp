@@ -57,7 +57,7 @@ void earth::update()
 	if (CAMERA->movelimit) {
 		_count++;
 		if (_count % RESGENTIME == 0) {
-			this->setRandomObject();
+			//this->setRandomObject();
 		}
 		if (_count % 10 == 0) {
 			wavetick += waveUp ? 1 : -1;

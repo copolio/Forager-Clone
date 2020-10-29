@@ -1,5 +1,6 @@
 #pragma once
 #include "singletonBase.h"
+#include "item.h"
 struct tagProduction
 {
 	RECT rc;

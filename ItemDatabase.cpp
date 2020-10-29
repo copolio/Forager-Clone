@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "ItemDatabase.h"
 
-#define ITEM_MAX 24
-#define ITEM_MAKE_MAX 26
+#define ITEM_MAX 33
+#define ITEM_MAKE_MAX 27
 
 
 void ItemDatabase::init()
@@ -46,9 +46,20 @@ void ItemDatabase::init()
 	items[t_cnt++] = tagItem("bowDrop1", "bowDrop1", "È°", " ", EQUIPMENT, BOW, 1, 10);
 	items[t_cnt++] = tagItem("bowDrop2", "bowDrop2", "°­Ã¶ È°", " ", EQUIPMENT, BOW, 1, 10);
 	items[t_cnt++] = tagItem("bowDrop3", "bowDrop3", "ÇÕ±Ý È°", " ", EQUIPMENT, BOW, 1, 10);
+	items[t_cnt++] = tagItem("bowDrop4", "bowDrop4", "Æø¹ß È°", " ", EQUIPMENT, BOW, 1, 10);
 
-	items[t_cnt++] = tagItem("swordDrop1", "sword", "Ä®", " ", EQUIPMENT, SWORD, 1, 30);
 	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "°î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 15);
+	items[t_cnt++] = tagItem("pickax1", "pickax1", "´Ü´ÜÇÑ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
+	items[t_cnt++] = tagItem("pickax2", "pickax2", "°­Ã¶ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
+	items[t_cnt++] = tagItem("pickax3", "pickax3", "ÇÕ±Ý °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
+
+
+	items[t_cnt++] = tagItem("swordDrop1", "swordDrop1", "°Ë", " ", EQUIPMENT, SWORD, 1, 30);
+	items[t_cnt++] = tagItem("swordDrop2", "swordDrop2", "°­Ã¶ °Ë", " ", EQUIPMENT, SWORD, 1, 30);
+	items[t_cnt++] = tagItem("swordDrop3", "swordDrop3", "È²±Ý °Ë", " ", EQUIPMENT, SWORD, 1, 30);
+	items[t_cnt++] = tagItem("swordDrop4", "swordDrop4", "È­¿° °Ë", " ", EQUIPMENT, SWORD, 1, 30);
+
+	
 	
 
 	//======================================================================================================

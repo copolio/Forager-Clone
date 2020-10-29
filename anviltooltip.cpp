@@ -6,7 +6,7 @@
 void anviltooltip::render(HDC hdc, int num, RECT rc,string _item_name)
 {
 	_item = DATABASE->GetItem_Make(_item_name);
-	
+	_item_Kind = DATABASE->GetItem(_item_name);
 	
 	int t_width = IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth();
 
@@ -126,6 +126,8 @@ void anviltooltip::render(HDC hdc, int num, RECT rc,string _item_name)
 
 void anviltooltip::click_item_event(string item_key)
 {
+
+
 	if (item_key != "") {
 
 		switch (_item.materials_count)
@@ -136,6 +138,7 @@ void anviltooltip::click_item_event(string item_key)
 
 				if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one)) {
 					PRODUCTIONMANAGER->isCount(_item.itemKey);
+					WeaponeUpgrad();
 				}
 			}
 			break;
@@ -143,6 +146,7 @@ void anviltooltip::click_item_event(string item_key)
 			if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
 				if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two)) {
 					PRODUCTIONMANAGER->isCount(_item.itemKey);
+					WeaponeUpgrad();
 				}
 			}
 			break;
@@ -150,6 +154,7 @@ void anviltooltip::click_item_event(string item_key)
 			if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
 				if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two, _item.materials_Three, _item.three)) {
 					PRODUCTIONMANAGER->isCount(_item.itemKey);
+					WeaponeUpgrad();
 				}
 			}
 			break;
@@ -157,36 +162,13 @@ void anviltooltip::click_item_event(string item_key)
 			if (PRODUCTIONMANAGER->is_Item_Cilck(_item.itemKey)) {
 				if (ITEMMANAGER->Item_count_Minus(_item.materials_one, _item.one, _item.materials_two, _item.two, _item.materials_Three, _item.three, _item.materials_Four, _item.four)) {
 					PRODUCTIONMANAGER->isCount(_item.itemKey);
+					WeaponeUpgrad();
 				}
 			}
 			break;
 		}
+
 	}
-	/*switch (num)
-	{
-	case 0:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("img_game_money_icon")) {
-
-
-			if (ITEMMANAGER->Item_count_Minus("goldBarDrop", 1)) {
-				PRODUCTIONMANAGER->isCount("img_game_money_icon");
-			}
-		}
-
-		break;
-	case 1:
-
-		break;
-	case 2:
-		if (PRODUCTIONMANAGER->is_Item_Cilck("arrowDrop")) {
-
-			if (ITEMMANAGER->Item_count_Minus("treeDrop", 2, "rockDrop", 2)) {
-
-				PRODUCTIONMANAGER->isCount("arrowDrop");
-			}
-		}
-		break;
-	}*/
 
 }
 
@@ -197,4 +179,30 @@ bool anviltooltip::cilck()
 		return true;
 	}
 	return false;
+}
+
+void anviltooltip::WeaponeUpgrad()
+{
+	string name;
+	switch (_item_Kind.weaponType)
+	{
+	case WeaponType::BOW:
+		cout << " BOW" << endl;
+		STATMANAGER->SetBowUpgradeCount(STATMANAGER->GetBowUpgradeCount() + 1);
+		UPGRADEMANAGER->SetWeaponeBowName("bowDrop" + to_string(STATMANAGER->GetBowUpgradeCount()));
+		
+		break;
+	case WeaponType::PICKAXE:
+		cout<<" PICKAXE"<<endl;
+		STATMANAGER->SetHammerUpgradeCount(STATMANAGER->GetHammerUpgradeCount() + 1);
+		UPGRADEMANAGER->SetWeaponePickaxName("pickax" + to_string(STATMANAGER->GetHammerUpgradeCount()));
+	
+		break;
+	case WeaponType::SWORD:
+		cout << " SWORD" << endl;
+		STATMANAGER->SetSwordUpgradeCount(STATMANAGER->GetSwordUpgradeCount() + 1);
+		UPGRADEMANAGER->SetWeaponeSwordName("swordDrop" + to_string(STATMANAGER->GetSwordUpgradeCount()));
+		break;
+
+	}
 }

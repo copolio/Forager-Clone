@@ -17,19 +17,19 @@ HRESULT buildinginteraction::init()
 			_tar->item_name = "";
 			break;
 		case 2:
-			_tar->item_name = "arrowDrop";
+			_tar->item_name = "arrowDrop"; 
 			break;
 		case 3:
-			_tar->item_name = "pickax" + to_string(1);
+			_tar->item_name = "pickax1";
 			break;
 		case 4:
 			_tar->item_name = "";
 			break;
 		case 5:
-			_tar->item_name = "swordDrop" + to_string(1);
+			_tar->item_name = "swordDrop1";
 			break;
 		case 6:
-			_tar->item_name = "bowDrop" + to_string(1);
+			_tar->item_name = "bowDrop1";
 			break;
 		case 7:
 			_tar->item_name = "";

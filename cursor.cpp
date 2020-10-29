@@ -5,8 +5,6 @@
 void cursor::init()
 {
 	vUnit = UNITMANAGER->GetUnits();
-	_buildinginteraction = new buildinginteraction;
-	_buildinginteraction->init();
 	_targetingBox.init();
 	_unit = nullptr;
 	isbuilding = false;
@@ -47,7 +45,7 @@ void cursor::render(HDC hdc)
 			}
 		}
 		if (interaction) {
-			_buildinginteraction->targertrender(hdc, vUnit[number]->objKey);
+			UPGRADEMANAGER->targertrender(hdc, vUnit[number]->objKey);
 		}
 	}
 

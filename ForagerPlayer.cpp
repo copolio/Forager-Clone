@@ -183,31 +183,46 @@ void ForagerPlayer::update()
 
 
 	if (INPUT->GetKeyDown(VK_F5)) {
-		ITEMMANAGER->getvInventory_info()[0]->count += 10;
+		ITEMMANAGER->getvInventory_info()[0]->count += 100;
 		ITEMMANAGER->getvInventory_info()[0]->_item = DATABASE->GetItem("rockDrop");
 
-		 ITEMMANAGER->getvInventory_info()[1]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[1]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[1]->_item = DATABASE->GetItem("treeDrop");
 
-		 ITEMMANAGER->getvInventory_info()[2]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[2]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[2]->_item = DATABASE->GetItem("berryDrop");
 
-		 ITEMMANAGER->getvInventory_info()[3]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[3]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[3]->_item = DATABASE->GetItem("goldOreDrop");
 
-		 ITEMMANAGER->getvInventory_info()[4]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[4]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[4]->_item = DATABASE->GetItem("coalDrop");
 
-		 ITEMMANAGER->getvInventory_info()[5]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[5]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[5]->_item = DATABASE->GetItem("ironOreDrop");
 
-		 ITEMMANAGER->getvInventory_info()[6]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[6]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[6]->_item = DATABASE->GetItem("ironBarDrop");
 
-		 ITEMMANAGER->getvInventory_info()[7]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[7]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[7]->_item = DATABASE->GetItem("goldBarDrop");
 
-		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 10);
+		 ITEMMANAGER->getvInventory_info()[8]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[8]->_item = DATABASE->GetItem("high_class_SteelDrop");
+
+		 ITEMMANAGER->getvInventory_info()[9]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[9]->_item = DATABASE->GetItem("SteelhDrop");
+
+		 ITEMMANAGER->getvInventory_info()[10]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[10]->_item = DATABASE->GetItem("roast_fishDrop");
+
+		 ITEMMANAGER->getvInventory_info()[11]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[11]->_item = DATABASE->GetItem("fishDrop");
+
+		 ITEMMANAGER->getvInventory_info()[12]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[12]->_item = DATABASE->GetItem("threadDrop");
+
+		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 100);
 		_quick->quick_slot_update();
 
 	}

@@ -39,7 +39,17 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("bowDrop2", "Images/이미지/아이템/bow_second.bmp", 50, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->findImage("bowDrop2")->initForRotateImage(false);
 	IMAGEMANAGER->addImage("bowDrop3", "Images/이미지/아이템/bow_third.bmp", 50, 50, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->findImage("bowDrop3")->initForRotateImage(false);
+
+	IMAGEMANAGER->addImage("swordDrop2", "Images/이미지/아이템/강철 검.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("swordDrop3", "Images/이미지/아이템/황금 검.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("swordDrop4", "Images/이미지/아이템/화염 검.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickax1", "Images/이미지/아이템/단단한 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickax2", "Images/이미지/아이템/강철 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickax3", "Images/이미지/아이템/합금 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
+
+
 
 	// 플레이어 핸들 아이템
 	IMAGEMANAGER->addImage("carryBerry", "Images/이미지/아이템/berry.bmp", 30, 30, true, RGB(255, 0, 255));

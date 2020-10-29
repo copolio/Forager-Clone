@@ -42,6 +42,7 @@ struct tagItem {
 		option = 0;
 		option2 = 0;
 		itemType = ItemType::NONE;
+		weaponType = WeaponType::NONE2;
 	};
 
 	tagItem(string p_itemKey, string p_slotImgKey, string p_itemName, string p_itemInfo, ItemType p_itemType, WeaponType p_weaponType, int p_value, int p_option, int p_option2 = 0)

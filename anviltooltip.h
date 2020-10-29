@@ -8,7 +8,9 @@ public:
 	void click_item_event(string item_key);
 
 	bool cilck();
+	void WeaponeUpgrad();
 private:
 	tagItemInfo _item;
+	tagItem _item_Kind;
 };
 

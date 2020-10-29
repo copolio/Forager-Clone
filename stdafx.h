@@ -7,7 +7,7 @@
 #include <SDKDDKVer.h>
 
 //디버깅용 (주석치면 콘솔창이 사라진다)
-//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일:
@@ -56,6 +56,7 @@ using namespace MY_UTIL;
 #include "Astar.h"
 #include "saveManager.h"
 #include "ItemDatabase.h"
+#include "buildinginteraction.h"
 
 //=============================================================
 //	## 싱글톤을 추가한다 ##
@@ -80,6 +81,7 @@ using namespace MY_UTIL;
 #define SPAWNMANAGER SpawnManager::getSingleton()
 #define ASTAR Astar::getSingleton()
 #define DATABASE ItemDatabase::getSingleton()
+#define UPGRADEMANAGER buildinginteraction::getSingleton()
 
 //=============================================================
 //	## 디파인문 ## (윈도우창 초기화)
