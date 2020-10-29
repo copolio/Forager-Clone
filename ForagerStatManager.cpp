@@ -30,8 +30,6 @@ HRESULT ForagerStatManager::init()
 		needExp[i] = (float)needExp[i - 1] * 2.5f;
 	}
 
-	
-
 	currentExp = 0;
 	level = 0;
 

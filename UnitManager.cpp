@@ -73,8 +73,8 @@ void UnitManager::init()
 	//IMAGEMANAGER->addFrameImage("slime", "Images/이미지/NPC/boss_slime.bmp", 280, 70, 4, 1, true, RGB(255, 0, 255));
 
 	//에너미 - (보스) 슬라임
-	IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime_test.bmp", 560, 112, 5, 1, true, RGB(255, 0, 255));
-	//IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime.bmp", 280, 70, 4, 1, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime_test.bmp", 560, 112, 5, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime.bmp", 448, 112, 4, 1, true, RGB(255, 0, 255));
 
 	
 	
@@ -135,6 +135,7 @@ void UnitManager::update()
 
 	//_spawnManager->update();
 	SPAWNMANAGER->update();
+	EFFECTMANAGER->update();
 	_projectileManager->update();
 }
 
@@ -211,6 +212,8 @@ void UnitManager::render(HDC hdc)
 			(*_vUnits[i]).render(hdc);
 		}
 	}
+
+	EFFECTMANAGER->render(hdc);		// 이펙트 렌더
 
 	// 레이어 : Object
 	for (int i = 0; i < _vUnits.size(); i++) {

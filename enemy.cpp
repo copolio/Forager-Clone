@@ -120,6 +120,9 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	_enemyTilePos = FindEnemyTilePos();
 
 	_hpBar.init("hpBar", "hpBarBG");
+
+	
+
 }
 
 
@@ -150,6 +153,7 @@ float enemy::shootToTarget()
 	int cPy = pT + (pB - pT) / 2;
 
 	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
+
 }
 
 int enemy::FindEnemyTilePos()

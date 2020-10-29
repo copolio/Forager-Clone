@@ -52,7 +52,7 @@ public:
 	 void dead() override;
 
 	 float shootToTarget();
-	
+	 
 	//virtual void move(vector<int> vDestTileIndex);
 };
 

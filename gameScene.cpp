@@ -52,12 +52,8 @@ HRESULT gameScene::init()
 	}
 	SOUNDMANAGER->play("¹è°æÀ½¾Ç", true);
 
-	
-
-
-
-	//UNITMANAGER->AddUnits("wraithIdle", { 300, 56 }, true);
-	UNITMANAGER->AddUnits("slimeBoss", { 300, 300 }, true);
+	//UNITMANAGER->AddUnits("wraithIdle", { 300, 300 }, true);
+	//UNITMANAGER->AddUnits("slimeBoss", { 300, 300 }, true);
 
 	return S_OK;
 }
@@ -112,8 +108,6 @@ void gameScene::update()
 	CAMERA->targetFollow(_player->rc.left, _player->rc.top);
 	CAMERA->camFocusCursor(_ptMouse); // ¸¶¿ì½º Ä¿¼­¿¡ µû¸¥ Ä«¸Þ¶ó Æ÷°Å½Ì.
 
-
-	EFFECTMANAGER->update();
 	TEXTMANAGER->update();
 	DIALOGUE->update();
 	_map->update();
@@ -134,7 +128,6 @@ void gameScene::update()
 void gameScene::render()
 {
 	_map->render(getMemDC());				// ¸Ê ·»´õ
-	EFFECTMANAGER->render(getMemDC());		// ÀÌÆåÆ® ·»´õ
 	TEXTMANAGER->render(getMemDC());		// ÅØ½ºÆ® ·»´õ
 	PRODUCTIONMANAGER->render(getMemDC());	// »ý»êÇ° ·»´õ
 	DIALOGUE->render(getMemDC());			// ¸»Ç³¼± ·»´õ

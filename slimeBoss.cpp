@@ -44,26 +44,18 @@ void slimeBoss::update()
 	currentPos = { GetCenterX(), GetCenterY() };
 
 	if (isHit)
-	{
 		slimeJump();
-		//slimeFollow();
-	}
-	
 	slimeBossAnimation();
-
 }
 
 void slimeBoss::render(HDC hdc)
 {
-
 	if (0 < currentHp && currentHp < maxHp) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom + 15));
 		_hpBar.render(hdc);
 	}
-	//Rectangle(hdc, rc);
 	IMAGEMANAGER->frameRender("slimeBoss", hdc, CAMERA->GetRelativeX(x - 55),
 		CAMERA->GetRelativeY(y - 55), objFrameX, objFrameY, CAMERA->GetZoom());
-
 }
 
 void slimeBoss::slimeBossAnimation()
@@ -74,7 +66,6 @@ void slimeBoss::slimeBossAnimation()
 		if (_index++ > 4)
 			_index = 0;
 	}
-
 }
 
 void slimeBoss::slimeJump()
@@ -110,8 +101,6 @@ void slimeBoss::slimeJump()
 		_fRc = fRectMakeCenter(x, y, 112, 112);	//이미지 출력용 렉트
 		rc = RectMakeCenter(x, y, 112, 112);		//충돌용 렉트
 	}
-	
-	
 }
 
 void slimeBoss::jumpUp()
@@ -152,20 +141,9 @@ void slimeBoss::jumpStop()
 
 void slimeBoss::targetDest()
 {
-	if (abs(_target->GetCenterX() - x) < MOVEMAX && abs(_target->GetCenterY() - y) < MOVEMAX)
-	{
-		destPos.x = _target->GetCenterX();
-		destPos.y = _target->GetCenterY();
-		midPos.y = destPos.y + JUMPMAX;
-	}
-	else
-	{
-		//가로 좌우 랜덤 점프 
-		destPos.x = RANDOM->range(originPos.x - MOVEMAX, originPos.x + MOVEMAX);
-		destPos.y = originPos.y;
-		midPos.y = (originPos.y + destPos.y) / 2;
-	}
-
+	destPos.x = _target->GetCenterX();
+	destPos.y = _target->GetCenterY();
+	midPos.y = destPos.y + JUMPMAX;
 	midPos.x = (originPos.x + destPos.x) / 2;
 	currentJumpSpeed = 0.0f;
 }
@@ -173,11 +151,5 @@ void slimeBoss::targetDest()
 void slimeBoss::slimeFire()
 {
 	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeBossMissile", x, y, 10, shootToTarget(), 4, 30, true, false);
-}
-
-void slimeBoss::slimeFollow()
-{
-	destPos.x = _target->GetCenterX();
-	destPos.y = _target->GetCenterY();
 }
 

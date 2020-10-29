@@ -54,6 +54,5 @@ public:
 	void jumpStop();
 	void targetDest();
 	void slimeFire();
-	void slimeFollow();
 };
 

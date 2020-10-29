@@ -3,13 +3,22 @@
 enum MUSTATE
 {
 	MIDLE,
-	CRY
+	CRY,
+	MUSHOOT
 };
 
 class muBoss : public enemy
 {
 private:
 	MUSTATE _state5;
+	int fireCount;
+	int crashCount;
+	int crashPointCount;
+
+
+	bool _canFire;
+	bool _readyToCrash;
+
 public:
 
 	HRESULT init();
@@ -19,6 +28,9 @@ public:
 	void muuAnimation();
 	void hurt(int damage, bool onlyEffect = false) override;
 	void dead() override;
+
+	void muFire();
+	void muBossExplode();
 
 
 	

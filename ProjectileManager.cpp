@@ -9,6 +9,8 @@ void ProjectileManager::init()
 	IMAGEMANAGER->addFrameImage("demonBrass", "Images/이미지/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("slimeMissile", "Images/이미지/NPC/slime_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("slimeBossMissile", "Images/이미지/NPC/slime_boss_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("muMissile", "Images/이미지/NPC/baby_mu.bmp", 198, 45, 6, 1, true, RGB(255, 0, 255));
+
 
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		_projectiles[i].imgKey = "temp";
@@ -40,8 +42,8 @@ void ProjectileManager::update()
 				}
 			}
 			// 이미지 출력하는 일반 투사체
-			else {
-
+			else 
+			{
 				// 일반 화살같은
 				if (!_projectiles[i].isBrassing)
 				{
@@ -62,7 +64,6 @@ void ProjectileManager::update()
 						}
 					}
 				}
-
 				// 브레스같은
 				else
 				{
