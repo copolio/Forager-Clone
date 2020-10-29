@@ -11,6 +11,7 @@
 class inventory;
 class earth;
 class cursor;
+class quick_slot;
 
 enum STATE
 {
@@ -21,8 +22,6 @@ enum STATE
 	DAMAGE
 };
 
-
-class quick_slot;
 class ForagerPlayer : public unit
 {
 private:
@@ -56,6 +55,7 @@ private:
 	bool _isHammering;	//곡괭이질인가?
 	bool _isBowPulling;	//활시위를 당기고 있는가?
 	bool _isGotDamage;  //데미지 받았는가?
+	int _dir;			//왼쪽0, 오른쪽 1.
 
 	// 이미지
 	image* _foragerIdle;
@@ -63,9 +63,8 @@ private:
 	image* _foragerRotate;
 	image* _foragerHammering;		
 	image* _playerHammering;
-	image* _playerGotHurt;
 	image* _hammer;
-	image* _hammerLeft;
+	//image* _hammerLeft;
 	image* _bow;
 	image* _foragerHpBarFront[3];
 	image* _foragerHpBarBack[3];
@@ -86,6 +85,11 @@ private:
 	int _spinCount;
 	float _spinSpeed;
 
+	//무기 회전 관련 변수 카운트
+	float _pickaxeNormalSpin;
+	float _weaponSpin;
+	bool _weaponBack;
+	bool _canHit;
 	// 기타
 	bool inven_open;		// 인벤 열면 이동 불가능
 	float _balloonRatio;	// 에너지 비율이 몇일때 말풍선이 나올지

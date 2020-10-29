@@ -11,7 +11,7 @@
 #define MAPSIZE MAPX*MAPY
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
-#define RESRATIOLIMIT 0.5
+#define RESRATIOLIMIT 0.2
 #define RESGENTIME 100
 
 class tile : public gameObject {

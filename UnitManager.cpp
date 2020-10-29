@@ -34,6 +34,10 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("threadDrop", "Images/이미지/아이템/실.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	// 필드 드롭 아이템 (장비)
+	IMAGEMANAGER->addImage("pickaxe1", "Images/이미지/아이템/곡괭이슬롯1.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickaxe2", "Images/이미지/아이템/곡괭이슬롯2.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickaxe3", "Images/이미지/아이템/곡괭이슬롯3.bmp", 56, 56, true, RGB(255, 0, 255));
+
 	IMAGEMANAGER->addImage("bowDrop1", "Images/이미지/아이템/bow_first.bmp", 50, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->findImage("bowDrop1")->initForRotateImage(false);
 	IMAGEMANAGER->addImage("bowDrop2", "Images/이미지/아이템/bow_second.bmp", 50, 50, true, RGB(255, 0, 255));

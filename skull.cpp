@@ -293,6 +293,10 @@ void skull::skullAnimation()
 			skullHitCount = 1;
 			skullHitWaitCount = 0;
 			tryAttack = false;
+			searchCount = 0;
+			checkDestination = false;
+			isattacking = true;
+			_state = STAY;
 		}
 		break;
 	}
