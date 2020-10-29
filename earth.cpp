@@ -25,12 +25,12 @@ HRESULT earth::init()
 	IMAGEMANAGER->addFrameImage("elvenstatue", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("elvenstatuedesign", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
 	hasDestiny = false;
