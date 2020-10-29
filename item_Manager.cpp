@@ -20,31 +20,40 @@ int item_Manager::equip_count()
 
 void item_Manager::vItem_push(string key)
 {
-
-	if (key == "img_game_money_icon") {
-		*money += 1;
+	tagItem item_info = DATABASE->GetItem(key);
+	if (item_info.itemType != ItemType::EQUIPMENT) {
+		if (key == "img_game_money_icon") {
+			*money += 1;
+		}
+		else if (isItemCheck(key)) {
+			int number = itemfind(key);
+			_item_push[number]->count += 1;
+		}
+		else {
+			int number = itemempty();
+			_item_push[number]->_item = DATABASE->GetItem(key);
+			_item_push[number]->count += 1;
+		}
 	}
-	else if (isItemCheck(key)) {
-		int number = itemfind(key);
-		_item_push[number]->count += 1;
-	}
-	else {
-		int number = itemempty();
-		_item_push[number]->_item = DATABASE->GetItem(key);
-		_item_push[number]->count += 1;
-	}
+	
 
 }
 
 //아이템 인벤에 넣어주는곳
 void item_Manager::vequip_push(string key)
 {
+	tagItem item_info = DATABASE->GetItem(key);
 	if (!isequipCheck(key)) {
 		for (int i = 0; i < _equip.size(); i++) {
-			if (_equip[i]->_item.itemKey == "") {
+			if (item_info.weaponType == _equip[i]->_item.weaponType) {
 				_equip[i]->_item = DATABASE->GetItem(key);
 				break;
 			}
+			else if (_equip[i]->_item.itemKey == "") {
+				_equip[i]->_item = DATABASE->GetItem(key);
+				break;
+			}
+			
 		}
 	}
 
