@@ -180,6 +180,39 @@ void ForagerPlayer::update()
 		_hitDelayCount = 0;
 	}
 	_priorState = _state;
+
+
+	if (INPUT->GetKeyDown(VK_F5)) {
+		ITEMMANAGER->getvInventory_info()[0]->count += 10;
+		ITEMMANAGER->getvInventory_info()[0]->_item = DATABASE->GetItem("rockDrop");
+
+		 ITEMMANAGER->getvInventory_info()[1]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[1]->_item = DATABASE->GetItem("treeDrop");
+
+		 ITEMMANAGER->getvInventory_info()[2]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[2]->_item = DATABASE->GetItem("berryDrop");
+
+		 ITEMMANAGER->getvInventory_info()[3]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[3]->_item = DATABASE->GetItem("goldOreDrop");
+
+		 ITEMMANAGER->getvInventory_info()[4]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[4]->_item = DATABASE->GetItem("coalDrop");
+
+		 ITEMMANAGER->getvInventory_info()[5]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[5]->_item = DATABASE->GetItem("ironOreDrop");
+
+		 ITEMMANAGER->getvInventory_info()[6]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[6]->_item = DATABASE->GetItem("ironBarDrop");
+
+		 ITEMMANAGER->getvInventory_info()[7]->count += 10;
+		 ITEMMANAGER->getvInventory_info()[7]->_item = DATABASE->GetItem("goldBarDrop");
+
+		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 10);
+		_quick->quick_slot_update();
+
+	}
+
+
 }
 
 void ForagerPlayer::render(HDC hdc)

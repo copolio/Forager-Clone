@@ -54,7 +54,7 @@ void inventory::release()
 
 void inventory::update()
 {
-	if (INPUT->GetKeyDown(VK_F5)) {
+	/*if (INPUT->GetKeyDown(VK_F5)) {
 		player_inventory[0]->count += 10;
 		player_inventory[0]->_item = DATABASE->GetItem("rockDrop");
 
@@ -80,7 +80,8 @@ void inventory::update()
 		player_inventory[7]->_item = DATABASE->GetItem("goldBarDrop");
 
 		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 10);
-	}
+
+	}*/
 	_targetBox->update();
 	mouse_targetBox();
 	food_eat();
