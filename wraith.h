@@ -36,5 +36,6 @@ public:
 	void wraithFire();
 	
 	float shootToTarget();
+	void dead() override;
 };
 

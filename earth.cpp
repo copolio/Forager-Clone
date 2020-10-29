@@ -25,12 +25,12 @@ HRESULT earth::init()
 	IMAGEMANAGER->addFrameImage("elvenstatue", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("elvenstatuedesign", "Images/이미지/오브젝트/img_object_elvenstatue.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone2.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, 1, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone3.bmp", 56 * 2, 56 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombCenter", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 4, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombCenterdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombLeft", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
 	hasDestiny = false;
@@ -422,13 +422,14 @@ void earth::SetTomb(int x, int y)
 
 void earth::SetMonster(int x, int y)
 {
+	int bossSpawnProabability = RANDOM->range(6);
 	for (int i = 0; i < TILEY; i++) {
 		for (int j = 0; j < TILEX; j++) {
-			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+			if (bossSpawnProabability != 5 && _vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
 			}
 			if (GetIslandCount() > 1 && i == 5 && j == 5) {
-				int bossSpawnProabability = RANDOM->range(6);
+				
 				if (bossSpawnProabability == 0) {
 					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
@@ -436,7 +437,10 @@ void earth::SetMonster(int x, int y)
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
 				else if (bossSpawnProabability == 2) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10);
 				}
 				else if (bossSpawnProabability == 3) {
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
@@ -477,6 +481,17 @@ void earth::SetDestiny()
 	SetEmpty(third, 0);
 	setIsland(fourth, 6);
 	SetEmpty(fourth, 6);
+}
+
+void earth::SetConquer(int x, int y)
+{
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = false;
+			}
+		}
+	}
 }
 
 tile* earth::tileMouseTarget()
