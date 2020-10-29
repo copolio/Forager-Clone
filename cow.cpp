@@ -11,7 +11,6 @@ HRESULT cow::init()
 	tryAttack = false;
 	isattacking = false;
 	_state2 = WALK;
-
 	Atk = 20;
 	return S_OK;
 }

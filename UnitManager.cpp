@@ -86,6 +86,12 @@ void UnitManager::init()
 
 	//에너미 - 슬라임
 	IMAGEMANAGER->addFrameImage("slime", "Images/이미지/NPC/slime_Idle2.bmp", 280, 70, 5, 1, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("slime", "Images/이미지/NPC/boss_slime.bmp", 280, 70, 4, 1, true, RGB(255, 0, 255));
+
+	//에너미 - (보스) 슬라임
+	//IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime_test.bmp", 560, 112, 5, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime.bmp", 448, 112, 4, 1, true, RGB(255, 0, 255));
+
 	
 	
 	// NPC
@@ -148,6 +154,7 @@ void UnitManager::update()
 	SPAWNMANAGER->update();
 	if(_projectileManager)
 		_projectileManager->update();
+	EFFECTMANAGER->update();
 }
 
 void UnitManager::checkCollision(unit * p_unit)
@@ -223,6 +230,8 @@ void UnitManager::render(HDC hdc)
 			(*_vUnits[i]).render(hdc);
 		}
 	}
+
+	EFFECTMANAGER->render(hdc);		// 이펙트 렌더
 
 	// 레이어 : Object
 	for (int i = 0; i < _vUnits.size(); i++) {
@@ -320,6 +329,11 @@ void UnitManager::AddUnits(slime * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(slimeBoss * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
 
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
@@ -392,6 +406,18 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_vUnits.push_back(_slime);
 			_vEnemy.push_back(_slime);
 		}
+
+		//(보스) - 슬라임보스
+		if (p_unitName == "slimeBoss")
+		{
+			slimeBoss* _slimeBoss = new slimeBoss;
+			_slimeBoss->setLinkMap(_map);
+			_slimeBoss->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_slimeBoss->init();
+			_vUnits.push_back(_slimeBoss);
+			_vEnemy.push_back(_slimeBoss);
+		}
+
 	}
 	
 	// NPC 생성

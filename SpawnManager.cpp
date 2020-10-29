@@ -47,6 +47,7 @@ void SpawnManager::TrySpawn()
 				//SpawnPatternOne("demonIdle",1);
 				//SpawnPatternOne("cow",1);
 				//SpawnPatternOne("slime",1);
+				//SpawnPatternOne("slimeBoss",1);
 				
 				break;
 			}

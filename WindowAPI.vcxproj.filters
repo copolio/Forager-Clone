@@ -354,6 +354,9 @@
     <ClCompile Include="slime.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClCompile>
+    <ClCompile Include="slimeBoss.cpp">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameNode.h">
@@ -579,6 +582,9 @@
       <Filter>GameFramework</Filter>
     </ClInclude>
     <ClInclude Include="slime.h">
+      <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="slimeBoss.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
     </ClInclude>
   </ItemGroup>

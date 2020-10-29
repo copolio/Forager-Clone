@@ -1,6 +1,6 @@
 #pragma once
 
-#define PROJECTILE_MAX 20
+#define PROJECTILE_MAX 40
 
 
 struct tagProjectile {

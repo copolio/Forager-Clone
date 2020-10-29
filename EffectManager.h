@@ -23,9 +23,11 @@ private:
 		bool isAppear;
 		int width;
 		int height;
+		int alphaSpeed;
 		bool isRelative;
 		bool isAlpha;
 		bool isStretch;
+		bool isPingPong;
 	};
 
 private:
@@ -36,6 +38,7 @@ private:
 public:
 	const string smokeEff = "DigSmoke";
 	const string walkEff = "Walk1";
+	const string explodeEff = "bossSlimeExplode";
 
 public:
 	void init();
@@ -49,6 +52,7 @@ public:
 	// size example : 0.5f -> 1.0f
 	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, bool isRelative = false);
 	void ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromSizeA, float toSizeB, int fromAlphaA, int toAlphaB, int waitCount, bool isRelative = false);
+	void ShowEffectAlpha(string _imgKey, POINT ptPos, int fromAlphaA, int toAlphaB, int alphaSpeed, int waitCount, bool isRelative = false, bool isPingPong = false);
 
 };
 

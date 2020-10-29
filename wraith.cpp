@@ -49,6 +49,9 @@ void wraith::update()
 			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - MAPTILEX);
 		}
 	}	
+
+
+	
 }
 
 void wraith::render(HDC hdc)
@@ -224,8 +227,9 @@ void wraith::wraithFire()
 			skillAngle += 20.0f;
 			skillFireCount = 0;
 		}
-		//else if(randomSkillNum == 1)
+		//if(randomSkillNum == 1)
 		//{
+		//	
 		//	int x = _target->rc.left - rc.left;
 		//	int y = _target->rc.top - rc.top;
 		//	_angle = atan2f(-y, x);
@@ -234,30 +238,10 @@ void wraith::wraithFire()
 		//	UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle, 3, 50, true, true);
 		//	UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, _angle+20, 3, 50, true, true);
 		//	skillFireCount = 0;
-		//}
+		//}	
 	}
 }
 
-float wraith::shootToTarget()
-{
-	int l = rc.left;
-	int r = rc.right;
-	int t = rc.top;
-	int b = rc.bottom;
-
-	int cX = l + (r - l) / 2;
-	int cY = t + (b - t) / 2;
-
-	int pL = _target->rc.left;
-	int pR = _target->rc.right;
-	int pT = _target->rc.top;
-	int pB = _target->rc.bottom;
-
-	int cPx = pL + (pR - pL) / 2;
-	int cPy = pT + (pB - pT) / 2;
-
-	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
-}
 
 void wraith::dead()
 {

@@ -88,6 +88,13 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		
 	}
 
+	else if (objKey == "slimeBoss")
+	{
+		rc = RectMakeCenter(x, y, 112, 112);
+		maxHp = 100;
+		currentHp = 100;
+	}
+
 
 	
 	
@@ -113,6 +120,9 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	_enemyTilePos = FindEnemyTilePos();
 
 	_hpBar.init("hpBar", "hpBarBG");
+
+	
+
 }
 
 
@@ -122,6 +132,28 @@ void enemy::dead()
 	EFFECTMANAGER->ShowEffectFrame(EFFECTMANAGER->smokeEff, GetCenterPoint(), 4, true);
 
 	UNITMANAGER->AddUnits(dropItem.itemKey, { GetCenterX(),GetCenterY() });
+}
+
+float enemy::shootToTarget()
+{
+	int l = rc.left;
+	int r = rc.right;
+	int t = rc.top;
+	int b = rc.bottom;
+
+	int cX = l + (r - l) / 2;
+	int cY = t + (b - t) / 2;
+
+	int pL = _target->rc.left;
+	int pR = _target->rc.right;
+	int pT = _target->rc.top;
+	int pB = _target->rc.bottom;
+
+	int cPx = pL + (pR - pL) / 2;
+	int cPy = pT + (pB - pT) / 2;
+
+	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
+
 }
 
 int enemy::FindEnemyTilePos()

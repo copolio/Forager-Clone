@@ -8,7 +8,6 @@ void unit::hurt(int damage, bool onlyEffect)
 
 	if (currentHp <= 0)
 		dead();
-
 	else
 		isHit = true;
 	SOUNDMANAGER->play("나무타격");
