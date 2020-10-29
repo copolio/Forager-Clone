@@ -2,10 +2,12 @@
 #include "inventory_slot.h"
 #include "singletonBase.h"
 #include "unit.h"
+
+class quick_slot;
 class item_Manager : public singletonBase<item_Manager>
 {
 private:
-
+	quick_slot * _quick;
 	vector<inventory_slot*> _item_push;
 	vector<inventory_slot*> _equip;
 	int *money;
@@ -57,6 +59,12 @@ public:
 	bool Item_count_Minus(string key, int count, string key2, int count2);
 	bool Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3);
 	bool Item_count_Minus(string key, int count, string key2, int count2, string key3, int count3, string key4, int count4);
+
+
+public:
+	void quick_slot_info(quick_slot* _q) {
+		_quick = _q;
+	}
 
 };
 

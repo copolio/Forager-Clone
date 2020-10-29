@@ -61,9 +61,9 @@ private:
 	image* _foragerIdle;
 	image* _foragerRun;
 	image* _foragerRotate;
-	image* _foragerHammering;		
+	image* _foragerAttacking;		
 	image* _playerHammering;
-	image* _hammer;
+	image* _handleWeapon;
 	//image* _hammerLeft;
 	image* _bow;
 	image* _foragerHpBarFront[3];

@@ -20,7 +20,7 @@ HRESULT buildinginteraction::init()
 			_tar->item_name = "arrowDrop"; 
 			break;
 		case 3:
-			_tar->item_name = "pickax1";
+			_tar->item_name = "pickaxe2";
 			break;
 		case 4:
 			_tar->item_name = "";
@@ -112,7 +112,10 @@ HRESULT buildinginteraction::init()
 		}
 		steelwork_menu.push_back(_tar);
 	}
-	
+	_upgradeBow = 1;
+	_upgradePickaxe = 2;
+	_upgradeSword =1 ;
+	_upgradeFlag = 1;
 
 	return S_OK;
 }

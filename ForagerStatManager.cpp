@@ -66,10 +66,10 @@ HRESULT ForagerStatManager::init()
 
 	// 강화 수치 초기화
 	_hammerUpgradeCount = 1;
-	_swordUpgradeCount = 1;
-	_bowUpgradeCount = 1;
+	_swordUpgradeCount = 0;
+	_bowUpgradeCount = 0;
 	_staffUpgradeCount = 1;
-	_flagUpgradeCount = 1;
+	_flagUpgradeCount = 0;
 
 	// 강화에 따른 데미지 증폭율
 	_enhancingRatio[0] = 1.0f;

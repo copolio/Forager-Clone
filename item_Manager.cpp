@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "item_Manager.h"
-
+#include "quick_slot.h"
 
 int item_Manager::equip_count()
 {
@@ -47,10 +47,12 @@ void item_Manager::vequip_push(string key)
 		for (int i = 0; i < _equip.size(); i++) {
 			if (item_info.weaponType == _equip[i]->_item.weaponType) {
 				_equip[i]->_item = DATABASE->GetItem(key);
+				_quick->quick_slot_update();
 				break;
 			}
 			else if (_equip[i]->_item.itemKey == "") {
 				_equip[i]->_item = DATABASE->GetItem(key);
+				_quick->quick_slot_update();
 				break;
 			}
 			

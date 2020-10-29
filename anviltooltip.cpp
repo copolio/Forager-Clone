@@ -187,21 +187,18 @@ void anviltooltip::WeaponeUpgrad()
 	switch (_item_Kind.weaponType)
 	{
 	case WeaponType::BOW:
-		cout << " BOW" << endl;
-		STATMANAGER->SetBowUpgradeCount(STATMANAGER->GetBowUpgradeCount() + 1);
-		UPGRADEMANAGER->SetWeaponeBowName("bowDrop" + to_string(STATMANAGER->GetBowUpgradeCount()));
-		
+		UPGRADEMANAGER->_upgradeBow++;
+		UPGRADEMANAGER->SetWeaponeBowName("bowDrop" + to_string(UPGRADEMANAGER->_upgradeBow));
 		break;
+
 	case WeaponType::PICKAXE:
-		cout<<" PICKAXE"<<endl;
-		STATMANAGER->SetHammerUpgradeCount(STATMANAGER->GetHammerUpgradeCount() + 1);
-		UPGRADEMANAGER->SetWeaponePickaxName("pickax" + to_string(STATMANAGER->GetHammerUpgradeCount()));
-	
+		UPGRADEMANAGER->_upgradePickaxe++;
+		UPGRADEMANAGER->SetWeaponePickaxName("pickaxe" + to_string(UPGRADEMANAGER->_upgradePickaxe));
 		break;
+
 	case WeaponType::SWORD:
-		cout << " SWORD" << endl;
-		STATMANAGER->SetSwordUpgradeCount(STATMANAGER->GetSwordUpgradeCount() + 1);
-		UPGRADEMANAGER->SetWeaponeSwordName("swordDrop" + to_string(STATMANAGER->GetSwordUpgradeCount()));
+		UPGRADEMANAGER->_upgradeSword++;
+		UPGRADEMANAGER->SetWeaponeSwordName("swordDrop" + to_string(UPGRADEMANAGER->_upgradeSword));
 		break;
 
 	}

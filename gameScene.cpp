@@ -51,7 +51,7 @@ HRESULT gameScene::init()
 		SOUNDMANAGER->stop("¹è°æÀ½¾Ç");
 	}
 	SOUNDMANAGER->play("¹è°æÀ½¾Ç", true);
-
+	ITEMMANAGER->quick_slot_info(_quick_slot);
 
 	return S_OK;
 }

@@ -50,16 +50,16 @@ void ItemDatabase::init()
 	items[t_cnt++] = tagItem("bowDrop3", "bowDrop3", "ÇÕ±Ý È°", " ", EQUIPMENT, BOW, 1, 10);
 	items[t_cnt++] = tagItem("bowDrop4", "bowDrop4", "Æø¹ß È°", " ", EQUIPMENT, BOW, 1, 10);
 
-	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "°î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 15);
-	items[t_cnt++] = tagItem("pickax1", "pickax1", "´Ü´ÜÇÑ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
-	items[t_cnt++] = tagItem("pickax2", "pickax2", "°­Ã¶ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
-	items[t_cnt++] = tagItem("pickax3", "pickax3", "ÇÕ±Ý °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 10);
+	items[t_cnt++] = tagItem("pickaxe1", "pickaxe1", "°î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 15);
+	items[t_cnt++] = tagItem("pickaxe2", "pickaxe2", "´Ü´ÜÇÑ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 20);
+	items[t_cnt++] = tagItem("pickaxe3", "pickaxe3", "°­Ã¶ °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 25);
+	items[t_cnt++] = tagItem("pickaxe4", "pickaxe4", "ÇÕ±Ý °î±ªÀÌ", " ", EQUIPMENT, PICKAXE, 1, 30);
 
 
-	items[t_cnt++] = tagItem("swordDrop1", "swordDrop1", "°Ë", " ", EQUIPMENT, SWORD, 1, 30);
-	items[t_cnt++] = tagItem("swordDrop2", "swordDrop2", "°­Ã¶ °Ë", " ", EQUIPMENT, SWORD, 1, 30);
-	items[t_cnt++] = tagItem("swordDrop3", "swordDrop3", "È²±Ý °Ë", " ", EQUIPMENT, SWORD, 1, 30);
-	items[t_cnt++] = tagItem("swordDrop4", "swordDrop4", "È­¿° °Ë", " ", EQUIPMENT, SWORD, 1, 30);
+	items[t_cnt++] = tagItem("swordDrop1", "swordDrop1", "°Ë", " ", EQUIPMENT, SWORD, 1, 25);
+	items[t_cnt++] = tagItem("swordDrop2", "swordDrop2", "°­Ã¶ °Ë", " ", EQUIPMENT, SWORD, 1, 35);
+	items[t_cnt++] = tagItem("swordDrop3", "swordDrop3", "È²±Ý °Ë", " ", EQUIPMENT, SWORD, 1, 45);
+	items[t_cnt++] = tagItem("swordDrop4", "swordDrop4", "È­¿° °Ë", " ", EQUIPMENT, SWORD, 1, 55);
 
 	
 	
@@ -77,9 +77,9 @@ void ItemDatabase::init()
 	//¸ð·ç
 	item_make[m_cnt++] = tagItemInfo("img_game_money_icon","goldOreDrop",1,"",0,"",0,"",0,5,1, MaterialsType::ANVIL);
 	item_make[m_cnt++] = tagItemInfo("arrowDrop","treeDrop",2,"rockDrop",2,"",0,"",0,5,2, MaterialsType::ANVIL);
-	item_make[m_cnt++] = tagItemInfo("pickax1","ironOreDrop",3,"rockDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
-	item_make[m_cnt++] = tagItemInfo("pickax2","SteelhDrop",2,"coalDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
-	item_make[m_cnt++] = tagItemInfo("pickax3","high_class_SteelDrop",2,"ironBarDrop",4,"",0,"",0,5,2, MaterialsType::ANVIL);
+	item_make[m_cnt++] = tagItemInfo("pickaxe2","ironOreDrop",3,"rockDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
+	item_make[m_cnt++] = tagItemInfo("pickaxe3","SteelhDrop",2,"coalDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
+	item_make[m_cnt++] = tagItemInfo("pickaxe4","high_class_SteelDrop",2,"ironBarDrop",4,"",0,"",0,5,2, MaterialsType::ANVIL);
 
 
 	item_make[m_cnt++] = tagItemInfo("swordDrop1","goldBarDrop",2,"rockDrop",5,"",0,"",0,16,2, MaterialsType::ANVIL);

@@ -152,10 +152,10 @@ void quick_slot::quick_slot_target_Move()
 		changeQuickSlot(6);
 	}
 	else if (INPUT->GetKeyDown('8') && ITEMMANAGER->equip_count() >= 8) {
-		target(6); targetnum = 7;
+		changeQuickSlot(7);
 	}
 	else if (INPUT->GetKeyDown('9') && ITEMMANAGER->equip_count() >= 9) {
-		target(6); targetnum = 8;
+		changeQuickSlot(8);
 	}
 
 }

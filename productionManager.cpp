@@ -70,13 +70,38 @@ void productionManager::count_increase()
 				if (_production[i]->count > 0) {
 					_production[i]->alpha++;
 					if (_production[i]->alpha > 255) {
+						tagItem _itme_info = DATABASE->GetItem(_production[i]->image_name);
 						_production[i]->alpha = 0;
 						_production[i]->count--;
 						POINT pos;
-						pos.x =	(_production[i]->rc.left + _production[i]->rc.right) / 2;
-						pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2+80;
-						UNITMANAGER->AddProduction(_production[i]->image_name, pos);
-						SOUNDMANAGER->play("생산완료");
+						pos.x = (_production[i]->rc.left + _production[i]->rc.right) / 2;
+						pos.y = (_production[i]->rc.top + _production[i]->rc.bottom) / 2 + 80;
+						switch (_itme_info.weaponType)
+						{
+						case WeaponType::BOW:
+							STATMANAGER->SetBowUpgradeCount(STATMANAGER->GetBowUpgradeCount() + 1);
+							SOUNDMANAGER->play("레밸업");
+							TEXTMANAGER->ShowNotifyText("활 강화가 완료되었습니다!", { WINSIZEX / 2, WINSIZEY / 2 - 190 }, 50, RGB(255, 255, 255), RGB(0, 0, 0), 3);
+							ITEMMANAGER->vequip_push(_itme_info.itemKey);
+							break;
+						case WeaponType::PICKAXE:
+							STATMANAGER->SetHammerUpgradeCount(STATMANAGER->GetHammerUpgradeCount() + 1);
+							SOUNDMANAGER->play("레벨업");
+							TEXTMANAGER->ShowNotifyText("곡괭이 강화가 완료되었습니다!", { WINSIZEX / 2, WINSIZEY / 2 - 190 }, 50, RGB(255, 255, 255), RGB(0, 0, 0), 3);
+							ITEMMANAGER->vequip_push(_itme_info.itemKey);
+							break;
+						case WeaponType::SWORD:
+							STATMANAGER->SetSwordUpgradeCount(STATMANAGER->GetSwordUpgradeCount() + 1);
+							SOUNDMANAGER->play("레벨업");
+							TEXTMANAGER->ShowNotifyText("칼 강화가 완료되었습니다!", { WINSIZEX / 2, WINSIZEY / 2 - 190 }, 50, RGB(255, 255, 255), RGB(0, 0, 0), 3);
+							ITEMMANAGER->vequip_push(_itme_info.itemKey);
+							break;
+						default:
+							SOUNDMANAGER->play("생산완료");
+							UNITMANAGER->AddProduction(_production[i]->image_name, pos);
+							break;
+						}
+
 					}
 				}
 				else {

@@ -30,5 +30,10 @@ public:
 	void SetWeaponePickaxName(string name) { _anvil_menu[3]->item_name = name; };
 	void SetFlagName(string name) { sewingmachine_menu[6]->item_name = name; };
 
+	int _upgradeBow;
+	int _upgradePickaxe;
+	int _upgradeSword;
+	int _upgradeFlag;
+
 };
 

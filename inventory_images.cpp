@@ -62,11 +62,7 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("wood", "Images/이미지/아이템/wood.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("stone", "Images/이미지/아이템/돌.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pickaxe", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("swordDrop1", "Images/이미지/아이템/sword.bmp", 56, 56, true, RGB(255, 0, 255));
 
-	// 장비 공격 모션 이미지
-	IMAGEMANAGER->addImage("sword_right", "Images/이미지/아이템/sword_right.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("sword_att", "Images/이미지/아이템/sword_att.bmp", 342, 176, 3, 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("img_smoke", "Images/이미지/Effects/img_smoke.bmp", 600, 200,7,1, true, RGB(255, 0, 255));
 

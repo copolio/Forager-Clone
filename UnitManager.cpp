@@ -37,6 +37,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("pickaxe1", "Images/이미지/아이템/곡괭이슬롯1.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pickaxe2", "Images/이미지/아이템/곡괭이슬롯2.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("pickaxe3", "Images/이미지/아이템/곡괭이슬롯3.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("pickaxe4", "Images/이미지/아이템/곡괭이슬롯4.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("bowDrop1", "Images/이미지/아이템/bow_first.bmp", 50, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->findImage("bowDrop1")->initForRotateImage(false);
@@ -46,13 +47,10 @@ void UnitManager::init()
 
 	IMAGEMANAGER->findImage("bowDrop3")->initForRotateImage(false);
 
-	IMAGEMANAGER->addImage("swordDrop2", "Images/이미지/아이템/강철 검.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("swordDrop3", "Images/이미지/아이템/황금 검.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("swordDrop4", "Images/이미지/아이템/화염 검.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("pickax1", "Images/이미지/아이템/단단한 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("pickax2", "Images/이미지/아이템/강철 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("pickax3", "Images/이미지/아이템/합금 곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("swordDrop1", "Images/이미지/아이템/칼슬롯1.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("swordDrop2", "Images/이미지/아이템/칼슬롯2.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("swordDrop3", "Images/이미지/아이템/칼슬롯3.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("swordDrop4", "Images/이미지/아이템/칼슬롯4.bmp", 56, 56, true, RGB(255, 0, 255));
 
 
 	// 플레이어 핸들 아이템
