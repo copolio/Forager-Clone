@@ -420,13 +420,14 @@ void earth::SetTomb(int x, int y)
 
 void earth::SetMonster(int x, int y)
 {
+	int bossSpawnProabability = RANDOM->range(6);
 	for (int i = 0; i < TILEY; i++) {
 		for (int j = 0; j < TILEX; j++) {
-			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+			if (bossSpawnProabability != 5 && _vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
 			}
 			if (GetIslandCount() > 1 && i == 5 && j == 5) {
-				int bossSpawnProabability = RANDOM->range(6);
+				
 				if (bossSpawnProabability == 0) {
 					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
