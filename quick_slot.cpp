@@ -6,6 +6,7 @@ HRESULT quick_slot::init()
 	_targetBox = new targetingBox;
 	_targetBox->init();
 	targetnum = 0;
+	_isQuickSlotChanged = false;
 	return S_OK;
 }
 
@@ -21,7 +22,7 @@ void quick_slot::release()
 
 void quick_slot::update()
 {
-	this->target(targetnum);
+	this->changeQuickSlot(targetnum);
 	_targetBox->update();
 	quick_slot_target_Move();
 	Item_Minus("", 0);
@@ -120,32 +121,36 @@ void quick_slot::quick_slot_update()
 	_targetBox->SetTarget(_quick[ITEMMANAGER->equip_count()-1]->_rc, 2, ITEMMANAGER->equip_count()-1, 4, false);
 }
 
-void quick_slot::target(int i)
+void quick_slot::changeQuickSlot(int num)
 {
-	_targetBox->SetTarget(_quick[i]->_rc, 2, i, 4, false);
+	_targetBox->SetTarget(_quick[num]->_rc, 2, num, 4, false);
+	targetnum = num; 
+	_isQuickSlotChanged = true;
 }
+
 
 void quick_slot::quick_slot_target_Move()
 {
-	if (INPUT->GetKeyDown('1')&& ITEMMANAGER->equip_count() >=1) {
-		target(0); targetnum = 0;
-	}else if(INPUT->GetKeyDown('2') && ITEMMANAGER->equip_count() >= 2) {
-		target(1); targetnum = 1;
+	if (INPUT->GetKeyDown('1') && ITEMMANAGER->equip_count() >= 1) {
+		changeQuickSlot(0);
+	}
+	else if(INPUT->GetKeyDown('2') && ITEMMANAGER->equip_count() >= 2) {
+		changeQuickSlot(1);
 	}
 	else if (INPUT->GetKeyDown('3') && ITEMMANAGER->equip_count() >= 3) {
-		target(2); targetnum = 2;
+		changeQuickSlot(2);
 	}
 	else if (INPUT->GetKeyDown('4') && ITEMMANAGER->equip_count() >= 4) {
-		target(3); targetnum = 3;
+		changeQuickSlot(3);
 	}
 	else if (INPUT->GetKeyDown('5') && ITEMMANAGER->equip_count() >= 5) {
-		target(4); targetnum = 4;
+		changeQuickSlot(4);
 	}
 	else if (INPUT->GetKeyDown('6') && ITEMMANAGER->equip_count() >= 6) {
-		target(5); targetnum = 5;
+		changeQuickSlot(5);
 	}
 	else if (INPUT->GetKeyDown('7') && ITEMMANAGER->equip_count() >= 7) {
-		target(6); targetnum = 6;
+		changeQuickSlot(6);
 	}
 
 }
@@ -159,7 +164,7 @@ void quick_slot::Item_Minus(string key, int count)
 		}
 		if (_quick[i]->_item.itemType == ItemType::CONSUMABLE&& _quick[i]->count == 0) {
 			this->settargetNum(0);
-			this->target(0);
+			this->changeQuickSlot(0);
 			quick_slot_update();
 			break;
 		}

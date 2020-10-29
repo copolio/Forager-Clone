@@ -5,6 +5,7 @@
 HRESULT ForagerPlayer::init()
 {
 	tileIndex = 0;
+	_dir = 0;
 
 	// 위치 초기화
 	objKey = "Player";
@@ -41,7 +42,7 @@ HRESULT ForagerPlayer::init()
 	_cntBalloon = 0;				// 말풍선 카운트
 
 	_cntBowDelay = 0;			// 현재 화살 연사 딜레이 수치
-	_bowDelay = 50;				// 약 0.5초
+	_bowDelay = 20;				// 약 0.2초
 	_canBowFire = true;
 	_spinAngle = 0.0f;
 	_state = STATE::IDLE;
@@ -54,56 +55,27 @@ HRESULT ForagerPlayer::init()
 	IMAGEMANAGER->addFrameImage("playerStop", "Images/이미지/플레이어/player_idle_frame.bmp", 120,112, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerRUN", "Images/이미지/플레이어/player_run_frame.bmp", 160, 112, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->findImage("playerRUN")->initForRotateImage(true);
-	IMAGEMANAGER->addFrameImage("playerRotate", "Images/이미지/플레이어/player_rotate_frame.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("playerRotateLeft", "Images/이미지/플레이어/player_rotate_frame_left.bmp", 672, 56, 12, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("playerWork", "Images/이미지/플레이어/player_hammering_frame.bmp", 130, 100, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("playerHammering1", "Images/이미지/아이템/곡괭이질1.bmp", 255, 140, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("playerHammering2", "Images/이미지/아이템/곡괭이질2.bmp", 255, 140, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("playerHammering3", "Images/이미지/아이템/곡괭이질3.bmp", 255, 140, 3, 2, true, RGB(255, 0, 255));
 
-	//플레이어 맞을 때 
-	IMAGEMANAGER->addFrameImage("playerHurt", "Images/이미지/플레이어/playerGotDamage.bmp", 480, 112, 12, 2, true, RGB(255, 0, 255));
-	
 	//곡괭이 이미지
-	IMAGEMANAGER->addImage("Hammer", "Images/이미지/아이템/곡괭이.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->findImage("Hammer")->initForRotateImage(false);
-	IMAGEMANAGER->addImage("HammerLeft", "Images/이미지/아이템/곡괭이왼쪽.bmp", 56, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->findImage("HammerLeft")->initForRotateImage(false);
-	// 곡괭이질 이미지 3x1
-	IMAGEMANAGER->addFrameImage("playerHammering", "Images/이미지/아이템/곡괭이질하기3.bmp",255,140, 3, 2, true, RGB(255, 0, 255));
-	//곡괭이 회전 이미지 12x1
-	IMAGEMANAGER->addFrameImage("HammerImg", "Images/이미지/아이템/곡괭이right.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("HammerImgLeft", "Images/이미지/아이템/곡괭이left.bmp", 672, 56, 12, 1,true,RGB(255, 0, 255));
-
+	IMAGEMANAGER->addFrameImage("Hammer1", "Images/이미지/아이템/곡괭이1.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("Hammer1")->initForRotateImage(true);
+	IMAGEMANAGER->addFrameImage("Hammer2", "Images/이미지/아이템/곡괭이2.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("Hammer2")->initForRotateImage(true);
+	IMAGEMANAGER->addFrameImage("Hammer3", "Images/이미지/아이템/곡괭이3.bmp", 56, 112, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("Hammer3")->initForRotateImage(true);
 
 	// 이미지 파싱
 	_foragerIdle = IMAGEMANAGER->findImage("playerStop");
 	_foragerRun = IMAGEMANAGER->findImage("playerRUN");
-	_foragerRotate = IMAGEMANAGER->findImage("playerRotate");
-	_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
+	_foragerHammering = IMAGEMANAGER->findImage("playerHammering1");
 	_playerHammering = IMAGEMANAGER->findImage("playerWork");
-	_playerGotHurt = IMAGEMANAGER->findImage("playerHurt");
 
-	_hammer = IMAGEMANAGER->findImage("Hammer");
-	_hammerLeft = IMAGEMANAGER->findImage("Hammer");
+	_hammer = IMAGEMANAGER->findImage("Hammer1");
 	_bow = IMAGEMANAGER->findImage("bowDrop1");
-
-	//플레이어 회전 이미지 찍어내기
-	for(int i = 1 ; i < 12; i++)
-	{
-		image *left = IMAGEMANAGER->findImage("playerRotateLeft");
-		image *right = IMAGEMANAGER->findImage("playerRotate");
-
-		Rotate(left, left->getFrameWidth(), left->getFrameHeight(), i, true);
-		Rotate(right, right->getFrameWidth(), right->getFrameHeight(), i, false);
-	}
-
-	//곡괭이 회전 이미지 찍어내기
-	for (int i = 1; i < 12; i++)
-	{
-		image *hammerLeft = IMAGEMANAGER->findImage("HammerImgLeft");
-		image *hammerRight = IMAGEMANAGER->findImage("HammerImg");
-	
-		Rotate(hammerLeft, hammerLeft->getFrameWidth(), hammerLeft->getFrameHeight(), i, true);
-		Rotate(hammerRight, hammerRight->getFrameWidth(), hammerRight->getFrameHeight(), i, false);
-	}
 
 	//프레임이미지 애니메이션 관련 변수 초기화 
 	_count = 0;
@@ -114,6 +86,7 @@ HRESULT ForagerPlayer::init()
 	_Acount = 0;
 	_spinCount = 0;
 	_spinSpeed = 0;
+
 
 	//플레이어 상태 불값 초기화 
 	_isLeft = false;
@@ -237,54 +210,44 @@ void ForagerPlayer::renderPlayer(HDC hdc)
 	switch (_state)
 	{
 		case IDLE:
-			IMAGEMANAGER->frameRender("playerStop", hdc, relX, relY, zoomRate);
+			_foragerIdle->frameRender(hdc, relX, relY, zoomRate);
 			break;
+
 		case RUN:
-			IMAGEMANAGER->frameRender("playerRUN", hdc, relX, relY, zoomRate);
+			_foragerRun->frameRender(hdc, relX, relY, zoomRate);
 			break;
 
 		case ROTATE:
-			IMAGEMANAGER->findImage("playerRUN")->rotateFrameRender(hdc, relX + 20, relY + 20, IMAGEMANAGER->findImage("playerRUN")->getFrameX(), IMAGEMANAGER->findImage("playerRUN")->getFrameY(), _spinAngle * PI / 180.0f);
-
-			if (_isLeft)
-			{
-				if (_handleItem.weaponType == WeaponType::PICKAXE) {
-					IMAGEMANAGER->findImage("HammerLeft")->rotateRender(hdc, relWeaponX, relWeaponY + 20, _spinAngle * PI / 180.0f);
-				}
-			}
-			else
-			{
-				if (_handleItem.weaponType == WeaponType::PICKAXE)
-					IMAGEMANAGER->findImage("Hammer")->rotateRender(hdc, relWeaponX, relWeaponY + 20, _spinAngle * PI / 180.0f);
-			}
+			_foragerRun->rotateFrameRender(hdc, relX + 20, relY + 20, _foragerRun->getFrameX(), _foragerRun->getFrameY(), _spinAngle * PI / 180.0f);
+			if (_handleItem.weaponType == WeaponType::PICKAXE)
+				_hammer->rotateFrameRender(hdc, relWeaponX, relWeaponY + 20, 0, _dir, _spinAngle * PI / 180.0f);
 			break;
 
-
 		case HAMMERING:
-			IMAGEMANAGER->frameRender("playerWork", hdc, relX, relY, zoomRate);
+			_playerHammering->frameRender(hdc, relX, relY, zoomRate);
 			if (_handleItem.weaponType == PICKAXE) {
 				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 16), CAMERA->GetRelativeY(rc.top - 20), zoomRate);
 			}
 			if (_handleItem.weaponType == SWORD) {
-				_foragerHammering->frameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), zoomRate);
+				_hammer->rotateFrameRender(hdc, CAMERA->GetRelativeX(rc.left - 30), CAMERA->GetRelativeY(rc.top - 15), 0, _dir, _weaponSpin);
 			}
 			break;
 	}
 
 	if (_state != ROTATE && _state != HAMMERING)
 	{
-		// 곡괭이 일반 상태
+		// 곡괭이
 		if (_handleItem.weaponType == PICKAXE) {
-			if (_isLeft)
-				IMAGEMANAGER->render("Hammer", hdc, relWeaponX, relWeaponY, zoomRate);
+			if(_isLeft)
+				_hammer->frameRender(hdc, relWeaponX, relWeaponY, 0, _dir, zoomRate);
 			else
-				IMAGEMANAGER->render("HammerLeft", hdc, CAMERA->GetRelativeX(_rcHammer.left - 40), relWeaponY, zoomRate);
+				_hammer->frameRender(hdc, relWeaponX - 45, relWeaponY, 0, _dir, zoomRate);
 		}
-		// 보우 일반 상태
+
+		// 보우
 		else if (_handleItem.weaponType == BOW)
-		{
 			_bow->rotateRender(hdc, relWeaponX * zoomRate, (relWeaponY + 35) * zoomRate, _angle * PI / 180.0f);
-		}
+		
 		else if (_handleItem.weaponType == SWORD) {
 			if (_isLeft)
 				IMAGEMANAGER->render("sword", hdc, relWeaponX, relWeaponY, zoomRate);
@@ -309,7 +272,6 @@ void ForagerPlayer::renderPlayer(HDC hdc)
 					IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, zoomRate);
 				}
 			}
-
 		}
 	}
 }
@@ -318,90 +280,71 @@ void ForagerPlayer::renderPlayer(HDC hdc)
 
 void ForagerPlayer::animation()
 {
-	if (!_isGotDamage)
+
+	switch (_state)
 	{
-		switch (_state)
+	case IDLE:
+		_foragerIdle->setFrameY((_isLeft) ? 1 : 0);
+		_foragerIdle->setFrameX(_index);
+		if (_count++ % 10 == 0)
 		{
-		case IDLE:
-			_foragerIdle->setFrameY((_isLeft) ? 1 : 0);
-			_foragerIdle->setFrameX(_index);
-			if (_count++ % 10 == 0)
-			{
-				if (_index++ > 2)
-					_index = 0;
-			}
-			break;
-		case RUN:
-			_foragerRun->setFrameY( (_isLeft) ? 1 : 0);
-			_foragerRun->setFrameX(_index);
-			if (_count++ % 10 == 0)
-			{
-				if (_index++ > 3)
-					_index = 0;
-			}
-			break;
-
-		case ROTATE:
-			if (_isLeft)
-				_spinAngle += 10.0f;
-			else
-				_spinAngle -= 10.0f;
-
-			if (abs(_spinAngle) >= 360.0f) {
-				_spinAngle = .0f;
+			if (_index++ > 2)
 				_index = 0;
-				_state = STATE::IDLE;
-				_isMoveRotate = false;
-			}
-			break;
-		case HAMMERING:
-			if (_handleItem.weaponType == WeaponType::PICKAXE) {
-				_foragerHammering = IMAGEMANAGER->findImage("playerHammering");
-			}
-			else {
-				_foragerHammering = IMAGEMANAGER->findImage("sword_att");
-			}
-			
-			_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
-			_foragerHammering->setFrameX(_index);
-			_playerHammering->setFrameY((_isLeft) ? 1 : 0);
-			_playerHammering->setFrameX(_index);
-			if (_hitDelayCount++ % 10 == 0)
-			{
-				if (_index++ > 3)
-				{
-					_index = 0;
-					_hitDelayCount = 1;
-				}
-			}
-			break;
 		}
-	}
-	else
-	{
-		if (_state != HAMMERING)
+		break;
+	case RUN:
+		_foragerRun->setFrameY((_isLeft) ? 1 : 0);
+		_foragerRun->setFrameX(_index);
+		if (_count++ % 10 == 0)
 		{
-			if (_count++ > 5)
-			{
-				_count = 0;
+			if (_index++ > 3)
+				_index = 0;
+		}
+		break;
 
-				if (_index > 12)
-				{
-					_index = 0;
-					_isGotDamage = false;
-					_powerOverwhelmingTime = 100;
-				}
-				_index++;
-				_playerGotHurt->setFrameX(_index);
-				if (_isLeft)
-					_playerGotHurt->setFrameY(1);
-				else
-					_playerGotHurt->setFrameY(0);
+	case ROTATE:
+		if (_isLeft)
+			_spinAngle += 10.0f;
+		else
+			_spinAngle -= 10.0f;
+
+		if (abs(_spinAngle) >= 360.0f) {
+			_spinAngle = .0f;
+			_index = 0;
+			_state = STATE::IDLE;
+			_isMoveRotate = false;
+		}
+		break;
+	case HAMMERING:
+		if (_handleItem.weaponType == WeaponType::PICKAXE) {
+			if (STATMANAGER->GetHammerUpgradeCount() == 0)
+				_foragerHammering = IMAGEMANAGER->findImage("playerHammering1");
+			else if (STATMANAGER->GetHammerUpgradeCount() == 1)
+				_foragerHammering = IMAGEMANAGER->findImage("playerHammering2");
+			else if (STATMANAGER->GetHammerUpgradeCount() == 2)
+				_foragerHammering = IMAGEMANAGER->findImage("playerHammering3");
+
+		}
+		else {
+			_foragerHammering = IMAGEMANAGER->findImage("sword_att");
+		}
+
+		_foragerHammering->setFrameY((_isLeft) ? 1 : 0);
+		_foragerHammering->setFrameX(_index);
+		_playerHammering->setFrameY((_isLeft) ? 1 : 0);
+		_playerHammering->setFrameX(_index);
+		if (_hitDelayCount++ % 10 == 0)
+		{
+			if (_index++ > 3)
+			{
+				_index = 0;
+				_hitDelayCount = 1;
 			}
 		}
-		
+		break;
 	}
 }
+	
 
 void ForagerPlayer::bowAnimation()
 {
@@ -417,28 +360,6 @@ void ForagerPlayer::bowAnimation()
 	if (_angle < 0)
 		_angle = 180.0f + (180.0f - (_angle * -1));
 	
-	//int t_angle = _angle;
-	//// 이미지 프레임 오프셋 보정(45도부터 0도로 계산해서 프레임 이미지의 각도와 일치시킴)
-	//t_angle += 45.0f;
-	//if (t_angle > 360.0f) {
-	//	t_angle = t_angle - 360.0f;
-	//}
-
-	//// 22.5도 단위로 이미지 프레임값 바꾸기.
-	//float minAngle = -11.25f;
-	//float maxAngle = 11.25f;
-	//float addAngle = 22.5f;
-	//int count = 0;
-	//for (int y = 0; y < 4; y++) {
-	//	for (int x = 0; x < 4; x++) {
-	//		if (minAngle + (count * addAngle) <= t_angle && t_angle <= maxAngle + (count * addAngle)) {
-	//			_bow->setFrameX(x);
-	//			_bow->setFrameY(y);
-	//			return;
-	//		}
-	//		count++;
-	//	}
-	//}
 }
 
 
@@ -496,11 +417,9 @@ void ForagerPlayer::PlayerControll()
 				switch (RANDOM->range(2)) {
 				case 0:
 					SOUNDMANAGER->play("플레이어걸음1");
-
 					break;
 				case 1:
 					SOUNDMANAGER->play("플레이어걸음2");
-
 					break;
 				}
 			}
@@ -524,12 +443,6 @@ void ForagerPlayer::PlayerControll()
 		// 공격 좌클릭
 		if (INPUT->GetKey(VK_LBUTTON))
 		{
-			//if (_isGotDamage)
-			//{
-			//	_isGotDamage = false;
-			//	_index = 0;
-			//	_count = 0;
-			//}
 			if (_handleItem.weaponType == WeaponType::PICKAXE || _handleItem.weaponType == WeaponType::SWORD) {
 				MeleeWeaponClick();
 			}
@@ -548,7 +461,7 @@ void ForagerPlayer::PlayerControll()
 					SOUNDMANAGER->play("피찰때소리", false);
 				}
 				else {
-					_quick->target(0);
+					_quick->changeQuickSlot(0);
 					_quick->settargetNum(0);
 				}
 
@@ -670,9 +583,15 @@ void ForagerPlayer::ArrowFire()
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
 		}
 		else if (t_bowUpgrade == 2) {
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 25.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 25.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
+		}
+		else if (t_bowUpgrade == 3) {
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 5.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 5.0f, 7.0f, 20, false, false);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
 		}
 
 		_bowPowerGauge = .1f;
@@ -742,29 +661,46 @@ void ForagerPlayer::playerLookingDirection()
 	int forgaerCenter = (rc.left + rc.right) / 2;
 
 	if (_state != STATE::ROTATE) {
-		if (forgaerCenter < CAMERA->GetMouseRelativePos(_ptMouse).x)
+		if (forgaerCenter < CAMERA->GetMouseRelativePos(_ptMouse).x) {
+			_dir = 1;
 			_isLeft = false;
-		else
+		}
+			
+		else {
+			_dir = 0;
 			_isLeft = true;
+		}
+			
 	}
 }
 
 void ForagerPlayer::weaponCheck()
 {
-	string t_imgKey = _quick->GetQuickSlotNumber()->_item.itemKey;
-	
-	_handleItem = DATABASE->GetItem(t_imgKey);
-	Atk = _handleItem.option;
+	if (_quick->GetIsQuickSlotChanged()) {
+		string t_imgKey = _quick->GetQuickSlotNumber()->_item.itemKey;
 
-	if (_handleItem.weaponType == WeaponType::BOW) {
-		if (STATMANAGER->GetBowUpgradeCount() == 0)
-			_bow = IMAGEMANAGER->findImage("bowDrop1");
-		else if (STATMANAGER->GetBowUpgradeCount() == 1)
-			_bow = IMAGEMANAGER->findImage("bowDrop2");
-		else if (STATMANAGER->GetBowUpgradeCount() == 2)
-			_bow = IMAGEMANAGER->findImage("bowDrop3");
+		_handleItem = DATABASE->GetItem(t_imgKey);
+		Atk = _handleItem.option;
+
+		if (_handleItem.weaponType == WeaponType::BOW) {
+			if (STATMANAGER->GetBowUpgradeCount() == 0)
+				_bow = IMAGEMANAGER->findImage("bowDrop1");
+			else if (STATMANAGER->GetBowUpgradeCount() == 1)
+				_bow = IMAGEMANAGER->findImage("bowDrop2");
+			else if (STATMANAGER->GetBowUpgradeCount() == 2)
+				_bow = IMAGEMANAGER->findImage("bowDrop3");
+		}
+		else if (_handleItem.weaponType == WeaponType::PICKAXE) {
+			if (STATMANAGER->GetHammerUpgradeCount() == 0)
+				_hammer = IMAGEMANAGER->findImage("Hammer1");
+			else if (STATMANAGER->GetHammerUpgradeCount() == 1)
+				_hammer = IMAGEMANAGER->findImage("Hammer2");
+			else if (STATMANAGER->GetHammerUpgradeCount() == 2)
+				_hammer = IMAGEMANAGER->findImage("Hammer3");
+		}
+
+		_quick->Done(); // 퀵슬롯 교체 완료 알림.
 	}
-
 
 }
 
@@ -999,8 +935,6 @@ void ForagerPlayer::hurt(int damage, bool onlyEffect)
 		if(damage > 1)
 			SOUNDMANAGER->play("나무타격");
 		_isGotDamage = true;
-		/*_index = 1;
-		_count = 0;*/
 	}
 	
 }

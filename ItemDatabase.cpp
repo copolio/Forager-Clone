@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ItemDatabase.h"
 
-#define ITEM_MAX 24
+#define ITEM_MAX 31
 #define ITEM_MAKE_MAX 26
 
 
@@ -16,6 +16,7 @@ void ItemDatabase::init()
 	int m_cnt = 0;
 
 	// 소비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	// 4개
 	items[t_cnt++] = tagItem("berryDrop", "berryDrop", "열매", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5, 0);
 	items[t_cnt++] = tagItem("fishDrop", "fishDrop", "물고기", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 1, 5);
 	items[t_cnt++] = tagItem("milkDrop", "milkDrop", "우유", "체력을 회복시켜준다.", CONSUMABLE, WeaponType::NONE2, 3, 5);
@@ -24,6 +25,7 @@ void ItemDatabase::init()
 
 
 	// 재료템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	// 15개
 	items[t_cnt++] = tagItem("rockDrop", "rockDrop", "돌", " ", INGREDIANT, WeaponType::NONE2, 1, 0, 0);
 	items[t_cnt++] = tagItem("treeDrop", "treeDrop", "목재", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("goldBarDrop", "goldBarDrop", "금괴", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
@@ -35,7 +37,6 @@ void ItemDatabase::init()
 	items[t_cnt++] = tagItem("skullHeadDrop", "skullHeadDrop", "스컬머리", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("leatherDrop", "leatherDrop", "가죽", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("threadDrop", "threadDrop", "실", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
-
 	items[t_cnt++] = tagItem("high_class_cloth", "high_class_cloth", "고급 옷감", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("high_class_SteelDrop", "high_class_SteelDrop", "고급 강철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
 	items[t_cnt++] = tagItem("SteelhDrop", "SteelhDrop", "강철", " ", INGREDIANT, WeaponType::NONE2, 1, 0);
@@ -43,13 +44,20 @@ void ItemDatabase::init()
 
 	
 	// 장비템			    필드아이템키   슬롯키   이름  설명  아이템유형      장비유형    가치 옵션1 옵션2
+	// 12개
 	items[t_cnt++] = tagItem("bowDrop1", "bowDrop1", "활", " ", EQUIPMENT, BOW, 1, 10);
 	items[t_cnt++] = tagItem("bowDrop2", "bowDrop2", "강철 활", " ", EQUIPMENT, BOW, 1, 10);
 	items[t_cnt++] = tagItem("bowDrop3", "bowDrop3", "합금 활", " ", EQUIPMENT, BOW, 1, 10);
+	items[t_cnt++] = tagItem("bowDrop4", "bowDrop4", "폭발 활", " ", EQUIPMENT, BOW, 1, 10);
+	items[t_cnt++] = tagItem("swordDrop1", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 25);
+	items[t_cnt++] = tagItem("swordDrop2", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 35);
+	items[t_cnt++] = tagItem("swordDrop3", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 45);
+	items[t_cnt++] = tagItem("swordDrop4", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 55);
+	items[t_cnt++] = tagItem("pickax1", "pickaxe1", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 15);
+	items[t_cnt++] = tagItem("pickax2", "pickaxe2", "단단한 곡괭이", " ", EQUIPMENT, PICKAXE, 1, 20);
+	items[t_cnt++] = tagItem("pickax3", "pickaxe3", "강철 곡괭이", " ", EQUIPMENT, PICKAXE, 1, 25);
+	items[t_cnt++] = tagItem("pickax4", "pickaxe4", "합금 곡괭이", " ", EQUIPMENT, PICKAXE, 1, 30);
 
-	items[t_cnt++] = tagItem("swordDrop1", "sword", "칼", " ", EQUIPMENT, SWORD, 1, 30);
-	items[t_cnt++] = tagItem("pickaxeDrop", "pickaxe", "곡괭이", " ", EQUIPMENT, PICKAXE, 1, 15);
-	
 
 	//======================================================================================================
 	//제작								이름			재료1  필요개수1   재료2	 필요개수2  재료3  필요개수3  재료4  필요개수4  시간  재료갯수 빌딩이름

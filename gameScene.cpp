@@ -26,7 +26,7 @@ HRESULT gameScene::init()
 	_quick_slot = new quick_slot;
 	_quick_slot->init();
 	_quick_slot->quick_slot_update();
-	_quick_slot->target(0);
+	_quick_slot->changeQuickSlot(0);
 	_cursor->quick_slot_info(_quick_slot);
 	SAVEMANAGER->set_quick_slot_info(_quick_slot);
 	PRODUCTIONMANAGER->init();

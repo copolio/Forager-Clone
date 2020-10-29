@@ -7,6 +7,7 @@ private:
 	vector<inventory_slot*> _quick;
 	targetingBox* _targetBox;
 	int targetnum;
+	bool _isQuickSlotChanged;
 public:
 	
 	HRESULT init();
@@ -14,7 +15,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	void quick_slot_update();
-	void target(int i);
+	void changeQuickSlot(int num);
 	void settargetNum(int i) {
 		targetnum = i;
 	}
@@ -22,5 +23,8 @@ public:
 	void quick_slot_target_Move();
 	inventory_slot* GetQuickSlotNumber() { return _quick[targetnum]; };
 	void Item_Minus(string key,int count);
+
+	bool GetIsQuickSlotChanged() { return _isQuickSlotChanged; };
+	void Done() { _isQuickSlotChanged = false; };
 };
 

@@ -13,8 +13,8 @@ HRESULT equipMent::init()
 		inven->_rc = RectMake(inven->x, inven->y, 72, 72);
 		player_equip.push_back(inven);
 	}
-	player_equip[0]->_item = DATABASE->GetItem("pickaxeDrop");
-	//player_equip[1]->_item = DATABASE->GetItem("bow1Drop");
+	player_equip[0]->_item = DATABASE->GetItem("pickax1");
+	//player_equip[1]->_item = DATABASE->GetItem("bowDrop1");
 
 	_targetBox = new targetingBox;
 	_targetBox->init();

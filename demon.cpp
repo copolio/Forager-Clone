@@ -263,6 +263,13 @@ void demon::demonAnimation()
 				demonWaitCount = 0;
 				demonHitCount = 1;
 				tryAttack = false;	
+
+
+				_attackIndex = 0;
+				searchCount = 0;
+				checkDestination = false;
+				isattacking = true;
+				_state4 = DWALK;
 			}
 		}
 		break;

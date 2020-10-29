@@ -162,7 +162,9 @@ void earth::mapSetup()
 void earth::setRandomObject()
 {
 	if (this->getResRatio() > RESRATIOLIMIT) return;
-	while (true) {
+	int loopcount = 0;
+	while (loopcount < 7056) {
+		loopcount++;
 		int i = RANDOM->range(TILEY*MAPY);
 		int j = RANDOM->range(MAPTILEX);
 
