@@ -3,10 +3,9 @@
 #include "tile.h"
 
 #define NUMRES 3
-#define RESHP 50
-#define BERRYHP RESHP
-#define TREEHP RESHP
-#define ROCKHP RESHP
+#define BERRYHP 30
+#define TREEHP 120
+#define ROCKHP 150
 
 class inGameResource : public unit
 {

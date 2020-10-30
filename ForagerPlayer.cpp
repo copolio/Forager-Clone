@@ -118,7 +118,7 @@ HRESULT ForagerPlayer::init()
 	_startBalloon = false;		// 시작 말풍선
 	_cntDelayStartBalloon = 0;
 	_delayStartBalloon = 240;
-	_powerOverwhelmingTime = 100;
+	_powerOverwhelmingTime = 1000;
 
 	STATMANAGER->SetLinkPlayer(this);
 
@@ -512,7 +512,6 @@ void ForagerPlayer::PlayerControll()
 
 void ForagerPlayer::MeleeWeaponClick()
 {
-	_powerOverwhelmingTime = 100;
 	if (_hitDelayCount == 18)
 	{
 		SOUNDMANAGER->play("근접무기");
@@ -769,6 +768,7 @@ void ForagerPlayer::hungryBalloon()
 				_startBalloon = true;
 				vector<string> t_vStr;
 				t_vStr.push_back("이 세계의 끝은 어디까지일까??");
+				t_vStr.push_back("우선 용광로부터 지어보자고!");
 				DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
 			}
 		}
@@ -781,13 +781,13 @@ void ForagerPlayer::hungryBalloon()
 void ForagerPlayer::BlinkProcess()
 {
 	if (_isGotDamage) {
-		if (_powerOverwhelmingTime++ >= 100) {
+		if (_powerOverwhelmingTime++ >= 120) {
 			_isGotDamage = false;
-			_powerOverwhelmingTime = 100;
+			_powerOverwhelmingTime = 1000;
 		}
 	}
 	else {
-		_powerOverwhelmingTime = 10;
+		_powerOverwhelmingTime = 1000;
 	}
 }
 
@@ -967,14 +967,27 @@ void ForagerPlayer::hurt(int damage, bool onlyEffect)
 	if (onlyEffect)
 		return;
 	
-	if (_powerOverwhelmingTime >= 10) {
-		
-		_powerOverwhelmingTime = 0;
-		STATMANAGER->setRight(damage);
-		if(damage > 1)
+	// 일반 피격
+	if (damage > 1) {
+		if (_powerOverwhelmingTime >= 120) {
 			SOUNDMANAGER->play("나무타격");
-		_isGotDamage = true;
+			STATMANAGER->setRight(damage);
+			_powerOverwhelmingTime = 0;
+
+			_isGotDamage = true;
+		}
 	}
+	// 브레스 연속 피격 
+	else {
+		if (_powerOverwhelmingTime >= 10) {
+
+			_powerOverwhelmingTime = 0;
+			STATMANAGER->setRight(damage);
+
+			_isGotDamage = true;
+		}
+	}
+
 	
 }
 

@@ -171,23 +171,23 @@ void demon::demonMove()
 			if (_vDestTileIndex.size() > 0)
 			{
 				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
-				if (abs(rc.left - tDestination.x) > MOVESPEED || abs(rc.top - tDestination.y) > MOVESPEED)
+				if (abs(rc.left - tDestination.x) > enemySpeedX || abs(rc.top - tDestination.y) > enemySpeedY)
 				{
 					if (tDestination.x < rc.left)
 					{
-						OffsetRect(&rc, -MOVESPEED, 0);
+						OffsetRect(&rc, -enemySpeedX, 0);
 					}
 					else if (tDestination.x > rc.left)
 					{
-						OffsetRect(&rc, MOVESPEED, 0);
+						OffsetRect(&rc, enemySpeedX, 0);
 					}
 					if (tDestination.y > rc.top)
 					{
-						OffsetRect(&rc, 0, MOVESPEED);
+						OffsetRect(&rc, 0, enemySpeedY);
 					}
 					else if (tDestination.y < rc.top)
 					{
-						OffsetRect(&rc, 0, -MOVESPEED);
+						OffsetRect(&rc, 0, -enemySpeedY);
 					}
 	
 				}

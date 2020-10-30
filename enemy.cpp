@@ -39,52 +39,62 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	x = pos.x;
 	y = pos.y;
 
+	enemySpeedX = 3;
+	enemySpeedY = 3;
+
 	//rc = RectMakeCenter(x, y, 25, 25);
 	objKey = key;
 	if (objKey == "wraithIdle")
 	{
 		rc = RectMakeCenter(x, y, 100, 100);
-		maxHp = 200;
-		currentHp = 200;
-		exp = 50;
+		maxHp = 350;
+		exp = 150;
+		enemySpeedX *= 0.5f;
+		enemySpeedY *= 0.5f;
 
 	}
 	else if (objKey == "skull")
 	{
 		rc = RectMakeCenter(x, y, 35, 35);
-		maxHp = 30;
-		currentHp = 30;
-		exp = 10;
+		maxHp = 140;
+		exp = 45;
+		enemySpeedX *= 0.9f;
+		enemySpeedY *= 0.9f;
 	}
 	else if (objKey == "cow")
 	{
 		rc = RectMakeCenter(x, y, 55, 55);
-		maxHp = 50;
-		currentHp = 50;
+		maxHp = 105;
 		exp = 30;
+		enemySpeedX *= 0.9f;
+		enemySpeedY *= 0.9f;
 	}
 
 	else if (objKey == "demonIdle")
 	{
 		rc = RectMakeCenter(x, y, 60, 60);
-		maxHp = 100;
-		currentHp = 100;
+		maxHp = 150;
 		exp = 50;
+		enemySpeedX *= 0.9f;
+		enemySpeedY *= 0.9f;
 	}
 
 	else if (objKey == "muBoss")
 	{
 		rc = RectMakeCenter(x, y, 400, 400);
-		maxHp = 100;
-		currentHp = 100;
-		exp = 200;
+		maxHp = 400;
+		exp = 70;
+		enemySpeedX *= 0.5f;
+		enemySpeedY *= 0.5f;
 	}
 
 	else if (objKey == "slime")
 	{
 		rc = RectMakeCenter(x, y, 56, 56);
-		maxHp = 100;
-		currentHp = 100;
+		maxHp = 85;
+		exp = 40;
+		enemySpeedX *= 0.7f;
+		enemySpeedY *= 0.7f;
 		
 	}
 
@@ -92,21 +102,17 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	{
 		rc = RectMakeCenter(x, y, 112, 112);
 		maxHp = 100;
-		currentHp = 100;
+		exp = 35;
 	}
 
 
-	
-	
-
+	currentHp = maxHp;
 	dropItem.itemKey = itemkey;
 	
 	objFrameX = 0;
 	objFrameY = 0;
 	_destCount = 0;
 
-	enemySpeedX = 3;
-	enemySpeedY = 3;
 	_index = 0;
 	_attackIndex = 0;
 	_count = 0;

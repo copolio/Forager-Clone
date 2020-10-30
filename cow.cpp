@@ -234,19 +234,19 @@ void cow::cowMove()
 						
 						if (tDestination.x < rc.left)
 						{
-							OffsetRect(&rc, -MOVESPEED, 0);
+							OffsetRect(&rc, -enemySpeedX, 0);
 						}
 						else if (tDestination.x > rc.left)
 						{
-							OffsetRect(&rc, MOVESPEED, 0);
+							OffsetRect(&rc, enemySpeedX, 0);
 						}
 						if (tDestination.y > rc.top)
 						{
-							OffsetRect(&rc, 0, MOVESPEED);
+							OffsetRect(&rc, 0, enemySpeedY);
 						}
 						else if (tDestination.y < rc.top)
 						{
-							OffsetRect(&rc, 0, -MOVESPEED);
+							OffsetRect(&rc, 0, -enemySpeedY);
 						}
 
 					}
