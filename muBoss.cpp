@@ -27,6 +27,11 @@ void muBoss::update()
 
 void muBoss::render(HDC hdc)
 {
+	if ((float)currentHp / maxHp <= 0.8f) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left + 185), CAMERA->GetRelativeY(rc.bottom));
+		_hpBar.render(hdc);
+	}
+
 	switch (_state5)
 	{
 	case MIDLE:

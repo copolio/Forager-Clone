@@ -79,7 +79,7 @@ void slime::update()
 void slime::render(HDC hdc)
 {
 
-	if (0 < currentHp && currentHp < maxHp) {
+	if ((float)currentHp / maxHp <= 0.8f) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x - 23), CAMERA->GetRelativeY(y + 43));
 		_hpBar.render(hdc);
 	}

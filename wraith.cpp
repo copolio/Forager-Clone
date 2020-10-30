@@ -55,7 +55,7 @@ void wraith::update()
 
 void wraith::render(HDC hdc)
 {
-	if (0 < currentHp && currentHp < maxHp) {
+	if ((float)currentHp / maxHp <= 0.8f) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left + 30), CAMERA->GetRelativeY(rc.bottom + 15));
 		_hpBar.render(hdc);
 	}

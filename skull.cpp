@@ -32,7 +32,7 @@ void skull::update()
 
 void skull::render(HDC hdc)
 {
-	if (0 < currentHp && currentHp < maxHp) {
+	if ((float)currentHp / maxHp <= 0.8f) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left-11), CAMERA->GetRelativeY(rc.bottom + 16));
 		_hpBar.render(hdc);
 	}

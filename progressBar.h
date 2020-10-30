@@ -9,7 +9,7 @@ private:
 	image* _progressBarFront;		//체력바 앞 이미지(렉트변경됨)
 	image* _progressBarBack;		//체력바 뒤 이미지(변경안함)
 	float _x, _y;					//체력바 위치좌표
-	float _width;					//체력바 가로길이
+	int _width;					//체력바 가로길이
 	float _height;					//체력바 세로길이
 
 public:

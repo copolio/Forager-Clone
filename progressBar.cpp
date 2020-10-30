@@ -23,7 +23,7 @@ void progressBar::render(HDC hdc)
 //체력바 게이지 세팅하기
 void progressBar::setGauge(float maxHp, float currentHp, int x, int y)
 {
-	_width = (currentHp / maxHp) * (float)_progressBarBack->getWidth();
+	_width = (int)((currentHp / maxHp) * (float)_progressBarBack->getWidth());
 	_x = x + 3;
 	_y = y;
 }

@@ -109,7 +109,7 @@ void inGameResource::dead()
 
 void inGameResource::render(HDC hdc)
 {
-	if (0 < currentHp && currentHp < maxHp) {
+	if ((float)currentHp / maxHp <= 0.8f) {
 		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.bottom));
 		_hpBar.render(hdc);
 	}
