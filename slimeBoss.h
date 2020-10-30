@@ -14,6 +14,9 @@ struct tagBRect
 	float bottom;
 
 };
+
+static bool s_allAttack = false;
+
 class slimeBoss :public enemy
 {
 private :
@@ -36,7 +39,7 @@ private :
 	float lerpRatio;
 	bool _isJump;
 	bool _canJump;
-
+	bool _canSpawn;
 	bool _slimeGotDamage;
 
 	int slimeFireCount;
@@ -46,13 +49,14 @@ private :
 	int searchCount;
 	int slimeShootCount;
 
-
-private:
+public:
+	void setCanSpawn() { _canSpawn = true; };
 
 public:
 
 	HRESULT init();
 	void update();
+	void hurt(int Damage, bool onlyEffect) override;
 	void render(HDC hdc) override;
 
 

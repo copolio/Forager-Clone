@@ -51,7 +51,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 150;
 		enemySpeedX *= 0.5f;
 		enemySpeedY *= 0.5f;
-
+		atk = 1000;
 	}
 	else if (objKey == "skull")
 	{
@@ -60,6 +60,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 45;
 		enemySpeedX *= 0.9f;
 		enemySpeedY *= 0.9f;
+		atk = 30;
 	}
 	else if (objKey == "cow")
 	{
@@ -68,6 +69,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 30;
 		enemySpeedX *= 0.9f;
 		enemySpeedY *= 0.9f;
+		atk = 30;
 	}
 
 	else if (objKey == "demonIdle")
@@ -77,6 +79,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 50;
 		enemySpeedX *= 0.9f;
 		enemySpeedY *= 0.9f;
+		atk = 1;
 	}
 
 	else if (objKey == "muBoss")
@@ -86,6 +89,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 70;
 		enemySpeedX *= 0.5f;
 		enemySpeedY *= 0.5f;
+		atk = 1000;
 	}
 
 	else if (objKey == "slime")
@@ -95,7 +99,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		exp = 40;
 		enemySpeedX *= 0.7f;
 		enemySpeedY *= 0.7f;
-		
+		atk = 30;
 	}
 
 	else if (objKey == "slimeBoss")
@@ -103,6 +107,19 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 		rc = RectMakeCenter(x, y, 112, 112);
 		maxHp = 100;
 		exp = 35;
+		enemySpeedX *= 0.4f;
+		enemySpeedY *= 0.4f;
+		atk = 1000;
+	}
+
+	else if (objKey == "smallMu")
+	{
+		rc = RectMakeCenter(x, y, 56, 70);
+		maxHp = 100;
+		exp = 35;
+		enemySpeedX *= 0.4f;
+		enemySpeedY *= 0.4f;
+		atk = 30;
 	}
 
 
@@ -142,13 +159,9 @@ void enemy::dead()
 
 float enemy::shootToTarget()
 {
-	int l = rc.left;
-	int r = rc.right;
-	int t = rc.top;
-	int b = rc.bottom;
-
-	int cX = l + (r - l) / 2;
-	int cY = t + (b - t) / 2;
+	
+	int cX = x;
+	int cY = y;
 
 	int pL = _target->rc.left;
 	int pR = _target->rc.right;

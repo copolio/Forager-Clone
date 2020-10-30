@@ -8,8 +8,9 @@ void ProjectileManager::init()
 	IMAGEMANAGER->addFrameImage("wratihMissile", "Images/이미지/NPC/wratihMissile.bmp", 990, 90, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("demonBrass", "Images/이미지/NPC/firebrass.bmp", 2560, 180, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("slimeMissile", "Images/이미지/NPC/slime_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("slimeBossMissile", "Images/이미지/NPC/slime_boss_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("muMissile", "Images/이미지/NPC/baby_mu.bmp", 198, 45, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("slimeBossMissile", "Images/이미지/NPC/red_bullet.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("smallMuMissile", "Images/이미지/NPC/seed.bmp", 30, 30, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("muMissile", "Images/이미지/NPC/baby_mu.bmp", 198, 45, 6, 1, true, RGB(255, 0, 255));
 
 
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
@@ -111,21 +112,24 @@ void ProjectileManager::update()
 
 void ProjectileManager::render(HDC hdc)
 {
-	for (int i = 0; i < PROJECTILE_MAX; i++) 
-	{
-		if (_projectiles[i].isAppear) {
+	if (CAMERA->movelimit) {
+		for (int i = 0; i < PROJECTILE_MAX; i++)
+		{
+			if (_projectiles[i].isAppear) {
 
-			if (_projectiles[i].imgKey == _strDamageBoundary)
-				continue;
-			// 일반 렌더
-			if(!_projectiles[i].isFrame)
-				IMAGEMANAGER->findImage(_projectiles[i].imgKey)->rotateRender(hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].angle * PI / 180.0f);
-			// 프레임 렌더
-			else {
-				IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
+				if (_projectiles[i].imgKey == _strDamageBoundary)
+					continue;
+				// 일반 렌더
+				if (!_projectiles[i].isFrame)
+					IMAGEMANAGER->findImage(_projectiles[i].imgKey)->rotateRender(hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].angle * PI / 180.0f);
+				// 프레임 렌더
+				else {
+					IMAGEMANAGER->frameRender(_projectiles[i].imgKey, hdc, CAMERA->GetRelativeX(_projectiles[i].x), CAMERA->GetRelativeY(_projectiles[i].y), _projectiles[i].frameX, _projectiles[i].frameY, CAMERA->GetZoom());
+				}
 			}
 		}
 	}
+
 }
 
 void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage, float angle, float speed, int size, bool isEnemy, bool isFrame, bool isStretch)

@@ -8,7 +8,6 @@ HRESULT wraith::init()
 	searchCount = 0;
 	wraithShootCount = 0;
 	skillFireCount = 0;
-	skill1coolTime = 0;
 	wraithAttackRange = 500;
 	_hitCount = 0;
 
@@ -52,9 +51,6 @@ void wraith::update()
 			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - MAPTILEX);
 		}
 	}	
-
-
-	
 }
 
 void wraith::render(HDC hdc)
@@ -73,7 +69,6 @@ void wraith::render(HDC hdc)
 		IMAGEMANAGER->frameRender("wraithAttack", hdc, CAMERA->GetRelativeX(rc.left - 235),
 			CAMERA->GetRelativeY(rc.top - 70), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-
 	}
 	//Rectangle(hdc, { CAMERA->GetRelativeX(rc.left), CAMERA->GetRelativeY(rc.top), CAMERA->GetRelativeX(rc.right), CAMERA->GetRelativeY(rc.bottom) });
 }
@@ -163,8 +158,6 @@ void wraith::wraithAttack()
 			_state3 = SHOOT;
 			wraithFire();
 		}
-
-		
 	}
 }
 
@@ -219,7 +212,7 @@ void wraith::wraithFire()
 		for (int i = 0; i < 8; i++)
 		{
 			float t_angle = skillAngle + (45.0f * i);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, 10, t_angle, 5, 50, true, true);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", rc.left, rc.top, atk, t_angle, 5, 50, true, true);
 		}
 		skillAngle += 20.0f;
 	}
@@ -240,10 +233,9 @@ void wraith::wraithFire()
 
 void wraith::wraithHitAttack()
 {
-	if (isHit) {
-
+	if (isHit) 
+	{
 		_hitCount++;
-
 		if (_hitCount == 30) {
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
@@ -264,6 +256,9 @@ void wraith::wraithHitAttack()
 		{
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
+		}
+		if (_hitCount >= 600)
+		{
 			isHit = false;
 			_hitCount = 0;
 		}

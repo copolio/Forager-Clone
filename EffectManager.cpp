@@ -124,7 +124,7 @@ void EffectManager::update()
 								// 장판인 경우 이펙트와 함꼐 투사체 생성
 								if ((*iter)->imgKey == "damageBoundary") {
 									EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
-									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 100, 112, 112);
 								}
 								(*iter)->isAppear = false;
 								_listEffectFront.erase(iter);

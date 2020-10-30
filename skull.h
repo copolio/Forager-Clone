@@ -30,8 +30,6 @@ private :
 	int nonAttacktime;
 	bool isattacking;
 
-	int Atk;
-
 public :
 	HRESULT init();
 	 void update() override;

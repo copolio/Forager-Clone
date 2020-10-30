@@ -19,7 +19,6 @@ private:
 	int searchCount;
 	int wraithAttackRange;
 	int skillFireCount;
-	int skill1coolTime;
 	int skillAngle;
 
 	int _hitCount;

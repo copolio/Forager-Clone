@@ -13,7 +13,6 @@ HRESULT demon::init()
 
 	tryAttack = false;
 	isattacking = true;
-	Atk = 1;
 
 	return S_OK;
 }
@@ -299,9 +298,9 @@ void demon::demonBrassFire()
 		for (int i = 0; i < 2; i++)
 		{
 			if(isLeft)
-				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX() - 320, GetCenterY() - 40, 1, 320, 40, isLeft);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX() - 320, GetCenterY() - 40, atk, 320, 40, isLeft);
 			else
-				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX(), GetCenterY() - 40, 1, 320, 40, isLeft);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX(), GetCenterY() - 40, atk, 320, 40, isLeft);
 		}
 		skillFireCount = 0;
 	}

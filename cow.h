@@ -18,7 +18,6 @@ private:
 	int searchCount;
 	int cowDashRange;
 	int _cowTilePos;
-	int Atk;
 
 	bool tryAttack;
 	bool isattacking;

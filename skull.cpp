@@ -15,7 +15,6 @@ HRESULT skull::init()
 	tryAttack = false;
 	isattacking = true;
 	_state = APPEAR;
-	Atk = 15;
 	
 	return S_OK;
 }
@@ -231,7 +230,7 @@ void skull::canAttackCheck()
 		{
 			if (skullHitCount == 17) {
 				if (abs(_target->rc.left - rc.left) <= skullAttackRange && abs(_target->rc.top - rc.top) <= skullAttackRange)
-					_target->hurt(Atk);
+					_target->hurt(atk);
 			}
 			_state = ATTACK;
 		}
