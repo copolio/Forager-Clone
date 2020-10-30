@@ -44,8 +44,9 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("bowDrop2", "Images/이미지/아이템/bow_second.bmp", 50, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->findImage("bowDrop2")->initForRotateImage(false);
 	IMAGEMANAGER->addImage("bowDrop3", "Images/이미지/아이템/bow_third.bmp", 50, 50, true, RGB(255, 0, 255));
-
 	IMAGEMANAGER->findImage("bowDrop3")->initForRotateImage(false);
+	IMAGEMANAGER->addImage("bowDrop4", "Images/이미지/아이템/bow_fourth.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->findImage("bowDrop4")->initForRotateImage(false);
 
 	IMAGEMANAGER->addImage("swordDrop1", "Images/이미지/아이템/칼슬롯1.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("swordDrop2", "Images/이미지/아이템/칼슬롯2.bmp", 56, 56, true, RGB(255, 0, 255));
@@ -188,6 +189,13 @@ void UnitManager::checkCollision(unit * p_unit)
 			// Player 투사체는 모든 유닛에게 데미지 적용
 			else {
 				if (p_unit->tag != TAG::PLAYER) {
+
+					// 4단계 화살 이펙트 출력
+					if (_pProjectiles[k].imgKey == "BowArrow") {
+						if (STATMANAGER->GetBowUpgradeCount() == 4)
+							EFFECTMANAGER->ShowEffectFrame("bowEff4", { p_unit->GetCenterX(), p_unit->GetCenterY() }, 1, true);
+					}
+
 					p_unit->hurt(_pProjectiles[k].damage);
 					_pProjectiles[k].isAppear = false;
 					if (p_unit->isDead())
@@ -231,7 +239,7 @@ void UnitManager::render(HDC hdc)
 		}
 	}
 
-	EFFECTMANAGER->render(hdc);		// 이펙트 렌더
+	EFFECTMANAGER->renderBack(hdc);		// 이펙트 렌더
 
 	// 레이어 : Object
 	for (int i = 0; i < _vUnits.size(); i++) {
@@ -241,6 +249,9 @@ void UnitManager::render(HDC hdc)
 			(*_vUnits[i]).render(hdc);
 		}
 	}
+
+	EFFECTMANAGER->renderFront(hdc);		// 이펙트 렌더
+
 
 	if(_projectileManager)
 		_projectileManager->render(hdc);

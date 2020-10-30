@@ -32,7 +32,9 @@ private:
 
 private:
 	tagEffect* _effects[MAX_EFFECT];
-	list<tagEffect*> _listEffect;
+	list<tagEffect*> _listEffectBack;
+	list<tagEffect*> _listEffectFront;
+
 	list<tagEffect*>::iterator iter;
 
 public:
@@ -44,7 +46,8 @@ public:
 	void init();
 	void release();
 	void update();
-	void render(HDC hdc);
+	void renderBack(HDC hdc);
+	void renderFront(HDC hdc);
 
 	void ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative = false);
 	void ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterval, bool isRelative = false);

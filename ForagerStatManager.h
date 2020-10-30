@@ -109,13 +109,11 @@ public :
 	int GetHammerUpgradeCount() { return _hammerUpgradeCount; };
 	int GetSwordUpgradeCount() { return _swordUpgradeCount; };
 	int GetBowUpgradeCount() { return _bowUpgradeCount; };
-	int GetStaffUpgradeCount() { return _staffUpgradeCount; };
 	int GetFlagUpgradeCount() { return _flagUpgradeCount; };
 
 	void SetHammerUpgradeCount(int p_num) { _hammerUpgradeCount = p_num; };
 	void SetSwordUpgradeCount(int p_num) { _swordUpgradeCount = p_num; };
 	void SetBowUpgradeCount(int p_num) { _bowUpgradeCount = p_num; };
-	void SetStaffUpgradeCount(int p_num) { _staffUpgradeCount = p_num; };
 	void SetFlagUpgradeCount(int p_num) { _flagUpgradeCount = p_num; };
 };
 

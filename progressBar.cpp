@@ -26,5 +26,4 @@ void progressBar::setGauge(float maxHp, float currentHp, int x, int y)
 	_width = (currentHp / maxHp) * (float)_progressBarBack->getWidth();
 	_x = x + 3;
 	_y = y;
-	
 }

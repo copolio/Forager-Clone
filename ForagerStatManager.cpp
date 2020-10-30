@@ -66,7 +66,6 @@ HRESULT ForagerStatManager::init()
 	_hammerUpgradeCount = 1;
 	_swordUpgradeCount = 0;
 	_bowUpgradeCount = 0;
-	_staffUpgradeCount = 1;
 	_flagUpgradeCount = 0;
 
 	// 강화에 따른 데미지 증폭율

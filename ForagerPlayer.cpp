@@ -472,9 +472,10 @@ void ForagerPlayer::PlayerControll()
 				MeleeWeaponClick();
 			}
 			else if (_handleItem.weaponType == WeaponType::BOW) {
-				
-				if(_canBowFire)
-					BowClick();
+				{
+					if (_canBowFire)
+						BowClick();
+				}
 			}
 		}
 
@@ -529,8 +530,18 @@ void ForagerPlayer::MeleeWeaponClick()
 				if (abs(targetUnit->GetCenterX() - GetCenterX()) <= MAXTOUCHDISTANCE + tarWidth && abs(targetUnit->GetCenterY() - PLAYER_OFFSET_Y) <= MAXTOUCHDISTANCE + tarWidth)
 				{
 					// 타겟 공격
-					if (_handleItem.itemType == ItemType::EQUIPMENT)
+					if (_handleItem.itemType == ItemType::EQUIPMENT) {
 						targetUnit->hurt(Atk);
+						if (_handleItem.weaponType == WeaponType::PICKAXE) {
+							if (STATMANAGER->GetHammerUpgradeCount() == 4) 
+								EFFECTMANAGER->ShowEffectFrame("pickEff4", { targetUnit->GetCenterX(), targetUnit->GetCenterY() }, 7, true);
+						}
+						else if (_handleItem.weaponType == WeaponType::SWORD) {
+							if (STATMANAGER->GetSwordUpgradeCount() == 4)
+								EFFECTMANAGER->ShowEffectFrame("swordEff4", { targetUnit->GetCenterX(), targetUnit->GetCenterY() }, 1, true);
+						}
+					}
+						
 					
 					// 유닛이 파괴되면
 					if (targetUnit->isDead() )
@@ -741,7 +752,7 @@ void ForagerPlayer::hungryBalloon()
 			if (_cntDelayStartBalloon++ >= _delayStartBalloon) {
 				_startBalloon = true;
 				vector<string> t_vStr;
-				t_vStr.push_back("우선 용광로부터 지어보자고!");
+				t_vStr.push_back("이 세계의 끝은 어디까지일까??");
 				DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
 			}
 		}

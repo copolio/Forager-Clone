@@ -11,6 +11,11 @@ void EffectManager::init()
 	IMAGEMANAGER->addFrameImage("levelUp", "Images/이미지/Effects/img_effect_levelUp.bmp", 2816, 256, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage(explodeEff, "Images/이미지/NPC/bossSlime_explode_effect.bmp", 736, 92, 8, 1, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addFrameImage("pickEff4", "Images/이미지/Effects/img_effect_pick4.bmp", 228, 76, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("swordEff4", "Images/이미지/Effects/img_effect_sword4.bmp", 3496, 76, 46, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("bowEff4", "Images/이미지/Effects/img_effect_bow4.bmp", 3120, 120, 26, 1, true, RGB(255, 0, 255));
+
+
 	for (int i = 0; i < MAX_EFFECT; i++) {
 		_effects[i] = new tagEffect;
 		_effects[i]->imgKey = "temp";
@@ -42,7 +47,8 @@ void EffectManager::release()
 		SAFE_DELETE(_effects[i]);
 	}
 
-	_listEffect.clear();
+	_listEffectBack.clear();
+	_listEffectFront.clear();
 
 }
 
@@ -50,8 +56,8 @@ void EffectManager::update()
 {
 	
 	// 이펙트는 리스트의 개수만큼만 반복 실행
-	if (!_listEffect.empty()) {
-		for (iter = _listEffect.begin(); iter != _listEffect.end(); ++iter) {
+	if (!_listEffectFront.empty()) {
+		for (iter = _listEffectFront.begin(); iter != _listEffectFront.end(); ++iter) {
 			
 			// 프레임 이미지인 경우, 프레임 실행
 			if ((*iter)->isFrameImage) {
@@ -62,7 +68,7 @@ void EffectManager::update()
 					// 모든 프레임이 다 돌면 리스트 제거.
 					if ((*iter)->frameX++ >= (*iter)->maxFrameX) {
 						(*iter)->isAppear = false;
-						_listEffect.erase(iter);
+						_listEffectFront.erase(iter);
 						return;
 					}
 					
@@ -95,7 +101,7 @@ void EffectManager::update()
 							if (!(*iter)->isPingPong)
 							{
 								(*iter)->isAppear = false;
-								_listEffect.erase(iter);
+								_listEffectFront.erase(iter);
 								return;
 							}
 							// 초기 상태로 복귀할 경우-
@@ -118,7 +124,7 @@ void EffectManager::update()
 								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x-40, (*iter)->ptPos.y-40, 20, 112, 112);
 
 								(*iter)->isAppear = false;
-								_listEffect.erase(iter);
+								_listEffectFront.erase(iter);
 								return;
 							}
 							// 초기 상태로 복귀할 경우-
@@ -134,7 +140,7 @@ void EffectManager::update()
 						(*iter)->currentAlpha -= 10;
 					else {
 						(*iter)->isAppear = false;
-						_listEffect.erase(iter);
+						_listEffectFront.erase(iter);
 						return;
 					}
 				}
@@ -142,12 +148,104 @@ void EffectManager::update()
 		}
 	}
 
+	// 이펙트는 리스트의 개수만큼만 반복 실행
+	if (!_listEffectBack.empty()) {
+		for (iter = _listEffectBack.begin(); iter != _listEffectBack.end(); ++iter) {
+
+			// 프레임 이미지인 경우, 프레임 실행
+			if ((*iter)->isFrameImage) {
+
+				if ((*iter)->count++ >= (*iter)->interval) {
+					(*iter)->count = 0;
+
+					// 모든 프레임이 다 돌면 리스트 제거.
+					if ((*iter)->frameX++ >= (*iter)->maxFrameX) {
+						(*iter)->isAppear = false;
+						_listEffectBack.erase(iter);
+						return;
+					}
+
+				}
+			}
+
+			// 일반 이미지인 경우, 알파값과 확대 축소 실행
+			else {
+				// 이미지 조절 적용
+				if (!(*iter)->isReset) {
+
+					// 확대
+					if ((*iter)->isStretch) {
+						if ((*iter)->currentSize < (*iter)->destSize)
+							(*iter)->currentSize += 0.02f;
+					}
+
+					// 알파
+					if ((*iter)->isAlpha) {
+						if ((*iter)->currentAlpha < (*iter)->toAlpha)
+							(*iter)->currentAlpha += (*iter)->alphaSpeed;
+					}
+
+					// 확대가 최대치에 도달하면
+					if ((*iter)->isStretch && (*iter)->currentSize >= (*iter)->destSize) {
+						// 경우에 따라 약간의 딜레이 후 사라지도록 설정
+						if ((*iter)->count++ >= (*iter)->interval) {
+
+							// 원 상태 복귀가 필요없는 경우 바로 삭제
+							if (!(*iter)->isPingPong)
+							{
+								(*iter)->isAppear = false;
+								_listEffectBack.erase(iter);
+								return;
+							}
+							// 초기 상태로 복귀할 경우-
+							else
+								(*iter)->isReset = true;
+						}
+					}
+					// 알파값 상승이 최대치에 도달하면
+					if ((*iter)->isAlpha && (*iter)->currentAlpha >= (*iter)->toAlpha) {
+						(*iter)->currentAlpha = 255;
+						// 경우에 따라 약간의 딜레이 후 사라지도록 설정
+						if ((*iter)->count++ >= (*iter)->interval) {
+
+							// 원 상태 복귀가 필요없는 경우 바로 삭제
+							if (!(*iter)->isPingPong)
+							{
+								// 장판인 경우 이펙트와 함꼐 투사체 생성
+								//EFFECTMANAGER->ShowEffectFrame(smokeEff, (*iter)->ptPos, true);
+								EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
+								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+
+								(*iter)->isAppear = false;
+								_listEffectBack.erase(iter);
+								return;
+							}
+							// 초기 상태로 복귀할 경우-
+							else
+								(*iter)->isReset = true;
+						}
+					}
+
+				}
+				// 알파값 하락
+				else if ((*iter)->isReset && (*iter)->isPingPong) {
+					if ((*iter)->currentAlpha > 0)
+						(*iter)->currentAlpha -= 10;
+					else {
+						(*iter)->isAppear = false;
+						_listEffectBack.erase(iter);
+						return;
+					}
+				}
+			}
+		}
+	}
 }
 
-void EffectManager::render(HDC hdc)
+void EffectManager::renderBack(HDC hdc)
 {
-	if (!_listEffect.empty()) {
-		for (iter = _listEffect.begin(); iter != _listEffect.end(); ++iter) {
+	if (!_listEffectBack.empty()) {
+		for (iter = _listEffectBack.begin(); iter != _listEffectBack.end(); ++iter) {
 			if ((*iter)->isAppear) {
 				if ((*iter)->isFrameImage)
 				{
@@ -156,13 +254,42 @@ void EffectManager::render(HDC hdc)
 					else
 						IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * 0.5f)), (*iter)->frameX, 0, CAMERA->GetZoom());
 				}
-				else if((*iter)->isStretch) {
-					if(!(*iter)->isRelative)
+				else if ((*iter)->isStretch) {
+					if (!(*iter)->isRelative)
 						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f), (*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha);
 					else
 						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f)), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha, CAMERA->GetZoom());
 				}
-				else if((*iter)->isAlpha) {
+				else if ((*iter)->isAlpha) {
+					if (!(*iter)->isRelative)
+						IMAGEMANAGER->alphaRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * 0.5f), (*iter)->ptPos.y - ((*iter)->height * 0.5f), (*iter)->currentAlpha, CAMERA->GetZoom());
+					else
+						IMAGEMANAGER->alphaRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * 0.5f)), (*iter)->currentAlpha, CAMERA->GetZoom());
+				}
+			}
+		}
+	}
+
+}
+void EffectManager::renderFront(HDC hdc)
+{
+	if (!_listEffectFront.empty()) {
+		for (iter = _listEffectFront.begin(); iter != _listEffectFront.end(); ++iter) {
+			if ((*iter)->isAppear) {
+				if ((*iter)->isFrameImage)
+				{
+					if (!(*iter)->isRelative)
+						IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * 0.5f), (*iter)->ptPos.y - ((*iter)->height * 0.5f), (*iter)->frameX, 0);
+					else
+						IMAGEMANAGER->frameRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * 0.5f)), (*iter)->frameX, 0, CAMERA->GetZoom());
+				}
+				else if ((*iter)->isStretch) {
+					if (!(*iter)->isRelative)
+						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f), (*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha);
+					else
+						IMAGEMANAGER->stretchRender((*iter)->imgKey, hdc, CAMERA->GetRelativeX((*iter)->ptPos.x - ((*iter)->width * (*iter)->currentSize * 0.5f)), CAMERA->GetRelativeY((*iter)->ptPos.y - ((*iter)->height * (*iter)->currentSize * 0.5f)), 0, 0, (*iter)->width + (*iter)->width * (*iter)->currentSize, (*iter)->height + (*iter)->height * (*iter)->currentSize, (*iter)->currentAlpha, CAMERA->GetZoom());
+				}
+				else if ((*iter)->isAlpha) {
 					if (!(*iter)->isRelative)
 						IMAGEMANAGER->alphaRender((*iter)->imgKey, hdc, (*iter)->ptPos.x - ((*iter)->width * 0.5f), (*iter)->ptPos.y - ((*iter)->height * 0.5f), (*iter)->currentAlpha, CAMERA->GetZoom());
 					else
@@ -200,7 +327,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative
 			_effects[i]->width = temp->getFrameWidth();
 			_effects[i]->height = temp->getFrameHeight();
 
-			_listEffect.push_back(_effects[i]);
+			_listEffectFront.push_back(_effects[i]);
 			break;
 		}
 	}
@@ -228,11 +355,10 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->destSize = 1.0f;
 			_effects[i]->ptPos = ptPos;
 			_effects[i]->frameX = 0;
-			image* temp = IMAGEMANAGER->findImage(_imgKey);
-			_effects[i]->maxFrameX = temp->getMaxFrameX();
-			_effects[i]->width = temp->getFrameWidth();
-			_effects[i]->height = temp->getFrameHeight();
-			_listEffect.push_back(_effects[i]);
+			_effects[i]->maxFrameX = IMAGEMANAGER->findImage(_imgKey)->getMaxFrameX();
+			_effects[i]->width = IMAGEMANAGER->findImage(_imgKey)->getFrameWidth();
+			_effects[i]->height = IMAGEMANAGER->findImage(_imgKey)->getFrameHeight();
+			_listEffectFront.push_back(_effects[i]);
 			break;
 		}
 	}
@@ -265,7 +391,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->maxFrameX = temp->getMaxFrameX();
 			_effects[i]->width = temp->getFrameWidth();
 			_effects[i]->height = temp->getFrameHeight();
-			_listEffect.push_back(_effects[i]);
+			_listEffectFront.push_back(_effects[i]);
 			break;
 		}
 	}
@@ -298,7 +424,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			image *temp = IMAGEMANAGER->findImage(_imgKey);
 			_effects[i]->width = temp->getWidth();
 			_effects[i]->height = temp->getHeight();
-			_listEffect.push_back(_effects[i]);
+			_listEffectBack.push_back(_effects[i]);
 			break;
 		}
 	}
@@ -330,7 +456,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			image *temp = IMAGEMANAGER->findImage(_imgKey);
 			_effects[i]->width = temp->getWidth();
 			_effects[i]->height = temp->getHeight();
-			_listEffect.push_back(_effects[i]);
+			_listEffectFront.push_back(_effects[i]);
 			break;
 		}
 	}
@@ -362,7 +488,7 @@ void EffectManager::ShowEffectAlpha(string _imgKey, POINT ptPos, int fromAlphaA,
 			image *temp = IMAGEMANAGER->findImage(_imgKey);
 			_effects[i]->width = temp->getWidth();
 			_effects[i]->height = temp->getHeight();
-			_listEffect.push_back(_effects[i]);
+			_listEffectBack.push_back(_effects[i]);
 			break;
 		}
 	}

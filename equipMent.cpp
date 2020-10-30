@@ -15,7 +15,6 @@ HRESULT equipMent::init()
 	}
 
 	player_equip[0]->_item = DATABASE->GetItem("pickaxe1");
-	//player_equip[1]->_item = DATABASE->GetItem("bowDrop1");
 
 	_targetBox = new targetingBox;
 	_targetBox->init();

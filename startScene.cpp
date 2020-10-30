@@ -129,7 +129,8 @@ void startScene::render()
 	}
 
 
-	EFFECTMANAGER->render(getMemDC());
+	EFFECTMANAGER->renderBack(getMemDC());
+	EFFECTMANAGER->renderFront(getMemDC());
 
 	// Å¸°ÙÆÃ ¹Ú½º ·»´õ
 	_targetingBox->render(getMemDC());
