@@ -248,11 +248,7 @@ void wraith::wraithHitAttack()
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
 		}
-		if (_hitCount == 50) {
-			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
-		}
-		if (_hitCount == 70) {
+		if (_hitCount == 60) {
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
 		}
@@ -260,7 +256,11 @@ void wraith::wraithHitAttack()
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
 		}
-		if (_hitCount == 110)
+		if (_hitCount == 120) {
+			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
+			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
+		}
+		if (_hitCount == 150)
 		{
 			SOUNDMANAGER->play("유령무기발사소리", 0.6f);
 			UNITMANAGER->GetProjectileMG()->CreateProjectile("wratihMissile", &_target->rc, GetCenterX(), GetCenterY(), 10, shootToTarget(), 2.5f, 20, true, true, true);
