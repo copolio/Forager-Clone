@@ -78,6 +78,12 @@ void slime::update()
 
 void slime::render(HDC hdc)
 {
+
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x - 23), CAMERA->GetRelativeY(y + 43));
+		_hpBar.render(hdc);
+	}
+
 	IMAGEMANAGER->frameRender("slime", hdc, CAMERA->GetRelativeX(x - 25),
 		CAMERA->GetRelativeY(y - 25), objFrameX, objFrameY, CAMERA->GetZoom());
 }

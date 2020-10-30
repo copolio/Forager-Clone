@@ -20,7 +20,7 @@ void smallMu::update()
 void smallMu::render(HDC hdc)
 {
 	if (0 < currentHp && currentHp < maxHp) {
-		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x), CAMERA->GetRelativeY(y + 15));
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(rc.left - 11), CAMERA->GetRelativeY(rc.bottom + 5));
 		_hpBar.render(hdc);
 	}
 

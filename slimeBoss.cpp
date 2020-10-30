@@ -59,7 +59,7 @@ void slimeBoss::hurt(int Damage, bool onlyEffect)
 void slimeBoss::render(HDC hdc)
 {
 	if (0 < currentHp && currentHp < maxHp) {
-		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x), CAMERA->GetRelativeY(y + 15));
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x-23), CAMERA->GetRelativeY(y + 63));
 		_hpBar.render(hdc);
 	}
 	IMAGEMANAGER->frameRender("slimeBoss", hdc, CAMERA->GetRelativeX(x - 55),
