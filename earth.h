@@ -15,7 +15,10 @@ private:
 	int _frameCount;
 	int wavetick;
 	bool waveUp;
-	bool hasDestiny;
+	int firstDest;
+	int secondDest;
+	int thirdDest;
+	int fourthDest;
 public:
 	HRESULT init();
 	void release();
@@ -40,7 +43,8 @@ public:
 	void SetTomb(int x, int y);
 	void SetMonster(int x, int y);
 	void SetEmpty(int x, int y);
-	void SetDestiny();
+	void InitDest();
+	void SetDestiny(int x, int y);
 	void SetConquer(int x, int y);
 public:
 	tile* tileMouseTarget();

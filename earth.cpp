@@ -31,9 +31,12 @@ HRESULT earth::init()
 	IMAGEMANAGER->addImage("tombLeftdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("tombRight", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("tombRightdesign", "Images/이미지/오브젝트/tombstone1.bmp", 56 * 2, 56 * 3, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addFrameImage("flagpole", "Images/이미지/오브젝트/flagpole.bmp", 56, 56, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("flagpoledesign", "Images/이미지/오브젝트/flagpole.bmp", 56, 56, true, RGB(255, 0, 255));
 	//월드맵 초기화
 	this->mapSetup();
-	hasDestiny = false;
+	this->InitDest();
 
 	UNITMANAGER->init();				//유닛매니저 초기화
 
@@ -50,14 +53,10 @@ void earth::release()
 
 void earth::update()
 {
-	if (!hasDestiny) {
-		hasDestiny = true;
-		this->SetDestiny();
-	}
 	if (CAMERA->movelimit) {
 		_count++;
 		if (_count % RESGENTIME == 0) {
-			//this->setRandomObject();
+			this->setRandomObject();
 		}
 		if (_count % 10 == 0) {
 			wavetick += waveUp ? 1 : -1;
@@ -179,7 +178,7 @@ void earth::setRandomObject()
 			// 유닛 매니저에 추가
 			UNITMANAGER->AddResource(&_vTile[i*MAPTILEY + j], i*MAPTILEY + j);
 			break;
-		}	
+		}
 	}
 }
 
@@ -199,7 +198,7 @@ float earth::getResRatio()
 			}
 		}
 	}
-	return nResTile / float(nPlainTile);
+	return (nResTile+ UNITMANAGER->GetCowCount()) / float(nPlainTile);
 }
 
 int earth::GetTileX(int index)
@@ -261,6 +260,18 @@ void earth::setIsland(int x, int y)
 	}
 	else if (x == 4 && y == 4) {
 		SetTomb(x, y);
+	}
+	else if (x == 0 && y == firstDest) {
+		SetDestiny(x, y);
+	}
+	else if (x == 6 && y == secondDest) {
+		SetDestiny(x, y);
+	}
+	else if (x == thirdDest && y == 0) {
+		SetDestiny(x, y);
+	}
+	else if (x == fourthDest && y == 6) {
+		SetDestiny(x, y);
 	}
 	else if (GetIslandCount() > 5) {
 		SetMonster(x, y);
@@ -467,20 +478,31 @@ void earth::SetEmpty(int x, int y)
 	}
 }
 
-void earth::SetDestiny()
+void earth::InitDest()
 {
-	int first = RANDOM->range(1, 5);
-	int second = RANDOM->range(1, 5);
-	int third = RANDOM->range(1, 5);
-	int fourth = RANDOM->range(1, 5);
-	setIsland(0, first);
-	SetEmpty(0, first);
-	setIsland(6, second);
-	SetEmpty(6, second);
-	setIsland(third, 0);
-	SetEmpty(third, 0);
-	setIsland(fourth, 6);
-	SetEmpty(fourth, 6);
+	firstDest = RANDOM->range(1, 5);
+	secondDest = RANDOM->range(1, 5);
+	thirdDest = RANDOM->range(1, 5);
+	fourthDest = RANDOM->range(1, 5);
+}
+
+void earth::SetDestiny(int x, int y)
+{
+	int destCenterTileIndex = (y * MAPTILEY*TILEY + 5 * MAPTILEY) + x * TILEX + 5;
+	vector<tile*> vDest;
+
+	for (int i = 0; i < TILEY; i++) {
+		for (int j = 0; j < TILEX; j++) {
+			if (_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
+			}
+			if (i == 5 && j == 5) {
+				vDest.push_back(&_vTile[destCenterTileIndex]);
+				UNITMANAGER->AddSpecialBuilding("flagpole", vDest, destCenterTileIndex);
+				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].canPass = false;
+			}
+		}
+	}
 }
 
 void earth::SetConquer(int x, int y)
