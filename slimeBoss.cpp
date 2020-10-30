@@ -9,9 +9,11 @@ HRESULT slimeBoss::init()
 	jumpWaitTime = 0;
 	slimeFireCount = 0;
 	shootDelayTime = 0;
+	searchCount = 0;
 	_isJump = false;
 	_canJump = false;
 	_slimeGotDamage = false;
+	isattacking = false;
 	originPos = { GetCenterX(), GetCenterY() };
 
 
@@ -152,4 +154,145 @@ void slimeBoss::slimeFire()
 {
 	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeBossMissile", x, y, 10, shootToTarget(), 4, 30, true, false);
 }
+
+void slimeBoss::slimeMove()
+{
+	if (!checkDestination)
+	{
+		searchCount++;
+		if (searchCount > 1)
+		{
+			if (isattacking) {
+				vector<int> path = ASTAR->pathFinding(_map->GetTiles(), _enemyTilePos, _target->GetPlayerTilePos(), true, true);
+				//_vDestTileIndex = path;
+				if (path.size() > 0) {
+					_vDestTileIndex.push_back(path[0]);
+					_enemyTilePos = path[0];
+					checkDestination = true;
+					_destCount = 0;
+				}
+				else {
+					vector<int> vPossibleDestination;
+					//µ¿
+					if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 &&
+						!_map->GetTile(_enemyTilePos + 1).hasUnit &&
+						_map->GetTile(_enemyTilePos + 1).terrKey == "plaintile") {
+						vPossibleDestination.push_back(_enemyTilePos + 1);
+					}
+					//¼­
+					if (_map->GetTileX(_enemyTilePos) > 0 &&
+						!_map->GetTile(_enemyTilePos - 1).hasUnit &&
+						_map->GetTile(_enemyTilePos - 1).terrKey == "plaintile") {
+						vPossibleDestination.push_back(_enemyTilePos - 1);
+					}
+					//³²
+					if (_map->GetTileY(_enemyTilePos) < MAPTILEY - 1 &&
+						!_map->GetTile(_enemyTilePos + MAPTILEX).hasUnit &&
+						_map->GetTile(_enemyTilePos + MAPTILEX).terrKey == "plaintile") {
+						vPossibleDestination.push_back(_enemyTilePos + MAPTILEX);
+					}
+					//ºÏ
+					if (_map->GetTileX(_enemyTilePos) > 0 &&
+						!_map->GetTile(_enemyTilePos - MAPTILEX).hasUnit &&
+						_map->GetTile(_enemyTilePos - MAPTILEX).terrKey == "plaintile") {
+						vPossibleDestination.push_back(_enemyTilePos - MAPTILEX);
+					}
+					if (vPossibleDestination.size() > 0) {
+						int randDestInd = RANDOM->range(int(vPossibleDestination.size()));
+						if (vPossibleDestination[randDestInd] > _enemyTilePos) {
+							isLeft = false;
+						}
+						else if (vPossibleDestination[randDestInd] <= _enemyTilePos) {
+							isLeft = true;
+						}
+						_vDestTileIndex.push_back(vPossibleDestination[randDestInd]);
+						_enemyTilePos = vPossibleDestination[randDestInd];
+					}
+					checkDestination = true;
+					_destCount = 0;
+				}
+			}
+			else {
+				vector<int> vPossibleDestination;
+				//µ¿
+				if (_map->GetTileX(_enemyTilePos) < MAPTILEX - 1 &&
+					!_map->GetTile(_enemyTilePos + 1).hasUnit &&
+					_map->GetTile(_enemyTilePos + 1).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos + 1);
+				}
+				//¼­
+				if (_map->GetTileX(_enemyTilePos) > 0 &&
+					!_map->GetTile(_enemyTilePos - 1).hasUnit &&
+					_map->GetTile(_enemyTilePos - 1).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos - 1);
+				}
+				//³²
+				if (_map->GetTileY(_enemyTilePos) < MAPTILEY - 1 &&
+					!_map->GetTile(_enemyTilePos + MAPTILEX).hasUnit &&
+					_map->GetTile(_enemyTilePos + MAPTILEX).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos + MAPTILEX);
+				}
+				//ºÏ
+				if (_map->GetTileX(_enemyTilePos) > 0 &&
+					!_map->GetTile(_enemyTilePos - MAPTILEX).hasUnit &&
+					_map->GetTile(_enemyTilePos - MAPTILEX).terrKey == "plaintile") {
+					vPossibleDestination.push_back(_enemyTilePos - MAPTILEX);
+				}
+				if (vPossibleDestination.size() > 0) {
+					int randDestInd = RANDOM->range(int(vPossibleDestination.size()));
+					if (vPossibleDestination[randDestInd] > _enemyTilePos) {
+						isLeft = false;
+					}
+					else if (vPossibleDestination[randDestInd] <= _enemyTilePos) {
+						isLeft = true;
+					}
+					_vDestTileIndex.push_back(vPossibleDestination[randDestInd]);
+					_enemyTilePos = vPossibleDestination[randDestInd];
+				}
+				checkDestination = true;
+				_destCount = 0;
+			}
+
+		}
+	}
+	else
+	{
+		if (_vDestTileIndex.size() > 0)
+		{
+			POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
+			if (abs(rc.left - tDestination.x) > MOVESPEED || abs(rc.top - tDestination.y) > MOVESPEED)
+			{
+				if (tDestination.x < rc.left)
+				{
+					OffsetRect(&rc, -MOVESPEED, 0);
+				}
+				else if (tDestination.x > rc.left)
+				{
+					OffsetRect(&rc, MOVESPEED, 0);
+				}
+				if (tDestination.y > rc.top)
+				{
+					OffsetRect(&rc, 0, MOVESPEED);
+				}
+				else if (tDestination.y < rc.top)
+				{
+					OffsetRect(&rc, 0, -MOVESPEED);
+				}
+
+			}
+			else
+			{
+				_destCount++;
+				if (_vDestTileIndex.size() <= _destCount)
+				{
+					checkDestination = false;
+					searchCount = 0;
+					_vDestTileIndex.clear();
+				}
+			}
+		}
+	}
+}
+
+
 

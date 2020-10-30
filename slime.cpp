@@ -27,9 +27,6 @@ void slime::jumpStop()
 	//if(abs(_target->GetCenterX() - x) < MOVEMAX*1.5f && abs(_target->GetCenterY() - y) < MOVEMAX*1.5f)
 
 	
-		
-
-		
 }
 
 HRESULT slime::init()

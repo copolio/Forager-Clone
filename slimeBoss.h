@@ -1,7 +1,10 @@
 #pragma once
 #include "enemy.h"
-#define MOVEMAX 56*3
-#define JUMPMAX 56*2
+//#define MOVEMAX 56*3
+//#define JUMPMAX 56*2
+
+#define MOVERANGE 2
+#define MOVESPEED 1
 
 struct tagBRect
 {
@@ -37,6 +40,12 @@ private :
 	bool _slimeGotDamage;
 
 	int slimeFireCount;
+	//====================================================
+	bool _canFollow;
+	bool isattacking;
+	int searchCount;
+
+
 
 private:
 
@@ -54,5 +63,10 @@ public:
 	void jumpStop();
 	void targetDest();
 	void slimeFire();
+
+
+
+	//====================================================
+	void slimeMove();
 };
 
