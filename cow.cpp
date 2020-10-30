@@ -53,7 +53,8 @@ void cow::render(HDC hdc)
 			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0), rc.top + (rc.bottom - rc.top) / 2 - RANDOM->range(-1, -6) };
 			// 발걸음 이펙트
 			if (_count % 10 == 0) {
-				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, RANDOM->range(0.01f, 0.03f), 50, 150, true);
+				float randomScale = RANDOM->range(0.5f, 0.7f);
+				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0.25f, randomScale, 50, 200, true);
 			}
 		}
 	}

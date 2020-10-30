@@ -77,11 +77,11 @@ void startScene::update()
 	CheckButtonClick();
 
 
-	// 발걸음 이펙트 테스트용
-	if (testWalkEffectCount++ >= testWalkEffectInterval) {
-		testWalkEffectCount = 0;
-		EFFECTMANAGER->ShowEffectAlphaSize("Walk1", _ptMouse, 0, 0.25f, 0, 150);
-	}
+	//// 발걸음 이펙트 테스트용
+	//if (testWalkEffectCount++ >= testWalkEffectInterval) {
+	//	testWalkEffectCount = 0;
+	//	EFFECTMANAGER->ShowEffectAlphaSize("Walk1", _ptMouse, 0, 0.25f, 0, 150);
+	//}
 
 	if (gameOptionCheck) {
 		_game_setting->update();

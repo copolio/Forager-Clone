@@ -471,10 +471,11 @@ void ForagerPlayer::PlayerControll()
 			if (_handleItem.weaponType == WeaponType::PICKAXE || _handleItem.weaponType == WeaponType::SWORD) {
 				MeleeWeaponClick();
 			}
-			else if (_handleItem.weaponType == WeaponType::BOW) {
+			else if (_handleItem.weaponType == WeaponType::BOW)
+			{
+				if (_canBowFire)
 				{
-					if (_canBowFire)
-						BowClick();
+					BowClick();
 				}
 			}
 		}
@@ -601,40 +602,55 @@ void ForagerPlayer::BowClick()
 	}
 }
 
-void ForagerPlayer::ArrowFire() 
+void ForagerPlayer::ArrowFire()
 {
-	SOUNDMANAGER->play("원거리무기");
+
+
 	if (_isBowPulling) {
+
 		_canBowFire = false;
 		_isBowPulling = false;
 		CAMERA->forceZoomIn(0.0f, 0.02f, false);
-		int arrowDamage = Atk * _bowPowerGauge;
-		EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
-		
-		int t_bowUpgrade = STATMANAGER->GetBowUpgradeCount();
-		if(t_bowUpgrade == 1)
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
-		else if (t_bowUpgrade == 2) {
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
-		}
-		else if (t_bowUpgrade == 3) {
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
-		}
-		else if (t_bowUpgrade == 4) {
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 5.0f, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 5.0f, 7.0f, 20, false, false);
-			UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
-		}
 
+		if (ITEMMANAGER->Item_count_Minus("arrowDrop", 1)) {
+			SOUNDMANAGER->play("원거리무기");
+			int arrowDamage = Atk * _bowPowerGauge;
+			EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
+
+			int t_bowUpgrade = STATMANAGER->GetBowUpgradeCount();
+			if (t_bowUpgrade == 1)
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
+			else if (t_bowUpgrade == 2) {
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
+			}
+			else if (t_bowUpgrade == 3) {
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
+			}
+			else if (t_bowUpgrade == 4) {
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 15.0f, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle - 5.0f, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 5.0f, 7.0f, 20, false, false);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("BowArrow", GetCenterX(), GetCenterY(), arrowDamage, _angle + 15.0f, 7.0f, 20, false, false);
+			}
+		}
+		else {
+			vector<string> t_vStr;
+			string str;
+			int t_random = RANDOM->range(0, 2);
+			if (t_random == 0)
+				str = "화살이 부족해!";
+			else if (t_random == 1)
+				str = "가방에 화살이 없어!";
+
+			t_vStr.push_back(str);
+			DIALOGUE->ShowDialogue(t_vStr, &rc, 10);
+		}
 		_bowPowerGauge = .1f;
-		
 	}
 }
-
 
 void ForagerPlayer::playerMove()
 {
@@ -684,8 +700,8 @@ void ForagerPlayer::playerMove()
 			_footWalkCount = 0;
 			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0),
 							 rc.bottom - RANDOM->range(-1, -6) };
-			float randomScale = RANDOM->range(0.01f, 0.03f);
-			EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, randomScale, 50, 150, true);
+			float randomScale = RANDOM->range(0.5f, 0.7f);
+			EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0.25f, randomScale, 50, 200, true);
 		}
 	}
 }

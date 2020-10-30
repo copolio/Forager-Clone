@@ -119,10 +119,10 @@ void EffectManager::update()
 							if (!(*iter)->isPingPong)
 							{
 								// 장판인 경우 이펙트와 함꼐 투사체 생성
-								//EFFECTMANAGER->ShowEffectFrame(smokeEff, (*iter)->ptPos, true);
-								EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
-								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x-40, (*iter)->ptPos.y-40, 20, 112, 112);
-
+								if ((*iter)->imgKey == "damageBoundary") {
+									EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
+									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+								}
 								(*iter)->isAppear = false;
 								_listEffectFront.erase(iter);
 								return;
@@ -213,8 +213,10 @@ void EffectManager::update()
 							{
 								// 장판인 경우 이펙트와 함꼐 투사체 생성
 								//EFFECTMANAGER->ShowEffectFrame(smokeEff, (*iter)->ptPos, true);
-								EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
-								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+								if ((*iter)->imgKey == "damageBoundary") {
+									EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
+									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+								}
 
 								(*iter)->isAppear = false;
 								_listEffectBack.erase(iter);
@@ -313,7 +315,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -347,7 +349,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -378,7 +380,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -410,7 +412,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isStretch = true;
 			_effects[i]->isAlpha = true;
 			_effects[i]->isRelative = isRelative;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->count = 0;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = fromAlphaA;
@@ -442,7 +444,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isPingPong = false;
 			_effects[i]->isAlpha = true;
 			_effects[i]->isRelative = isRelative;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->count = 0;
 			_effects[i]->interval = waitCount;
 			_effects[i]->currentAlpha = fromAlphaA;
