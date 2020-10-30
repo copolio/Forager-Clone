@@ -27,6 +27,8 @@ void ProjectileManager::init()
 		_projectiles[i].speed = 0;
 		_projectiles[i].count = 0;
 		_projectiles[i].brassCount = 0;
+		_projectiles[i]._playerTargetRc = nullptr;
+		_projectiles[i].isFollowing = false;
 	}
 }
 
@@ -42,12 +44,24 @@ void ProjectileManager::update()
 	for (int i = 0; i < PROJECTILE_MAX; i++) {
 		if (_projectiles[i].isAppear) 
 		{
+			//해당 투사체가 isFollowing인 경우,
+			if (_projectiles[i].isFollowing) {
+				float targetAngle = shootToTarget(i);
+				float destAngle = (targetAngle + _projectiles[i].angle) * 0.5f;
+				_projectiles[i].angle = destAngle;
+
+				if (_projectiles[i].brassCount++ > 240) {
+					_projectiles[i].isAppear = false;
+				}
+			}
+
 			// 이미지 출력 안 하는, 투사체겸 장판 데미지용
 			if (_projectiles[i].imgKey == _strDamageBoundary) {
 				if (_projectiles[i].count++ > 3) {
 					_projectiles[i].isAppear = false;
 				}
 			}
+
 			// 이미지 출력하는 일반 투사체
 			else 
 			{
@@ -137,9 +151,63 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			_projectiles[i].isBrassing = false;
 			_projectiles[i].brassCount = 0;
 			_projectiles[i].isPingPong = false;
+			_projectiles[i].isFollowing = false;
+
+			_projectiles[i]._playerTargetRc = nullptr;
 			break;
 		}
 	}
+}
+
+void ProjectileManager::CreateProjectile(string imgKey, RECT * playerTargetRc, int x, int y, int damage, float angle, float speed, int size, bool isEnemy, bool isFrame, bool isFollowing)
+{
+	for (int i = 0; i < PROJECTILE_MAX; i++)
+	{
+		if (!_projectiles[i].isAppear) {
+			_projectiles[i].imgKey = imgKey;
+			_projectiles[i].x = x;
+			_projectiles[i].y = y;
+			_projectiles[i].damage = damage;
+			_projectiles[i].angle = angle;
+			_projectiles[i].speed = speed;
+			_projectiles[i].width = size;
+			_projectiles[i].height = size;
+			_projectiles[i].isEnemyProjectTile = isEnemy;
+			_projectiles[i].isFrame = isFrame;
+			_projectiles[i].isFollowing = isFollowing;
+			_projectiles[i].frameX = 0;
+			_projectiles[i].frameY = 0;
+			_projectiles[i].count = 0;
+			_projectiles[i]._playerTargetRc = playerTargetRc;
+
+			_projectiles[i].isBrassing = false;
+			_projectiles[i].brassCount = 0;
+			_projectiles[i].isPingPong = false;
+			_projectiles[i].isAppear = true;
+
+			break;
+		}
+	}
+
+
+}
+
+float ProjectileManager::shootToTarget(int index)
+{	
+	int cX = _projectiles[index].x;
+	int cY = _projectiles[index].y;
+
+	int pL = _projectiles[index]._playerTargetRc->left;
+	int pR = _projectiles[index]._playerTargetRc->right;
+	int pT = _projectiles[index]._playerTargetRc->top;
+	int pB = _projectiles[index]._playerTargetRc->bottom;
+
+	int cPx = pL + (pR - pL) / 2;
+	int cPy = pT + (pB - pT) / 2;
+
+	return atan2(-(cPy - cY), (cPx - cX)) / PI * 180;
+	
+	
 }
 
 void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage, int width, int height, bool isLeft)
@@ -167,6 +235,9 @@ void ProjectileManager::CreateProjectile(string imgKey, int x, int y, int damage
 			_projectiles[i].frameX = 0;
 			_projectiles[i].frameY = isLeft ? 1 : 0;
 
+			_projectiles[i].isFollowing = false;
+			_projectiles[i]._playerTargetRc = nullptr;
+
 			break;
 		}
 	}
@@ -193,9 +264,14 @@ void ProjectileManager::CreateProjectile(int x, int y, int damage, int width, in
 			_projectiles[i].brassCount = 0;
 			_projectiles[i].isPingPong = false;
 			_projectiles[i].isAppear = true;
+			_projectiles[i].isFollowing = false;
+
+			_projectiles[i]._playerTargetRc = nullptr;
 			break;
 		}
 	}
 	
 
 }
+
+

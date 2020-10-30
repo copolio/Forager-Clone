@@ -6,8 +6,11 @@ void EffectManager::init()
 	IMAGEMANAGER->addImage(walkEff, "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("damageBoundary", "Images/이미지/Effects/img_effect_damageBoundary.bmp", 112, 112, true, RGB(255, 0, 255));
 
+
+
 	IMAGEMANAGER->addFrameImage(smokeEff, "Images/이미지/Effects/img_effect_digSmoke.bmp", 1080, 120, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("treasure", "Images/이미지/Effects/img_effect_treasureBoxOpen.bmp", 1280, 128, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("explodeYego", "Images/이미지/NPC/explode_Yego.bmp", 1569, 112, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("levelUp", "Images/이미지/Effects/img_effect_levelUp.bmp", 2816, 256, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage(explodeEff, "Images/이미지/NPC/bossSlime_explode_effect.bmp", 736, 92, 8, 1, true, RGB(255, 0, 255));
 
