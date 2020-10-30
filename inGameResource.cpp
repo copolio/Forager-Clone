@@ -19,20 +19,20 @@ void inGameResource::setRandomRes(tile* tile, int ptileIndex)
 		this->objKey = "berry";
 		this->dropItem.itemKey = "berryDrop";
 		this->maxHp = BERRYHP;
-		this->exp = 7;
+		this->exp = 2;
 		this->objMaxFrameX = 1;
 		break;
 	case 1:
 		this->objKey = "rock";
 		this->dropItem.itemKey = "rockDrop";
-		this->exp = 7;
+		this->exp = 10;
 		this->maxHp = ROCKHP;
 		this->objMaxFrameX = 1;
 		break;
 	case 2:
 		this->objKey = "tree";
 		this->dropItem.itemKey = "treeDrop";
-		this->exp = 7;
+		this->exp = 8;
 		this->maxHp = TREEHP;
 		this->objMaxFrameX = 4;
 		break;

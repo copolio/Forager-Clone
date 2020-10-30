@@ -48,6 +48,7 @@ void SpawnManager::TrySpawn()
 				SpawnPatternOne("cow",1);
 				//SpawnPatternOne("slime",1);
 				//SpawnPatternOne("slimeBoss",1);
+				//SpawnPatternOne("smallMu",1);
 				
 				break;
 			}
@@ -63,6 +64,8 @@ void SpawnManager::TrySpawn()
 void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
 {
 	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
+	if (_plainTile.size() <= 0)
+		GetCanSpawnTile();
 	for (int i = 0; i < p_count; i++) {
 		int randomTile = RANDOM->range(0, _plainTile.size() - 1);
 		RECT t_rc = _plainTile[randomTile].rc;
@@ -79,6 +82,18 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx)
 		RECT t_rc = _map->GetTiles()[tileidx].rc;
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
+
 		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
 	}
+}
+
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx, bool p_isReal)
+{
+	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
+
+	RECT t_rc = _map->GetTiles()[tileidx].rc;
+	POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
+						t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
+
+	UNITMANAGER->AddSlimeBoss(t_ptPos, p_isReal);
 }

@@ -6,8 +6,11 @@ void EffectManager::init()
 	IMAGEMANAGER->addImage(walkEff, "Images/이미지/Effects/img_effect_walk1.bmp", 29, 29, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("damageBoundary", "Images/이미지/Effects/img_effect_damageBoundary.bmp", 112, 112, true, RGB(255, 0, 255));
 
+
+
 	IMAGEMANAGER->addFrameImage(smokeEff, "Images/이미지/Effects/img_effect_digSmoke.bmp", 1080, 120, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("treasure", "Images/이미지/Effects/img_effect_treasureBoxOpen.bmp", 1280, 128, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("explodeYego", "Images/이미지/NPC/explode_Yego.bmp", 1569, 112, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("levelUp", "Images/이미지/Effects/img_effect_levelUp.bmp", 2816, 256, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage(explodeEff, "Images/이미지/NPC/bossSlime_explode_effect.bmp", 736, 92, 8, 1, true, RGB(255, 0, 255));
 
@@ -119,10 +122,10 @@ void EffectManager::update()
 							if (!(*iter)->isPingPong)
 							{
 								// 장판인 경우 이펙트와 함꼐 투사체 생성
-								//EFFECTMANAGER->ShowEffectFrame(smokeEff, (*iter)->ptPos, true);
-								EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
-								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x-40, (*iter)->ptPos.y-40, 20, 112, 112);
-
+								if ((*iter)->imgKey == "damageBoundary") {
+									EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
+									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 100, 112, 112);
+								}
 								(*iter)->isAppear = false;
 								_listEffectFront.erase(iter);
 								return;
@@ -213,8 +216,10 @@ void EffectManager::update()
 							{
 								// 장판인 경우 이펙트와 함꼐 투사체 생성
 								//EFFECTMANAGER->ShowEffectFrame(smokeEff, (*iter)->ptPos, true);
-								EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
-								UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+								if ((*iter)->imgKey == "damageBoundary") {
+									EFFECTMANAGER->ShowEffectFrame(explodeEff, (*iter)->ptPos, 5, true);
+									UNITMANAGER->GetProjectileMG()->CreateProjectile((*iter)->ptPos.x - 40, (*iter)->ptPos.y - 40, 20, 112, 112);
+								}
 
 								(*iter)->isAppear = false;
 								_listEffectBack.erase(iter);
@@ -313,7 +318,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, bool isRelative
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -347,7 +352,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -378,7 +383,7 @@ void EffectManager::ShowEffectFrame(string _imgKey, POINT ptPos, int frameInterv
 			_effects[i]->isAlpha = false;
 			_effects[i]->isRelative = isRelative;
 			_effects[i]->count = 0;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->interval = frameInterval;
 			_effects[i]->currentAlpha = 255;
 			_effects[i]->toAlpha = 255;
@@ -410,7 +415,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isStretch = true;
 			_effects[i]->isAlpha = true;
 			_effects[i]->isRelative = isRelative;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->count = 0;
 			_effects[i]->interval = 0;
 			_effects[i]->currentAlpha = fromAlphaA;
@@ -442,7 +447,7 @@ void EffectManager::ShowEffectAlphaSize(string _imgKey, POINT ptPos, float fromS
 			_effects[i]->isPingPong = false;
 			_effects[i]->isAlpha = true;
 			_effects[i]->isRelative = isRelative;
-			_effects[i]->alphaSpeed = 10;
+			_effects[i]->alphaSpeed = 5;
 			_effects[i]->count = 0;
 			_effects[i]->interval = waitCount;
 			_effects[i]->currentAlpha = fromAlphaA;

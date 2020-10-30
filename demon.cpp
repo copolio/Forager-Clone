@@ -13,7 +13,6 @@ HRESULT demon::init()
 
 	tryAttack = false;
 	isattacking = true;
-	Atk = 1;
 
 	return S_OK;
 }
@@ -55,7 +54,8 @@ void demon::render(HDC hdc)
 			POINT ptCenter = { rc.left + (rc.right - rc.left) / 2 + RANDOM->range(-10, 0), rc.top + (rc.bottom - rc.top) / 2 - RANDOM->range(-1, -6) };
 			// 발걸음 이펙트
 			if (_count % 10 == 0) {
-				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0, RANDOM->range(0.01f, 0.03f), 50, 150, true);
+				float randomScale = RANDOM->range(0.5f, 0.7f);
+				EFFECTMANAGER->ShowEffectAlphaSize("Walk1", ptCenter, 0.25f, randomScale, 50, 200, true);
 			}
 		}
 	}
@@ -170,23 +170,23 @@ void demon::demonMove()
 			if (_vDestTileIndex.size() > 0)
 			{
 				POINT tDestination = { _map->GetTile(_vDestTileIndex[_destCount]).rc.left , _map->GetTile(_vDestTileIndex[_destCount]).rc.top };
-				if (abs(rc.left - tDestination.x) > MOVESPEED || abs(rc.top - tDestination.y) > MOVESPEED)
+				if (abs(rc.left - tDestination.x) > enemySpeedX || abs(rc.top - tDestination.y) > enemySpeedY)
 				{
 					if (tDestination.x < rc.left)
 					{
-						OffsetRect(&rc, -MOVESPEED, 0);
+						OffsetRect(&rc, -enemySpeedX, 0);
 					}
 					else if (tDestination.x > rc.left)
 					{
-						OffsetRect(&rc, MOVESPEED, 0);
+						OffsetRect(&rc, enemySpeedX, 0);
 					}
 					if (tDestination.y > rc.top)
 					{
-						OffsetRect(&rc, 0, MOVESPEED);
+						OffsetRect(&rc, 0, enemySpeedY);
 					}
 					else if (tDestination.y < rc.top)
 					{
-						OffsetRect(&rc, 0, -MOVESPEED);
+						OffsetRect(&rc, 0, -enemySpeedY);
 					}
 	
 				}
@@ -298,9 +298,9 @@ void demon::demonBrassFire()
 		for (int i = 0; i < 2; i++)
 		{
 			if(isLeft)
-				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX() - 320, GetCenterY() - 40, 1, 320, 40, isLeft);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX() - 320, GetCenterY() - 40, atk, 320, 40, isLeft);
 			else
-				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX(), GetCenterY() - 40, 1, 320, 40, isLeft);
+				UNITMANAGER->GetProjectileMG()->CreateProjectile("demonBrass", GetCenterX(), GetCenterY() - 40, atk, 320, 40, isLeft);
 		}
 		skillFireCount = 0;
 	}

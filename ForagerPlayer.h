@@ -96,6 +96,8 @@ private:
 	int _cntBalloon;		// 배고플 때 나오는 말풍선 카운트
 	int _cntBalloonMax;		// 말풍선 출력 카운트
 
+	int _cntWarning;
+
 	bool _startBalloon;		// 시작 말풍선
 	int _cntDelayStartBalloon;
 	int _delayStartBalloon;

@@ -23,7 +23,6 @@ private :
 
 	bool tryAttack;
 	POINT _destination;
-	int Atk;
 	bool isattacking;
 
 public:

@@ -24,10 +24,9 @@ HRESULT ForagerStatManager::init()
 	_foragerExp->expRc.right = 0;
 	levelUp = false;
 	
-	needExp[0] = 20;
-
-	for (int i = 1; i < 65; i++) {
-		needExp[i] = (float)needExp[i - 1] * 2.5f;
+	
+	for (int i = 0; i < 20; i++) {
+		needExp[i] = (i + 1) * 80;
 	}
 
 	currentExp = 0;

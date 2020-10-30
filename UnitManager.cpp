@@ -91,7 +91,11 @@ void UnitManager::init()
 
 	//에너미 - (보스) 슬라임
 	//IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime_test.bmp", 560, 112, 5, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime.bmp", 448, 112, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("slimeBoss", "Images/이미지/NPC/boss_slime(2).bmp", 448, 112, 4, 1, true, RGB(255, 0, 255));
+
+	//에너미 - 작은 무 
+	IMAGEMANAGER->addFrameImage("smallMu", "Images/이미지/NPC/baby_mu_idle.bmp", 392, 70, 7, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("smallMuCry", "Images/이미지/NPC/baby_mu_cry.bmp", 336, 70, 6, 1, true, RGB(255, 0, 255));
 
 	
 	
@@ -345,6 +349,24 @@ void UnitManager::AddUnits(slimeBoss * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
+void UnitManager::AddUnits(smallMu * p_unit, bool test)
+{
+	_vUnits.push_back(p_unit);
+}
+
+void UnitManager::AddSlimeBoss(POINT p_ptPos, bool p_isReal)
+{
+	slimeBoss* _slimeBoss = new slimeBoss;
+	_slimeBoss->setLinkMap(_map);
+	_slimeBoss->setEnemy("slimeBoss", "img_game_money_icon", _player, p_ptPos);
+	_slimeBoss->init();
+	if(p_isReal)
+		_slimeBoss->setCanSpawn();
+
+	_vUnits.push_back(_slimeBoss);
+	_vEnemy.push_back(_slimeBoss);
+}
+
 
 
 void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
@@ -418,15 +440,15 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			_vEnemy.push_back(_slime);
 		}
 
-		//(보스) - 슬라임보스
-		if (p_unitName == "slimeBoss")
+		//작은 무 
+		if (p_unitName == "smallMu")
 		{
-			slimeBoss* _slimeBoss = new slimeBoss;
-			_slimeBoss->setLinkMap(_map);
-			_slimeBoss->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
-			_slimeBoss->init();
-			_vUnits.push_back(_slimeBoss);
-			_vEnemy.push_back(_slimeBoss);
+			smallMu* _smallMu = new smallMu;
+			_smallMu->setLinkMap(_map);
+			_smallMu->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_smallMu->init();
+			_vUnits.push_back(_smallMu);
+			_vEnemy.push_back(_smallMu);
 		}
 
 	}

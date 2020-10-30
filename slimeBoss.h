@@ -1,7 +1,10 @@
 #pragma once
 #include "enemy.h"
-#define MOVEMAX 56*3
-#define JUMPMAX 56*2
+//#define MOVEMAX 56*3
+//#define JUMPMAX 56*2
+
+#define MOVERANGE 2
+#define MOVESPEED 1
 
 struct tagBRect
 {
@@ -11,6 +14,9 @@ struct tagBRect
 	float bottom;
 
 };
+
+static bool s_allAttack = false;
+
 class slimeBoss :public enemy
 {
 private :
@@ -33,26 +39,34 @@ private :
 	float lerpRatio;
 	bool _isJump;
 	bool _canJump;
-
+	bool _canSpawn;
 	bool _slimeGotDamage;
 
 	int slimeFireCount;
+	//====================================================
+	bool _canFollow;
+	bool isattacking;
+	int searchCount;
+	int slimeShootCount;
 
-private:
+public:
+	void setCanSpawn() { _canSpawn = true; };
 
 public:
 
 	HRESULT init();
 	void update();
+	void hurt(int Damage, bool onlyEffect) override;
 	void render(HDC hdc) override;
 
 
 	void slimeBossAnimation();
-	void slimeJump();
-	void jumpUp();
-	void jumpDown();
-	void jumpStop();
 	void targetDest();
 	void slimeFire();
+
+
+
+	//====================================================
+	void slimeMove();
 };
 

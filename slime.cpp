@@ -5,16 +5,29 @@ void slime::jumpUp()
 {
 	float lerpSpdY = (midPos.y + JUMPMAX - currentPos.y) * (0.05f);
 	y += -abs(lerpSpdY);
+	//float lerpSpdY = 0.0f;
+	//// Å¸°ÙÀÌ À§
+	//if (originPos.y > destPos.y)
+	//{
+	//	lerpSpdY = (midPos.y + JUMPMAX - currentPos.y) * (0.05f);
+	//}
+	//// Å¸°ÙÀÌ ¾Æ·¡
+	//else {
+	//	lerpSpdY = (midPos.y - currentPos.y) * (0.05f);
+	//	if (lerpSpdY >= 10.0f)
+	//		lerpSpdY = 10.0f;
+	//}
+	//	
+	//y += -abs(lerpSpdY);
+	//cout << lerpSpdY << endl;
 }
 
 void slime::jumpDown()
 {
 	y += currentJumpSpeed;
-
 	currentJumpSpeed += 0.07f;
 	if (currentJumpSpeed >= 4.0f)
 		currentJumpSpeed = 4.0f;
-	
 }
 
 void slime::jumpStop()
@@ -23,13 +36,7 @@ void slime::jumpStop()
 	jumpWaitTime = 0;
 	originPos = destPos;
 	UNITMANAGER->GetProjectileMG()->CreateProjectile(x, y, 20, 70, 70);
-	
 	//if(abs(_target->GetCenterX() - x) < MOVEMAX*1.5f && abs(_target->GetCenterY() - y) < MOVEMAX*1.5f)
-
-	
-		
-
-		
 }
 
 HRESULT slime::init()
@@ -58,27 +65,25 @@ void slime::update()
 			targetDest();
 			jumpWaitTime = 0;
 		}
-
-
 		if (jumpWaitTime == 180)
 		{
 			if(abs(_target->GetCenterX() - x) < MOVEMAX * 2.0f && abs(_target->GetCenterY() - y) < MOVEMAX * 2.0f)
 			slimeFire();
 		}
-			
-
 	}
-		
 	currentPos = { GetCenterX(), GetCenterY() };
 	slimeJump();
 	slimeAnimation();
-
-
-	
 }
 
 void slime::render(HDC hdc)
 {
+
+	if (0 < currentHp && currentHp < maxHp) {
+		_hpBar.setGauge(maxHp, currentHp, CAMERA->GetRelativeX(x - 23), CAMERA->GetRelativeY(y + 43));
+		_hpBar.render(hdc);
+	}
+
 	IMAGEMANAGER->frameRender("slime", hdc, CAMERA->GetRelativeX(x - 25),
 		CAMERA->GetRelativeY(y - 25), objFrameX, objFrameY, CAMERA->GetZoom());
 }
@@ -130,6 +135,7 @@ void slime::slimeJump()
 
 void slime::targetDest()
 {
+
 	if (abs(_target->GetCenterX() - x) < MOVEMAX && abs(_target->GetCenterY() - y) < MOVEMAX)
 	{
 		destPos.x = _target->GetCenterX();
@@ -139,18 +145,18 @@ void slime::targetDest()
 	else
 	{
 		//°¡·Î ÁÂ¿ì ·£´ý Á¡ÇÁ 
+		int t_random = RANDOM->range(-15, 15);
 		destPos.x = RANDOM->range(originPos.x - MOVEMAX, originPos.x + MOVEMAX);
-		destPos.y = originPos.y;
+		destPos.y = originPos.y + t_random;
 		midPos.y = (originPos.y + destPos.y) / 2;
 	}
-
 	midPos.x = (originPos.x + destPos.x) / 2;
 	currentJumpSpeed = 0.0f;
 }
 
 void slime::slimeFire()
 {
-	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeMissile", x,y, 10, shootToTarget(), 2, 30, true, false);
+	UNITMANAGER->GetProjectileMG()->CreateProjectile("slimeMissile", x,y, atk, shootToTarget(), 2, 30, true, false);
 }
 
 

@@ -9,6 +9,7 @@ HRESULT muBoss::init()
 	fireCount = 0;
 	crashCount = 0;
 	crashPointCount = 0;
+	searchCount = 0;
 
 	return S_OK;
 }
@@ -18,6 +19,10 @@ void muBoss::update()
 	muuAnimation();
 	muBossExplode();
 	
+
+	if (searchCount++ % 500 == 0 && searchCount <= 10000) {
+		SPAWNMANAGER->SpawnPatternOne("smallMu", 1, _enemyTilePos + 1);
+	}
 }
 
 void muBoss::render(HDC hdc)

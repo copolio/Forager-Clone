@@ -20,6 +20,7 @@
 #include "treasureBox.h"
 #include "slime.h"
 #include "slimeBoss.h"
+#include "smallMu.h"
 
 
 #define MAXENEMYUNIT 40
@@ -57,7 +58,8 @@ public:
 	void AddUnits(muBoss* p_unit, bool test);
 	void AddUnits(slime* p_unit, bool test);
 	void AddUnits(slimeBoss* p_unit, bool test);
-	
+	void AddUnits(smallMu* p_unit, bool test);
+	void AddSlimeBoss(POINT p_ptPos, bool p_isReal);
 	//void AddUnits(tile* p_tile);
 	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
 	void AddUnits(string p_itemKey, POINT p_pos);

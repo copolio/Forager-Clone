@@ -370,6 +370,12 @@ void earth::SetGoddessWell(int x, int y)
 	}
 	UNITMANAGER->AddSpecialBuilding("goddesswell", vWellTiles, wellTileIndex);
 	UNITMANAGER->AddSpecialBuilding("goddess", vStoneTiles, stoneTileIndex);
+
+
+	vector<string> t_vStr;
+	string str = "아름다워! 왜인지 모르지만 힘이 넘쳐흐르는 것 같아!";
+	t_vStr.push_back(str);
+	DIALOGUE->ShowDialogue(t_vStr, &_player->rc, 10);
 }
 
 void earth::SetElfTree(int x, int y)
@@ -395,6 +401,11 @@ void earth::SetElfTree(int x, int y)
 	}
 	UNITMANAGER->AddSpecialBuilding("elventree", vTreeTiles, treeTileIndex);
 	UNITMANAGER->AddSpecialBuilding("elvenstatue", vStoneTiles, stoneTileIndex);
+	vector<string> t_vStr;
+	string str = "따뜻한 땅이야!";
+	t_vStr.push_back(str);
+	DIALOGUE->ShowDialogue(t_vStr, &_player->rc, 10);
+
 }
 
 void earth::SetTomb(int x, int y)
@@ -429,14 +440,20 @@ void earth::SetTomb(int x, int y)
 	UNITMANAGER->AddSpecialBuilding("tombCenter", vTombCenter, tombCenterTileIndex);
 	UNITMANAGER->AddSpecialBuilding("tombLeft", vTombLeft, tombLeftTileIndex);
 	UNITMANAGER->AddSpecialBuilding("tombRight", vTombRight, tombRightTileIndex);
+
+	vector<string> t_vStr;
+	string str = "무섭지 않은 묘석들이야!";
+	t_vStr.push_back(str);
+	DIALOGUE->ShowDialogue(t_vStr, &_player->rc, 10);
+
 }
 
 void earth::SetMonster(int x, int y)
 {
-	int bossSpawnProabability = RANDOM->range(6);
+	int bossSpawnProabability = RANDOM->range(0, 4);
 	for (int i = 0; i < TILEY; i++) {
 		for (int j = 0; j < TILEX; j++) {
-			if (bossSpawnProabability != 5 && _vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
+			if (bossSpawnProabability != 3 && _vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].terrKey == "plaintile") {
 				_vTile[(y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j].hasUnit = true;
 			}
 			if (GetIslandCount() > 1 && i == 5 && j == 5) {
@@ -448,16 +465,10 @@ void earth::SetMonster(int x, int y)
 					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
 				}
 				else if (bossSpawnProabability == 2) {
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10);
-				}
-				else if (bossSpawnProabability == 3) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
-				}
-				else if (bossSpawnProabability == 4) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1, true);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10, false);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1, false);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10, false);
 				}
 				else {
 
