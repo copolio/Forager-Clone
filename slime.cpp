@@ -5,6 +5,23 @@ void slime::jumpUp()
 {
 	float lerpSpdY = (midPos.y + JUMPMAX - currentPos.y) * (0.05f);
 	y += -abs(lerpSpdY);
+
+
+	//float lerpSpdY = 0.0f;
+	//// Å¸°ÙÀÌ À§
+	//if (originPos.y > destPos.y)
+	//{
+	//	lerpSpdY = (midPos.y + JUMPMAX - currentPos.y) * (0.05f);
+	//}
+	//// Å¸°ÙÀÌ ¾Æ·¡
+	//else {
+	//	lerpSpdY = (midPos.y - currentPos.y) * (0.05f);
+	//	if (lerpSpdY >= 10.0f)
+	//		lerpSpdY = 10.0f;
+	//}
+	//	
+	//y += -abs(lerpSpdY);
+	//cout << lerpSpdY << endl;
 }
 
 void slime::jumpDown()

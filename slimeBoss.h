@@ -44,7 +44,7 @@ private :
 	bool _canFollow;
 	bool isattacking;
 	int searchCount;
-
+	int slimeShootCount;
 
 
 private:
@@ -57,10 +57,6 @@ public:
 
 
 	void slimeBossAnimation();
-	void slimeJump();
-	void jumpUp();
-	void jumpDown();
-	void jumpStop();
 	void targetDest();
 	void slimeFire();
 

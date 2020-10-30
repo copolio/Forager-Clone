@@ -53,6 +53,8 @@ HRESULT gameScene::init()
 	SOUNDMANAGER->play("¹è°æÀ½¾Ç", true);
 	ITEMMANAGER->quick_slot_info(_quick_slot);
 
+	//UNITMANAGER->AddUnits("slimeBoss", { 300,300 });
+
 	return S_OK;
 }
 
