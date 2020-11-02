@@ -14,7 +14,7 @@ private:
 	int crashCount;
 	int crashPointCount;
 	int searchCount;
-
+	int _spawnCount;
 	bool _canFire;
 	bool _readyToCrash;
 

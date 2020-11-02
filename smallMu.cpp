@@ -229,10 +229,9 @@ void smallMu::smallMuFire()
 {
 	if(isHit)
 		_state6 = CRY2;
-	
-	
+
 	ShootCount++;
-	if (ShootCount >= 60)
+	if (ShootCount >= 240)
 	{
 		UNITMANAGER->GetProjectileMG()->CreateProjectile("smallMuMissile", GetCenterX(), GetCenterY(), atk, shootToTarget(), 2, 30, true, false);
 		ShootCount = 0;

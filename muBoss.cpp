@@ -10,7 +10,7 @@ HRESULT muBoss::init()
 	crashCount = 0;
 	crashPointCount = 0;
 	searchCount = 0;
-
+	_spawnCount = 0;
 	return S_OK;
 }
 
@@ -19,9 +19,11 @@ void muBoss::update()
 	muuAnimation();
 	muBossExplode();
 	
-
-	if (searchCount++ % 500 == 0 && searchCount <= 10000) {
-		SPAWNMANAGER->SpawnPatternOne("smallMu", 1, _enemyTilePos + 1);
+	// 최대 3마리까지만 스폰.
+	if (_spawnCount++ < 3) {
+		if (searchCount++ % 500 == 0 && searchCount <= 10000) {
+			SPAWNMANAGER->SpawnPatternOne("smallMu", 1, _enemyTilePos + 1);
+		}
 	}
 }
 
