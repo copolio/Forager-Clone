@@ -43,7 +43,7 @@ public:
 	void update();
 	void render(HDC hdc);
 	
-	
+	tagProduction my_Building;
 	vector<tagProduction*> getProduction() {
 		return _production;
 	};

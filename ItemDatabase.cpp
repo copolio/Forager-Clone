@@ -108,22 +108,22 @@ void ItemDatabase::init()
 
 
 	//우물
-	item_make[m_cnt++] = tagItemInfo("여신의 우물2", "high_class_SteelDrop", 10, "GlassDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("여신의 우물3", "high_class_SteelDrop", 30, "GlassDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("여신의 우물4", "high_class_SteelDrop", 50, "GlassDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("여신의 우물5", "high_class_SteelDrop", 60, "GlassDrop", 60, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("goddess2", "high_class_SteelDrop", 10, "GlassDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("goddess3", "high_class_SteelDrop", 30, "GlassDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("goddess4", "high_class_SteelDrop", 50, "GlassDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("goddess5", "high_class_SteelDrop", 60, "GlassDrop", 60, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
 
 
-	item_make[m_cnt++] = tagItemInfo("요정의 나무2", "GlassDrop", 10, "brickDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("요정의 나무3", "GlassDrop", 30, "brickDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("요정의 나무4", "GlassDrop", 50, "brickDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("요정의 나무5", "GlassDrop", 60, "brickDrop", 60, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("elvenstatue2", "GlassDrop", 10, "brickDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("elvenstatue3", "GlassDrop", 30, "brickDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("elvenstatue4", "GlassDrop", 50, "brickDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("elvenstatue5", "GlassDrop", 60, "brickDrop", 60, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
 
 
-	item_make[m_cnt++] = tagItemInfo("산신령의 묘석2", "high_class_SteelDrop", 10, "brickDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("산신령의 묘석3", "high_class_SteelDrop", 30, "brickDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("산신령의 묘석4", "high_class_SteelDrop", 50, "brickDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
-	item_make[m_cnt++] = tagItemInfo("산신령의 묘석5", "high_class_SteelDrop", 60, "brickDrop", 50, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("tombCenter2", "high_class_SteelDrop", 10, "brickDrop", 10, "goldBarDrop", 20, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("tombCenter3", "high_class_SteelDrop", 30, "brickDrop", 30, "goldBarDrop", 30, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("tombCenter4", "high_class_SteelDrop", 50, "brickDrop", 40, "goldBarDrop", 40, "", 0, 5, 3, MaterialsType::NONE3);
+	item_make[m_cnt++] = tagItemInfo("tombCenter5", "high_class_SteelDrop", 60, "brickDrop", 50, "goldBarDrop", 50, "", 0, 5, 3, MaterialsType::NONE3);
 
 
 

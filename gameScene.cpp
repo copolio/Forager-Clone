@@ -78,7 +78,7 @@ void gameScene::update()
 	if (!_cursor->InteractionOpen()) {
 		_player->update();
 
-		if (INPUT->GetKeyDown('I')) {
+		if (INPUT->GetKeyDown(VK_TAB)) {
 			if (!CAMERA->movelimit) {
 				CAMERA->forceZoomIn(0, 0.01f, false);
 				CAMERA->movelimit = true;

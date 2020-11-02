@@ -34,9 +34,14 @@ HRESULT inventory_images::init()
 	IMAGEMANAGER->addImage("img_fish_trap_icon", "Images/이미지/GUI/img_fish_trap_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_Agriculture_missing_icon", "Images/이미지/GUI/img_Agriculture_missing_icon.bmp", 220, 50, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("img_UI_construction_Tooltip", "Images/이미지/GUI/img_UI_construction_Tooltip.bmp", 220, 100, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("up_background", "Images/이미지/GUI/up_background.bmp", 200, 200, true, RGB(255, 0, 255));
 
 
 	IMAGEMANAGER->addImage("targetMenu", "Images/이미지/GUI/targetMenu.bmp", 319, 54, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("산신령의 묘석", "Images/이미지/오브젝트/산신령의 묘석.bmp", 350, 318, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("요정의 나무", "Images/이미지/오브젝트/요정의 나무.bmp", 350, 318, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("여신의 우물", "Images/이미지/오브젝트/여신의 우물.bmp", 350, 318, true, RGB(255, 0, 255));
 
 
 	// 상단 메뉴 UI 등록

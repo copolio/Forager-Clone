@@ -202,6 +202,12 @@ void ForagerPlayer::update()
 		 ITEMMANAGER->getvInventory_info()[12]->count += 100;
 		 ITEMMANAGER->getvInventory_info()[12]->_item = DATABASE->GetItem("threadDrop");
 
+		 ITEMMANAGER->getvInventory_info()[13]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[13]->_item = DATABASE->GetItem("GlassDrop");
+
+		 ITEMMANAGER->getvInventory_info()[14]->count += 100;
+		 ITEMMANAGER->getvInventory_info()[14]->_item = DATABASE->GetItem("brickDrop");
+
 		ITEMMANAGER->setMoney(ITEMMANAGER->getMoney() + 100);
 		_quick->quick_slot_update();
 

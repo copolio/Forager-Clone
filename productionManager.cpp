@@ -17,7 +17,6 @@ void productionManager::update()
 
 	count_increase();
 
-	//cout << Myrc.left << endl;;
 }
 
 void productionManager::render(HDC hdc)
@@ -62,8 +61,14 @@ void productionManager::render(HDC hdc)
 
 void productionManager::count_increase()
 {
+	int _MakeTime;
+	for (int i = 0; i < _production.size(); i++) {
+		if (_production[i]->countStart) {
+			_MakeTime = DATABASE->GetItem_Make(_production[i]->image_name).MakeTime;
+		}
+	}
 	count++;
-	if (count > 5 * UNITMANAGER->productionCoef) {
+	if (count > _MakeTime * UNITMANAGER->productionCoef) {
 		count = 0;
 		for (int i = 0; i < _production.size(); i++) {
 			if (_production[i]->countStart) {

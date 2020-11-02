@@ -543,6 +543,38 @@ int UnitManager::GetCowCount()
 }
 
 
+//ºôµù ·¾ Ã£±â ¾øÀ¸¸é -999¸®ÅÏ
+int UnitManager::is_Building_level(string item_key)
+{
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag != TAG::BUILDING) continue;
+		if (_vUnits[i]->objKey == item_key) {
+			return _vUnits[i]->level;
+		}
+	}
+	return -999;
+}
+
+void UnitManager::is_Building_level_Up(string item_key)
+{
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag != TAG::BUILDING) continue;
+		if (_vUnits[i]->objKey == item_key) {
+			_vUnits[i]->level++;
+			if (item_key == "goddess") {
+				damageCoef += 0.50;
+			}
+			if (item_key == "elvenstatue") {
+				expCoef += 0.50f;
+			}
+			if (item_key == "tombCenter") {
+				productionCoef -= 0.50f;
+			}
+		}
+	}
+}
+
+
 void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {
 	if (buildkey == "fishtrap") {

@@ -3,6 +3,7 @@
 #include "sewingmachinetooltip.h"
 #include "anviltooltip.h"
 #include "singletonBase.h"
+#include "stone_statue.h"
 
 struct targetMenu{
 	RECT rc;
@@ -20,6 +21,8 @@ private:
 	anviltooltip _anviltooltip;
 	sewingmachinetooltip _sewingmachinetooltip;
 	steelworktooltip _steelworktooltip;
+	stone_statue _stone_statue;
+
 public:
 	HRESULT init();
 	void release();

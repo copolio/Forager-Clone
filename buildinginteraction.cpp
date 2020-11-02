@@ -211,14 +211,9 @@ void buildinginteraction::targertrender(HDC hdc, string key)
 			}
 		}
 	}
-	else if (key =="tombCenter") {
-		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
+	else if (key =="tombCenter"|| key == "goddess"||key == "elvenstatue") {
+		_stone_statue.render(key,hdc);
 	}
-	else if (key == "elvenstatue") {
-		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
-	}
-	else if (key == "goddess") {
-		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
-	}
+
 }
 
