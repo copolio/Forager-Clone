@@ -181,6 +181,18 @@ void ForagerStatManager::IncreaseExp(int exp)
 
 }
 
+void ForagerStatManager::RecoverHp(int hp)
+{
+	int t_count = 0;
+	for (int i = 0; i < 3; i++) {
+		if (!_foragerHp[i]->_isHp) {
+			_foragerHp[i]->_isHp = true;
+			if(++t_count>= hp)
+				break;
+		}
+	}
+}
+
 void ForagerStatManager::setRight(int num)
 {
 

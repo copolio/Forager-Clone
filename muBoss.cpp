@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "muBoss.h"
 
-HRESULT muBoss::init()
+HRESULT muBoss::init(int p_level)
 {
+	_difficultyLevel = p_level;
 	_state5 = MIDLE;
 	_canFire = false;
 	_readyToCrash = false;
@@ -11,6 +12,9 @@ HRESULT muBoss::init()
 	crashPointCount = 0;
 	searchCount = 0;
 
+	currentHp = maxHp = (_difficultyLevel == 80)	? 300
+					  : (_difficultyLevel == 100)	? 400
+													: 500;
 	return S_OK;
 }
 
@@ -21,7 +25,7 @@ void muBoss::update()
 	
 
 	if (searchCount++ % 500 == 0 && searchCount <= 10000) {
-		SPAWNMANAGER->SpawnPatternOne("smallMu", 1, _enemyTilePos + 1);
+		SPAWNMANAGER->SpawnPatternOne("smallMu", 1, _difficultyLevel);
 	}
 }
 
@@ -133,7 +137,7 @@ void muBoss::muBossExplode()
 {
 	if (currentHp <= maxHp * 0.7f)
 	{
-		if (crashPointCount++ == 180)
+		if (crashPointCount++ == 300)
 		{
 			int t_anchorRange = 225;
 			int t_range = 75;

@@ -26,7 +26,7 @@ void enemy::hurt(int damage, bool onlyEffect)
 		dead();
 }
 
-void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos)
+void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos, int p_hp)
 {
 	tileIndex = 0;
 
@@ -123,6 +123,7 @@ void enemy::setEnemy(string key, string itemkey, ForagerPlayer* target, POINT po
 	}
 
 
+	maxHp = p_hp;
 	currentHp = maxHp;
 	dropItem.itemKey = itemkey;
 	

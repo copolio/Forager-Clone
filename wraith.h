@@ -24,9 +24,9 @@ private:
 	int _hitCount;
 	bool tryAttack;
 
-	int Atk;
+	int _difficultyLevel;
 public:
-	HRESULT init();
+	HRESULT init(int p_level);
 	void update() override;
 	void render(HDC hdc) override;
 

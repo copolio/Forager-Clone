@@ -59,9 +59,9 @@ public:
 	void AddUnits(slime* p_unit, bool test);
 	void AddUnits(slimeBoss* p_unit, bool test);
 	void AddUnits(smallMu* p_unit, bool test);
-	void AddSlimeBoss(POINT p_ptPos, bool p_isReal);
+	void AddSlimeBoss(POINT p_ptPos, bool p_isReal, int p_hp);
 	//void AddUnits(tile* p_tile);
-	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck);
+	void AddUnits(string p_monsterName, POINT p_pos, bool enemyCheck, int p_hp = 100);
 	void AddUnits(string p_itemKey, POINT p_pos);
 
 	void AddBuilding(string buildkey, tile* _tile, int tileindex);

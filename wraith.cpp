@@ -1,8 +1,13 @@
 #include "stdafx.h"
 #include "wraith.h"
 
-HRESULT wraith::init()
+HRESULT wraith::init(int p_level)
 {
+	_difficultyLevel = p_level;
+	currentHp = maxHp =	(_difficultyLevel == 80)	? 300
+					  : (_difficultyLevel == 100)	? 400
+													: 500;
+
 	wraithHitCount = 0;
 	wraithWaitCount = 0;
 	searchCount = 0;
@@ -11,7 +16,6 @@ HRESULT wraith::init()
 	wraithAttackRange = 500;
 	_hitCount = 0;
 
-	Atk = 5;
 	tryAttack = false;
 	skillAngle = 0.0f;
 	_state3 = FLY;
@@ -35,21 +39,11 @@ void wraith::update()
 
 	if (searchCount % 1000 == 0) {
 		int possibility = RANDOM->range(10);
-		if (possibility == 0) {
-			SPAWNMANAGER->SpawnPatternOne("demonIdle", 1, _enemyTilePos + 1);
-		}
-		else if (possibility == 1) {
-			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos + 1);
-		}
-		else if (possibility == 2) {
-			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - 1);
-		}
-		else if (possibility == 3) {
-			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos + MAPTILEX);
-		}
-		else {
-			SPAWNMANAGER->SpawnPatternOne("skull", 1, _enemyTilePos - MAPTILEX);
-		}
+		if (possibility == 0) 
+			SPAWNMANAGER->SpawnPatternOne("demonIdle", 1, _difficultyLevel);
+		else
+			SPAWNMANAGER->SpawnPatternOne("skull", 1, _difficultyLevel);
+
 	}	
 }
 

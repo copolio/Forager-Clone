@@ -355,12 +355,12 @@ void UnitManager::AddUnits(smallMu * p_unit, bool test)
 	_vUnits.push_back(p_unit);
 }
 
-void UnitManager::AddSlimeBoss(POINT p_ptPos, bool p_isReal)
+void UnitManager::AddSlimeBoss(POINT p_ptPos, bool p_isReal, int p_hp)
 {
 	slimeBoss* _slimeBoss = new slimeBoss;
 	_slimeBoss->setLinkMap(_map);
 	_slimeBoss->setEnemy("slimeBoss", "img_game_money_icon", _player, p_ptPos);
-	_slimeBoss->init();
+	_slimeBoss->init(p_hp);
 	if(p_isReal)
 		_slimeBoss->setCanSpawn();
 
@@ -370,7 +370,7 @@ void UnitManager::AddSlimeBoss(POINT p_ptPos, bool p_isReal)
 
 
 
-void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
+void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck, int p_hp)
 {
 	// 에너미 생성
 	if (enemyCheck) {
@@ -379,7 +379,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			skull* _skull = new skull;
 			_skull->setLinkMap(_map);
-			_skull->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos);
+			_skull->setEnemy(p_unitName, "skullHeadDrop", _player, p_pos, p_hp);
 			_skull->init();
 
 			_vUnits.push_back(_skull);
@@ -391,7 +391,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			cow* _cow = new cow;
 			_cow->setLinkMap(_map);
-			_cow->setEnemy(p_unitName, "milkDrop", _player, p_pos);
+			_cow->setEnemy(p_unitName, "milkDrop", _player, p_pos, p_hp);
 			_cow->init();
 			_vUnits.push_back(_cow);
 			_vEnemy.push_back(_cow);
@@ -403,7 +403,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			wraith* _wraith = new wraith;
 			_wraith->setLinkMap(_map);
 			_wraith->setEnemy(p_unitName, "leatherDrop", _player, p_pos);
-			_wraith->init();
+			_wraith->init(p_hp);
 			_vUnits.push_back(_wraith);
 			_vEnemy.push_back(_wraith);
 		}
@@ -413,7 +413,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			demon* _demon = new demon;
 			_demon->setLinkMap(_map);
-			_demon->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_demon->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos, p_hp);
 			_demon->init();
 			_vUnits.push_back(_demon);
 			_vEnemy.push_back(_demon);
@@ -425,7 +425,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 			muBoss* _muBoss = new muBoss;
 			_muBoss->setLinkMap(_map);
 			_muBoss->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
-			_muBoss->init();
+			_muBoss->init(p_hp);
 			_vUnits.push_back(_muBoss);
 			_vEnemy.push_back(_muBoss);
 		}
@@ -435,7 +435,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			slime* _slime = new slime;
 			_slime->setLinkMap(_map);
-			_slime->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_slime->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos, p_hp);
 			_slime->init();
 			_vUnits.push_back(_slime);
 			_vEnemy.push_back(_slime);
@@ -446,7 +446,7 @@ void UnitManager::AddUnits(string p_unitName, POINT p_pos, bool enemyCheck)
 		{
 			smallMu* _smallMu = new smallMu;
 			_smallMu->setLinkMap(_map);
-			_smallMu->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos);
+			_smallMu->setEnemy(p_unitName, "img_game_money_icon", _player, p_pos, p_hp);
 			_smallMu->init();
 			_vUnits.push_back(_smallMu);
 			_vEnemy.push_back(_smallMu);

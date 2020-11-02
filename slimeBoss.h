@@ -48,13 +48,13 @@ private :
 	bool isattacking;
 	int searchCount;
 	int slimeShootCount;
-
+	int _difficultyLevel;
 public:
 	void setCanSpawn() { _canSpawn = true; };
 
 public:
 
-	HRESULT init();
+	HRESULT init(int p_level);
 	void update();
 	void hurt(int Damage, bool onlyEffect) override;
 	void render(HDC hdc) override;

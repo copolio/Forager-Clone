@@ -459,16 +459,16 @@ void earth::SetMonster(int x, int y)
 			if (GetIslandCount() > 1 && i == 5 && j == 5) {
 				
 				if (bossSpawnProabability == 0) {
-					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+					SPAWNMANAGER->SpawnPatternOne("muBoss", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j, x, y);
 				}
 				else if (bossSpawnProabability == 1) {
-					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j);
+					SPAWNMANAGER->SpawnPatternOne("wraithIdle", 1, (y * MAPTILEY*TILEY + i * MAPTILEY) + x * TILEX + j, x, y);
 				}
 				else if (bossSpawnProabability == 2) {
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1, true);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10, false);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1, false);
-					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10, false);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 1, true, x, y);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 1 * MAPTILEY) + x * TILEX + 10, false, x, y);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 1, false, x, y);
+					SPAWNMANAGER->SpawnPatternOne("slimeBoss", 1, (y * MAPTILEY*TILEY + 10 * MAPTILEY) + x * TILEX + 10, false, x, y);
 				}
 				else {
 

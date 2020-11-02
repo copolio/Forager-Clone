@@ -7,6 +7,9 @@ HRESULT smallMu::init()
 	ShootCount = 0;
 	isattacking = false;
 
+
+
+
 	return S_OK;
 }
 
@@ -232,7 +235,7 @@ void smallMu::smallMuFire()
 	
 	
 	ShootCount++;
-	if (ShootCount >= 60)
+	if (ShootCount >= 240)
 	{
 		UNITMANAGER->GetProjectileMG()->CreateProjectile("smallMuMissile", GetCenterX(), GetCenterY(), atk, shootToTarget(), 2, 30, true, false);
 		ShootCount = 0;

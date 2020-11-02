@@ -45,7 +45,7 @@ void SpawnManager::TrySpawn()
 			case 0:
 				//SpawnPatternOne("skull", 10);
 				//SpawnPatternOne("demonIdle",1);
-				SpawnPatternOne("cow",1);
+				//SpawnPatternOne("cow",1, 100);
 				//SpawnPatternOne("slime",1);
 				//SpawnPatternOne("slimeBoss",1);
 				//SpawnPatternOne("smallMu",1);
@@ -61,7 +61,7 @@ void SpawnManager::TrySpawn()
 
 
 
-void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int p_hp)
 {
 	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
 	if (_plainTile.size() <= 0)
@@ -72,10 +72,10 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count)
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
 
-		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
+		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true, p_hp);
 	}
 }
-void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx)
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx, int islandX, int islandY)
 {
 	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
 	for (int i = 0; i < p_count; i++) {
@@ -83,11 +83,13 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx)
 		POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
 							t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
 
-		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true);
+		int t_hp = SetDifficultHp(islandX, islandY);
+
+		UNITMANAGER->AddUnits(p_enemyName, t_ptPos, true, t_hp);
 	}
 }
 
-void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx, bool p_isReal)
+void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx, bool p_isReal, int islandX, int islandY)
 {
 	if (UNITMANAGER->GetMonsterCount() >= MAXENEMYUNIT) return;
 
@@ -95,5 +97,29 @@ void SpawnManager::SpawnPatternOne(string p_enemyName, int p_count, int tileidx,
 	POINT t_ptPos = { t_rc.left + (t_rc.right - t_rc.left) / 2,
 						t_rc.top + (t_rc.bottom - t_rc.top) / 2 };
 
-	UNITMANAGER->AddSlimeBoss(t_ptPos, p_isReal);
+	int t_hp = SetDifficultHp(islandX, islandY);
+
+	UNITMANAGER->AddSlimeBoss(t_ptPos, p_isReal, t_hp);
+}
+
+int SpawnManager::SetDifficultHp(int p_islandX, int p_islandY)
+{
+
+	// 스타트섬 주변은 체력 80
+	if (2 <= p_islandY && p_islandY <= 4)
+	{
+		if (2 <= p_islandX && p_islandX <= 4) {
+			return 80;
+		}
+	}
+	// 스타트섬 그 다음 주변 섬은 체력 100
+	else if (1 <= p_islandY && p_islandY <= 5)
+	{
+		if (1 <= p_islandX && p_islandX <= 5) {
+			return 100;
+		}
+	}
+	// 외곽은 체력 120
+	else
+		return 120;
 }
