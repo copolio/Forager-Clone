@@ -84,5 +84,12 @@ public:
 	RECT GetPlayerRc() { return _player->rc; };
 	POINT GetPlayerFootPt();
 	int GetCowCount();
+
+	int is_Building_level(string item_key);
+	void is_Building_level_Up(string item_key);
+public:
+	float damageCoef;
+	float expCoef;
+	float productionCoef;
 };
 

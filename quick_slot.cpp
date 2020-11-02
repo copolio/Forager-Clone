@@ -112,6 +112,9 @@ void quick_slot::quick_slot_update()
 			inven->y = WINSIZEY - 70;
 			inven->count = ITEMMANAGER->getvInventory_info()[i]->count;
 			inven->_item = DATABASE->GetItem(ITEMMANAGER->getvInventory_info()[i]->_item.itemKey);
+			if (inven->_item.slotImgKey == "roast_fishDrop") {
+				inven->_item.slotImgKey = "roast_fishDrop_slot";
+			}
 			inven->_rc = RectMake(inven->x, inven->y, 56, 56);
 			_quick.push_back(inven);
 		}

@@ -28,6 +28,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("skullHeadDrop", "Images/이미지/아이템/skullHead.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("arrowDrop", "Images/이미지/아이템/arrow.bmp", 62, 63, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("roast_fishDrop", "Images/이미지/아이템/roast_fish.bmp", 68, 69, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("roast_fishDrop_slot", "Images/이미지/아이템/roast_fish.bmp", 55, 55, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("SteelhDrop", "Images/이미지/아이템/Steel.bmp", 68, 69, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("high_class_SteelDrop", "Images/이미지/아이템/high_class_Steel.bmp", 68, 69, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("high_class_clothDrop", "Images/이미지/아이템/high_class_cloth.bmp", 64, 65, true, RGB(255, 0, 255));
@@ -120,6 +121,10 @@ void UnitManager::init()
 	//_spawnManager->init();
 	SPAWNMANAGER->init();
 
+
+	damageCoef = 1;
+	expCoef = 1;
+	productionCoef = 1;
 }
 
 void UnitManager::release()
@@ -495,10 +500,21 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 
 void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
 {
-	fieldItem* t_fieldItem = new fieldItem;
+	if (p_itemKey == "arrowDrop") {
+		for (int i = 0; i < 3; i++) {
+			fieldItem* t_fieldItem = new fieldItem;
 
-	t_fieldItem->setFieldItem(p_pos, p_itemKey);
-	_vUnits.push_back(t_fieldItem);
+			t_fieldItem->setFieldItem(p_pos, p_itemKey);
+			_vUnits.push_back(t_fieldItem);
+		}
+	}
+	else {
+		fieldItem* t_fieldItem = new fieldItem;
+
+		t_fieldItem->setFieldItem(p_pos, p_itemKey);
+		_vUnits.push_back(t_fieldItem);
+	}
+	
 }
 
 
@@ -538,6 +554,38 @@ int UnitManager::GetCowCount()
 }
 
 
+//빌딩 렙 찾기 없으면 -999리턴
+int UnitManager::is_Building_level(string item_key)
+{
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag != TAG::BUILDING) continue;
+		if (_vUnits[i]->objKey == item_key) {
+			return _vUnits[i]->level;
+		}
+	}
+	return -999;
+}
+
+void UnitManager::is_Building_level_Up(string item_key)
+{
+	for (int i = 0; i < _vUnits.size(); i++) {
+		if (_vUnits[i]->tag != TAG::BUILDING) continue;
+		if (_vUnits[i]->objKey == item_key) {
+			_vUnits[i]->level++;
+			if (item_key == "goddess") {
+				damageCoef += 0.50;
+			}
+			if (item_key == "elvenstatue") {
+				expCoef += 0.50f;
+			}
+			if (item_key == "tombCenter") {
+				productionCoef -= 0.50f;
+			}
+		}
+	}
+}
+
+
 void UnitManager::AddBuilding(string buildkey, tile * _tile, int tileindex)
 {
 	if (buildkey == "fishtrap") {
@@ -568,6 +616,15 @@ void UnitManager::AddSpecialBuilding(string buildkey, vector<tile*> tiles, int t
 	_building->setSpecialBuilding(buildkey, tiles, tileindex);
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
+	if (buildkey == "goddess") {
+		damageCoef = 1.05f;
+	}
+	if (buildkey == "elvenstatue") {
+		expCoef = 1.05f;
+	}
+	if (buildkey == "tombCenter") {
+		productionCoef = 0.95f;
+	}
 }
 
 void UnitManager::AddResource(tile* p_tile, int p_tileIndex)
