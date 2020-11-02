@@ -5,6 +5,7 @@ HRESULT startScene::init()
 {
 	SCENEMANAGER->deleteScene("게임 화면");
 	SCENEMANAGER->addScene("게임 화면", new gameScene);
+	
 
 	//세이브 버튼 칸 렉트
 	saveRc = RectMake(100, 100, 100, 100);
@@ -23,6 +24,7 @@ HRESULT startScene::init()
 	IMAGEMANAGER->addImage("TitleCursor", "Images/이미지/GUI/커서.bmp", 15, 15, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("BowCursor", "Images/이미지/GUI/img_UI_bowCursor.bmp", 56, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("Balloon", "Images/이미지/GUI/img_UI_DialogueBalloon.bmp", 214, 67, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("creditScene", "Images/이미지/NPC/creditScene_background_img.bmp", 1279, 719, true, RGB(255, 0, 255));
 
 	// 커서 반응형 이미지 설정
 	for (int i = 0; i < BUTTON_MAX / 2; i++) {
@@ -55,6 +57,7 @@ HRESULT startScene::init()
 	_gameslotOne = false;
 	_gameslotTwo = false;
 	_gameslotThree = false;
+	_clickCredit = false;
 	CheckGameFile();
 
 	return S_OK;
@@ -87,6 +90,9 @@ void startScene::update()
 		_game_setting->update();
 	}
 	EFFECTMANAGER->update();
+	
+	if (INPUT->GetKeyDown('Q'))
+		_clickCredit = false;
 }
 
 void startScene::render()
@@ -142,6 +148,9 @@ void startScene::render()
 	// 커서 렌더
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
 
+	
+	if (_clickCredit)
+		IMAGEMANAGER->render("creditScene", getMemDC(), 0, 0);
 
 }
 
@@ -205,11 +214,12 @@ void startScene::CheckButtonClick()
 					SOUNDMANAGER->play("클릭");
 					switch (i) {
 					case BTN::SETTING:					// 환경설정 창
-						//SCENEMANAGER->loadScene("게임 화면"); 
+						SCENEMANAGER->loadScene("게임 화면"); 
 						gameOptionCheck = true;
 						break;	
 					case BTN::CREDIT:					// 크레딧 창
 						//추후 추가
+						_clickCredit = true;
 						break;	
 					case BTN::EXIT:		exit(0); break;	// 게임 종료
 

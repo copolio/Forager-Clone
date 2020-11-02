@@ -101,20 +101,15 @@ void productionManager::count_increase()
 							UNITMANAGER->AddProduction(_production[i]->image_name, pos);
 							break;
 						}
-
 					}
 				}
 				else {
 					_production[i]->countStart = false;
 					_production[i]->image_name = "";
-					
 				}
 			}
-
 		}
 	}
-	
-	
 }
 
 //카운트값 증가

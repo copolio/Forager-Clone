@@ -36,6 +36,8 @@ private:
 	bool _gameslotTwo;
 	bool _gameslotThree;
 
+	bool _clickCredit;
+
 	gamesetting *_game_setting;
 
 	RECT saveRc; 

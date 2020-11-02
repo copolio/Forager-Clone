@@ -3,9 +3,7 @@
 
 void unit::hurt(int damage, bool onlyEffect)
 {
-	
 	currentHp -= damage;
-
 	if (currentHp <= 0)
 		dead();
 	else
@@ -43,9 +41,6 @@ void unit::animation()
 			}
 		}
 	}
-
-
-
 }
 
 void unit::dead()
@@ -55,14 +50,10 @@ void unit::dead()
 
 void unit::render(HDC hdc)
 {
-
 		IMAGEMANAGER->frameRender(objKey, hdc,
 			CAMERA->GetRelativeX(rc.left),
 			CAMERA->GetRelativeY(rc.bottom - IMAGEMANAGER->findImage(objKey)->getFrameHeight()),
 			objFrameX, objFrameY);
-	
-
-
 }
 
 bool unit::isDead()
