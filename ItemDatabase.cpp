@@ -78,7 +78,7 @@ void ItemDatabase::init()
 
 	//¸ð·ç
 	item_make[m_cnt++] = tagItemInfo("img_game_money_icon","goldOreDrop",1,"",0,"",0,"",0,5,1, MaterialsType::ANVIL);
-	item_make[m_cnt++] = tagItemInfo("arrowDrop","treeDrop",2,"rockDrop",2,"",0,"",0,5,2, MaterialsType::ANVIL);
+	item_make[m_cnt++] = tagItemInfo("arrowDrop","treeDrop",2,"rockDrop",2,"",0,"",0,1,2, MaterialsType::ANVIL);
 	item_make[m_cnt++] = tagItemInfo("pickaxe2","ironOreDrop",3,"rockDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
 	item_make[m_cnt++] = tagItemInfo("pickaxe3","SteelhDrop",2,"coalDrop",5,"",0,"",0,5,2, MaterialsType::ANVIL);
 	item_make[m_cnt++] = tagItemInfo("pickaxe4","high_class_SteelDrop",2,"ironBarDrop",4,"",0,"",0,5,2, MaterialsType::ANVIL);

@@ -500,10 +500,21 @@ void UnitManager::AddUnits(string p_itemKey, POINT p_pos)
 
 void UnitManager::AddProduction(string p_itemKey, POINT p_pos)
 {
-	fieldItem* t_fieldItem = new fieldItem;
+	if (p_itemKey == "arrowDrop") {
+		for (int i = 0; i < 3; i++) {
+			fieldItem* t_fieldItem = new fieldItem;
 
-	t_fieldItem->setFieldItem(p_pos, p_itemKey);
-	_vUnits.push_back(t_fieldItem);
+			t_fieldItem->setFieldItem(p_pos, p_itemKey);
+			_vUnits.push_back(t_fieldItem);
+		}
+	}
+	else {
+		fieldItem* t_fieldItem = new fieldItem;
+
+		t_fieldItem->setFieldItem(p_pos, p_itemKey);
+		_vUnits.push_back(t_fieldItem);
+	}
+	
 }
 
 

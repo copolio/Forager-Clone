@@ -104,6 +104,8 @@ void productionManager::count_increase()
 						default:
 							SOUNDMANAGER->play("생산완료");
 							UNITMANAGER->AddProduction(_production[i]->image_name, pos);
+							
+						
 							break;
 						}
 					}
