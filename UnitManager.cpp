@@ -571,16 +571,19 @@ void UnitManager::is_Building_level_Up(string item_key)
 	for (int i = 0; i < _vUnits.size(); i++) {
 		if (_vUnits[i]->tag != TAG::BUILDING) continue;
 		if (_vUnits[i]->objKey == item_key) {
-			_vUnits[i]->level++;
-			if (item_key == "goddess") {
-				damageCoef += 0.50;
+			if(_vUnits[i]->level < 5){
+				_vUnits[i]->level++;
+				if (item_key == "goddess") {
+					damageCoef += 0.50;
+				}
+				if (item_key == "elvenstatue") {
+					expCoef += 0.50f;
+				}
+				if (item_key == "tombCenter") {
+					productionCoef -= 0.50f;
+				}
 			}
-			if (item_key == "elvenstatue") {
-				expCoef += 0.50f;
-			}
-			if (item_key == "tombCenter") {
-				productionCoef -= 0.50f;
-			}
+			
 		}
 	}
 }
