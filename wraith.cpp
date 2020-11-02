@@ -8,7 +8,7 @@ HRESULT wraith::init()
 	searchCount = 0;
 	wraithShootCount = 0;
 	skillFireCount = 0;
-	wraithAttackRange = 500;
+	wraithAttackRange = 280;
 	_hitCount = 0;
 
 	Atk = 5;

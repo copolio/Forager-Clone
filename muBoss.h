@@ -3,8 +3,7 @@
 enum MUSTATE
 {
 	MIDLE,
-	CRY,
-	MUSHOOT
+	CRY
 };
 
 class muBoss : public enemy
@@ -29,7 +28,6 @@ public:
 	void hurt(int damage, bool onlyEffect = false) override;
 	void dead() override;
 
-	void muFire();
 	void muBossExplode();
 
 

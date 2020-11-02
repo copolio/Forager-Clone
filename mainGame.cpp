@@ -56,8 +56,6 @@ HRESULT mainGame::init()
 	SOUNDMANAGER->addSound("악마불지질때소리", "Sound/\SoundEffect/fireBrass.mp3");
 	
 
-
-
 	/*현재씬*/
 	//SCENEMANAGER->loadScene("로딩 화면");
 	SCENEMANAGER->loadScene("시작 화면");

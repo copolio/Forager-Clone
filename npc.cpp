@@ -36,7 +36,7 @@ void npc::setNpc(string p_imgKey, POINT p_ptPos, RECT* p_rcPlayer)
 	_vDialogueQuestComplete.push_back("휴우 덕분에 살았어.");
 
 	// 퀘스트 관련 아이템 (NPC 추가시 자식 클래스에서)
-	_QuestRewardItem = "bowDrop1";
+	_QuestRewardItem = "threadDrop";
 	_QuestItem = "berryDrop";
 	_questNeedItemNum = 10;
 

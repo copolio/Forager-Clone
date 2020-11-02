@@ -42,10 +42,6 @@ void muBoss::render(HDC hdc)
 		IMAGEMANAGER->frameRender("muBossCry", hdc, CAMERA->GetRelativeX(rc.left + 60),
 			CAMERA->GetRelativeY(rc.top - 20), objFrameX, objFrameY, CAMERA->GetZoom());
 		break;
-	case MUSHOOT:
-		IMAGEMANAGER->frameRender("muBossCry", hdc, CAMERA->GetRelativeX(rc.left + 60),
-			CAMERA->GetRelativeY(rc.top - 20), objFrameX, objFrameY, CAMERA->GetZoom());
-		break;
 	}
 }
 
@@ -63,18 +59,6 @@ void muBoss::muuAnimation()
 		}
 		break;
 	case CRY:
-		objFrameX = _index;
-		objFrameY = 0;
-		if (_count++ % 15 == 0)
-		{
-			if (_index++ > 6)
-			{
-				_index = 0;
-				_state5 = MIDLE;
-			}
-		}
-		break;
-	case MUSHOOT:
 		objFrameX = _index;
 		objFrameY = 0;
 		if (_count++ % 15 == 0)
@@ -117,16 +101,6 @@ void muBoss::dead()
 	UNITMANAGER->AddTreasure("treasureBox", "slot_Bow", { GetCenterX(), GetCenterY() });
 	tileIndex = _map->GetTileIndex({ GetCenterX(), GetCenterY() });
 	_map->SetConquer(_map->GetIslandX(this->tileIndex), _map->GetIslandY(this->tileIndex));
-}
-
-void muBoss::muFire()
-{
-	//if (fireCount++ % 10 == 0)
-	//{
-	//	_canFire = true;
-	//	UNITMANAGER->GetProjectileMG()->CreateProjectile("muMissile", x,y, 10, shootToTarget(), 5, 50, true, true);
-	//}
-	
 }
 
 void muBoss::muBossExplode()

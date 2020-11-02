@@ -12,7 +12,7 @@
 #define MAPTILEX MAPX*TILEX
 #define MAPTILEY MAPY*TILEY
 #define RESRATIOLIMIT 0.2
-#define RESGENTIME 100
+#define RESGENTIME 300
 
 class tile : public gameObject {
 public:
