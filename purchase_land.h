@@ -12,6 +12,7 @@ private:
 	int _islandIndex;
 	RECT _targetIslandrc;
 	int* balance;
+	int count;
 public:
 	HRESULT init();
 	void release();

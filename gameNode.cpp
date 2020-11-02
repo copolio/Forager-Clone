@@ -107,12 +107,12 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
 		_ptMouse.y = _ptMouse.y > WINSIZEY ? WINSIZEY : _ptMouse.y;
 		break;
 	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case VK_ESCAPE:
-			PostMessage(hWnd, WM_DESTROY, 0, 0);
-			break;
-		}
+		//switch (wParam)
+		//{
+		//case VK_ESCAPE:
+		//	PostMessage(hWnd, WM_DESTROY, 0, 0);
+		//	break;
+		//}
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

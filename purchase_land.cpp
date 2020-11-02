@@ -8,6 +8,7 @@ HRESULT purchase_land::init()
 	
 	IMAGEMANAGER->addImage("greenisland", "Images/이미지/타일/img_tile_green.bmp", 56*6, 56 * 6);
 	IMAGEMANAGER->addImage("redisland", "Images/이미지/타일/img_tile_red.bmp", 56 * 6, 56 * 6);
+	count = 0;
 
 	return S_OK;
 }
@@ -20,18 +21,20 @@ void purchase_land::release()
 
 void purchase_land::update()
 {
+	count++;
 	_tileIndex = _map->tileColMouseTargetIndex();
 	_targetIslandrc = _map->GetIslandRc(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex));
 	_islandIndex = _map->GetIslandY(_tileIndex)*MAPTILEX + _map->GetIslandX(_tileIndex);
 	
 
-	if (INPUT->GetKey(VK_LBUTTON)) {
+	if (count > 100 && INPUT->GetKey(VK_LBUTTON)) {
 		if (!_map->HasIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex)) &&
 			ITEMMANAGER->getMoney() >= LANDPRICE) {
 			SOUNDMANAGER->play("건설성공");
 			_map->setIsland(_map->GetIslandX(_tileIndex), _map->GetIslandY(_tileIndex));
 			*balance = ITEMMANAGER->getMoney() - LANDPRICE;
 			ITEMMANAGER->setMoney(balance);
+			count = 0;
 		}
 	}
 }
