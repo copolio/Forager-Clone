@@ -191,6 +191,7 @@
     <ClInclude Include="ItemDatabase.h" />
     <ClInclude Include="slime.h" />
     <ClInclude Include="slimeBoss.h" />
+    <ClInclude Include="stone_statue.h" />
     <ClInclude Include="smallMu.h" />
     <ClInclude Include="tooltip.h" />
     <ClInclude Include="item_Manager.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="slime.cpp" />
     <ClCompile Include="slimeBoss.cpp" />
     <ClCompile Include="smallMu.cpp" />
+    <ClCompile Include="stone_statue.cpp" />
     <ClCompile Include="tooltip.cpp" />
     <ClCompile Include="item_Manager.cpp" />
     <ClCompile Include="loading.cpp" />

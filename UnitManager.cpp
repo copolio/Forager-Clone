@@ -32,6 +32,7 @@ void UnitManager::init()
 	IMAGEMANAGER->addImage("high_class_SteelDrop", "Images/이미지/아이템/high_class_Steel.bmp", 68, 69, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("high_class_clothDrop", "Images/이미지/아이템/high_class_cloth.bmp", 64, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("threadDrop", "Images/이미지/아이템/실.bmp", 56, 56, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("GlassDrop", "Images/이미지/아이템/유리.bmp", 56, 56, true, RGB(255, 0, 255));
 
 	// 필드 드롭 아이템 (장비)
 	IMAGEMANAGER->addImage("pickaxe1", "Images/이미지/아이템/곡괭이슬롯1.bmp", 56, 56, true, RGB(255, 0, 255));

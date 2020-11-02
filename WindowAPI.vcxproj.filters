@@ -70,9 +70,6 @@
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\construction">
       <UniqueIdentifier>{27ea1450-75bf-470b-80bd-340819f959f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\equip">
-      <UniqueIdentifier>{f2ee56d4-31de-4374-ba80-dbca6246db2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameFramework\MainGame\Forager\inGameMenu\gamesetting">
       <UniqueIdentifier>{5d096536-056f-4ae1-b459-4a3187473503}</UniqueIdentifier>
     </Filter>
@@ -132,6 +129,12 @@
     </Filter>
     <Filter Include="GameFramework\MainGame\Forager\Unit\resource\TresureBox">
       <UniqueIdentifier>{fc3e9d89-7f8e-483c-9406-ab9dc9606023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\equip">
+      <UniqueIdentifier>{f2ee56d4-31de-4374-ba80-dbca6246db2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\stone_statue">
+      <UniqueIdentifier>{44265a45-55ca-48c3-9c79-69a298c39735}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +362,9 @@
     </ClCompile>
     <ClCompile Include="smallMu.cpp">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="stone_statue.cpp">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\stone_statue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -592,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="smallMu.h">
       <Filter>GameFramework\MainGame\Forager\Unit\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="stone_statue.h">
+      <Filter>GameFramework\MainGame\Forager\inGameMenu\buildinginteraction\stone_statue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
