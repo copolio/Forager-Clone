@@ -13,7 +13,8 @@ class unit : public gameObject
 
 protected:
 	progressBar _hpBar;
-	
+public:
+	int level;
 
 public:
 	// 이미지 키값

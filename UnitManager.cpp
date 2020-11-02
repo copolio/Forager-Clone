@@ -121,6 +121,10 @@ void UnitManager::init()
 	//_spawnManager->init();
 	SPAWNMANAGER->init();
 
+
+	damageCoef = 1;
+	expCoef = 1;
+	productionCoef = 1;
 }
 
 void UnitManager::release()
@@ -569,6 +573,15 @@ void UnitManager::AddSpecialBuilding(string buildkey, vector<tile*> tiles, int t
 	_building->setSpecialBuilding(buildkey, tiles, tileindex);
 	_vUnits.push_back(_building);
 	PRODUCTIONMANAGER->settion(_building->rc);
+	if (buildkey == "goddess") {
+		damageCoef = 1.05f;
+	}
+	if (buildkey == "elvenstatue") {
+		expCoef = 1.05f;
+	}
+	if (buildkey == "tombCenter") {
+		productionCoef = 0.95f;
+	}
 }
 
 void UnitManager::AddResource(tile* p_tile, int p_tileIndex)

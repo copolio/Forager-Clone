@@ -63,7 +63,7 @@ void productionManager::render(HDC hdc)
 void productionManager::count_increase()
 {
 	count++;
-	if (count > 5) {
+	if (count > 5 * UNITMANAGER->productionCoef) {
 		count = 0;
 		for (int i = 0; i < _production.size(); i++) {
 			if (_production[i]->countStart) {
