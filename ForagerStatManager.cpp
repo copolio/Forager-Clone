@@ -60,6 +60,9 @@ HRESULT ForagerStatManager::init()
 	playerStaminaCount = 0;
 	staminaLoss = false;
 
+	_playerDead = false;
+	gameOverCount = 0;
+
 
 	// 강화 수치 초기화
 	_hammerUpgradeCount = 1;
@@ -118,16 +121,30 @@ void ForagerStatManager::update()
 					break;
 				}
 
-				if (i == 0) {
-					_foragerHp.clear();
-					SCENEMANAGER->loadScene("시작 화면");
+				int t_leftHpCount = 0;
+				for (int x = 0; x < _foragerHp.size(); x++) {
+					if (_foragerHp[x]->_isHp) t_leftHpCount++;
+				}
+
+				if (t_leftHpCount == 0) {
+					_playerDead = true;
 				}
 			}
 
 		}
 		_staminSizeCurrent = _staminaImgSizeMax;
 	}
-	
+
+	if (_playerDead)
+	{
+		if (gameOverCount++ > 400)
+		{
+			_playerDead = false;
+			gameOverCount = 0;
+			SCENEMANAGER->loadScene("시작 화면");
+		}
+			
+	}
 }
 
 void ForagerStatManager::render(HDC hdc)
@@ -163,7 +180,8 @@ void ForagerStatManager::render(HDC hdc)
 		TEXTMANAGER->ShowText(hdc, false, str, { WINSIZEX / 2 , _foragerExp->expRc.top + 3 }, 22, 1, RGB(0,255,0), true, RGB(0,50,0), 2);
 	}
 
-	
+	if (_playerDead)
+		IMAGEMANAGER->render("게임 오버", hdc, 0, 0);
 }
 
 void ForagerStatManager::IncreaseExp(int exp)

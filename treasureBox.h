@@ -6,7 +6,6 @@ private:
 	RECT* _rcPlayer;
 	bool _isNear;
 
-
 	void CheckNearPlayer();
 	void CheckKey();
 	void GiveReward();

@@ -107,7 +107,6 @@ void npc::showDialogue()
 
 		if (INPUT->GetKeyDown('E')) {
 
-
 			// 퀘스트 받기 전
 			if (!_isQuestReceive) {
 				DIALOGUE->ShowDialogue(_vDialogueNormal, &rc);

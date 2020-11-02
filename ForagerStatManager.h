@@ -48,6 +48,7 @@ private:
 	int level;
 	bool levelUp;
 
+	
 	float _expImgSizeMax;
 	
 	// 강화 관련
@@ -63,6 +64,8 @@ private:
 	image* _levelNum[10];
 	
 	bool inven_open;
+	int gameOverCount;
+	bool _playerDead;
 
 	
 public :

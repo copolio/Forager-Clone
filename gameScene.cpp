@@ -3,6 +3,7 @@
 
 HRESULT gameScene::init()
 {
+	IMAGEMANAGER->addImage("게임 오버","Images/이미지/NPC/game_over_scene.bmp", 1280, 720);
 
 	_map = new earth;
 	_map->init();
@@ -152,4 +153,6 @@ void gameScene::render()
 	}
 	STATMANAGER->render(getMemDC());
 	IMAGEMANAGER->findImage("TitleCursor")->render(getMemDC(), _ptMouse.x, _ptMouse.y);
+
+	
 }

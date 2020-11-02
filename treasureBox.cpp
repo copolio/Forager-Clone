@@ -17,6 +17,8 @@ void treasureBox::setTreasureBox(string p_imgKey, string p_itemRewardKey, POINT 
 
 	// 스테이터스 셋팅
 	_isNear = false;
+
+
 	maxHp = 1000000;
 	currentHp = maxHp;
 }
@@ -49,7 +51,7 @@ void treasureBox::CheckKey()
 {
 	if (_isNear) {
 		if (INPUT->GetKeyDown('E')) {
-			GiveReward();
+				GiveReward();
 		}
 	}
 }
