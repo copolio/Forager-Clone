@@ -531,7 +531,7 @@ void ForagerPlayer::MeleeWeaponClick()
 				{
 					// Å¸°Ù °ø°Ý
 					if (_handleItem.itemType == ItemType::EQUIPMENT) {
-						targetUnit->hurt(Atk);
+						targetUnit->hurt(Atk*UNITMANAGER->damageCoef);
 						if (_handleItem.weaponType == WeaponType::PICKAXE) {
 							if (STATMANAGER->GetHammerUpgradeCount() == 4) 
 								EFFECTMANAGER->ShowEffectFrame("pickEff4", { targetUnit->GetCenterX(), targetUnit->GetCenterY() }, 7, true);
@@ -555,9 +555,8 @@ void ForagerPlayer::MeleeWeaponClick()
 							STATMANAGER->setRight(5);
 
 							//±× À¯´ÖÀÇ °æÇèÄ¡ È¹µæ.
-							int t_exp = targetUnit->exp;
+							int t_exp = targetUnit->exp *UNITMANAGER->expCoef;
 							if (t_exp > 0) {
-								t_exp = RANDOM->range(t_exp - 2, t_exp + 3);
 								POINT pt = { targetUnit->rc.left, targetUnit->rc.top };
 								string str = std::to_string(t_exp);
 								str.insert(0, "EXP ");
@@ -613,7 +612,7 @@ void ForagerPlayer::ArrowFire()
 
 		if (ITEMMANAGER->Item_count_Minus("arrowDrop", 1)) {
 			SOUNDMANAGER->play("¿ø°Å¸®¹«±â");
-			int arrowDamage = Atk * _bowPowerGauge;
+			int arrowDamage = Atk * _bowPowerGauge * UNITMANAGER->damageCoef;
 			EFFECTMANAGER->ShowEffectFrame("DigSmoke", { GetCenterX(), GetCenterY() }, 2, 10, true);
 
 			int t_bowUpgrade = STATMANAGER->GetBowUpgradeCount();

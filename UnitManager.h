@@ -84,5 +84,9 @@ public:
 	RECT GetPlayerRc() { return _player->rc; };
 	POINT GetPlayerFootPt();
 	int GetCowCount();
+public:
+	float damageCoef;
+	float expCoef;
+	float productionCoef;
 };
 

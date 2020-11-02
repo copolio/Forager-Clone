@@ -5,8 +5,6 @@
 
 class building : public unit
 {
-private:
-	int level;
 public:
 	vector<tile*> _tiles;
 	RECT interactionRc;
