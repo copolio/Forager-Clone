@@ -494,7 +494,9 @@ void ForagerPlayer::PlayerControll()
 			if (_handleItem.itemType == ItemType::CONSUMABLE) {
 				if (ITEMMANAGER->Item_count_Minus(_handleItem.itemKey, 1)) {
 					_quick->Item_Minus(_handleItem.itemKey, 1);
-					STATMANAGER->setRight(-5);
+					STATMANAGER->setRight(-_handleItem.option);
+					if (_handleItem.option2 > 0)
+						STATMANAGER->RecoverHp(_handleItem.option2);
 					SOUNDMANAGER->play("피찰때소리", false);
 				}
 				else {

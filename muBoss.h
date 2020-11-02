@@ -14,13 +14,14 @@ private:
 	int crashCount;
 	int crashPointCount;
 	int searchCount;
+	int _difficultyLevel;
 	int _spawnCount;
 	bool _canFire;
 	bool _readyToCrash;
 
 public:
 
-	HRESULT init();
+	HRESULT init(int p_level);
 	void update() override;
 	void render(HDC hdc) override;
 	

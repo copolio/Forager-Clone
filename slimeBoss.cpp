@@ -1,8 +1,13 @@
 #include "stdafx.h"
 #include "slimeBoss.h"
 
-HRESULT slimeBoss::init()
+HRESULT slimeBoss::init(int p_level)
 {
+	_difficultyLevel = p_level;
+	currentHp = maxHp = (_difficultyLevel == 80)	? 300
+					  : (_difficultyLevel == 100)	? 400
+													: 500;
+	
 	currentJumpSpeed = 0;
 	lerpRatio = 0.03f;
 	jumpTime = 300;
@@ -36,7 +41,7 @@ void slimeBoss::update()
 	}
 
 	slimeShootCount++;
-	if (slimeShootCount == 180)
+	if (slimeShootCount == 240)
 	{
 		s_allAttack = false;
 		if (abs(_target->GetCenterX() - x) < MOVEMAX * 2.0f && abs(_target->GetCenterY() - y) < MOVEMAX * 2.0f);
@@ -45,7 +50,7 @@ void slimeBoss::update()
 	}
 	if (_canSpawn) {
 		if (searchCount++ % 250 == 0 && searchCount <= 10000) {
-			SPAWNMANAGER->SpawnPatternOne("slime", 1);
+			SPAWNMANAGER->SpawnPatternOne("slime", 1, _difficultyLevel);
 		}
 	}
 }

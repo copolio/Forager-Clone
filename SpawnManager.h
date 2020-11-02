@@ -20,9 +20,10 @@ public :
 
 	void GetCanSpawnTile();
 	void TrySpawn();
-	void SpawnPatternOne(string p_enemyName, int p_count);
-	void SpawnPatternOne(string p_enemyName, int p_count, int tileidx);
-	void SpawnPatternOne(string p_enemyName, int p_count, int tileidx, bool p_isReal);
+	void SpawnPatternOne(string p_enemyName, int p_count, int p_hp);
+	void SpawnPatternOne(string p_enemyName, int p_count, int tileidx, int islandX, int islandY);
+	void SpawnPatternOne(string p_enemyName, int p_count, int tileidx, bool p_isReal, int islandX, int islandY);
+	int SetDifficultHp(int p_islandX, int p_islandY);
 
 };
 

@@ -91,7 +91,7 @@ public :
 
 	//경험치바 최적화
 	void IncreaseExp(int exp);
-
+	void RecoverHp(int hp);
 	void setRight(int num);
 
 	int GetCurrentExp() { return currentExp; };

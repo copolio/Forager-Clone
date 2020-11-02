@@ -7,6 +7,9 @@ HRESULT smallMu::init()
 	ShootCount = 0;
 	isattacking = false;
 
+
+
+
 	return S_OK;
 }
 

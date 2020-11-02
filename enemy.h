@@ -45,7 +45,7 @@ protected :
 public:
 	void setLinkMap(earth* map) { _map = map; };
 	earth* getMap() { return _map; };
-	 void setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos);
+	 void setEnemy(string key, string itemkey, ForagerPlayer* target, POINT pos, int p_hp = 100);
 	 void render(HDC hdc) override ;
 	 void update() override;
 	 void hurt(int damage, bool onlyEffect = false) override;
