@@ -286,6 +286,10 @@ void ForagerPlayer::renderPlayer(HDC hdc)
 				else {
 					IMAGEMANAGER->render("carryBerry", hdc, relWeaponX + 10, relWeaponY + 30, zoomRate);
 				}
+			}if (_handleItem.itemKey == "roast_fishDrop") {			
+				IMAGEMANAGER->render("roast_fishDrop_slot", hdc, relWeaponX - 30, relWeaponY + 30, zoomRate);
+			}if (_handleItem.itemKey == "fishDrop") {
+				IMAGEMANAGER->render("fishDrop", hdc, relWeaponX - 30, relWeaponY + 30, zoomRate);
 			}
 		}
 	}
