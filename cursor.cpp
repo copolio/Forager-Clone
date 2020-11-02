@@ -92,7 +92,7 @@ void cursor::CheckObject()
 						}
 						_targetingBox.SetTarget(t_rc, 3, i, 2, true);
 						_unit = &(*vUnit[i]);
-						if (_unit->objKey != "bridge") {
+						if (_unit->objKey != "bridge" && _unit->objKey != "tombLeft" && _unit->objKey != "tombRight") {
 							isbuilding = true;
 
 							PRODUCTIONMANAGER->getRc(t_rc);

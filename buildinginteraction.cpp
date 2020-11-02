@@ -98,7 +98,7 @@ HRESULT buildinginteraction::init()
 			_tar->item_name = "high_class_SteelDrop";
 			break;
 		case 6:
-			_tar->item_name = "";
+			_tar->item_name = "GlassDrop";
 			break;
 		case 7:
 			_tar->item_name = "";
@@ -210,6 +210,15 @@ void buildinginteraction::targertrender(HDC hdc, string key)
 				_anvil_menu[i]->intouch = false;
 			}
 		}
+	}
+	else if (key =="tombCenter") {
+		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
+	}
+	else if (key == "elvenstatue") {
+		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
+	}
+	else if (key == "goddess") {
+		IMAGEMANAGER->render("img_anvil_menu", hdc, 450, 100);
 	}
 }
 

@@ -103,9 +103,30 @@ void steelworktooltip::render(HDC hdc, int num, RECT rc, string item_name)
 
 		break;
 	case 6:
-		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
-		pos.y = rc.top + 40;
-		TEXTMANAGER->ShowText(hdc, false, "¹Ì°³ºÀ", pos, 20, 0);
+		IMAGEMANAGER->render("goldOreDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 10, rc.top - 10);
+		IMAGEMANAGER->render("coalDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 20, rc.top + 50);
+		IMAGEMANAGER->render("rockDrop", hdc, rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 120, rc.top - 10);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 60;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("goldOreDrop")), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 95;
+		pos.y = rc.top + 20;
+		TEXTMANAGER->ShowText(hdc, false, "/  1", pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 60;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("coalDrop")), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 95;
+		pos.y = rc.top + 60;
+		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
+
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 130;
+		pos.y = rc.top + 30;
+		TEXTMANAGER->ShowText(hdc, false, to_string(ITEMMANAGER->item_count("rockDrop")), pos, 20, 0);
+		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 150;
+		pos.y = rc.top + 30;
+		TEXTMANAGER->ShowText(hdc, false, "/  2", pos, 20, 0);
+
+
 		break;
 	case 7:
 		pos.x = rc.left - IMAGEMANAGER->findImage("img_UI_construction_Tooltip")->getWidth() + 100;
