@@ -2,6 +2,9 @@
 ---
 ## 게임소개
 ---
+
+[![Forager 모작 - 경일 게임아카데미 게임 프로그래밍 22기 3개월차 WinAPI 팀작품 시연](https://img.youtube.com/vi/LDImSS_e2y4/0.jpg)](https://youtu.be/LDImSS_e2y4)
+
 - 본 게임은 Forager의 데모버전을 Windows API를 사용해 모작한 게임입니다.
 - Forager는 Stardew Valley나 Terraria, 젤다의 전설 시리즈와 같은 탐험, 농사, 제작 게임들에게 영향을 받은 2D 오픈월드 게임
 - 아르헨티나의 게임 개발팀 HopFrog에서 제작한 인디 게임.
